@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import org.usfirst.frc.team2478.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2478.robot.Robot;
 import org.usfirst.frc.team2478.robot.OI;
@@ -12,6 +11,7 @@ import org.usfirst.frc.team2478.robot.OI;
 public class DriveWithJoysticks extends Command {
 	
     public DriveWithJoysticks() {
+    	super("DriveWithJoysticks");
     	requires(Robot.kDriveTrain);
     }
 
@@ -21,7 +21,7 @@ public class DriveWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	DriveTrain.DifferentialDrive(OI.getLeftSpeed(), OI.getRightSpeed());
+    	DriveTrain.m_drive.tankDrive(OI.getLeftSpeed(), OI.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

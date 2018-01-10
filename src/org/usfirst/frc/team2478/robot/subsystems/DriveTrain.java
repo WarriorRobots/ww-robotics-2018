@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2478.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import org.usfirst.frc.team2478.robot.RobotMap;
@@ -13,12 +14,15 @@ public class DriveTrain extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(RobotMap.leftFront);
-	WPI_TalonSRX leftBackSlave = new WPI_TalonSRX(RobotMap.leftBack);
-	WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(RobotMap.rightFront);
-	WPI_TalonSRX rightBackSlave = new WPI_TalonSRX(RobotMap.rightBack);
+	public static WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(RobotMap.leftFront);
+	public static WPI_TalonSRX leftBackMotor = new WPI_TalonSRX(RobotMap.leftBack);
+	public static SpeedControllerGroup m_left = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
 	
-	DifferentialDrive Drive = new DifferentialDrive(leftFrontMotor, rightFrontMotor);
+	public static WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(RobotMap.rightFront);
+	public static WPI_TalonSRX rightBackMotor = new WPI_TalonSRX(RobotMap.rightBack);
+	public static SpeedControllerGroup m_right = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+	
+	public static DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -28,33 +32,27 @@ public class DriveTrain extends Subsystem {
     }
     
     public void leftForward() {
-    	leftFrontMotor.set(1);
-    	leftBackSlave.follow(leftFrontMotor);
+    	m_left.set(1);
     }
 
     public void leftBackward() {
-    	leftFrontMotor.set(-1);
-    	leftBackSlave.follow(leftFrontMotor);
+    	m_left.set(-1);
     }
 
     public void leftStop() {
-    	leftFrontMotor.set(0);
-    	leftBackSlave.follow(leftFrontMotor);
+    	m_left.set(0);
     }
     
     public void rightForward() {
-    	rightFrontMotor.set(1);
-    	rightBackSlave.follow(rightFrontMotor);
+    	m_right.set(1);
     }
 
     public void rightBackward() {
-    	rightFrontMotor.set(-1);
-    	rightBackSlave.follow(rightFrontMotor);
+    	m_right.set(-1);
     }
 
     public void rightStop() {
-    	rightFrontMotor.set(0);
-    	rightBackSlave.follow(rightFrontMotor);
+    	m_right.set(0);
     }
 }
 

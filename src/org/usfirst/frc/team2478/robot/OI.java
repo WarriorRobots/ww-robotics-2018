@@ -20,12 +20,12 @@ public class OI {
 	// You create one by telling it which joystick it's on and which button
 	// number it is.
 	// Joystick stick = new Joystick(port);
-	Joystick rightJoy = new Joystick(0);
-	Joystick leftJoy = new Joystick(1);
-	public double getRightSpeed() {
+	public static Joystick rightJoy = new Joystick(0);
+	public static Joystick leftJoy = new Joystick(1);
+	public static double getRightSpeed() {
 		return rightJoy.getY();
 	}
-	public double getLeftSpeed() {
+	public static double getLeftSpeed() {
 		return leftJoy.getY();
 	}
 	// Button button = new JoystickButton(stick, buttonNumber);
