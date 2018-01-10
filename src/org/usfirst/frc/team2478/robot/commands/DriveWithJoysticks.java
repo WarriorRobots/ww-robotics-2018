@@ -10,12 +10,8 @@ import org.usfirst.frc.team2478.robot.OI;
  *
  */
 public class DriveWithJoysticks extends Command {
-
-	DifferentialDrive Drive = new DifferentialDrive();
 	
     public DriveWithJoysticks() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.kDriveTrain);
     }
 
@@ -25,7 +21,7 @@ public class DriveWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	DifferentialDrive.tankDrive(OI.getLeftSpeed(), OI.getRightSpeed());
+    	DriveTrain.DifferentialDrive(OI.getLeftSpeed(), OI.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

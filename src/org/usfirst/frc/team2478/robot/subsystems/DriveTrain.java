@@ -1,8 +1,10 @@
 package org.usfirst.frc.team2478.robot.subsystems;
 
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import org.usfirst.frc.team2478.robot.RobotMap;
+import org.usfirst.frc.team2478.robot.commands.DriveWithJoysticks;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 /**
  *
@@ -11,44 +13,48 @@ public class DriveTrain extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Talon leftFront = RobotMap.leftFront;
-	Talon leftBack = RobotMap.leftBack;
-	Talon rightFront = RobotMap.rightFront;
-	Talon rightBack = RobotMap.rightBack;
+	WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(RobotMap.leftFront);
+	WPI_TalonSRX leftBackSlave = new WPI_TalonSRX(RobotMap.leftBack);
+	WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(RobotMap.rightFront);
+	WPI_TalonSRX rightBackSlave = new WPI_TalonSRX(RobotMap.rightBack);
+	
+	DifferentialDrive Drive = new DifferentialDrive(leftFrontMotor, rightFrontMotor);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	
+    	setDefaultCommand(new DriveWithJoysticks());
     }
     
     public void leftForward() {
-    	leftFront.set(1);
-    	leftBack.set(1);
+    	leftFrontMotor.set(1);
+    	leftBackSlave.follow(leftFrontMotor);
     }
 
     public void leftBackward() {
-    	leftFront.set(-1);
-    	leftBack.set(-1);
+    	leftFrontMotor.set(-1);
+    	leftBackSlave.follow(leftFrontMotor);
     }
 
     public void leftStop() {
-    	leftFront.set(0);
-    	leftBack.set(0);
+    	leftFrontMotor.set(0);
+    	leftBackSlave.follow(leftFrontMotor);
     }
     
     public void rightForward() {
-    	rightFront.set(1);
-    	rightBack.set(1);
+    	rightFrontMotor.set(1);
+    	rightBackSlave.follow(rightFrontMotor);
     }
 
     public void rightBackward() {
-    	rightFront.set(-1);
-    	rightBack.set(-1);
+    	rightFrontMotor.set(-1);
+    	rightBackSlave.follow(rightFrontMotor);
     }
 
     public void rightStop() {
-    	rightFront.set(0);
-    	rightBack.set(0);
+    	rightFrontMotor.set(0);
+    	rightBackSlave.follow(rightFrontMotor);
     }
 }
 
