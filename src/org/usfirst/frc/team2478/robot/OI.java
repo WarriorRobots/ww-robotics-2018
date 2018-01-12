@@ -23,10 +23,10 @@ public class OI {
 	public static Joystick rightJoy = new Joystick(0);
 	public static Joystick leftJoy = new Joystick(1);
 	public static double getRightSpeed() {
-		return rightJoy.getY();
+		return rightJoy.getY()*-1;
 	}
 	public static double getLeftSpeed() {
-		return leftJoy.getY();
+		return leftJoy.getY()*-1;
 	}
 	// Button button = new JoystickButton(stick, buttonNumber);
 
