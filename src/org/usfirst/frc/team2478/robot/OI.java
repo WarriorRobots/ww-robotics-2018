@@ -8,6 +8,8 @@
 package org.usfirst.frc.team2478.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,11 +24,16 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	public static Joystick rightJoy = new Joystick(0);
 	public static Joystick leftJoy = new Joystick(1);
+	public static Button button0 = new JoystickButton(rightJoy, 0),
+			button1 = new JoystickButton(rightJoy, 1);
 	public static double getRightSpeed() {
 		return rightJoy.getY()*-1;
 	}
 	public static double getLeftSpeed() {
 		return leftJoy.getY()*-1;
+	}
+	public OI() {
+		// button1.whileHeld(new DriveAlign());
 	}
 	// Button button = new JoystickButton(stick, buttonNumber);
 

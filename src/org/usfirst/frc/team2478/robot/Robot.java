@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2478.robot.commands.DriveAlign;
 import org.usfirst.frc.team2478.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team2478.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.DriveTrain;
@@ -116,7 +117,13 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		Command teleopDrive = new DriveWithJoysticks();
+		Command alignmentMode = new DriveAlign();
+		if (OI.button1.get()) {
+			alignmentMode.start();
+		}
+		else {
 		teleopDrive.start();
+		}
 	}
 
 	/**
