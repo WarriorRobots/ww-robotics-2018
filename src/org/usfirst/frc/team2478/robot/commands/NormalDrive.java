@@ -1,17 +1,13 @@
 package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team2478.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2478.robot.Robot;
 import org.usfirst.frc.team2478.robot.OI;
 
-/**
- *
- */
-public class DriveAlign extends Command {
-
-    public DriveAlign() {
-    	requires(Robot.kDriveTrain);
+public class NormalDrive extends Command {
+	
+    public NormalDrive() {
+    	requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -20,7 +16,7 @@ public class DriveAlign extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	DriveTrain.m_drive.arcadeDrive((OI.rightJoy.getY()*-0.5), (OI.rightJoy.getX()*0.5));
+    	Robot.drivetrain.differentialDrive.tankDrive(OI.getLeftSpeed(), OI.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,4 +33,3 @@ public class DriveAlign extends Command {
     protected void interrupted() {
     }
 }
-// hope it works

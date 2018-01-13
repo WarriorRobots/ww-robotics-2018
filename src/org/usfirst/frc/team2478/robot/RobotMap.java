@@ -9,9 +9,12 @@ package org.usfirst.frc.team2478.robot;
 
 public class RobotMap {
 	
-	public static int leftFront = 2;
-	public static int leftBack = 4;
-	public static int rightFront = 1;
-	public static int rightBack = 3;
+	public static int LEFT_FRONT = 2;
+	public static int LEFT_BACK = 4;
+	public static int RIGHT_FRONT = 1;
+	public static int RIGHT_BACK = 3;
+	
+	public static int LEFT_JOY = 1;
+	public static int RIGHT_JOY = 0;
 
 }
