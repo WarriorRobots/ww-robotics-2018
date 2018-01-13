@@ -16,5 +16,9 @@ public class RobotMap {
 	
 	public static int LEFT_JOY = 1;
 	public static int RIGHT_JOY = 0;
+	
+	public static double ANGULAR_P = 0.04;
+	public static double ANGULAR_I = 0;
+	public static double ANGULAR_D = 0;
 
 }

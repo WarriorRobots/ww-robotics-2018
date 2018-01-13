@@ -30,9 +30,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
-		OI.navx.zeroYaw(); // remove later???
+		motionSensors.navx.zeroYaw(); // remove later???
 		oi = new OI();
-		turnPID = new AngularPID(OI.navx, 0.025,0.0,0.0, OI.navx.getAngle() + 45);
+		turnPID = new AngularPID(motionSensors.navx, RobotMap.ANGULAR_P,RobotMap.ANGULAR_I,RobotMap.ANGULAR_D, motionSensors.navx.getAngle() + 45);
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -93,7 +93,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testInit() {
-//		OI.navx.zeroYaw();
+//		motionSensors.navx.zeroYaw();
+		turnPID.startTimer();
 	}
 	
 	
@@ -103,12 +104,16 @@ public class Robot extends TimedRobot {
 		double pidValue = turnPID.getOutput();
 		
 		turnPID.update();
+		System.out.println("Timer:" + Double.toString(turnPID.getTimer()));
 		System.out.println("PID: " + Double.toString(pidValue));
-		System.out.println("Angle: " + Double.toString(OI.navx.getAngle()));
+		System.out.println("Angle: " + Double.toString(motionSensors.navx.getAngle()));
 		
 		if(OI.triggerButton.get()) {
-			OI.navx.zeroYaw();
+			motionSensors.navx.zeroYaw();
 			System.out.println("Zeroing!");
+			
+			turnPID.PIDreset();
+			turnPID.startTimer();
 		}
 		
 		drivetrain.differentialDrive.arcadeDrive(0, pidValue);

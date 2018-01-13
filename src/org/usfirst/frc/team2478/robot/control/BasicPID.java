@@ -10,6 +10,7 @@ public abstract class BasicPID {
     private double output;
     private double izone;
     
+    private double pastTime;
 	protected Timer timer;
 	protected boolean clockState;
     
@@ -32,10 +33,19 @@ public abstract class BasicPID {
         integral = 0;
         izone = ALWAYS_TRUE;
 		timer = new Timer();
+		timer.reset();
 		clockState = false;
     }
     
     ///////////////////////////////////////////////////////////////////////////
+    
+    public void PIDreset() {
+    	integral = 0;
+    	izone = ALWAYS_TRUE;
+		timer = new Timer();
+		timer.reset();
+		clockState = false;
+    }
     
     //Below sets the setPoint under the name of 'target'
     public void setTarget(double target){
@@ -61,7 +71,10 @@ public abstract class BasicPID {
     //NOTE: Check the izone note above
     //Calculates the PID equation
     protected void calculate(double value){
-    	double dt = timer.get();
+    	double t = timer.get();
+    	double dt = t-pastTime;
+    	pastTime = t;
+    	
     	
         error = setPoint - value;
         
@@ -107,6 +120,10 @@ public abstract class BasicPID {
 	
 	public boolean getTimerState() {
 		return clockState;
+	}
+	
+	public double getTimer() {
+		return timer.get();
 	}
 
 }
