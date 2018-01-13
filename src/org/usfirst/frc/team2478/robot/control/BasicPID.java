@@ -68,7 +68,7 @@ public abstract class BasicPID {
     }
     
     //Below forces other controls to have an update() function
-    public abstract void update();
+    public abstract void update(double dt);
     
     //Below gets output
     public double getOutput(){
