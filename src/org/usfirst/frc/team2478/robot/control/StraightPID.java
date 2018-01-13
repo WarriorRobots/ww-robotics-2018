@@ -23,9 +23,9 @@ public class StraightPID extends BasicPID {
     ///////////////////////////////////////////////////////////////////////////
 	
 	//Below updates the PID with navx
-	public void update(double dt) {
+	public void update() {
 		double head = navx.getAngle();
-		calculate(dt,head);
+		calculate(head);
 	}
 
 }

@@ -4,7 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 public class AngularPID extends BasicPID{
 
-private AHRS navx;
+	private AHRS navx;
 	
     ///////////////////////////////////////////////////////////////////////////
 	
@@ -20,9 +20,9 @@ private AHRS navx;
     ///////////////////////////////////////////////////////////////////////////
 	
 	//Below updates the PID with navx
-	public void update(double dt) {
+	public void update() {
 		double head = navx.getAngle();
-		calculate(dt,head);
+		calculate(head);
 	}
-
+	
 }

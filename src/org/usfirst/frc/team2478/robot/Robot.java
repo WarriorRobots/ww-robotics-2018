@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		OI.navx.zeroYaw(); // remove later???
 		oi = new OI();
-		turnPID = new AngularPID(OI.navx, 0.025, OI.navx.getAngle() + 45);
+		turnPID = new AngularPID(OI.navx, 0.025,0.0,0.0, OI.navx.getAngle() + 45);
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);

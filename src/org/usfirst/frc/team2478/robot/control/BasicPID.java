@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2478.robot.control;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public abstract class BasicPID {
     
     private double Kp, Ki, Kd;
@@ -7,6 +9,9 @@ public abstract class BasicPID {
     private double integral, derivative;
     private double output;
     private double izone;
+    
+	protected Timer timer;
+	protected boolean clockState;
     
     public static double ALWAYS_TRUE = -1;
     public static double ALWAYS_FALSE = 0;
@@ -26,6 +31,8 @@ public abstract class BasicPID {
         //	(this method is called a Riemann sum)
         integral = 0;
         izone = ALWAYS_TRUE;
+		timer = new Timer();
+		clockState = false;
     }
     
     ///////////////////////////////////////////////////////////////////////////
@@ -53,13 +60,17 @@ public abstract class BasicPID {
     
     //NOTE: Check the izone note above
     //Calculates the PID equation
-    protected void calculate(double dt, double value){
+    protected void calculate(double value){
+    	double dt = timer.get();
     	
         error = setPoint - value;
         
         if(Math.abs(error)<=izone | izone==ALWAYS_TRUE) // forces the integral to be taken within the izone or to be TRUE
         	integral += (Ki*error*dt); // uses a method called a Riemann sum (look above)
-        derivative = (error-prevError)/dt;
+        try{
+        	derivative = (error-prevError)/dt;
+        }
+        catch(Exception e){System.out.println(e);}
         
         prevError = error;
         
@@ -68,7 +79,7 @@ public abstract class BasicPID {
     }
     
     //Below forces other controls to have an update() function
-    public abstract void update(double dt);
+    public abstract void update();
     
     //Below gets output
     public double getOutput(){
@@ -80,4 +91,22 @@ public abstract class BasicPID {
     	return new double[] {Kp,Ki,Kd};
     }
     
+	public void startTimer() {
+		timer.start(); 
+		clockState = true;
+	}
+	
+	public void stopTimer() {
+		timer.start();
+		clockState = false;
+	}
+	
+	public void restartTimer() {
+		timer.reset();
+	}
+	
+	public boolean getTimerState() {
+		return clockState;
+	}
+
 }
