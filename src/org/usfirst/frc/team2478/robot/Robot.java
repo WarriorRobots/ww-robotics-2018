@@ -72,10 +72,10 @@ public class Robot extends TimedRobot {
 		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
 		
-		double angle = OI.navx.getAngle();
+		double angle = oi.navx.getAngle();
 		System.out.println(angle);
 		
-		if (OI.thumbButton.get()) {
+		if (oi.thumbButton.get()) {
 			alignmentMode.start();
 		}
 		else {
