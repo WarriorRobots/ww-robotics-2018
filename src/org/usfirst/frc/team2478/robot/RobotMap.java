@@ -16,5 +16,7 @@ public class RobotMap {
 	
 	public static int RIGHT_JOY = 0;
 	public static int LEFT_JOY = 1;
+	
+	public static double LOCKMODE_THRESHOLD = 0.20;
 
 }

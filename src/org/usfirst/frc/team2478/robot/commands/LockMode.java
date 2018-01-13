@@ -1,12 +1,16 @@
 package org.usfirst.frc.team2478.robot.commands;
 
 import org.usfirst.frc.team2478.robot.Robot;
+import org.usfirst.frc.team2478.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LockMode extends Command {
 	
     public double avg;
+    public double getavg() {
+    	return avg;
+    }
 
 	public LockMode() {
         requires(Robot.drivetrain);
@@ -16,9 +20,13 @@ public class LockMode extends Command {
     }
 
     protected void execute() {
-    	if (Math.abs(Robot.oi.getLeftSpeed() - Robot.oi.getRightSpeed()) < 0.10) {
+    	double difference = Math.abs(Robot.oi.getLeftSpeed() - Robot.oi.getRightSpeed());
+    	if (difference < RobotMap.LOCKMODE_THRESHOLD || difference == 0 ) {
     		avg = (Robot.oi.getLeftSpeed() + Robot.oi.getLeftSpeed()) / 2;
     		Robot.drivetrain.differentialDrive.tankDrive(avg, avg);
+    	}
+    	else {
+    		Robot.drivetrain.differentialDrive.tankDrive(Robot.oi.getLeftSpeed(), Robot.oi.getRightSpeed());
     	}
     }
 
