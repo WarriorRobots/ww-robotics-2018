@@ -16,9 +16,11 @@ import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
 import org.usfirst.frc.team2478.robot.control.AngularPID;
 import org.usfirst.frc.team2478.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2478.robot.subsystems.Motion;
 
 public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Motion motionSensors = new Motion();
 	public static OI oi; // find the purpose of this
 	
 	public AngularPID turnPID;
@@ -77,7 +79,7 @@ public class Robot extends TimedRobot {
 		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
 		
-		double angle = OI.navx.getAngle();
+		double angle = motionSensors.navx.getAngle();
 		System.out.println(angle);
 		
 		if (OI.thumbButton.get()) {
