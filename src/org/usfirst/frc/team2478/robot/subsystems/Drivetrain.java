@@ -9,9 +9,6 @@ import org.usfirst.frc.team2478.robot.commands.NormalDrive;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 
-/**
- *
- */
 public class Drivetrain extends Subsystem {
 
 	public WPI_TalonSRX leftFront = new WPI_TalonSRX(RobotMap.LEFT_FRONT);

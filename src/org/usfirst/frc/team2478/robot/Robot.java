@@ -75,15 +75,12 @@ public class Robot extends TimedRobot {
 		double angle = OI.navx.getAngle();
 		System.out.println(angle);
 		
-		
 		if (OI.thumbButton.get()) {
 			alignmentMode.start();
 		}
 		else {
 			teleopDrive.start();
 		}
-		
-		
 		
 	}
 
