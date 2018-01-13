@@ -118,12 +118,18 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		Command teleopDrive = new DriveWithJoysticks();
 		Command alignmentMode = new DriveAlign();
+		
+		System.out.println(OI.navx.getYaw());
+		
 		if (OI.button2.get()) {
 			alignmentMode.start();
 		}
 		else {
 		teleopDrive.start();
 		}
+		
+		
+		
 	}
 
 	/**

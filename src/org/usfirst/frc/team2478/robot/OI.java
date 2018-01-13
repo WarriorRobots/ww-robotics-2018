@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team2478.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -35,6 +38,9 @@ public class OI {
 	public OI() {
 		// button1.whileHeld(new DriveAlign());
 	}
+	
+	public static AHRS navx = new AHRS(SerialPort.Port.kMXP);
+	
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	// There are a few additional built in buttons you can use. Additionally,
