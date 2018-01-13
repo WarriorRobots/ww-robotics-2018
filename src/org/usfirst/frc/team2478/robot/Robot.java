@@ -21,14 +21,16 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi; // find the purpose of this
 	
-	public AngularPID turnPID = new AngularPID(OI.navx, 0.01, 180);
+	public AngularPID turnPID;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
+		OI.navx.zeroYaw(); // remove later???
 		oi = new OI();
+		turnPID = new AngularPID(OI.navx, 0.025, OI.navx.getAngle() + 45);
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -88,10 +90,26 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
+	public void testInit() {
+//		OI.navx.zeroYaw();
+	}
+	
+	
+	@Override
 	public void testPeriodic() {
 		
+		double pidValue = turnPID.getOutput();
+		
 		turnPID.update();
-		System.out.println(turnPID.getOutput());
+		System.out.println("PID: " + Double.toString(pidValue));
+		System.out.println("Angle: " + Double.toString(OI.navx.getAngle()));
+		
+		if(OI.triggerButton.get()) {
+			OI.navx.zeroYaw();
+			System.out.println("Zeroing!");
+		}
+		
+		drivetrain.differentialDrive.arcadeDrive(0, pidValue);
 		
 	}
 }

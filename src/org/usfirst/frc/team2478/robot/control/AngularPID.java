@@ -24,8 +24,8 @@ public class AngularPID extends BasicPID {
 	
 	//Below updates the PID with navx
 	public void update() {
-		double head = navx.getYaw();
-		calculate(0.0,head);
+		double head = navx.getAngle();
+		calculate(-1,head);
 	}
 
 }
