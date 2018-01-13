@@ -20,7 +20,7 @@ public class DriveAlign extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	DriveTrain.m_drive.arcadeDrive(OI.rightJoy.getY(), OI.rightJoy.getX());
+    	DriveTrain.m_drive.arcadeDrive((OI.rightJoy.getY()*-0.5), (OI.rightJoy.getX()*0.5));
     }
 
     // Make this return true when this Command no longer needs to run execute()

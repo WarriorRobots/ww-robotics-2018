@@ -24,8 +24,8 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	public static Joystick rightJoy = new Joystick(0);
 	public static Joystick leftJoy = new Joystick(1);
-	public static Button button0 = new JoystickButton(rightJoy, 0),
-			button1 = new JoystickButton(rightJoy, 1);
+	public static Button button1 = new JoystickButton(rightJoy, 1),
+			button2 = new JoystickButton(rightJoy, 2);
 	public static double getRightSpeed() {
 		return rightJoy.getY()*-1;
 	}
