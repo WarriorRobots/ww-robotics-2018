@@ -119,7 +119,9 @@ public class Robot extends TimedRobot {
 		Command teleopDrive = new DriveWithJoysticks();
 		Command alignmentMode = new DriveAlign();
 		
-		System.out.println(OI.navx.getYaw());
+		double angle = OI.navx.getAngle();
+		System.out.println(angle);
+		
 		
 		if (OI.button2.get()) {
 			alignmentMode.start();

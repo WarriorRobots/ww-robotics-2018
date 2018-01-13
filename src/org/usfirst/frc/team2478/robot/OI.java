@@ -9,6 +9,7 @@ package org.usfirst.frc.team2478.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -39,7 +40,7 @@ public class OI {
 		// button1.whileHeld(new DriveAlign());
 	}
 	
-	public static AHRS navx = new AHRS(SerialPort.Port.kMXP);
+	public static AHRS navx = new AHRS(I2C.Port.kMXP);
 	
 	// Button button = new JoystickButton(stick, buttonNumber);
 
