@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2478.robot.control;
 
+import com.kauailabs.navx.frc.AHRS;
+
 public class AngularPID extends BasicPID {
 	
 	private AHRS navx;
