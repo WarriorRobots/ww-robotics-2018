@@ -23,6 +23,6 @@ public class NormalDrive extends Command {
     protected void end() {
     }
 
-    protected void interrupted() { // will activate when AlignmentMode is run
+    protected void interrupted() { // will activate when AlignmentMode or LockMode is run
     }
 }
