@@ -14,12 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
+import org.usfirst.frc.team2478.robot.control.AngularPID;
 import org.usfirst.frc.team2478.robot.subsystems.Drivetrain;
 
 public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi; // find the purpose of this
-
+	
+	public AngularPID turnPID = new AngularPID(OI.navx, 0.01, 180);
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -86,5 +89,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
+		
+		turnPID.update();
+		System.out.println(turnPID.getOutput());
+		
 	}
 }
