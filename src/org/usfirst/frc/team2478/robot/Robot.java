@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
 			alignmentMode.start();
 		}
 		else {
-		teleopDrive.start();
+			teleopDrive.start();
 		}
 	}
 
