@@ -22,8 +22,6 @@ public class OI {
 	public static Button triggerButton = new JoystickButton(rightJoy, 1);
 	public static Button thumbButton = new JoystickButton(rightJoy, 2);
 
-	public static AHRS navx = new AHRS(I2C.Port.kMXP); // move this to a subsystem
-
 	public OI() {
 		// what goes in here??
 	}
