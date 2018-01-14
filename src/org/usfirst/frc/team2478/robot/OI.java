@@ -7,10 +7,6 @@
 
 package org.usfirst.frc.team2478.robot;
 
-
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -22,8 +18,6 @@ public class OI {
 
 	public Button triggerButton = new JoystickButton(rightJoy, 1);
 	public Button thumbButton = new JoystickButton(rightJoy, 2);
-
-	public AHRS navx = new AHRS(I2C.Port.kMXP); // move this to a subsystem
 
 	public OI() {
 		// what goes in here??
