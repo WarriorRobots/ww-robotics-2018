@@ -5,7 +5,7 @@ import org.usfirst.frc.team2478.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-public class BetterAngularPID extends PIDSubsystem{
+public class BetterAngularPID extends PIDSubsystem {
 	
 	public double output;
 	
