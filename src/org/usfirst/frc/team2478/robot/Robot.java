@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-import org.usfirst.frc.team2478.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team2478.robot.subsystems.Motion;
+import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
+import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
 public class Robot extends TimedRobot {
-	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Motion motionSensors = new Motion();
-	public static OI oi; // find the purpose of this
+	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	public static OI oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -53,9 +53,6 @@ public class Robot extends TimedRobot {
 		}
 	}
 
-	/**
-	 * This function is called periodically during autonomous.
-	 */
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
