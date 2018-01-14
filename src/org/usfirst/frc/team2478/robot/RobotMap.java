@@ -20,5 +20,7 @@ public class RobotMap {
 	public static double ANGULAR_P = 0.04;
 	public static double ANGULAR_I = 0;
 	public static double ANGULAR_D = 0;
+	public static double ANGULAR_TOLERANCE = 0.05;
+	public static double ANGULAR_SETPOINT = 180;
 
 }

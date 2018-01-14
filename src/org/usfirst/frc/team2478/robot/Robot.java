@@ -7,14 +7,16 @@
 
 package org.usfirst.frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-import org.usfirst.frc.team2478.robot.control.AngularPID;
+import org.usfirst.frc.team2478.robot.control.BetterAngularPID;
 import org.usfirst.frc.team2478.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2478.robot.subsystems.Motion;
 
@@ -23,7 +25,9 @@ public class Robot extends TimedRobot {
 	public static final Motion motionSensors = new Motion();
 	public static OI oi; // find the purpose of this
 	
-	public AngularPID turnPID;
+//	public AngularPID turnPID;
+	public BetterAngularPID turnPID;
+//	public Timer timer;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -32,7 +36,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		motionSensors.navx.zeroYaw(); // remove later???
 		oi = new OI();
-		turnPID = new AngularPID(motionSensors.navx, RobotMap.ANGULAR_P,RobotMap.ANGULAR_I,RobotMap.ANGULAR_D, motionSensors.navx.getAngle() + 45);
+//		turnPID = new AngularPID(motionSensors.navx, RobotMap.ANGULAR_P,RobotMap.ANGULAR_I,RobotMap.ANGULAR_D, motionSensors.navx.getAngle() + 45);
+		turnPID = new BetterAngularPID();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -94,17 +99,20 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testInit() {
 //		motionSensors.navx.zeroYaw();
-		turnPID.startTimer();
+//		timer.start();
+		turnPID.getPIDController().setEnabled(true);
+		System.out.println("init");
 	}
 	
 	
 	@Override
 	public void testPeriodic() {
 		
-		double pidValue = turnPID.getOutput();
+//		Motion.updateNavx();
+		double pidValue = turnPID.get();
 		
-		turnPID.update();
-		System.out.println("Timer:" + Double.toString(turnPID.getTimer()));
+		System.out.println(turnPID.getEnable());
+//		System.out.println("Timer:" + Double.toString(timer.get() ) );
 		System.out.println("PID: " + Double.toString(pidValue));
 		System.out.println("Angle: " + Double.toString(motionSensors.navx.getAngle()));
 		
@@ -112,8 +120,13 @@ public class Robot extends TimedRobot {
 			motionSensors.navx.zeroYaw();
 			System.out.println("Zeroing!");
 			
-			turnPID.PIDreset();
-			turnPID.startTimer();
+			turnPID.getPIDController().reset();
+			turnPID.getPIDController().setEnabled(true);
+			
+//			timer.reset();
+			
+//			turnPID.PIDreset();
+//			turnPID.startTimer();
 		}
 		
 		drivetrain.differentialDrive.arcadeDrive(0, pidValue);
