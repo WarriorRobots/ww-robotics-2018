@@ -2,7 +2,6 @@ package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2478.robot.Robot;
-import org.usfirst.frc.team2478.robot.*;
 
 public class AlignmentMode extends Command {
 
@@ -14,7 +13,7 @@ public class AlignmentMode extends Command {
     }
 
     protected void execute() {
-    	Robot.drivetrain.differentialDrive.arcadeDrive(OI.getForwardSpeed(), OI.getTurnSpeed());
+    	Robot.drivetrain.differentialDrive.arcadeDrive(Robot.oi.getForwardSpeed(), Robot.oi.getTurnSpeed());
     }
 
     protected boolean isFinished() { // needs a stop condition!

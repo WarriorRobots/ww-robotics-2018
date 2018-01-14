@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
+import org.usfirst.frc.team2478.robot.commands.LockMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
 import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
@@ -70,12 +71,16 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
+		Command lockMode = new LockMode();
 		
 		double angle = motionSensors.navx.getAngle();
 		System.out.println(angle);
 		
-		if (OI.thumbButton.get()) {
+		if (oi.thumbButton.get()) {
 			alignmentMode.start();
+		}
+		else if (oi.triggerButton.get()) {
+			lockMode.start();
 		}
 		else {
 			teleopDrive.start();

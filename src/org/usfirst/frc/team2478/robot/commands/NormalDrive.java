@@ -2,7 +2,6 @@ package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2478.robot.Robot;
-import org.usfirst.frc.team2478.robot.OI;
 
 public class NormalDrive extends Command {
 	
@@ -14,7 +13,7 @@ public class NormalDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.drivetrain.differentialDrive.tankDrive(OI.getLeftSpeed(), OI.getRightSpeed());
+    	Robot.drivetrain.differentialDrive.tankDrive(Robot.oi.getLeftSpeed(), Robot.oi.getRightSpeed());
     }
 
     protected boolean isFinished() { // needs a stop condition!
@@ -24,6 +23,6 @@ public class NormalDrive extends Command {
     protected void end() {
     }
 
-    protected void interrupted() { // will activate when AlignmentMode is run
+    protected void interrupted() { // will activate when AlignmentMode or LockMode is run
     }
 }
