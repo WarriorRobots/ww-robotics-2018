@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2478.robot.commands;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2478.robot.Robot;
 
