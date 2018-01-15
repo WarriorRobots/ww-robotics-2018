@@ -7,23 +7,26 @@
 
 package org.usfirst.frc.team2478.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
+import org.usfirst.frc.team2478.robot.commands.Autonomo;
 import org.usfirst.frc.team2478.robot.commands.LockMode;
 import org.usfirst.frc.team2478.robot.commands.NormalDrive;
 import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Robot extends TimedRobot {
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
-
-	Command m_autonomousCommand;
+	
+	Autonomo autonomouses = new Autonomo();
+	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	@Override
@@ -47,12 +50,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
-		autonomous = new Autonomo();
-
-		// schedule the autonomous command (example)
-		if (autonomous != null) {
-			autonomous.autoLine(100);
-		}
+		autonomouses.autoLine(50);
+		
 	}
 
 	@Override
@@ -63,8 +62,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (m_autonomousCommand != null) { // stops autonomous automatically
-			m_autonomousCommand.cancel();
+		if (autonomouses != null) { // stops autonomous automatically
+			autonomouses.cancel();
 		}
 	}
 
@@ -74,7 +73,7 @@ public class Robot extends TimedRobot {
 		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
 		Command lockMode = new LockMode();
-		
+
 		double angle = motionSensors.navx.getAngle();
 		System.out.println(angle);
 		
