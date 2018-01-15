@@ -15,7 +15,7 @@ import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -25,8 +25,10 @@ public class Robot extends TimedRobot {
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
+	public static SynchronousPIDF pidLoop;
 	
 	Autonomo autonomouses = new Autonomo();
+	public static Timer timer = new Timer();
 	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -35,6 +37,8 @@ public class Robot extends TimedRobot {
 		motionSensors.navx.zeroYaw(); // remove later???
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", m_chooser);
+		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
+		motionSensors.navx.zeroYaw();
 	}
 
 	@Override
@@ -49,9 +53,10 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = m_chooser.getSelected();
-		
-		
+		timer.reset();
+		timer.start();
+		motionSensors.navx.zeroYaw();
+		pidLoop.reset();
 	}
 
 	@Override

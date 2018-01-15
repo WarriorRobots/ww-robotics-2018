@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2478.robot.Robot;
 
@@ -14,6 +13,7 @@ public class Autonomo extends Command {
     //!!!!!!!!!!!!!!!!PUT IN ENCODER PORTS BEFORE RUNNING!!!!!!!!!!!!!!!!!!!!!!!!!!!11
     public Autonomo() {
     	requires(Robot.drivetrain);
+    	requires(Robot.motionSensors);
     	
         leftEnc = new Encoder(2, 3);
         //(port number, port number, invert counting direction?, encoder accuracy[1x, 2x, or 4x])
@@ -34,8 +34,14 @@ public class Autonomo extends Command {
 
     public void autoLine(double distToAutoLine) {
         //MOVE FORWARD
-        Robot.drivetrain.differentialDrive.tankDrive(0.6, 0.6);
-
+        double angle = Robot.motionSensors.navx.getAngle();
+        
+        Robot.pidLoop.setSetpoint(0);
+        
+        double output = Robot.pidLoop.calculate(angle, Robot.timer.get());
+        
+        Robot.drivetrain.differentialDrive.tankDrive((0.5 + output), (0.5 - output));
+        
         if(leftEnc.get() >= distToAutoLine && leftEnc.get() >= distToAutoLine) {
             System.out.println("acomplished!");
             Robot.drivetrain.differentialDrive.tankDrive(0, 0);
