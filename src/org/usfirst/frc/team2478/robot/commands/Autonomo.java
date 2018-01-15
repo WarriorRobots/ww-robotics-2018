@@ -26,6 +26,7 @@ public class Autonomo extends Command {
         // /*requires(Robot.kLift);*/
 
         states = 0;
+        System.out.println("constructor of Autonomo ==========================================================");
     }
 
     protected void initialize() {
@@ -33,10 +34,11 @@ public class Autonomo extends Command {
 
     public void autoLine(double distToAutoLine) {
         //MOVE FORWARD
-        Robot.drivetrain.differentialDrive.tankDrive(0.2, 0.2);
+        Robot.drivetrain.differentialDrive.tankDrive(0.6, 0.6);
 
-        if(leftEnc.getDistance() >= distToAutoLine && leftEnc.getDistance() >= distToAutoLine) {
+        if(leftEnc.get() >= distToAutoLine && leftEnc.get() >= distToAutoLine) {
             System.out.println("acomplished!");
+            Robot.drivetrain.differentialDrive.tankDrive(0, 0);
         }
     }
 
