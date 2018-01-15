@@ -13,29 +13,29 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 	// should all this be static??
-	public static Joystick leftJoy = new Joystick(RobotMap.LEFT_JOY);
-	public static Joystick rightJoy = new Joystick(RobotMap.RIGHT_JOY);
+	public Joystick leftJoy = new Joystick(RobotMap.LEFT_JOY);
+	public Joystick rightJoy = new Joystick(RobotMap.RIGHT_JOY);
 
-	public static Button triggerButton = new JoystickButton(rightJoy, 1);
-	public static Button thumbButton = new JoystickButton(rightJoy, 2);
+	public Button triggerButton = new JoystickButton(rightJoy, 1);
+	public Button thumbButton = new JoystickButton(rightJoy, 2);
 
 	public OI() {
 		// what goes in here??
 	}
 
-	public static double getLeftSpeed() {
+	public double getLeftSpeed() {
 		return leftJoy.getY() * -1;
 	}
 
-	public static double getRightSpeed() {
+	public double getRightSpeed() {
 		return rightJoy.getY() * -1;
 	}
 	
-	public static double getForwardSpeed() {
+	public double getForwardSpeed() {
 		return rightJoy.getY() * -0.5;
 	}
 	
-	public static double getTurnSpeed() {
+	public double getTurnSpeed() {
 		return rightJoy.getX() * 0.5;
 	}
 }

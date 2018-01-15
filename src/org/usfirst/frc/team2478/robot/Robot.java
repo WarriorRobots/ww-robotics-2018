@@ -7,29 +7,27 @@
 
 package org.usfirst.frc.team2478.robot;
 
-//import edu.wpi.first.wpilibj.PIDController;
+import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
+import org.usfirst.frc.team2478.robot.commands.Autonomo;
+import org.usfirst.frc.team2478.robot.commands.LockMode;
+import org.usfirst.frc.team2478.robot.commands.NormalDrive;
+import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
+import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
-import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-import org.usfirst.frc.team2478.robot.control.BetterAngularPID;
-import org.usfirst.frc.team2478.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team2478.robot.subsystems.Motion;
 
 public class Robot extends TimedRobot {
-	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Motion motionSensors = new Motion();
-	public static OI oi; // find the purpose of this
+	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	public static OI oi;
 	
-//	public AngularPID turnPID;
-	public BetterAngularPID turnPID;
-//	public Timer timer;
+	Autonomo autonomouses = new Autonomo();
 	
-	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	@Override
@@ -55,26 +53,21 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		//m_autonomousCommand = m_chooser.getSelected();
+		autonomouses.autoLine(50);
+		
 	}
 
-	/**
-	 * This function is called periodically during autonomous.
-	 */
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+
 	}
 
 	@Override
 	public void teleopInit() {
-		if (m_autonomousCommand != null) { // stops autonomous automatically
-			m_autonomousCommand.cancel();
+		if (autonomouses != null) { // stops autonomous automatically
+			autonomouses.cancel();
 		}
 	}
 
@@ -83,12 +76,16 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
-		
+		Command lockMode = new LockMode();
+
 		double angle = motionSensors.navx.getAngle();
 		System.out.println(angle);
 		
-		if (OI.thumbButton.get()) {
+		if (oi.thumbButton.get()) {
 			alignmentMode.start();
+		}
+		else if (oi.triggerButton.get()) {
+			lockMode.start();
 		}
 		else {
 			teleopDrive.start();
