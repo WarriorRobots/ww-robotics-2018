@@ -10,10 +10,10 @@ public class BetterAngularPID extends PIDSubsystem {
 	public double output;
 	
 	public BetterAngularPID() {
-		super("Turn", RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
+		super(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D); //removed String name from constructor
 		setAbsoluteTolerance(RobotMap.ANGULAR_TOLERANCE);
-		getPIDController().setContinuous(false);
-		this.setSetpoint(RobotMap.ANGULAR_SETPOINT);
+//		getPIDController().setContinuous(false); // false by default
+		setSetpoint(RobotMap.ANGULAR_SETPOINT);
 	}
 
 	@Override
@@ -30,11 +30,12 @@ public class BetterAngularPID extends PIDSubsystem {
 	@Override
 	protected void initDefaultCommand() {}
 	
-	public double get() {
-		return this.getPIDController().get();
-	}
-	
-	public boolean getEnable() {
-		return this.getPIDController().isEnabled();
-	}
+	// don't bypass the original methods until they work properly by themselves!!
+//	public double get() {
+//		return getPIDController().get();
+//	}
+//	
+//	public boolean getEnable() {
+//		return getPIDController().isEnabled();
+//	}
 }
