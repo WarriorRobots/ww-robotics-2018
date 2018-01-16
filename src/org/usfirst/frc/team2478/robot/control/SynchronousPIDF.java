@@ -100,6 +100,7 @@ public class SynchronousPIDF {
         }
 
         if ((m_error * m_P < m_maximumI) && (m_error * m_P > m_minimumI)) {
+        	System.out.println("DEBUG: Error is inside izone, integration is occurring-------------------------------------");
             m_totalError += m_error * dt;
         } else {
         	System.out.println("DEBUG: Error is outside izone, no integration occurring------------------------------------");

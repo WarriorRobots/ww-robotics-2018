@@ -11,7 +11,7 @@ import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.Autonomo;
 import org.usfirst.frc.team2478.robot.commands.LockMode;
 //import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-//import org.usfirst.frc.team2478.robot.control.SynchronousPIDF;
+import org.usfirst.frc.team2478.robot.control.SynchronousPIDF;
 import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
@@ -24,14 +24,16 @@ public class Robot extends TimedRobot {
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
-//	public static SynchronousPIDF pidLoop;
-	public Autonomo autonomouses = new Autonomo();
+	public static SynchronousPIDF pidLoop;
+	public Autonomo autonomo = new Autonomo();
 	public static Timer timer = new Timer();
 
 	@Override
 	public void robotInit() {
 		oi = new OI();
-//		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
+		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P,
+									  RobotMap.COURSECORRECTION_I,
+									  RobotMap.ANGULAR_D);
 	}
 
 	@Override
@@ -49,19 +51,22 @@ public class Robot extends TimedRobot {
 		timer.reset();
 		timer.start();
 		motionSensors.navx.zeroYaw();
-//		pidLoop.reset();
+		pidLoop.reset();
+		if (autonomo != null) { // stops autonomous automatically
+			autonomo.start();
+		}
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		autonomouses.autoLine(100);
+		autonomo.autoLine(100);
 	}
 
 	@Override
 	public void teleopInit() {
-		if (autonomouses != null) { // stops autonomous automatically
-			autonomouses.cancel();
+		if (autonomo != null) { // stops autonomous automatically
+			autonomo.cancel();
 		}
 	}
 
@@ -77,24 +82,27 @@ public class Robot extends TimedRobot {
 		
 		if (oi.thumbButton.get()) {
 			alignmentMode.start();
-		}
-		else if (oi.triggerButton.get()) {
+		} else if (oi.triggerButton.get()) {
 			lockMode.start();
-		}
-		else {
+		} else {
 //			teleopDrive.start();
 			System.out.println("Teleop Drive is commented out");
 		}
-		
 	}
 
 	@Override
 	public void testInit() {
+		pidLoop.reset();
+		motionSensors.navx.zeroYaw();
+		timer.reset();
+		timer.start();
 	}
 	
 	
 	@Override
 	public void testPeriodic() {
-		
+		double output = pidLoop.get();
+		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
+											   RobotMap.TEST_PID_COURSECORRECTION - output);
 	}
 }

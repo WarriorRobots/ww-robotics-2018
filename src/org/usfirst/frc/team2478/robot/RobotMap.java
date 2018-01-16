@@ -21,17 +21,17 @@ public class RobotMap {
 	public static final int XBOX = 2;
 	
 	// commonly used numbers
-	public static final int INVERT = -1;
 	
 	// alternate driving mode scalars
 	public static final double ARCADE_FORWARDSPEED = 0.5;
 	public static final double ARCADE_TURNSPEED = 0.5;
 	public static final double LOCKMODE_THRESHOLD = 0.2;
+	public static final double TEST_PID_COURSECORRECTION = 0.6;
 	
 	// PID constants
 	public static final double ANGULAR_P = 0.02325;
-//	public static final double ANGULAR_I = 0.0003; //turning
-	public static final double ANGULAR_I = 0.000; //course correction
+	public static final double ANGULAR_I = 0.0003; //turning
+	public static final double COURSECORRECTION_I = 0.000; //course correction
 	public static final double ANGULAR_D = 0.02225; //01725 bck
 	public static final double ANGULAR_SETPOINT = 0;
 	public static final double ANGULAR_TOLERANCE = 0.05;

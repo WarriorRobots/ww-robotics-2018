@@ -25,18 +25,18 @@ public class OI {
 	}
 
 	public double getLeftSpeed() {
-		return leftJoy.getY() * RobotMap.INVERT;
+		return leftJoy.getY() * -1;
 	}
 
 	public double getRightSpeed() {
-		return rightJoy.getY() * RobotMap.INVERT;
+		return rightJoy.getY() * -1;
 	}
 	
 	public double getForwardSpeed() {
-		return rightJoy.getY() * RobotMap.ARCADE_FORWARDSPEED * RobotMap.INVERT;
+		return rightJoy.getY() * RobotMap.ARCADE_FORWARDSPEED * -1;
 	}
 	
 	public double getTurnSpeed() {
-		return rightJoy.getX() * RobotMap.ARCADE_FORWARDSPEED * RobotMap.INVERT;
+		return rightJoy.getX() * RobotMap.ARCADE_FORWARDSPEED;
 	}
 }
