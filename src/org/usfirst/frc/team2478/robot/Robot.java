@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testInit() {
 		pidLoop.reset();
+		pidLoop.setSetpoint(RobotMap.ANGULAR_SETPOINT);
 		motionSensors.navx.zeroYaw();
 		timer.reset();
 		timer.start();
@@ -101,7 +102,13 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void testPeriodic() {
-		double output = pidLoop.get();
+		double angle = motionSensors.navx.getAngle();
+		double output = pidLoop.calculate(angle, timer.get());
+		
+		System.out.println("Time: " + Double.toString(timer.get()));
+		System.out.println("Angle: " + Double.toString(angle));
+		System.out.println("PID output: " + Double.toString(output));
+		
 		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
 											   RobotMap.TEST_PID_COURSECORRECTION - output);
 	}
