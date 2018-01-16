@@ -34,13 +34,13 @@ public class Autonomo extends Command {
 
     public void autoLine(double distToAutoLine) {
         //MOVE FORWARD
-        double angle = Robot.motionSensors.navx.getAngle();
+//        double angle = Robot.motionSensors.navx.getAngle();
         
-        Robot.pidLoop.setSetpoint(0);
+//        Robot.pidLoop.setSetpoint(0);
         
-        double output = Robot.pidLoop.calculate(angle, Robot.timer.get());
+//        double output = Robot.pidLoop.calculate(angle, Robot.timer.get());
         
-        Robot.drivetrain.differentialDrive.tankDrive((0.5 + output), (0.5 - output));
+//        Robot.drivetrain.differentialDrive.tankDrive((0.5 + output), (0.5 - output));
         
         if(leftEnc.get() >= distToAutoLine && leftEnc.get() >= distToAutoLine) {
             System.out.println("acomplished!");
@@ -189,6 +189,7 @@ public class Autonomo extends Command {
     protected void end() {
     }
 
-    protected void interrupted() { // will activate when AlignmentMode or LockMode is run
+    protected void interrupted() {
+    	System.out.println("LockMode interrupted+++++++++++++++++++++++++++++++++++++++");
     }
 }

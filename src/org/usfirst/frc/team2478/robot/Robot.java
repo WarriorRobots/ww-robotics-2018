@@ -11,7 +11,7 @@ import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.Autonomo;
 import org.usfirst.frc.team2478.robot.commands.LockMode;
 //import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-import org.usfirst.frc.team2478.robot.control.SynchronousPIDF;
+//import org.usfirst.frc.team2478.robot.control.SynchronousPIDF;
 import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
@@ -19,25 +19,19 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
-	public static SynchronousPIDF pidLoop;
-	
-	Autonomo autonomouses = new Autonomo();
+//	public static SynchronousPIDF pidLoop;
+	public Autonomo autonomouses = new Autonomo();
 	public static Timer timer = new Timer();
-	
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		SmartDashboard.putData("Auto mode", m_chooser);
-		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
+//		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
 	}
 
 	@Override
@@ -55,14 +49,13 @@ public class Robot extends TimedRobot {
 		timer.reset();
 		timer.start();
 		motionSensors.navx.zeroYaw();
-		pidLoop.reset();
+//		pidLoop.reset();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		autonomouses.autoLine(100);
-//		System.out.println("Auto is running!");
 	}
 
 	@Override

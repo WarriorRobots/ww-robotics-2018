@@ -6,11 +6,10 @@ import org.usfirst.frc.team2478.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LockMode extends Command {
-	
-    public double avg;
-    public double getavg() {
-    	return avg;
-    }
+    
+//    public double getAvg() {
+//    	return avg;
+//    }
 
 	public LockMode() {
         requires(Robot.drivetrain);
@@ -22,10 +21,12 @@ public class LockMode extends Command {
 		
     	System.out.println("If lockmode is broken, check If statement (see alex)");
     	
+    	// how far apart are the joystick Y-axes?
 		double difference = Math.abs(Robot.oi.getLeftSpeed() - Robot.oi.getRightSpeed());
+		double average = (Robot.oi.getLeftSpeed() + Robot.oi.getRightSpeed()) / 2;
+		
     	if (difference < RobotMap.LOCKMODE_THRESHOLD) {
-    		avg = (Robot.oi.getLeftSpeed() + Robot.oi.getLeftSpeed()) / 2;
-    		Robot.drivetrain.differentialDrive.tankDrive(avg, avg);
+    		Robot.drivetrain.differentialDrive.tankDrive(average, average);
     	} else {
     		Robot.drivetrain.differentialDrive.tankDrive(Robot.oi.getLeftSpeed(), Robot.oi.getRightSpeed());
     	}
@@ -38,5 +39,7 @@ public class LockMode extends Command {
 
     protected void end() {}
 
-    protected void interrupted() {}
+    protected void interrupted() {
+    	System.out.println("LockMode interrupted+++++++++++++++++++++++++++++++++++++++");
+    }
 }

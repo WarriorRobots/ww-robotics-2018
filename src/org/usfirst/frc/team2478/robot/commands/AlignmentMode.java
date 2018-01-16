@@ -24,5 +24,6 @@ public class AlignmentMode extends Command {
     }
 
     protected void interrupted() {
+    	System.out.println("AlignmentMode interrupted+++++++++++++++++++++++++++++++++++++++");
     }
 }
