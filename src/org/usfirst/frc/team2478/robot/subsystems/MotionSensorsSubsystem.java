@@ -9,16 +9,7 @@ public class MotionSensorsSubsystem extends Subsystem {
 
 	public AHRS navx = new AHRS(I2C.Port.kMXP);
 	
-//	public static double NAVX_ANGLE;
-//	public static double NAVX_YAW;
-	
     public void initDefaultCommand() {
     	// none
     }
-    
-//    public void updateNavx() {
-//    	NAVX_ANGLE = navx.getAngle();
-//    	NAVX_YAW = navx.getYaw();
-//    }
 }
-
