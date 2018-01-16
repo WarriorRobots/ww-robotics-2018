@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
-	// should all this be static??
 	public Joystick leftJoy = new Joystick(RobotMap.LEFT_JOY);
 	public Joystick rightJoy = new Joystick(RobotMap.RIGHT_JOY);
 

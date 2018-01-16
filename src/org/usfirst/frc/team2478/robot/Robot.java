@@ -10,7 +10,8 @@ package org.usfirst.frc.team2478.robot;
 import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
 import org.usfirst.frc.team2478.robot.commands.Autonomo;
 import org.usfirst.frc.team2478.robot.commands.LockMode;
-import org.usfirst.frc.team2478.robot.commands.NormalDrive;
+//import org.usfirst.frc.team2478.robot.commands.NormalDrive;
+import org.usfirst.frc.team2478.robot.control.SynchronousPIDF;
 import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
@@ -34,11 +35,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
-		motionSensors.navx.zeroYaw(); // remove later???
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", m_chooser);
 		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
-		motionSensors.navx.zeroYaw();
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Command teleopDrive = new NormalDrive();
+//		Command teleopDrive = new NormalDrive();
 		Command alignmentMode = new AlignmentMode();
 		Command lockMode = new LockMode();
 
@@ -90,7 +89,8 @@ public class Robot extends TimedRobot {
 			lockMode.start();
 		}
 		else {
-			teleopDrive.start();
+//			teleopDrive.start();
+			System.out.println("Teleop Drive is commented out");
 		}
 		
 	}
