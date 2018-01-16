@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2478.robot;
+package org.usfirst.frc.team2478.robot.control;
 
 import edu.wpi.first.wpilibj.util.BoundaryException;
 

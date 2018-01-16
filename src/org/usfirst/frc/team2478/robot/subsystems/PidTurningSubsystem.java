@@ -1,15 +1,15 @@
-package org.usfirst.frc.team2478.robot.control;
+package org.usfirst.frc.team2478.robot.subsystems;
 
 import org.usfirst.frc.team2478.robot.Robot;
 import org.usfirst.frc.team2478.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-public class BetterAngularPID extends PIDSubsystem {
+public class PidTurningSubsystem extends PIDSubsystem {
 	
 	public double output;
 	
-	public BetterAngularPID() {
+	public PidTurningSubsystem() {
 		super("Turn", RobotMap.ANGULAR_P, RobotMap.ANGULAR_I, RobotMap.ANGULAR_D);
 		setAbsoluteTolerance(RobotMap.ANGULAR_TOLERANCE);
 		getPIDController().setContinuous(false);

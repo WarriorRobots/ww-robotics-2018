@@ -16,27 +16,27 @@ public class LockMode extends Command {
         requires(Robot.drivetrain);
     }
 
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     protected void execute() {
-    	double difference = Math.abs(Robot.oi.getLeftSpeed() - Robot.oi.getRightSpeed());
-    	if (difference < RobotMap.LOCKMODE_THRESHOLD || difference == 0 ) {
+		
+    	System.out.println("If lockmode is broken, check If statement (see alex)");
+    	
+		double difference = Math.abs(Robot.oi.getLeftSpeed() - Robot.oi.getRightSpeed());
+    	if (difference < RobotMap.LOCKMODE_THRESHOLD) {
     		avg = (Robot.oi.getLeftSpeed() + Robot.oi.getLeftSpeed()) / 2;
     		Robot.drivetrain.differentialDrive.tankDrive(avg, avg);
-    	}
-    	else {
+    	} else {
     		Robot.drivetrain.differentialDrive.tankDrive(Robot.oi.getLeftSpeed(), Robot.oi.getRightSpeed());
     	}
+    	
     }
 
     protected boolean isFinished() { // needs a stop condition!
         return false;
     }
 
-    protected void end() {
-    }
+    protected void end() {}
 
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 }
