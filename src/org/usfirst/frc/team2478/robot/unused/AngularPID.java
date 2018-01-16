@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2478.robot.deprecated;
+package org.usfirst.frc.team2478.robot.unused;
 
 import com.kauailabs.navx.frc.AHRS;
 

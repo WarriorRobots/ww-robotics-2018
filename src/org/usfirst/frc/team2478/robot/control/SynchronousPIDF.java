@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2478.robot.deprecated;
+package org.usfirst.frc.team2478.robot.control;
 
 import edu.wpi.first.wpilibj.util.BoundaryException;
 
@@ -33,6 +33,8 @@ public class SynchronousPIDF {
                                      // deadband
                                      // then treat error for the proportional
                                      // term as 0
+    private double m_maximumI = 1; // positive and negative bounds for integrating error
+    private double m_minimumI = -1;
 
     public SynchronousPIDF() {
     }
@@ -97,9 +99,10 @@ public class SynchronousPIDF {
             }
         }
 
-        if ((m_error * m_P < m_maximumOutput) && (m_error * m_P > m_minimumOutput)) {
+        if ((m_error * m_P < m_maximumI) && (m_error * m_P > m_minimumI)) {
             m_totalError += m_error * dt;
         } else {
+        	System.out.println("DEBUG: Error is outside izone, no integration occurring------------------------------------");
             m_totalError = 0;
         }
 
@@ -197,7 +200,24 @@ public class SynchronousPIDF {
     public double get() {
         return m_result;
     }
-
+    
+    /**
+     * Sets the i-zone minimum and maximum for this PID controller.
+     * @param minimumI minimum bound of i; should be negative
+     * @param maximumI maximum bound of i; should be positive
+     */
+    public void setIzone(double minimumI, double maximumI) {
+    	if (minimumI > maximumI) {
+            throw new BoundaryException("Lower bound is greater than upper bound");
+        }
+    	m_minimumI = minimumI;
+    	m_maximumI = maximumI;
+    }
+    
+    public void resetIzone() {
+    	m_minimumI = m_minimumOutput;
+    	m_maximumI = m_maximumOutput;
+    }
     /**
      * Set the PID controller to consider the input to be continuous, Rather then using the max and min in as
      * constraints, it considers them to be the same point and automatically calculates the shortest route to the
@@ -304,7 +324,7 @@ public class SynchronousPIDF {
     }
 
     /**
-     * Reset all internal terms.
+     * Resets all internal terms.
      */
     public void reset() {
         m_last_input = Double.NaN;
@@ -313,11 +333,18 @@ public class SynchronousPIDF {
         m_result = 0;
         m_setpoint = 0;
     }
-
+    
+    /**
+     * Resets accumulation of total error.
+     */
     public void resetIntegrator() {
         m_totalError = 0;
     }
 
+    /**
+     * Returns PID constants.
+     * @return String containing P, I, and D formatted into 3 lines.
+     */
     public String getState() {
         String lState = "";
 
@@ -327,7 +354,11 @@ public class SynchronousPIDF {
 
         return lState;
     }
-
+    
+    /**
+     * Gets the type of SynchronousPIDF, for WPILIB compatibility purposes.
+     * @return String containing "PIDController".
+     */
     public String getType() {
         return "PIDController";
     }
