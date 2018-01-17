@@ -21,12 +21,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
-	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
-	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	public static DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	public static MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
-	public static SynchronousPIDF pidLoop;
+	
+	public SynchronousPIDF pidLoop;
 	public Autonomo autonomo = new Autonomo();
-	public static Timer timer = new Timer();
+	public Timer timer = new Timer();
 
 	@Override
 	public void robotInit() {
@@ -73,21 +74,22 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-//		Command teleopDrive = new NormalDrive();
-		Command alignmentMode = new AlignmentMode();
-		Command lockMode = new LockMode();
+// //		Command teleopDrive = new NormalDrive();
+// 		Command alignmentMode = new AlignmentMode();
+// 		Command lockMode = new LockMode();
 
-		double angle = motionSensors.navx.getAngle();
-		System.out.println(angle);
+// 		double angle = motionSensors.navx.getAngle();
+// 		System.out.println(angle);
 		
-		if (oi.thumbButton.get()) {
-			alignmentMode.start();
-		} else if (oi.triggerButton.get()) {
-			lockMode.start();
-		} else {
-//			teleopDrive.start();
-			System.out.println("Teleop Drive is commented out");
-		}
+// 		if (oi.thumbButton.get()) {
+// 			alignmentMode.start();
+// 		} else if (oi.triggerButton.get()) {
+// 			lockMode.start();
+// 		} else {
+// 			alignmentMode.cancel();
+// 			lockMode.cancel();
+// 			System.out.println("Teleop Drive is commented out");
+// 		}
 	}
 
 	@Override
