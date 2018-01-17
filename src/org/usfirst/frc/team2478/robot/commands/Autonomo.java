@@ -1,10 +1,8 @@
 package org.usfirst.frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team2478.robot.Robot;
 
-public class Autonomo extends Command {
+public class Autonomo extends CommandBase {
     public int states;
     Encoder leftEnc;
     Encoder rightEnc;
@@ -12,18 +10,8 @@ public class Autonomo extends Command {
 	
     //!!!!!!!!!!!!!!!!PUT IN ENCODER PORTS BEFORE RUNNING!!!!!!!!!!!!!!!!!!!!!!!!!!!11
     public Autonomo() {
-    	requires(Robot.drivetrain);
-    	requires(Robot.motionSensors);
-    	
-        leftEnc = new Encoder(2, 3);
-        //(port number, port number, invert counting direction?, encoder accuracy[1x, 2x, or 4x])
-        
-        rightEnc = new Encoder(0, 1);
-        
-        // Encoder armEnc;
-        // armEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X); 
-        
-        // /*requires(Robot.kLift);*/
+    	requires(drivetrain);
+    	requires(motionSensors);
 
         states = 0;
         System.out.println("constructor of Autonomo ==========================================================");
@@ -44,7 +32,7 @@ public class Autonomo extends Command {
         
         if(leftEnc.get() >= distToAutoLine && leftEnc.get() >= distToAutoLine) {
             System.out.println("acomplished!");
-            Robot.drivetrain.differentialDrive.tankDrive(0, 0);
+            drivetrain.tankDrive(0, 0);
         }
     }
 
@@ -54,10 +42,10 @@ public class Autonomo extends Command {
         switch(states){
             case 0:
                 //MOVE FORWARD   
-                Robot.drivetrain.differentialDrive.tankDrive(0.2, 0.2);
+                drivetrain.tankDrive(0.2, 0.2);
                 if(leftEnc.getDistance() >= distToAutoLine && rightEnc.getDistance() >= distToAutoLine){
                 //STOP MOVEMENT
-                    Robot.drivetrain.differentialDrive.tankDrive(0, 0);
+                    drivetrain.tankDrive(0, 0);
                     states++;
                 }
             case 1: /* LIFT CUBE OUT OF STORAGE
@@ -92,17 +80,17 @@ public class Autonomo extends Command {
 
         switch(states){
             case 0:  //MOVE FORWARD 
-                Robot.drivetrain.differentialDrive.tankDrive(0.2, 0.2);
+                drivetrain.tankDrive(0.2, 0.2);
                 if(leftEnc.getDistance() >= distPastSwitch&& rightEnc.getDistance() >= distPastSwitch){
                 states++;
                 }
                 System.out.println(states);
                 break;
             case 1:   //TURN LEFT
-                Robot.drivetrain.differentialDrive.tankDrive(0.0, 0.2);
+                drivetrain.tankDrive(0.0, 0.2);
                 if(rightEnc.getDistance() >= distTurnLeft){
                 	//STOP MOVEMENT
-                    Robot.drivetrain.differentialDrive.tankDrive(0.0, 0.0);
+                    drivetrain.tankDrive(0.0, 0.0);
                     /*****add code to check if motor output is equal to zero and THEN increase state
                     *********/
                     states++;
@@ -137,16 +125,16 @@ public class Autonomo extends Command {
 
         switch(states){
             case 0:  //MOVE FORWARD 
-                Robot.drivetrain.differentialDrive.tankDrive(0.2, 0.2);
+                drivetrain.tankDrive(0.2, 0.2);
                 if(leftEnc.getDistance() >= distPastSwitch && rightEnc.getDistance() > distPastSwitch){
                 states++;
                 }
                 System.out.println(states);
                 break;
             case 1:   //TURN RIGHT
-                Robot.drivetrain.differentialDrive.tankDrive(0.2, 0.0);
+                drivetrain.tankDrive(0.2, 0.0);
                 if(leftEnc.getDistance() > distTurnRight){
-                    Robot.drivetrain.differentialDrive.tankDrive(0.0, 0.0);
+                    drivetrain.tankDrive(0.0, 0.0);
                     /*****add code to check if motor output is equal to zero and THEN increase state
                     *********/
                     states++;
@@ -180,7 +168,7 @@ public class Autonomo extends Command {
 
     public void sit(){
         //DO NOT MOVE
-        Robot.drivetrain.differentialDrive.tankDrive(0.0, 0.0);
+        drivetrain.tankDrive(0.0, 0.0);
     }
     protected boolean isFinished() { // needs a stop condition!
         return false;
@@ -189,7 +177,5 @@ public class Autonomo extends Command {
     protected void end() {
     }
 
-    protected void interrupted() {
-    	System.out.println("LockMode interrupted+++++++++++++++++++++++++++++++++++++++");
-    }
+    protected void interrupted() {}
 }
