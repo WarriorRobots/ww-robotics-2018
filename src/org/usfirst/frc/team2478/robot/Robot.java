@@ -25,16 +25,16 @@ public class Robot extends TimedRobot {
 	public static MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	public static OI oi;
 	
-	public SynchronousPIDF pidLoop;
-	public Autonomo autonomo = new Autonomo();
-	public Timer timer = new Timer();
+//	public SynchronousPIDF pidLoop;
+//	public Autonomo autonomo = new Autonomo();
+//	public Timer timer = new Timer();
 
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P,
-									  RobotMap.COURSECORRECTION_I,
-									  RobotMap.ANGULAR_D);
+//		pidLoop = new SynchronousPIDF(RobotMap.ANGULAR_P,
+//									  RobotMap.COURSECORRECTION_I,
+//									  RobotMap.ANGULAR_D);
 	}
 
 	@Override
@@ -49,26 +49,26 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		timer.reset();
-		timer.start();
-		motionSensors.navx.zeroYaw();
-		pidLoop.reset();
-		if (autonomo != null) { // stops autonomous automatically
-			autonomo.start();
-		}
+//		timer.reset();
+//		timer.start();
+//		motionSensors.navx.zeroYaw();
+//		pidLoop.reset();
+//		if (autonomo != null) { // stops autonomous automatically
+//			autonomo.start();
+//		}
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		autonomo.autoLine(100);
+//		autonomo.autoLine(100);
 	}
 
 	@Override
 	public void teleopInit() {
-		if (autonomo != null) { // stops autonomous automatically
-			autonomo.cancel();
-		}
+//		if (autonomo != null) { // stops autonomous automatically
+//			autonomo.cancel();
+//		}
 	}
 
 	@Override
@@ -94,24 +94,24 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testInit() {
-		pidLoop.reset();
-		pidLoop.setSetpoint(RobotMap.ANGULAR_SETPOINT);
-		motionSensors.navx.zeroYaw();
-		timer.reset();
-		timer.start();
+//		pidLoop.reset();
+//		pidLoop.setSetpoint(RobotMap.ANGULAR_SETPOINT);
+//		motionSensors.navx.zeroYaw();
+//		timer.reset();
+//		timer.start();
 	}
 	
 	
 	@Override
 	public void testPeriodic() {
-		double angle = motionSensors.navx.getAngle();
-		double output = pidLoop.calculate(angle, timer.get());
-		
-		System.out.println("Time: " + Double.toString(timer.get()));
-		System.out.println("Angle: " + Double.toString(angle));
-		System.out.println("PID output: " + Double.toString(output));
-		
-		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
-											   RobotMap.TEST_PID_COURSECORRECTION - output);
+//		double angle = motionSensors.navx.getAngle();
+//		double output = pidLoop.calculate(angle, timer.get());
+//		
+//		System.out.println("Time: " + Double.toString(timer.get()));
+//		System.out.println("Angle: " + Double.toString(angle));
+//		System.out.println("PID output: " + Double.toString(output));
+//		
+//		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
+//											   RobotMap.TEST_PID_COURSECORRECTION - output);
 	}
 }
