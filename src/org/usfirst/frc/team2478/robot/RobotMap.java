@@ -28,6 +28,9 @@ public class RobotMap {
 	public static final double LOCKMODE_THRESHOLD = 0.2;
 	public static final double TEST_PID_COURSECORRECTION = 0.6;
 	
+	// autonomous scalars
+	public static final double AUTO_SPEED_FORWARDS = 0.5;
+	
 	// PID constants
 	public static final double ANGULAR_P = 0.02325;
 	public static final double ANGULAR_I = 0.0003; //turning

@@ -16,6 +16,9 @@ public class MotionSensorsSubsystem extends Subsystem {
 	public MotionSensorsSubsystem() {
 	}
 	
+	/**
+	* Initializes NavX and encoders subsystem; run before calling drive functions.
+	*/
 	public void init() {
 		m_leftEnc = new Encoder(2,3); //remove magic numbers
 		m_rightEnc = new Encoder(0,1);

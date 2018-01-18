@@ -20,8 +20,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	}
 	
 	/**
-	* Initializes Talon and drivetrain system; run before calling drive functions.
-	* @return true if successful, false if failed
+	* Initializes Talons and drivetrain subsystem; run before calling drive functions.
 	*/
 	public void init() {
 		m_leftFront = new WPI_TalonSRX(RobotMap.LEFT_FRONT);

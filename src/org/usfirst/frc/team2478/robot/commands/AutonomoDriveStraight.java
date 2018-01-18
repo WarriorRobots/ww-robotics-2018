@@ -1,9 +1,10 @@
 package org.usfirst.frc.team2478.robot.commands;
 
+import org.usfirst.frc.team2478.robot.RobotMap;
+
 public class AutonomoDriveStraight extends CommandBase {
 	
-	private final double AUTO_SPEED = 0.5;
-	private double leftCount, rightCount;
+	private double m_leftCount, m_rightCount;
 	
 	public AutonomoDriveStraight() {
 		requires(drivetrain);
@@ -13,10 +14,10 @@ public class AutonomoDriveStraight extends CommandBase {
 	protected void initialize() {}
 	
 	protected void execute() {
-		leftCount = motionSensors.getLeftEncCount();
-		rightCount = motionSensors.getRightEncCount();
-		drivetrain.tankDrive(AUTO_SPEED, AUTO_SPEED);
-		System.out.println("Left: " + Double.toString(leftCount) + ", Right: " + Double.toString(rightCount));
+		m_leftCount = motionSensors.getLeftEncCount();
+		m_rightCount = motionSensors.getRightEncCount();
+		drivetrain.tankDrive(RobotMap.AUTO_SPEED_FORWARDS, RobotMap.AUTO_SPEED_FORWARDS);
+		System.out.println("Left: " + Double.toString(m_leftCount) + ", Right: " + Double.toString(m_rightCount));
 		System.out.println(motionSensors.m_leftEnc.getRate());
 	}
 
