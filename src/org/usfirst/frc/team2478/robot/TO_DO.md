@@ -11,3 +11,4 @@
 
 - periodic timer
 - testmode wait()
+- use encoder.getRate() to check for missing (throw error in driver station)
