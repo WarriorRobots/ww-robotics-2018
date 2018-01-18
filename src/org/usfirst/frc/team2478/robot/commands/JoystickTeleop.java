@@ -22,5 +22,6 @@ public class JoystickTeleop extends CommandBase {
 
     protected void interrupted() {
     	System.out.println("NormalDrive interrupted+++++++++++++++++++++++++++++++++++++++");
+    	this.end();
     }
 }

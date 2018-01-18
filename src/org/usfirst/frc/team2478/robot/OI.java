@@ -25,7 +25,6 @@ public class OI {
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
 
 	public OI() {
-		System.out.println("Try unplugging a joystick!!================================");
 		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
 		m_rightThumbButton.whileHeld(new JoystickAlignment());
 	}

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2478.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,7 +17,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	private DifferentialDrive m_differentialDrive;
 
 	public DrivetrainSubsystem() {
-		System.out.println("Try unplugging a Talon!!================================");
 	}
 	
 	/**
@@ -26,20 +24,15 @@ public class DrivetrainSubsystem extends Subsystem {
 	* @return true if successful, false if failed
 	*/
 	public void init() {
-		try {
-			m_leftFront = new WPI_TalonSRX(RobotMap.LEFT_FRONT);
-			m_leftBack = new WPI_TalonSRX(RobotMap.LEFT_BACK);
-			m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);
-			
-			m_rightFront = new WPI_TalonSRX(RobotMap.RIGHT_FRONT);
-			m_rightBack = new WPI_TalonSRX(RobotMap.RIGHT_BACK);
-			m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightBack);
+		m_leftFront = new WPI_TalonSRX(RobotMap.LEFT_FRONT);
+		m_leftBack = new WPI_TalonSRX(RobotMap.LEFT_BACK);
+		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);
+		
+		m_rightFront = new WPI_TalonSRX(RobotMap.RIGHT_FRONT);
+		m_rightBack = new WPI_TalonSRX(RobotMap.RIGHT_BACK);
+		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightBack);
 
-			m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
-		} catch (RuntimeException ex) {
-			DriverStation.reportError("Error instantiating Drive Talons: " + ex.getMessage(), true);
-			System.out.println("INITIALIZATION FAILED: Drivetrain Talons");
-		}
+		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {

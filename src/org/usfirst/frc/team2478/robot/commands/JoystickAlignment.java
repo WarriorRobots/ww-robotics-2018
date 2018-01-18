@@ -25,5 +25,6 @@ public class JoystickAlignment extends CommandBase {
 
     protected void interrupted() {
     	System.out.println("AlignmentMode interrupted+++++++++++++++++++++++++++++++++++++++");
+    	this.end();
     }
 }

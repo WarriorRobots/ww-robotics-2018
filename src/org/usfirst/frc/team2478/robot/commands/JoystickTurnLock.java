@@ -11,8 +11,6 @@ public class JoystickTurnLock extends CommandBase {
     protected void initialize() {}
 
     protected void execute() {
-		
-    	System.out.println("If lockmode is broken, check If statement (see alex)");
     	
     	// how far apart are the joystick Y-axes?
 		double difference = Math.abs(oi.getLeftY() - oi.getRightY());
@@ -34,5 +32,6 @@ public class JoystickTurnLock extends CommandBase {
 
     protected void interrupted() {
     	System.out.println("LockMode interrupted+++++++++++++++++++++++++++++++++++++++");
+    	this.end();
     }
 }

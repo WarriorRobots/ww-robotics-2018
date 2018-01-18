@@ -7,15 +7,24 @@
 
 package org.usfirst.frc.team2478.robot;
 
+import org.usfirst.frc.team2478.robot.commands.AutonomoDriveStraight;
+import org.usfirst.frc.team2478.robot.commands.CommandBase;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Timer;
-//import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
+	
+	CommandBase autonomoCommand;
+	SendableChooser<CommandBase> chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
+		CommandBase.init();
+		chooser.addDefault("Default Auto", new AutonomoDriveStraight());
+		SmartDashboard.putData("Auto Mode", chooser);
 	}
 
 	@Override
@@ -29,9 +38,10 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-//		if (autonomo != null) { // stops autonomous automatically
-//			autonomo.start();
-//		}
+		autonomoCommand = chooser.getSelected();
+		if (autonomoCommand != null) { // stops autonomous automatically
+			autonomoCommand.start();
+		}
 	}
 
 	@Override
@@ -40,18 +50,23 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {}
-//		if (autonomo != null) {
-//			autonomo.cancel();
-//		}
+	public void teleopInit() {
+		if (autonomoCommand != null) {
+			autonomoCommand.cancel();
+		}
+	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		System.out.println(Double.toString(CommandBase.motionSensors.getLeftEncCount()) + " " +
+						   Double.toString(CommandBase.motionSensors.getRightEncCount()));
+		System.out.println(CommandBase.motionSensors.m_brokenEnc.getRate());
 	}
 
 	@Override
-	public void testInit() {}
+	public void testInit() {
+	}
 	
 	
 	@Override

@@ -6,3 +6,8 @@
 - alignment mode
 - controller lockmode
 - xboxcontroller mode
+
+---
+
+- periodic timer
+- testmode wait()

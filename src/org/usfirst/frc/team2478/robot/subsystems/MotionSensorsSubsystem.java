@@ -10,20 +10,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class MotionSensorsSubsystem extends Subsystem {
 
 	private AHRS m_navx;
-	private Encoder m_leftEnc, m_rightEnc;
+	public Encoder m_leftEnc, m_rightEnc; // make private after debugging
+	public Encoder m_brokenEnc;
 
 	public MotionSensorsSubsystem() {
-		System.out.println("Try unplugging an Encoder!!================================");
 	}
 	
 	public void init() {
-		try {
-			m_leftEnc = new Encoder(2,3); //remove magic numbers
-			m_rightEnc = new Encoder(0, 1);
-		} catch (RuntimeException ex) {
-			DriverStation.reportError("Error instantiating drive encoders: ", true);
-			System.out.println("INITIALIZATION FAILED: Drivetrain Encoders");
-		}
+		m_leftEnc = new Encoder(2,3); //remove magic numbers
+		m_rightEnc = new Encoder(0,1);
+		m_brokenEnc = new Encoder(7,8); // remove after debugging
 		try {
 			m_navx = new AHRS(I2C.Port.kMXP);
 		} catch (RuntimeException ex) {
