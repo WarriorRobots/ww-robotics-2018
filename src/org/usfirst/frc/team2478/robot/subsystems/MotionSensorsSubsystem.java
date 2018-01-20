@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class MotionSensorsSubsystem extends Subsystem {
 
 	private AHRS m_navx;
-	public Encoder m_leftEnc, m_rightEnc; // make private after debugging
-	public Encoder m_brokenEnc;
+	private Encoder m_leftEnc, m_rightEnc;
 
 	public MotionSensorsSubsystem() {
 	}
@@ -22,7 +21,6 @@ public class MotionSensorsSubsystem extends Subsystem {
 	public void init() {
 		m_leftEnc = new Encoder(2,3); //remove magic numbers
 		m_rightEnc = new Encoder(0,1);
-		m_brokenEnc = new Encoder(7,8); // remove after debugging
 		try {
 			m_navx = new AHRS(I2C.Port.kMXP);
 		} catch (RuntimeException ex) {
@@ -40,7 +38,7 @@ public class MotionSensorsSubsystem extends Subsystem {
 	}
 	
 	public double getRightEncCount() {
-		return m_rightEnc.get();
+		return -m_rightEnc.get();
 	}
 	
 	public void resetNavx() {

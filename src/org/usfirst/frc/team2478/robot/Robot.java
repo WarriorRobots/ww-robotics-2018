@@ -61,7 +61,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		System.out.println(Double.toString(CommandBase.motionSensors.getLeftEncCount()) + " " +
 						   Double.toString(CommandBase.motionSensors.getRightEncCount()));
-		System.out.println(CommandBase.motionSensors.m_brokenEnc.getRate());
 	}
 
 	@Override
