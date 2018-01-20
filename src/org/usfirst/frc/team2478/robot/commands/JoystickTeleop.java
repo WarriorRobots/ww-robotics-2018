@@ -10,7 +10,7 @@ public class JoystickTeleop extends CommandBase {
     }
 
     protected void execute() {
-    	drivetrain.tankDrive(oi.getLeftY(), oi.getRightY());
+    	drivetrain.tankDriveSquared(oi.getLeftY(), oi.getRightY());
     }
 
     protected boolean isFinished() {
