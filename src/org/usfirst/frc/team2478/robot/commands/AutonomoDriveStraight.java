@@ -16,7 +16,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	protected void execute() {
 		m_leftCount = motionSensors.getLeftEncCount();
 		m_rightCount = motionSensors.getRightEncCount();
-		drivetrain.tankDrive(RobotMap.AUTO_SPEED_FORWARDS, RobotMap.AUTO_SPEED_FORWARDS);
+		drivetrain.tankDriveAutonomo(RobotMap.AUTO_SPEED_FORWARDS, RobotMap.AUTO_SPEED_FORWARDS);
 		System.out.println("Left: " + Double.toString(m_leftCount) + ", Right: " + Double.toString(m_rightCount));
 		System.out.println(motionSensors.m_leftEnc.getRate());
 	}

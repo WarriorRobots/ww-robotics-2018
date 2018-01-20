@@ -34,8 +34,12 @@ public class DrivetrainSubsystem extends Subsystem {
 		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
 	}
 	
-	public void tankDrive(double leftSpeed, double rightSpeed) {
-		m_differentialDrive.tankDrive(leftSpeed, rightSpeed);
+	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
+		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+	}
+	
+	public void tankDriveAutonomo(double leftSpeed, double rightSpeed) {
+		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	public void arcadeDrive(double forwardSpeed, double turnSpeed) {
