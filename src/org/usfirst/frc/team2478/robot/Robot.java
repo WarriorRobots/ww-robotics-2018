@@ -7,31 +7,24 @@
 
 package org.usfirst.frc.team2478.robot;
 
+import org.usfirst.frc.team2478.robot.commands.AutonomoDriveStraight;
+import org.usfirst.frc.team2478.robot.commands.CommandBase;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2478.robot.commands.AlignmentMode;
-import org.usfirst.frc.team2478.robot.commands.LockMode;
-import org.usfirst.frc.team2478.robot.commands.NormalDrive;
-import org.usfirst.frc.team2478.robot.subsystems.DrivetrainSubsystem;
-import org.usfirst.frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
 public class Robot extends TimedRobot {
-	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
-	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
-	public static OI oi;
-
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	
+	CommandBase autonomoCommand;
+	SendableChooser<CommandBase> chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		//m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		CommandBase.init();
+		chooser.addDefault("Default Auto", new AutonomoDriveStraight());
+		SmartDashboard.putData("Auto Mode", chooser);
 	}
 
 	@Override
@@ -41,16 +34,13 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		autonomoCommand = chooser.getSelected();
+		if (autonomoCommand != null) { // stops autonomous automatically
+			autonomoCommand.start();
 		}
 	}
 
@@ -61,34 +51,34 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (m_autonomousCommand != null) { // stops autonomous automatically
-			m_autonomousCommand.cancel();
+		if (autonomoCommand != null) {
+			autonomoCommand.cancel();
 		}
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Command teleopDrive = new NormalDrive();
-		Command alignmentMode = new AlignmentMode();
-		Command lockMode = new LockMode();
-		
-		double angle = motionSensors.navx.getAngle();
-		System.out.println(angle);
-		
-		if (oi.thumbButton.get()) {
-			alignmentMode.start();
-		}
-		else if (oi.triggerButton.get()) {
-			lockMode.start();
-		}
-		else {
-			teleopDrive.start();
-		}
-		
+		System.out.println(Double.toString(CommandBase.motionSensors.getLeftEncCount()) + " " +
+						   Double.toString(CommandBase.motionSensors.getRightEncCount()));
+		System.out.println(CommandBase.motionSensors.m_brokenEnc.getRate());
 	}
 
 	@Override
+	public void testInit() {
+	}
+	
+	
+	@Override
 	public void testPeriodic() {
+//		double angle = motionSensors.navx.getAngle();
+//		double output = pidLoop.calculate(angle, timer.get());
+//		
+//		System.out.println("Time: " + Double.toString(timer.get()));
+//		System.out.println("Angle: " + Double.toString(angle));
+//		System.out.println("PID output: " + Double.toString(output));
+//		
+//		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
+//											   RobotMap.TEST_PID_COURSECORRECTION - output);
 	}
 }
