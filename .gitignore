@@ -13,6 +13,8 @@ local.properties
 # Gradle specific
 build/
 .gradle/
+.classpath
+.project
 
 # External tool builders
 .externalToolBuilders/
