@@ -43,3 +43,8 @@ jar {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
 }
+
+wpi {
+    wpilibVersion = '2018.2.2'
+    shuffleboardVersion = '1.1.1'
+}
