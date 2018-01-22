@@ -32,7 +32,7 @@ public class Autonomo extends CommandBase {
         
         if(leftEnc.get() >= distToAutoLine && leftEnc.get() >= distToAutoLine) {
             System.out.println("acomplished!");
-            drivetrain.tankDriveSquared(0, 0);
+            drivetrain.tankDriveTeleop(0, 0);
         }
     }
 
@@ -42,10 +42,10 @@ public class Autonomo extends CommandBase {
         switch(states){
             case 0:
                 //MOVE FORWARD   
-                drivetrain.tankDriveSquared(0.2, 0.2);
+                drivetrain.tankDriveTeleop(0.2, 0.2);
                 if(leftEnc.getDistance() >= distToAutoLine && rightEnc.getDistance() >= distToAutoLine){
                 //STOP MOVEMENT
-                    drivetrain.tankDriveSquared(0, 0);
+                    drivetrain.tankDriveTeleop(0, 0);
                     states++;
                 }
             case 1: /* LIFT CUBE OUT OF STORAGE
@@ -80,17 +80,17 @@ public class Autonomo extends CommandBase {
 
         switch(states){
             case 0:  //MOVE FORWARD 
-                drivetrain.tankDriveSquared(0.2, 0.2);
+                drivetrain.tankDriveTeleop(0.2, 0.2);
                 if(leftEnc.getDistance() >= distPastSwitch&& rightEnc.getDistance() >= distPastSwitch){
                 states++;
                 }
                 System.out.println(states);
                 break;
             case 1:   //TURN LEFT
-                drivetrain.tankDriveSquared(0.0, 0.2);
+                drivetrain.tankDriveTeleop(0.0, 0.2);
                 if(rightEnc.getDistance() >= distTurnLeft){
                 	//STOP MOVEMENT
-                    drivetrain.tankDriveSquared(0.0, 0.0);
+                    drivetrain.tankDriveTeleop(0.0, 0.0);
                     /*****add code to check if motor output is equal to zero and THEN increase state
                     *********/
                     states++;
@@ -125,16 +125,16 @@ public class Autonomo extends CommandBase {
 
         switch(states){
             case 0:  //MOVE FORWARD 
-                drivetrain.tankDriveSquared(0.2, 0.2);
+                drivetrain.tankDriveTeleop(0.2, 0.2);
                 if(leftEnc.getDistance() >= distPastSwitch && rightEnc.getDistance() > distPastSwitch){
                 states++;
                 }
                 System.out.println(states);
                 break;
             case 1:   //TURN RIGHT
-                drivetrain.tankDriveSquared(0.2, 0.0);
+                drivetrain.tankDriveTeleop(0.2, 0.0);
                 if(leftEnc.getDistance() > distTurnRight){
-                    drivetrain.tankDriveSquared(0.0, 0.0);
+                    drivetrain.tankDriveTeleop(0.0, 0.0);
                     /*****add code to check if motor output is equal to zero and THEN increase state
                     *********/
                     states++;
@@ -168,7 +168,7 @@ public class Autonomo extends CommandBase {
 
     public void sit(){
         //DO NOT MOVE
-        drivetrain.tankDriveSquared(0.0, 0.0);
+        drivetrain.tankDriveTeleop(0.0, 0.0);
     }
     protected boolean isFinished() { // needs a stop condition!
         return false;

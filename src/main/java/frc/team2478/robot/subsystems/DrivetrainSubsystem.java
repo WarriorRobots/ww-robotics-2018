@@ -22,18 +22,18 @@ public class DrivetrainSubsystem extends Subsystem {
 	* Initializes Talons and drivetrain subsystem; run before calling drive functions.
 	*/
 	public void init() {
-		m_leftFront = new WPI_TalonSRX(RobotMap.LEFT_FRONT);
-		m_leftBack = new WPI_TalonSRX(RobotMap.LEFT_BACK);
+		m_leftFront = new WPI_TalonSRX(RobotMap.Motors.LEFT_FRONT);
+		m_leftBack = new WPI_TalonSRX(RobotMap.Motors.LEFT_BACK);
 		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);
 		
-		m_rightFront = new WPI_TalonSRX(RobotMap.RIGHT_FRONT);
-		m_rightBack = new WPI_TalonSRX(RobotMap.RIGHT_BACK);
+		m_rightFront = new WPI_TalonSRX(RobotMap.Motors.RIGHT_FRONT);
+		m_rightBack = new WPI_TalonSRX(RobotMap.Motors.RIGHT_BACK);
 		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightBack);
 
 		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
 	}
 	
-	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
+	public void tankDriveTeleop(double leftSpeed, double rightSpeed) {
 		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
@@ -41,8 +41,12 @@ public class DrivetrainSubsystem extends Subsystem {
 		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
-	public void arcadeDrive(double forwardSpeed, double turnSpeed) {
-		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
+	public void arcadeDriveTeleop(double forwardSpeed, double turnSpeed) {
+		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
+	}
+	
+	public void arcadeDriveAutonomo(double forwardSpeed, double turnSpeed) {
+		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
 	}
 	
 	public void stopDrive() {

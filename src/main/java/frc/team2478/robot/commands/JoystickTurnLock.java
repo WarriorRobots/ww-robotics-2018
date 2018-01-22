@@ -16,10 +16,10 @@ public class JoystickTurnLock extends CommandBase {
 		double difference = Math.abs(oi.getLeftY() - oi.getRightY());
 		double average = (oi.getLeftY() + oi.getRightY()) / 2;
 		
-    	if (difference < RobotMap.LOCKMODE_THRESHOLD) {
-    		drivetrain.tankDriveSquared(average, average);
+    	if (difference < RobotMap.DriveScalars.LOCKMODE_TOLERANCE) {
+    		drivetrain.tankDriveTeleop(average, average);
     	} else {
-    		drivetrain.tankDriveSquared(oi.getLeftY(), oi.getRightY());
+    		drivetrain.tankDriveTeleop(oi.getLeftY(), oi.getRightY());
     	}
     	
     }

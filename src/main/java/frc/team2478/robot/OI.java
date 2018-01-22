@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
-	private Joystick m_leftJoy = new Joystick(RobotMap.LEFT_JOY);
-	private Joystick m_rightJoy = new Joystick(RobotMap.RIGHT_JOY);
-	private XboxController m_xbox = new XboxController(RobotMap.XBOX);
+	private Joystick m_leftJoy = new Joystick(RobotMap.Controllers.LEFT_JOY);
+	private Joystick m_rightJoy = new Joystick(RobotMap.Controllers.RIGHT_JOY);
+	private XboxController m_xbox = new XboxController(RobotMap.Controllers.XBOX);
 
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
