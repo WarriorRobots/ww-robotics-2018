@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.util.BoundaryException;
  * Code from Team 254, used under the MIT License.
  * This class implements a PID Control Loop.
  * 
- * Does all computation synchronously (i.e. the calculate() function must be called by the user from his own thread)
+ * Does all computation synchronously (i.e. the calculate() function must be called by the user from their own thread)
  */
 public class SynchronousPIDF {
     private double m_P; // factor for "proportional" control
