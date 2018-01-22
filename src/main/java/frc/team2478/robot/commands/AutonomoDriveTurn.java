@@ -20,10 +20,10 @@ public class AutonomoDriveTurn extends CommandBase {
 	}
 	
 	protected void initialize() {
-		motionSensors.resetEncoders();
-		motionSensors.resetNavx();
+		motionSensors.resetAllSensors();
 		m_pid.reset();
 		m_pid.setSetpoint(m_angle);
+		m_timer.reset();
 		m_timer.start();
 	}
 	

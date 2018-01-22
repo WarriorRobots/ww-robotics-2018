@@ -50,9 +50,9 @@ public class MotionSensorsSubsystem extends Subsystem {
 		m_rightEnc.reset();
 	}
 	
-	public void resetSensors() {
+	public void resetAllSensors() {
 		this.resetNavx();
-		this.resetSensors();
+		this.resetEncoders();
 	}
 	
     public void initDefaultCommand() {}
