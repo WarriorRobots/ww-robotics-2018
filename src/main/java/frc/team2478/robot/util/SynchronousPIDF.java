@@ -83,6 +83,7 @@ public class SynchronousPIDF {
      *            the input
      * @param dt
      *            time passed since previous call to calculate
+     * @return PID output to be passed to loop controller.
      */
     public double calculate(double input, double dt) {
         if (dt < 1E-6)
@@ -316,12 +317,12 @@ public class SynchronousPIDF {
     }
 
     /**
-     * Return true if the error is within the tolerance
-     *
+     * Return true if the error is within the tolerance.
+     * @param tolerance Tolerance decimal value.
      * @return true if the error is less than the tolerance
      */
     public boolean onTarget(double tolerance) {
-        return m_last_input != Double.NaN && Math.abs(m_last_input - m_setpoint) < tolerance;
+        return m_last_input != Double.NaN && Math.abs(m_last_input - m_setpoint) < Math.abs(tolerance);
     }
 
     /**

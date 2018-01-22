@@ -3,16 +3,23 @@ package frc.team2478.robot.commands;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutonomoDriveTurn extends CommandBase {
+/**
+ * When run, the robot will turn to the provided angle,
+ * using a PID loop to maintain accuracy and control.
+ */
+public class AutonomoDriveTurn extends AutonomoBase {
 	
 	private double m_angle, m_output;
 	private SynchronousPIDF m_pid;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
 	
+	/**
+	 * Create a new instance of {@link AutonomoDriveStraight}.
+	 * @param angle What angle in degrees to turn towards.
+	 */
 	public AutonomoDriveTurn(double angle) {
 		requires(drivetrain);
 		requires(motionSensors);
@@ -25,7 +32,7 @@ public class AutonomoDriveTurn extends CommandBase {
 	}
 	
 	protected void initialize() {
-		motionSensors.resetAllSensors();
+		super.initialize();
 		m_pid.reset();
 		m_pid.setSetpoint(m_angle);
 		m_timer.reset();
@@ -33,7 +40,7 @@ public class AutonomoDriveTurn extends CommandBase {
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(motionSensors.getAngle(), m_timer.get());
+		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		m_printLooper.println(Double.toString(m_angle));
 		drivetrain.arcadeDriveAutonomo(0, m_output);
 	}
@@ -47,14 +54,8 @@ public class AutonomoDriveTurn extends CommandBase {
 	}
 	
 	protected void end() {
-		drivetrain.stopDrive();
-		motionSensors.resetAllSensors();
+		super.end();
 		m_timer.stop();
 		m_pid.reset();
 	}
-	
-	protected void interrupted() {
-		DriverStation.reportWarning("AutonomoDriveTurn interrupted", false);
-    	this.end();
-    }
 }

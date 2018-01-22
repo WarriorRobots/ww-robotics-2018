@@ -5,29 +5,26 @@ import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * This class instantiates the subsystems used by our robot.
+ * All non-autonomous Commands must extend this class.
+ * For autonomous Commands, extend {@link AutonomoBase}.
+ */
 public abstract class CommandBase extends Command {
 	
-	public static OI oi;
+	protected static OI oi;
 
-	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
-	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	protected static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	protected static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
 	
-	public CommandBase(String name) {
-		super(name);
-	}
-	
-	public CommandBase() {
-		super();
-	}
-	
+	/**
+	 * Initializes OI.java and all subsystems.
+	 */
 	public static void init() {
 		oi = new OI();
 		drivetrain.init();
 		motionSensors.init();
-		SmartDashboard.putData("SchedulerData", Scheduler.getInstance());
 	}
 	
 }

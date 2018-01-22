@@ -7,8 +7,14 @@
 
 package frc.team2478.robot;
 
-public class RobotMap {
-	
+/**
+ * Contains all constants that are used in the program, grouped into subclasses.
+ */
+public final class RobotMap {
+
+	/**
+	 * Contains PID constants. 
+	 */
 	public static final class ClosedLoop {
 		// PID constants
 		public static final double TURNING_P = 0.02325;
@@ -18,6 +24,9 @@ public class RobotMap {
 		public static final double TURNING_TOLERANCE = 0.05;
 	}
 	
+	/**
+	 * Contains Motor / Talon IDs.
+	 */
 	public static final class Motors {
 		// TalonSRX ID codes
 		public static final int LEFT_FRONT = 2;
@@ -25,14 +34,20 @@ public class RobotMap {
 		public static final int RIGHT_FRONT = 1;
 		public static final int RIGHT_BACK = 3;
 	}
-	
+
+	/**
+	 * Contains controller / USB IDs.
+	 */
 	public static final class Controllers {
 		// Joystick / Controller USB ID codes
 		public static final int LEFT_JOY = 1;
 		public static final int RIGHT_JOY = 0;
 		public static final int XBOX = 2;
 	}
-	
+
+	/**
+	 * Contains scaling factors for drive methods.
+	 */
 	public static final class DriveScalars {
 		// alternate driving mode scalars
 		public static final double ARCADE_FORWARDSPEED = 0.5;
@@ -43,5 +58,13 @@ public class RobotMap {
 		public static final double AUTO_SPEED_FORWARDS = 0.6;
 	}
 	
-	public static final class Ports {}
+	/**
+	 * Contains IDs for the RoboRIO DIO ports.
+	 */
+	public static final class DioPorts {}
+	
+	/**
+	 * Contains IDs for the RoboRIO PWM ports.
+	 */
+	public static final class PwmPorts {}
 }

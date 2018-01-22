@@ -1,5 +1,10 @@
 package frc.team2478.robot.util;
 
+/**
+ * Allows access to methods that reduce the amount of printing every loop.
+ * <p>Use this class to avoid having the RoboRIO network overloaded.
+ * @author Alex Vuong
+ */
 public class DebugPrintLooper {
 	
 	private int m_loops;

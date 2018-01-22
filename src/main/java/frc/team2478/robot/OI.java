@@ -16,14 +16,20 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class OI {
+/**
+ * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
+ */
+public final class OI {
 	private Joystick m_leftJoy = new Joystick(RobotMap.Controllers.LEFT_JOY);
 	private Joystick m_rightJoy = new Joystick(RobotMap.Controllers.RIGHT_JOY);
 	private XboxController m_xbox = new XboxController(RobotMap.Controllers.XBOX);
 
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
-
+	
+	/**
+	 * Instantiates a new OI.java object, and maps Commands to buttons.
+	 */
 	public OI() {
 		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
 		m_rightThumbButton.whileHeld(new JoystickAlignment());

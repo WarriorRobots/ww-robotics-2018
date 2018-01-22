@@ -5,3 +5,10 @@
 - second port: black wire goes to inside of RIO, blank PWM goes to middle
 - When holding Encoder so that pins are on bottom half:
 	+ BLACK RED WHITE NONE BLUE wires
+	
+### Programming Advice
+
+- if you are copying code, make a class or method for it!
+- static fields are shared across all instantiations.
+- final classes *cannot* be subclassed
+- favor arcadeDriveAutonomous() instead of Tank Drive

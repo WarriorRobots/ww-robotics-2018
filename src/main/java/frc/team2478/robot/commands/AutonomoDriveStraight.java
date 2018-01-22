@@ -6,13 +6,22 @@ import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
 
-public class AutonomoDriveStraight extends CommandBase {
+/**
+ * When run, the robot will drive straight at the provided distance,
+ * using a PID loop to stay on-course.
+ */
+public class AutonomoDriveStraight extends AutonomoBase {
 	
 	private double m_distanceTarget, m_output, m_leftCount, m_rightCount;
 	private SynchronousPIDF m_pid;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
 	
+	/**
+	 * Create a new instance of {@link AutonomoDriveStraight}.
+	 * @param distance How many encoder clicks to travel.
+	 * <b>TO-DO: Calculate encoder clicks per feet.</b>
+	 */
 	public AutonomoDriveStraight(double distance) {
 		requires(drivetrain);
 		requires(motionSensors);
@@ -25,7 +34,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	}
 	
 	protected void initialize() {
-		motionSensors.resetAllSensors();
+		super.initialize();
 		m_pid.reset();
 		m_pid.setSetpoint(0);
 		m_timer.reset();
@@ -33,7 +42,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(motionSensors.getAngle(), m_timer.get());
+		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		m_leftCount = motionSensors.getLeftEncCount();
 		m_rightCount = motionSensors.getRightEncCount();
@@ -49,8 +58,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	}
 	
 	protected void end() {
-		drivetrain.stopDrive();
-		motionSensors.resetAllSensors();
+		super.end();
 		m_timer.stop();
 		m_pid.reset();
 	}

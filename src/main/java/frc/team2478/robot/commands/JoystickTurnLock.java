@@ -2,6 +2,12 @@ package frc.team2478.robot.commands;
 
 import frc.team2478.robot.RobotMap;
 
+/**
+ * When called, robot will drive identically to {@link JoystickTeleop} unless the sticks are very close in position:
+ * then the robot will drive straight and disregard minute turning movements.
+ * @author avuong0922
+ *
+ */
 public class JoystickTurnLock extends CommandBase {
     
 	public JoystickTurnLock() {
