@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomoGroupTest extends CommandGroup {
 	
 	// put dashboard there  vv
-	public AutonomoGroupTest() {
-		addSequential(new AutonomoDriveStraight(500));
-		addSequential(new AutonomoDriveTurn(-90));
+	public AutonomoGroupTest(double dist1, double turn1) {
+		addSequential(new AutonomoDriveStraight(dist1));
+		addSequential(new AutonomoDriveTurn(turn1));
 	}
 }

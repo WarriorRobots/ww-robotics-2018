@@ -11,6 +11,15 @@ package frc.team2478.robot;
  * Contains all constants that are used in the program, grouped into subclasses.
  */
 public final class RobotMap {
+	
+	public static final class DashboardStrings {
+		// name of Dashboard Widgets
+		public static final String RESET = "RESET";
+		public static final String AUTO_DIST1 = "DIST1";
+		public static final String AUTO_DIST2 = "DIST2";
+		public static final String AUTO_TURN1 = "TURN1";
+		public static final String AUTO_TURN2 = "TURN2";
+	}
 
 	/**
 	 * Contains PID constants. 

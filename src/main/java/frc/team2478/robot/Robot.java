@@ -7,31 +7,31 @@
 
 package frc.team2478.robot;
 
-import frc.team2478.robot.commands.AutonomoDriveStraight;
-import frc.team2478.robot.commands.AutonomoDriveTurnTest;
+import frc.team2478.robot.commands.AutonomoGroupTest;
 import frc.team2478.robot.commands.CommandBase;
+import frc.team2478.robot.util.DashboardHandler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	
-	CommandBase autonomoCommand;
-	SendableChooser<CommandBase> chooser = new SendableChooser<>();
+//	CommandBase autonomoCommand;
+//	SendableChooser<CommandBase> chooser = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
 		CommandBase.init();
-		chooser.addDefault("DEFAULT", new AutonomoDriveStraight(100));
-		chooser.addObject("TWO FEET", new AutonomoDriveStraight(1151));
-		chooser.addObject("TURN PID TUNER", new AutonomoDriveTurnTest());
-		SmartDashboard.putData("Auto Mode", chooser);
+//		chooser.addDefault("DEFAULT", new AutonomoDriveStraight(100));
+//		chooser.addObject("TWO FEET", new AutonomoDriveStraight(1151));
 	}
 	
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putData("Current Command", chooser);
+		DashboardHandler.placeResetButton();
+		if (DashboardHandler.getResetButton()) {
+			DashboardHandler.putWidgets();
+		}
 	}
 
 	@Override
@@ -45,10 +45,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomoCommand = chooser.getSelected();
-		if (autonomoCommand != null) { // starts autonomous automatically
-			autonomoCommand.start();
-		}
+//		autonomoCommand = chooser.getSelected();
+		new AutonomoGroupTest(SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST1, 0),
+							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN1, 0)).start();
 	}
 
 	@Override
