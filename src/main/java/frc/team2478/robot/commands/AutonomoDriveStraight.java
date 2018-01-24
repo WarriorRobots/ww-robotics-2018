@@ -43,14 +43,22 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	
 	protected void execute() {
 		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
-		drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+		
+		if (m_distanceTarget > 0) {
+			drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+		} else if (m_distanceTarget < 0) {
+			drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+		} else {
+			this.interrupted();
+		}
+		
 		m_leftCount = motionSensors.getLeftEncCount();
 		m_rightCount = motionSensors.getRightEncCount();
 		m_printLooper.println(Double.toString(m_leftCount) + " " + Double.toString(m_rightCount));
 	}
 
 	protected boolean isFinished() {
-		if (m_leftCount > m_distanceTarget && m_rightCount > m_distanceTarget) {
+		if (Math.abs(m_leftCount) > Math.abs(m_distanceTarget) && Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) {
 			return true;
 		} else {
 			return false;

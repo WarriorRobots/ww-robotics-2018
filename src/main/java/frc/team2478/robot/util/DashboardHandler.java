@@ -8,7 +8,7 @@ public class DashboardHandler {
 	/**
 	 * Places a reset button on the dashboard.
 	 */
-	public static void placeResetButton() {
+	public static void putResetButton() {
 		SmartDashboard.putBoolean("RESET", false);
 	}
 	
@@ -25,8 +25,10 @@ public class DashboardHandler {
 	 * Places all editable widgets on dashboard.
 	 */
 	public static void putWidgets() {
-		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_DIST1, 300);
+		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_DIST1, 500);
+		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_DIST2, 250);
 		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_TURN1, 90);
+		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_TURN2, 135);
 	}
 	
 }

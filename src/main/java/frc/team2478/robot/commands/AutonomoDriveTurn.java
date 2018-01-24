@@ -23,9 +23,10 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	public AutonomoDriveTurn(double angle) {
 		requires(drivetrain);
 		requires(motionSensors);
-		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
-				 RobotMap.ClosedLoop.TURNING_I,
-				 RobotMap.ClosedLoop.TURNING_D);
+//		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
+//				 RobotMap.ClosedLoop.TURNING_I,
+//				 RobotMap.ClosedLoop.TURNING_D);
+		m_pid = new SynchronousPIDF(0.02325, 0.0005, 0.02225);
 		m_timer = new Timer();
 		m_angle = angle;
 		m_printLooper = new DebugPrintLooper();
@@ -46,7 +47,7 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	}
 
 	protected boolean isFinished() {
-		if (m_pid.onTarget(0.5)) {
+		if (m_pid.onTarget(0.5) || m_timer.get() > 10) {
 			return true;
 		} else {
 			return false;

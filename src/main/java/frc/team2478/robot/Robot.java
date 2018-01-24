@@ -28,14 +28,15 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void robotPeriodic() {
-		DashboardHandler.placeResetButton();
 		if (DashboardHandler.getResetButton()) {
 			DashboardHandler.putWidgets();
+			DashboardHandler.putResetButton();
 		}
 	}
 
 	@Override
 	public void disabledInit() {
+		DashboardHandler.putResetButton();
 		Scheduler.getInstance().removeAll();
 	}
 
@@ -46,8 +47,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomoCommand = chooser.getSelected();
-		new AutonomoGroupTest(SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST1, 0),
-							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN1, 0)).start();
+		new AutonomoGroupTest(SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST1, 100),
+							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST2, 100),
+							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN1, 0),
+							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN2, 0)).start();
 	}
 
 	@Override

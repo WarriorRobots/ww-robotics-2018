@@ -33,3 +33,4 @@ set a mechanical deadband to disable P, and enable I
 https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html (robotmap subclasses)
 
 can't use chooser because we need to change values on the fly
+DEBUG autonomodrivestraight: failure on 0 (use scheduler.getinstance to dashboard)
