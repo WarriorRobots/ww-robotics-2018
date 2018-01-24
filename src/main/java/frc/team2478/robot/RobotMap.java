@@ -55,7 +55,7 @@ public final class RobotMap {
 		public static final double LOCKMODE_TOLERANCE = 0.2;
 //		public static final double TEST_PID_COURSECORRECTION = 0.6;
 		// autonomous scalars
-		public static final double AUTO_SPEED_FORWARDS = 0.6;
+		public static final double AUTO_SPEED_FORWARDS = 0.4; //0.6
 	}
 	
 	/**

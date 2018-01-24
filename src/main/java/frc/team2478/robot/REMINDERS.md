@@ -5,6 +5,10 @@
 - second port: black wire goes to inside of RIO, blank PWM goes to middle
 - When holding Encoder so that pins are on bottom half:
 	+ BLACK RED WHITE NONE BLUE wires
+
+### Grayhill Encoders
+
+- 128 clicks per rotation
 	
 ### Programming Advice
 

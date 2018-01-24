@@ -8,9 +8,8 @@
 package frc.team2478.robot;
 
 import frc.team2478.robot.commands.AutonomoDriveStraight;
-import frc.team2478.robot.commands.AutonomoDriveTurn;
+import frc.team2478.robot.commands.AutonomoDriveTurnTest;
 import frc.team2478.robot.commands.CommandBase;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,16 +23,20 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		CommandBase.init();
-		chooser.addDefault("Default Auto", new AutonomoDriveStraight(100));
-		chooser.addObject("Auto Short", new AutonomoDriveStraight(250));
-		chooser.addObject("Auto Long", new AutonomoDriveStraight(1000));
-		chooser.addObject("Auto Turn", new AutonomoDriveTurn(200));
+		chooser.addDefault("DEFAULT", new AutonomoDriveStraight(100));
+		chooser.addObject("TWO FEET", new AutonomoDriveStraight(1151));
+		chooser.addObject("TURN PID TUNER", new AutonomoDriveTurnTest());
 		SmartDashboard.putData("Auto Mode", chooser);
+	}
+	
+	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putData("Current Command", chooser);
 	}
 
 	@Override
 	public void disabledInit() {
-
+		Scheduler.getInstance().removeAll();
 	}
 
 	@Override
@@ -43,7 +46,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		autonomoCommand = chooser.getSelected();
-		if (autonomoCommand != null) { // stops autonomous automatically
+		if (autonomoCommand != null) { // starts autonomous automatically
 			autonomoCommand.start();
 		}
 	}
@@ -55,9 +58,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autonomoCommand != null) {
-			autonomoCommand.cancel();
-		}
 	}
 
 	@Override
@@ -72,14 +72,5 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void testPeriodic() {
-//		double angle = motionSensors.navx.getAngle();
-//		double output = pidLoop.calculate(angle, timer.get());
-//		
-//		System.out.println("Time: " + Double.toString(timer.get()));
-//		System.out.println("Angle: " + Double.toString(angle));
-//		System.out.println("PID output: " + Double.toString(output));
-//		
-//		drivetrain.differentialDrive.tankDrive(RobotMap.TEST_PID_COURSECORRECTION + output,
-//											   RobotMap.TEST_PID_COURSECORRECTION - output);
 	}
 }
