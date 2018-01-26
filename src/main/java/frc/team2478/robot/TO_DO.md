@@ -34,3 +34,5 @@ https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html (robotmap subcla
 
 can't use chooser because we need to change values on the fly
 DEBUG autonomodrivestraight: failure on 0 (use scheduler.getinstance to dashboard)
+
+method name shorteners

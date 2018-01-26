@@ -22,13 +22,29 @@ public class DashboardHandler {
 	}
 	
 	/**
-	 * Places all editable widgets on dashboard.
+	 * Places all editable autonomous widgets on the dashboard.
 	 */
-	public static void putWidgets() {
+	public static void putAutonomoWidgets() {
 		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_DIST1, 500);
 		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_DIST2, 250);
 		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_TURN1, 90);
 		SmartDashboard.putNumber(RobotMap.DashboardStrings.AUTO_TURN2, 135);
+	}
+	
+	public static double getDist1() {
+		return SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST1, 0);
+	}
+
+	public static double getDist2() {
+		return SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST2, 0);
+	}
+
+	public static double getTurn1() {
+		return SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN1, 0);
+	}
+
+	public static double getTurn2() {
+		return SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN2, 0);
 	}
 	
 }

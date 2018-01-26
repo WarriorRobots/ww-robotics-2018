@@ -12,7 +12,6 @@ import frc.team2478.robot.commands.CommandBase;
 import frc.team2478.robot.util.DashboardHandler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	
@@ -29,7 +28,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 		if (DashboardHandler.getResetButton()) {
-			DashboardHandler.putWidgets();
+			DashboardHandler.putAutonomoWidgets();
 			DashboardHandler.putResetButton();
 		}
 	}
@@ -47,10 +46,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomoCommand = chooser.getSelected();
-		new AutonomoGroupTest(SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST1, 100),
-							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_DIST2, 100),
-							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN1, 0),
-							  SmartDashboard.getNumber(RobotMap.DashboardStrings.AUTO_TURN2, 0)).start();
+		new AutonomoGroupTest(DashboardHandler.getDist1(),
+							  DashboardHandler.getDist2(),
+							  DashboardHandler.getTurn1(),
+							  DashboardHandler.getTurn2()).start();
 	}
 
 	@Override
