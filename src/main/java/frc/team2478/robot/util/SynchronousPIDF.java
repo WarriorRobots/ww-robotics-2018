@@ -205,8 +205,8 @@ public class SynchronousPIDF {
     
     /**
      * Sets the i-zone minimum and maximum for this PID controller.
-     * @param minimumI minimum bound of i; should be negative
-     * @param maximumI maximum bound of i; should be positive
+     * @param minimumI  minimum bound of i; should be negative
+     * @param maximumI  maximum bound of i; should be positive
      */
     public void setIzone(double minimumI, double maximumI) {
     	if (minimumI > maximumI) {
@@ -318,7 +318,7 @@ public class SynchronousPIDF {
 
     /**
      * Return true if the error is within the tolerance.
-     * @param tolerance Tolerance decimal value.
+     * @param tolerance  Tolerance decimal value.
      * @return true if the error is less than the tolerance
      */
     public boolean onTarget(double tolerance) {

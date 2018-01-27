@@ -7,15 +7,16 @@
 
 package frc.team2478.robot;
 
-import frc.team2478.robot.commands.AutonomoGroupTest;
+import frc.team2478.robot.commands.AutonomoDriveTurn;
 import frc.team2478.robot.commands.CommandBase;
 import frc.team2478.robot.util.DashboardHandler;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
 	
-//	CommandBase autonomoCommand;
+	AutonomoDriveTurn autonomoCommand;
 //	SendableChooser<CommandBase> chooser = new SendableChooser<>();
 
 	@Override
@@ -45,15 +46,22 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		autonomoCommand = new AutonomoDriveTurn(DashboardHandler.getTurn1());
+		autonomoCommand.stopAtSetpoint(false);
+		DriverStation.reportWarning("Command will NOT terminate by itself. Caution!", false);
 //		autonomoCommand = chooser.getSelected();
-		new AutonomoGroupTest(DashboardHandler.getDist1(),
-							  DashboardHandler.getDist2(),
-							  DashboardHandler.getTurn1(),
-							  DashboardHandler.getTurn2()).start();
+//		new AutonomoGroupTest(DashboardHandler.getDist1(),
+//							  DashboardHandler.getDist2(),
+//							  DashboardHandler.getTurn1(),
+//							  DashboardHandler.getTurn2()).start();
+		
 	}
 
 	@Override
 	public void autonomousPeriodic() {
+		autonomoCommand.setPID(DashboardHandler.getP(),
+							   DashboardHandler.getI(),
+							   DashboardHandler.getD());
 		Scheduler.getInstance().run();
 	}
 

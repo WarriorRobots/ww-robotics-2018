@@ -15,10 +15,11 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	private SynchronousPIDF m_pid;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
+	private boolean m_stopAtSetpoint = true; // @debug variable
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
-	 * @param angle What angle in degrees to turn towards.
+	 * @param angle  What angle in degrees to turn towards.
 	 */
 	public AutonomoDriveTurn(double angle) {
 		requires(drivetrain);
@@ -30,7 +31,25 @@ public class AutonomoDriveTurn extends AutonomoBase {
 		m_angle = angle;
 		m_printLooper = new DebugPrintLooper();
 	}
+
+	/**
+	 * Set the internal PID constants to new values
+	 * @param p  P gain
+	 * @param i  I gain
+	 * @param d  D gain
+	 */
+	public void setPID(double p, double i, double d) {
+		m_pid.setPID(p, i, d);
+	}
 	
+	/**
+	 * Sets whether Command ends itself after reaching the setpoint
+	 * @param stops  True if you want command to end; false if not
+	 */
+	public void stopAtSetpoint(boolean stops) {
+		m_stopAtSetpoint = stops;
+	}
+
 	protected void initialize() {
 		super.initialize();
 		m_pid.reset();
@@ -46,7 +65,7 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	}
 
 	protected boolean isFinished() {
-		if (m_pid.onTarget(0.5) || m_timer.get() > 10) {
+		if (m_pid.onTarget(0.5) && m_stopAtSetpoint) {
 			return true;
 		} else {
 			return false;
