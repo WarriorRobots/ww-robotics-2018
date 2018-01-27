@@ -1,38 +1,12 @@
-- PID controller up and running
-- drivetrain subsystem
-- motion sensors subsystem
-- autonomous subsystem
-- timer object integrated into PID (pid.calculate()?)
-- alignment mode
-- controller lockmode
-- xboxcontroller mode
+### To-Do (sorted by priority)
 
----
-
-- periodic timer
-- testmode wait()
-- use encoder.getRate() to check for missing (throw error in driver station)
-
----
-
-- update RIO with lifeboat
-- autonomoBase
-
----
-
-electrical guide ppt
-pressure sensors
-cable relief stickybacks / loops
-try/catch joysticks
-modulus PID
-DO NOT PUSH THE ROBOT
-joystick / xbox control scheme switching 
-cubekicker
-set a mechanical deadband to disable P, and enable I
-(justify this) name buttons according to function, not appearance (robotmap uses appearance)
-https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html (robotmap subclasses)
-
-can't use chooser because we need to change values on the fly
-DEBUG autonomodrivestraight: failure on 0 (use scheduler.getinstance to dashboard)
-
-method name shorteners
+- DEBUG AutonomoDriveStraight() to figure out what it does when encoders fail
+- find an alternative to Autonomous SendableChooser because we need to use dashboard variables
+- set a mechanical deadband to disable P, and enable I (alternatively set a minimum P value)
+- map out electrical connections on cardboard sheets (remember to create cable relief loops)
+- use encoder.getRate() to check for disconnected encoders, and throw error in driver station
+- make an electrical build guide for the team
+- write code to integrate pneumatic pressure sensors
+- design a prototype to knock cubes onto their side (pneumatic piston hits)
+- can't use chooser because we need to change values on the fly
+- Control Mode switcher: controls all run from XboxController at press of a button
