@@ -33,7 +33,7 @@ public final class OI {
 
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
-	private Button m_right4Button = new JoystickButton(m_rightJoy, 4);
+//	private Button m_right4Button = new JoystickButton(m_rightJoy, 4);
 	private Button m_leftTriggerButton = new JoystickButton(m_leftJoy, 1);
 	
 	/**

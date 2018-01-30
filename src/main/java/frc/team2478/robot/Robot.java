@@ -7,10 +7,9 @@
 
 package frc.team2478.robot;
 
-import frc.team2478.robot.commands.AutonomoDriveTurn;
+import frc.team2478.robot.commands.AutonomoGroupTest;
 import frc.team2478.robot.commands.CommandBase;
 import frc.team2478.robot.util.DashboardHandler;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -48,9 +47,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		autonomoCommand.setPID(DashboardHandler.getP(),
-							   DashboardHandler.getI(),
-							   DashboardHandler.getD());
 		Scheduler.getInstance().run();
 	}
 
