@@ -7,6 +7,7 @@
 
 package frc.team2478.robot;
 
+import frc.team2478.robot.commands.CameraAlign;
 import frc.team2478.robot.commands.JoystickAlignment;
 import frc.team2478.robot.commands.JoystickTurnLock;
 
@@ -26,6 +27,8 @@ public final class OI {
 
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
+	private Button m_right4Button = new JoystickButton(m_rightJoy, 4);
+	private Button m_leftTriggerButton = new JoystickButton(m_leftJoy, 1);
 	
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -33,6 +36,7 @@ public final class OI {
 	public OI() {
 		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
 		m_rightThumbButton.whileHeld(new JoystickAlignment());
+		m_leftTriggerButton.whileHeld(new CameraAlign()); // change to left trigger
 	}
 
 	/**

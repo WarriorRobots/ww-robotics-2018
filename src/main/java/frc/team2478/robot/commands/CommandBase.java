@@ -1,6 +1,7 @@
 package frc.team2478.robot.commands;
 
 import frc.team2478.robot.OI;
+import frc.team2478.robot.subsystems.CameraSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
@@ -17,6 +18,7 @@ public abstract class CommandBase extends Command {
 
 	protected static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	protected static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	protected static final CameraSubsystem limelight = new CameraSubsystem();
 	
 	/**
 	 * Initializes OI.java and all subsystems.
@@ -25,6 +27,7 @@ public abstract class CommandBase extends Command {
 		oi = new OI();
 		drivetrain.init();
 		motionSensors.init();
+		limelight.init();
 	}
 	
 }

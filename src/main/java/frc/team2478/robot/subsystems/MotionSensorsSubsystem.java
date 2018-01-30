@@ -26,7 +26,6 @@ public final class MotionSensorsSubsystem extends Subsystem {
 			m_navx = new AHRS(I2C.Port.kMXP);
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX MXP: ", true);
-			System.out.println("INITIALIZATION FAILED: navX MXP");
 		}
 	}
 
@@ -77,5 +76,6 @@ public final class MotionSensorsSubsystem extends Subsystem {
 		this.resetEncoders();
 	}
 	
+	@Override
     public void initDefaultCommand() {}
 }
