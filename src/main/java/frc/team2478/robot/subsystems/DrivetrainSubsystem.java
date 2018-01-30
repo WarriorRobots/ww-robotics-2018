@@ -80,6 +80,7 @@ public final class DrivetrainSubsystem extends Subsystem {
 		m_differentialDrive.stopMotor();
 	}
 
+	@Override
     public void initDefaultCommand() {
     	 setDefaultCommand(new JoystickTeleop());
     }
