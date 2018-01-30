@@ -69,7 +69,8 @@ public class AutonomoDriveStraight extends AutonomoBase {
 		} else if (m_distanceTarget < 0) {
 			Robot.drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		} else {
-			this.interrupted();
+			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_distanceTarget), false);
+			this.end();
 		}
 		
 		m_leftCount = Robot.motionSensors.getLeftEncCount();

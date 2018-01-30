@@ -4,6 +4,7 @@ import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AutonomoDriveTurn extends AutonomoBase {
 	
-	private double m_angle, m_output;
+	private double m_angleTarget, m_output;
 	private SynchronousPIDF m_pid;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
@@ -29,7 +30,7 @@ public class AutonomoDriveTurn extends AutonomoBase {
 				 RobotMap.ClosedLoop.TURNING_I,
 				 RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
-		m_angle = angle;
+		m_angleTarget = angle;
 		m_printLooper = new DebugPrintLooper();
 	}
 
@@ -54,14 +55,18 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	protected void initialize() {
 		super.initialize();
 		m_pid.reset();
-		m_pid.setSetpoint(m_angle);
+		m_pid.setSetpoint(m_angleTarget);
 		m_timer.reset();
 		m_timer.start();
 	}
 	
 	protected void execute() {
+		if(!(m_angleTarget > 0) && !(m_angleTarget < 0)) {
+			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_angleTarget), false);
+			this.end();
+		}
 		m_output = m_pid.calculate(Robot.motionSensors.getNavxAngle(), m_timer.get());
-		m_printLooper.println(Double.toString(m_angle));
+		m_printLooper.println(Double.toString(Robot.motionSensors.getNavxAngle()));
 		Robot.drivetrain.arcadeDriveAutonomo(0, m_output);
 	}
 
