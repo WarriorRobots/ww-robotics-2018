@@ -16,14 +16,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
 	
-	AutonomoDriveTurn autonomoCommand;
-//	SendableChooser<CommandBase> chooser = new SendableChooser<>();
-
 	@Override
 	public void robotInit() {
 		CommandBase.init();
-//		chooser.addDefault("DEFAULT", new AutonomoDriveStraight(100));
-//		chooser.addObject("TWO FEET", new AutonomoDriveStraight(1151));
 	}
 	
 	@Override
@@ -41,20 +36,14 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void disabledPeriodic() {
-	}
+	public void disabledPeriodic() {}
 
 	@Override
 	public void autonomousInit() {
-		autonomoCommand = new AutonomoDriveTurn(DashboardHandler.getTurn1());
-		autonomoCommand.stopAtSetpoint(false);
-		DriverStation.reportWarning("Command will NOT terminate by itself. Caution!", false);
-//		autonomoCommand = chooser.getSelected();
-//		new AutonomoGroupTest(DashboardHandler.getDist1(),
-//							  DashboardHandler.getDist2(),
-//							  DashboardHandler.getTurn1(),
-//							  DashboardHandler.getTurn2()).start();
-		
+		new AutonomoGroupTest(DashboardHandler.getDist1(),
+							  DashboardHandler.getDist2(),
+							  DashboardHandler.getTurn1(),
+							  DashboardHandler.getTurn2()).start();
 	}
 
 	@Override
@@ -66,8 +55,7 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-	}
+	public void teleopInit() {}
 
 	@Override
 	public void teleopPeriodic() {
@@ -75,11 +63,8 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void testInit() {
-	}
-	
+	public void testInit() {}
 	
 	@Override
-	public void testPeriodic() {
-	}
+	public void testPeriodic() {}
 }
