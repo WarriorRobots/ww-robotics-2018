@@ -8,16 +8,27 @@
 package frc.team2478.robot;
 
 import frc.team2478.robot.commands.AutonomoGroupTest;
-import frc.team2478.robot.commands.CommandBase;
+import frc.team2478.robot.subsystems.CameraSubsystem;
+import frc.team2478.robot.subsystems.DrivetrainSubsystem;
+import frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 import frc.team2478.robot.util.DashboardHandler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
 	
+	public static OI oi;
+
+	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	public static final MotionSensorsSubsystem motionSensors = new MotionSensorsSubsystem();
+	public static final CameraSubsystem limelight = new CameraSubsystem();
+	
 	@Override
 	public void robotInit() {
-		CommandBase.init();
+		oi = new OI();
+		drivetrain.init();
+		motionSensors.init();
+		limelight.init();
 	}
 	
 	@Override
