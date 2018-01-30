@@ -42,7 +42,7 @@ public final class OI {
 	public OI() {
 		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
 		m_rightThumbButton.whileHeld(new JoystickAlignment());
-		m_leftTriggerButton.whileHeld(new CameraAlign()); // change to left trigger
+		m_leftTriggerButton.whileHeld(new CameraAlign());
 	}
 
 	/**
