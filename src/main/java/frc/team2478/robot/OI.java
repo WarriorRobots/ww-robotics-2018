@@ -21,9 +21,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
  */
 public final class OI {
-	private Joystick m_leftJoy = new Joystick(RobotMap.Controllers.LEFT_JOY);
-	private Joystick m_rightJoy = new Joystick(RobotMap.Controllers.RIGHT_JOY);
-	private XboxController m_xbox = new XboxController(RobotMap.Controllers.XBOX);
+	
+	// Joystick / Controller USB ID codes
+	public static final int LEFT_JOY = 1;
+	public static final int RIGHT_JOY = 0;
+	public static final int XBOX = 2;
+	
+	private Joystick m_leftJoy = new Joystick(LEFT_JOY);
+	private Joystick m_rightJoy = new Joystick(RIGHT_JOY);
+	private XboxController m_xbox = new XboxController(XBOX);
 
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
@@ -41,7 +47,7 @@ public final class OI {
 
 	/**
 	 * Gets Y-value of left joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters joystick output.
 	 * @return Scaled Y-value of left joystick.
 	 */
 	public double getLeftY(double scalingFactor) {
@@ -50,7 +56,7 @@ public final class OI {
 	
 	/**
 	 * Gets Y-value of right joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters joystick output.
 	 * @return Scaled Y-value of right joystick.
 	 */
 	public double getRightY(double scalingFactor) {
@@ -75,7 +81,7 @@ public final class OI {
 	
 	/**
 	 * Gets Y-value of left Xbox joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters Xbox joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 * @return Scaled Y-value of right Xbox joystick.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
@@ -84,7 +90,7 @@ public final class OI {
 
 	/**
 	 * Gets Y-value of right Xbox joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters Xbox joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 * @return Scaled Y-value of right Xbox joystick.
 	 */	
 	public double getXboxRightY(double scalingFactor) {
@@ -109,7 +115,7 @@ public final class OI {
 	
 	/**
 	 * Gets X-value of left joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters joystick output.
 	 * @return Scaled X-value of left joystick.
 	 */
 	public double getLeftX(double scalingFactor) {
@@ -118,7 +124,7 @@ public final class OI {
 
 	/**
 	 * Gets X-value of right joystick multiplied by scalingFactor.
-	 * @param scalingFactor Decimal value that proportionally alters joystick output.
+	 * @param scalingFactor  Decimal value that proportionally alters joystick output.
 	 * @return Scaled X-value of right joystick.
 	 */
 	public double getRightX(double scalingFactor) {

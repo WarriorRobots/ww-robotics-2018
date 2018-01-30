@@ -12,15 +12,6 @@ package frc.team2478.robot;
  */
 public final class RobotMap {
 	
-	public static final class DashboardStrings {
-		// name of Dashboard Widgets
-		public static final String RESET = "RESET";
-		public static final String AUTO_DIST1 = "DIST1";
-		public static final String AUTO_DIST2 = "DIST2";
-		public static final String AUTO_TURN1 = "TURN1";
-		public static final String AUTO_TURN2 = "TURN2";
-	}
-
 	/**
 	 * Contains PID constants. 
 	 */
@@ -31,27 +22,6 @@ public final class RobotMap {
 		public static final double COURSECORRECTION_I = 0.000; //course correction
 		public static final double TURNING_D = 0.02225; //01725 bck
 		public static final double TURNING_TOLERANCE = 0.05;
-	}
-	
-	/**
-	 * Contains Motor / Talon IDs.
-	 */
-	public static final class Motors {
-		// TalonSRX ID codes
-		public static final int LEFT_FRONT = 2;
-		public static final int LEFT_BACK = 4;
-		public static final int RIGHT_FRONT = 1;
-		public static final int RIGHT_BACK = 3;
-	}
-
-	/**
-	 * Contains controller / USB IDs.
-	 */
-	public static final class Controllers {
-		// Joystick / Controller USB ID codes
-		public static final int LEFT_JOY = 1;
-		public static final int RIGHT_JOY = 0;
-		public static final int XBOX = 2;
 	}
 
 	/**

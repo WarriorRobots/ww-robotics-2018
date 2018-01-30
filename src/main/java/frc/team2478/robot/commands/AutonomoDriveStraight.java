@@ -13,9 +13,10 @@ import frc.team2478.robot.util.SynchronousPIDF;
 public class AutonomoDriveStraight extends AutonomoBase {
 	
 	private double m_distanceTarget, m_output, m_leftCount, m_rightCount;
-	private SynchronousPIDF m_pid;
+	private SynchronousPIDF m_pidAngle;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
+	private boolean m_stopAtSetpoint = true; // @debug
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
@@ -25,7 +26,7 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	public AutonomoDriveStraight(double distance) {
 		requires(drivetrain);
 		requires(motionSensors);
-		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
+		m_pidAngle = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
 									RobotMap.ClosedLoop.COURSECORRECTION_I,
 									RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
@@ -33,16 +34,34 @@ public class AutonomoDriveStraight extends AutonomoBase {
 		m_printLooper = new DebugPrintLooper();
 	}
 	
+	/**
+	 * Set the internal PID constants to new values
+	 * @param p  P gain
+	 * @param i  I gain
+	 * @param d  D gain
+	 */
+	public void setPID(double p, double i, double d) {
+		m_pidAngle.setPID(p, i, d);
+	}
+	
+	/**
+	 * Sets whether Command ends itself after reaching the setpoint
+	 * @param stops  True if you want command to end; false if not
+	 */
+	public void stopAtSetpoint(boolean stops) {
+		m_stopAtSetpoint = stops;
+	}
+
 	protected void initialize() {
 		super.initialize();
-		m_pid.reset();
-		m_pid.setSetpoint(0);
+		m_pidAngle.reset();
+		m_pidAngle.setSetpoint(0);
 		m_timer.reset();
 		m_timer.start();
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
+		m_output = m_pidAngle.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		
 		if (m_distanceTarget > 0) {
 			drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
@@ -58,7 +77,8 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	}
 
 	protected boolean isFinished() {
-		if (Math.abs(m_leftCount) > Math.abs(m_distanceTarget) && Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) {
+		if ((Math.abs(m_leftCount) > Math.abs(m_distanceTarget) && Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) &&
+				m_stopAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -68,7 +88,7 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	protected void end() {
 		super.end();
 		m_timer.stop();
-		m_pid.reset();
+		m_pidAngle.reset();
 	}
 	
 	protected void interrupted() {

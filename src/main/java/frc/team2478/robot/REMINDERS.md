@@ -16,3 +16,7 @@
 - static fields are shared across all instantiations.
 - final classes *cannot* be subclassed
 - favor arcadeDriveAutonomous() instead of Tank Drive
+
+### Tuning Shooter
+
+- Feed-forward formula: `(PERCENTAGE_DECIMAL * UNITS_PER_REVOLUTION) / VELOCITY_FROM_ENCODER`
