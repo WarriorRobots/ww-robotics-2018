@@ -21,11 +21,11 @@ public class CameraAlign extends Command {
 	protected void execute() {
 		if (Robot.limelight.doesTargetExist()) {
 			Robot.drivetrain.arcadeDriveAutonomo(
-				Robot.oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
+				Math.pow(Robot.oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED), 2),
 				Robot.limelight.getHorizontalOffset() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			// TO-DO: make consistent with JoystickAligment
-			Robot.drivetrain.arcadeDriveAutonomo(
+			Robot.drivetrain.arcadeDriveTeleop(
 	    			Robot.oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
 	    			Robot.oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
 		}
