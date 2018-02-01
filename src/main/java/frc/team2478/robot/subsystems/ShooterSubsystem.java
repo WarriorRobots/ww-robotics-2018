@@ -6,6 +6,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Instantiates shooter motors and sets up Talon PIDs,
+ * and provides methods for using or altering them.
+ */
 public class ShooterSubsystem extends Subsystem {
 
 	public WPI_TalonSRX m_masterMotor, m_slaveMotor;
@@ -16,7 +20,7 @@ public class ShooterSubsystem extends Subsystem {
 	public final int PROCESS_ID = 0;
 	public final int TIMEOUT_MS = 10;
 	
-	public void init() {
+	public ShooterSubsystem() {
 		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		

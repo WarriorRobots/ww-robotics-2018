@@ -1,9 +1,11 @@
 package frc.team2478.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
  * When called, robot will drive normally using the Y-axes of both joysticks.
  */
-public class JoystickTeleop extends CommandBase {
+public class JoystickTeleop extends Command implements CommandBase {
 	
     public JoystickTeleop() {
     	requires(drivetrain);

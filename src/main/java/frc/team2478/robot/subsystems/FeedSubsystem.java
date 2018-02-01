@@ -5,13 +5,16 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Instantiates feed motors on the robot, and provides methods for using them.
+ */
 public class FeedSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_masterMotor, m_slaveMotor;
 	private final int MASTER_MOTOR = 11;
 	private final int SLAVE_MOTOR = 12;
 	
-	public void init() {
+	public FeedSubsystem() {
 		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		

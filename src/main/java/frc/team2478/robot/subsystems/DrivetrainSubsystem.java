@@ -25,7 +25,7 @@ public final class DrivetrainSubsystem extends Subsystem {
 	/**
 	* Initializes Talons and drivetrain subsystem; run before calling drive functions.
 	*/
-	public void init() {
+	public DrivetrainSubsystem() {
 		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
 		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
 		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);

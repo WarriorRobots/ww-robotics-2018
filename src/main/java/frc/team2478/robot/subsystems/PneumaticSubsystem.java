@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * THIS NEEDS TO BE SPLIT BETWEEN DIFFERENT SUBSYSTEMS!!
+ * Instantiates pneumatics, and provides methods for activating them.
+ */
 public class PneumaticSubsystem extends Subsystem {
 	
 	private DoubleSolenoid m_solenoid;
@@ -12,7 +16,7 @@ public class PneumaticSubsystem extends Subsystem {
 	private final int TEMP1 = 0;
 	private final int TEMP2 = 1;
 	
-	public void init() {
+	public PneumaticSubsystem() {
 		m_solenoid = new DoubleSolenoid(TEMP1, TEMP2);
 		
 		m_compressor = new Compressor(0);

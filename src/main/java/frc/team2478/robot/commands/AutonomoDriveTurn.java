@@ -1,15 +1,16 @@
 package frc.team2478.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * When run, the robot will turn to the provided angle,
  * using a PID loop to maintain accuracy and control.
  */
-public class AutonomoDriveTurn extends AutonomoBase {
+public class AutonomoDriveTurn extends Command implements CommandBase {
 	
 	private double m_angleTarget, m_output;
 	private SynchronousPIDF m_pid;

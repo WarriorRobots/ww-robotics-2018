@@ -5,7 +5,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Instantiates Limelight camera and related Network Table keys.
+ * Instantiates Limelight camera and related Network Table keys,
+ * and provides methods for accessing their data.
  */
 public class CameraSubsystem extends Subsystem {
 
@@ -18,7 +19,7 @@ public class CameraSubsystem extends Subsystem {
 	/**
 	 * Initializes Network Table keys for future use.
 	 */
-	public void init() {
+	public CameraSubsystem() {
 		m_defaultTable = NetworkTableInstance.getDefault();
 		m_visionTable = m_defaultTable.getTable("limelight");
 	}

@@ -2,6 +2,7 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -10,7 +11,7 @@ import frc.team2478.robot.util.SynchronousPIDF;
  * When run, the robot will drive straight at the provided distance,
  * using a PID loop to stay on-course.
  */
-public class AutonomoDriveStraight extends AutonomoBase {
+public class AutonomoDriveStraight extends Command implements CommandBase {
 	
 	private double m_distanceTarget, m_output, m_leftCount, m_rightCount;
 	private SynchronousPIDF m_pidAngle;
@@ -32,6 +33,7 @@ public class AutonomoDriveStraight extends AutonomoBase {
 									RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
 		m_printLooper = new DebugPrintLooper();
+		motionSensors.resetAllSensors();
 	}
 	
 	/**
@@ -92,6 +94,7 @@ public class AutonomoDriveStraight extends AutonomoBase {
 		super.end();
 		m_timer.stop();
 		m_pidAngle.reset();
+		motionSensors.resetAllSensors();
 	}
 	
 	protected void interrupted() {

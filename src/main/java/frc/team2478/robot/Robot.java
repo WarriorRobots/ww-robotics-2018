@@ -8,7 +8,6 @@
 package frc.team2478.robot;
 
 import frc.team2478.robot.commands.AutonomoGroupTest;
-import frc.team2478.robot.commands.CommandBase;
 import frc.team2478.robot.util.DashboardHandler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,9 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
 	
 	@Override
-	public void robotInit() {
-		CommandBase.init();
-	}
+	public void robotInit() {}
 	
 	@Override
 	public void robotPeriodic() {

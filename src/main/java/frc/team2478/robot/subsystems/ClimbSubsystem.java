@@ -5,13 +5,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Instantiates the climb subsystem, including motors and any pneumatics,
+ * and provides methods for using them.
+ */
 public class ClimbSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_masterMotor, m_slaveMotor;
 	private final int MASTER_MOTOR = 13;
 	private final int SLAVE_MOTOR = 14; // may need to be removed
 	
-	public void init() {
+	public ClimbSubsystem() {
 		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		

@@ -1,5 +1,6 @@
 package frc.team2478.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.RobotMap;
 
 /**
@@ -8,7 +9,7 @@ import frc.team2478.robot.RobotMap;
  * @author avuong0922
  *
  */
-public class JoystickTurnLock extends CommandBase {
+public class JoystickTurnLock extends Command implements CommandBase {
     
 	public JoystickTurnLock() {
         requires(drivetrain);

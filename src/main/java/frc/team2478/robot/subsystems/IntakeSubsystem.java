@@ -5,13 +5,16 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Instantiates intake motors, and provides methods for using them.
+ */
 public class IntakeSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_masterMotor, m_slaveMotor;
 	private final int MASTER_MOTOR = 9;
 	private final int SLAVE_MOTOR = 10;
 	
-	public void init() {
+	public IntakeSubsystem() {
 		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		
