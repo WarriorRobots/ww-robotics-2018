@@ -27,11 +27,11 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	public AutonomoDriveStraight(double distance) {
 		requires(Robot.drivetrain);
 		requires(Robot.motionSensors);
+		m_distanceTarget = distance;
 		m_pidAngle = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
 									RobotMap.ClosedLoop.COURSECORRECTION_I,
 									RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
-		m_distanceTarget = distance;
 		m_printLooper = new DebugPrintLooper();
 	}
 	
@@ -59,6 +59,11 @@ public class AutonomoDriveStraight extends AutonomoBase {
 		m_pidAngle.setSetpoint(0);
 		m_timer.reset();
 		m_timer.start();
+		
+		if (m_distanceTarget == 0) {
+			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_distanceTarget), false);
+			this.end();
+		}
 	}
 	
 	protected void execute() {
@@ -68,18 +73,15 @@ public class AutonomoDriveStraight extends AutonomoBase {
 			Robot.drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		} else if (m_distanceTarget < 0) {
 			Robot.drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
-		} else {
-			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_distanceTarget), false);
-			this.end();
 		}
 		
 		m_leftCount = Robot.motionSensors.getLeftEncCount();
 		m_rightCount = Robot.motionSensors.getRightEncCount();
-		m_printLooper.println(Double.toString(m_leftCount) + " " + Double.toString(m_rightCount));
+		m_printLooper.println(Robot.motionSensors.debugAllSensors());
 	}
 
-	protected boolean isFinished() {
-		if ((Math.abs(m_leftCount) > Math.abs(m_distanceTarget) && Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) &&
+	protected boolean isFinished() { // use OR|| to make sure it works even if an encoder loses connection
+		if ((Math.abs(m_leftCount) > Math.abs(m_distanceTarget) || Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) &&
 				m_stopAtSetpoint) {
 			return true;
 		} else {

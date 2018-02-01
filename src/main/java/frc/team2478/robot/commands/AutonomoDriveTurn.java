@@ -61,12 +61,8 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	}
 	
 	protected void execute() {
-		if(!(m_angleTarget > 0) && !(m_angleTarget < 0)) {
-			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_angleTarget), false);
-			this.end();
-		}
 		m_output = m_pid.calculate(Robot.motionSensors.getNavxAngle(), m_timer.get());
-		m_printLooper.println(Double.toString(Robot.motionSensors.getNavxAngle()));
+		m_printLooper.println(Robot.motionSensors.debugAllSensors());
 		Robot.drivetrain.arcadeDriveAutonomo(0, m_output);
 	}
 
