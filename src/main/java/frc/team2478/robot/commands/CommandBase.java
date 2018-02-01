@@ -7,7 +7,7 @@ import frc.team2478.robot.subsystems.MotionSensorsSubsystem;
 
 /**
  * This interface instantiates the subsystems used by our robot.
- * All non-autonomous Commands must implement this interface.
+ * All Commands must implement this interface.
  */
 
 public interface CommandBase {
