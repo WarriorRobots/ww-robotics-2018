@@ -1,26 +1,24 @@
 package frc.team2478.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 
 /**
  * When called, robot will drive in Alignment mode, an implementation of Arcade Drive intended for use in tiny movements on the field.
  * <p>Alignment mode uses only the right joystick: push vertically to drive forwards/backwards, and push sideways to turn.
  */
-public class JoystickAlignment extends Command {
+public class JoystickAlignment extends CommandBase {
 
     public JoystickAlignment() {
-    	requires(Robot.drivetrain);
+    	requires(drivetrain);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.drivetrain.arcadeDriveTeleop(
-    			Robot.oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-    			Robot.oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
+    	drivetrain.arcadeDriveTeleop(
+    			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
+    			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
     }
 
     protected boolean isFinished() {

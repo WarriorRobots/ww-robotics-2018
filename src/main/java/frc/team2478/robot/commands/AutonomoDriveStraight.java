@@ -2,7 +2,6 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -25,8 +24,8 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	 * <b>TO-DO: Calculate encoder clicks per feet.</b>
 	 */
 	public AutonomoDriveStraight(double distance) {
-		requires(Robot.drivetrain);
-		requires(Robot.motionSensors);
+		requires(drivetrain);
+		requires(motionSensors);
 		m_distanceTarget = distance;
 		m_pidAngle = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
 									RobotMap.ClosedLoop.COURSECORRECTION_I,
@@ -67,17 +66,17 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	}
 	
 	protected void execute() {
-		m_output = m_pidAngle.calculate(Robot.motionSensors.getNavxAngle(), m_timer.get());
+		m_output = m_pidAngle.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		
 		if (m_distanceTarget > 0) {
-			Robot.drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+			drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		} else if (m_distanceTarget < 0) {
-			Robot.drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+			drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		}
 		
-		m_leftCount = Robot.motionSensors.getLeftEncCount();
-		m_rightCount = Robot.motionSensors.getRightEncCount();
-		m_printLooper.println(Robot.motionSensors.debugAllSensors());
+		m_leftCount = motionSensors.getLeftEncCount();
+		m_rightCount = motionSensors.getRightEncCount();
+		m_printLooper.println(motionSensors.debugAllSensors());
 	}
 
 	protected boolean isFinished() { // use OR|| to make sure it works even if an encoder loses connection

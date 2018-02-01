@@ -1,7 +1,5 @@
 package frc.team2478.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 
 /**
@@ -10,10 +8,10 @@ import frc.team2478.robot.RobotMap;
  * @author avuong0922
  *
  */
-public class JoystickTurnLock extends Command {
+public class JoystickTurnLock extends CommandBase {
     
 	public JoystickTurnLock() {
-        requires(Robot.drivetrain);
+        requires(drivetrain);
     }
 
     protected void initialize() {}
@@ -21,13 +19,13 @@ public class JoystickTurnLock extends Command {
     protected void execute() {
     	
     	// how far apart are the joystick Y-axes?
-		double difference = Math.abs(Robot.oi.getLeftY() - Robot.oi.getRightY());
-		double average = (Robot.oi.getLeftY() + Robot.oi.getRightY()) / 2;
+		double difference = Math.abs(oi.getLeftY() - oi.getRightY());
+		double average = (oi.getLeftY() + oi.getRightY()) / 2;
 		
     	if (difference < RobotMap.DriveScalars.LOCKMODE_TOLERANCE) {
-    		Robot.drivetrain.tankDriveTeleop(average, average);
+    		drivetrain.tankDriveTeleop(average, average);
     	} else {
-    		Robot.drivetrain.tankDriveTeleop(Robot.oi.getLeftY(), Robot.oi.getRightY());
+    		drivetrain.tankDriveTeleop(oi.getLeftY(), oi.getRightY());
     	}
     	
     }
