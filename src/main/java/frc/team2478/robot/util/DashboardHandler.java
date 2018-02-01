@@ -40,17 +40,12 @@ public class DashboardHandler {
 		SmartDashboard.putNumber(AUTO_TURN2, 135);
 	}
 	
-	@Deprecated
-	public static double getDouble(String key, double defaultval) {
-		return SmartDashboard.getNumber(key, defaultval);
-	}
-	
 	/**
 	 * Gets the first distance value from the dashboard.
 	 * @return Double received from dashboard, 0 if missing
 	 */
 	public static double getDist1() {
-		return SmartDashboard.getNumber(AUTO_DIST1, 0);
+		return SmartDashboard.getNumber(AUTO_DIST1, 500);
 	}
 
 	/**
@@ -58,7 +53,7 @@ public class DashboardHandler {
 	 * @return Double received from dashboard, 0 if missing
 	 */
 	public static double getDist2() {
-		return SmartDashboard.getNumber(AUTO_DIST2, 0);
+		return SmartDashboard.getNumber(AUTO_DIST2, 250);
 	}
 
 	/**
@@ -66,7 +61,7 @@ public class DashboardHandler {
 	 * @return Double received from dashboard, 0 if missing
 	 */
 	public static double getTurn1() {
-		return SmartDashboard.getNumber(AUTO_TURN1, 0);
+		return SmartDashboard.getNumber(AUTO_TURN1, 90);
 	}
 
 	/**
@@ -74,17 +69,17 @@ public class DashboardHandler {
 	 * @return Double received from dashboard, 0 if missing
 	 */
 	public static double getTurn2() {
-		return SmartDashboard.getNumber(AUTO_TURN2, 0);
+		return SmartDashboard.getNumber(AUTO_TURN2, 135);
 	}
 
 	/**
 	* Places PID debug widgets on the dashboard.
 	*/
 	public static void putPidWidgets() {
-		SmartDashboard.putNumber(P_GAIN, 0);
-		SmartDashboard.putNumber(I_GAIN, 0);
-		SmartDashboard.putNumber(D_GAIN, 0);
-		SmartDashboard.putNumber(F_GAIN, 0);
+		SmartDashboard.putNumber(P_GAIN, 500);
+		SmartDashboard.putNumber(I_GAIN, 250);
+		SmartDashboard.putNumber(D_GAIN, 90);
+		SmartDashboard.putNumber(F_GAIN, 135);
 	}
 
 	/**

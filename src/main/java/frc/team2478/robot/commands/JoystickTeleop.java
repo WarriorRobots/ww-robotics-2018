@@ -1,22 +1,19 @@
 package frc.team2478.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Robot;
-
 /**
  * When called, robot will drive normally using the Y-axes of both joysticks.
  */
-public class JoystickTeleop extends Command {
+public class JoystickTeleop extends CommandBase {
 	
     public JoystickTeleop() {
-    	requires(Robot.drivetrain);
+    	requires(drivetrain);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.drivetrain.tankDriveTeleop(Robot.oi.getLeftY(), Robot.oi.getRightY());
+    	drivetrain.tankDriveTeleop(oi.getLeftY(), oi.getRightY());
     }
 
     protected boolean isFinished() {

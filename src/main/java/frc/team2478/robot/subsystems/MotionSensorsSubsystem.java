@@ -76,6 +76,16 @@ public final class MotionSensorsSubsystem extends Subsystem {
 		this.resetEncoders();
 	}
 	
+	/**
+	 * Sends all information into a string.
+	 * @return String containing debug information (send to println)
+	 */
+	public String debugAllSensors() {
+		return "LEFT: " + Double.toString(getLeftEncCount()) +
+			  " RIGHT: " + Double.toString(getRightEncCount()) +
+			  " ANGLE: " + Double.toString(getNavxAngle());
+	}
+	
 	@Override
     public void initDefaultCommand() {}
 }

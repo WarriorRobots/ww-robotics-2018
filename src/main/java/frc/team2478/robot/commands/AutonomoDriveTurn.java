@@ -1,6 +1,5 @@
 package frc.team2478.robot.commands;
 
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AutonomoDriveTurn extends AutonomoBase {
 	
-	private double m_angle, m_output;
+	private double m_angleTarget, m_output;
 	private SynchronousPIDF m_pid;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
@@ -23,13 +22,13 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	 * @param angle  What angle in degrees to turn towards.
 	 */
 	public AutonomoDriveTurn(double angle) {
-		requires(Robot.drivetrain);
-		requires(Robot.motionSensors);
+		requires(drivetrain);
+		requires(motionSensors);
 		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
 				 RobotMap.ClosedLoop.TURNING_I,
 				 RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
-		m_angle = angle;
+		m_angleTarget = angle;
 		m_printLooper = new DebugPrintLooper();
 	}
 
@@ -54,15 +53,15 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	protected void initialize() {
 		super.initialize();
 		m_pid.reset();
-		m_pid.setSetpoint(m_angle);
+		m_pid.setSetpoint(m_angleTarget);
 		m_timer.reset();
 		m_timer.start();
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(Robot.motionSensors.getNavxAngle(), m_timer.get());
-		m_printLooper.println(Double.toString(m_angle));
-		Robot.drivetrain.arcadeDriveAutonomo(0, m_output);
+		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
+		m_printLooper.println(motionSensors.debugAllSensors());
+		drivetrain.arcadeDriveAutonomo(0, m_output);
 	}
 
 	protected boolean isFinished() {

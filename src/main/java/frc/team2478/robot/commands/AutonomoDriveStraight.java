@@ -2,7 +2,6 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.RobotMap;
 import frc.team2478.robot.util.DebugPrintLooper;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -25,13 +24,13 @@ public class AutonomoDriveStraight extends AutonomoBase {
 	 * <b>TO-DO: Calculate encoder clicks per feet.</b>
 	 */
 	public AutonomoDriveStraight(double distance) {
-		requires(Robot.drivetrain);
-		requires(Robot.motionSensors);
+		requires(drivetrain);
+		requires(motionSensors);
+		m_distanceTarget = distance;
 		m_pidAngle = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
 									RobotMap.ClosedLoop.COURSECORRECTION_I,
 									RobotMap.ClosedLoop.TURNING_D);
 		m_timer = new Timer();
-		m_distanceTarget = distance;
 		m_printLooper = new DebugPrintLooper();
 	}
 	
@@ -59,26 +58,29 @@ public class AutonomoDriveStraight extends AutonomoBase {
 		m_pidAngle.setSetpoint(0);
 		m_timer.reset();
 		m_timer.start();
+		
+		if (m_distanceTarget == 0) {
+			DriverStation.reportError("Robot cannot drive a distance of " + Double.toString(m_distanceTarget), false);
+			this.end();
+		}
 	}
 	
 	protected void execute() {
-		m_output = m_pidAngle.calculate(Robot.motionSensors.getNavxAngle(), m_timer.get());
+		m_output = m_pidAngle.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		
 		if (m_distanceTarget > 0) {
-			Robot.drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
+			drivetrain.arcadeDriveAutonomo(RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		} else if (m_distanceTarget < 0) {
-			Robot.drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
-		} else {
-			this.interrupted();
+			drivetrain.arcadeDriveAutonomo(-RobotMap.DriveScalars.AUTO_SPEED_FORWARDS, m_output);
 		}
 		
-		m_leftCount = Robot.motionSensors.getLeftEncCount();
-		m_rightCount = Robot.motionSensors.getRightEncCount();
-		m_printLooper.println(Double.toString(m_leftCount) + " " + Double.toString(m_rightCount));
+		m_leftCount = motionSensors.getLeftEncCount();
+		m_rightCount = motionSensors.getRightEncCount();
+		m_printLooper.println(motionSensors.debugAllSensors());
 	}
 
-	protected boolean isFinished() {
-		if ((Math.abs(m_leftCount) > Math.abs(m_distanceTarget) && Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) &&
+	protected boolean isFinished() { // use OR|| to make sure it works even if an encoder loses connection
+		if ((Math.abs(m_leftCount) > Math.abs(m_distanceTarget) || Math.abs(m_rightCount) > Math.abs(m_distanceTarget)) &&
 				m_stopAtSetpoint) {
 			return true;
 		} else {
