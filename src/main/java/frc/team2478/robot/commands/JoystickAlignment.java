@@ -18,8 +18,8 @@ public class JoystickAlignment extends Command implements CommandBase {
 
     protected void execute() {
     	drivetrain.arcadeDriveTeleop(
-    			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-    			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
+			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
+			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
     }
 
     protected boolean isFinished() {

@@ -1,6 +1,5 @@
 package frc.team2478.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -13,28 +12,24 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public final class DrivetrainSubsystem extends Subsystem {
 
-	public static final int LEFT_FRONT = 2;
-	public static final int LEFT_BACK = 4;
-	public static final int RIGHT_FRONT = 1;
-	public static final int RIGHT_BACK = 3;
+	private static final int LEFT_FRONT = 2;
+	private static final int LEFT_BACK = 4;
+	private static final int RIGHT_FRONT = 1;
+	private static final int RIGHT_BACK = 3;
 	
 	private WPI_TalonSRX m_leftFront, m_leftBack, m_rightFront, m_rightBack;
-	private SpeedControllerGroup m_leftGroup, m_rightGroup;
 	private DifferentialDrive m_differentialDrive;
 	
-	/**
-	* Initializes Talons and drivetrain subsystem; run before calling drive functions.
-	*/
 	public DrivetrainSubsystem() {
 		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
 		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
-		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);
+		m_leftBack.follow(m_leftFront);
 		
 		m_rightFront = new WPI_TalonSRX(RIGHT_FRONT);
 		m_rightBack = new WPI_TalonSRX(RIGHT_BACK);
-		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightBack);
-
-		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
+		m_rightBack.follow(m_leftFront);
+		
+		m_differentialDrive = new DifferentialDrive(m_leftFront, m_rightFront);
 	}
 	
 	/**

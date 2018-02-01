@@ -15,9 +15,6 @@ public final class MotionSensorsSubsystem extends Subsystem {
 	private AHRS m_navx;
 	private Encoder m_leftEnc, m_rightEnc;
 
-	/**
-	* Initializes NavX and encoders subsystem; run before calling drive functions.
-	*/
 	public MotionSensorsSubsystem() {
 		m_leftEnc = new Encoder(2,3); //remove magic numbers
 		m_rightEnc = new Encoder(0,1);

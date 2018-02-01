@@ -16,9 +16,6 @@ public class CameraSubsystem extends Subsystem {
 	private NetworkTable m_visionTable;
 	private NetworkTableInstance m_defaultTable;
 	
-	/**
-	 * Initializes Network Table keys for future use.
-	 */
 	public CameraSubsystem() {
 		m_defaultTable = NetworkTableInstance.getDefault();
 		m_visionTable = m_defaultTable.getTable("limelight");

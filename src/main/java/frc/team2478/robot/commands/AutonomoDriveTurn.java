@@ -13,10 +13,10 @@ import frc.team2478.robot.util.SynchronousPIDF;
 public class AutonomoDriveTurn extends Command implements CommandBase {
 	
 	private double m_angleTarget, m_output;
-	private SynchronousPIDF m_pid;
+	private boolean m_stopsAtSetpoint = true; // @debug variable
+	private SynchronousPIDF m_pidLoop;
 	private Timer m_timer;
 	private DebugPrintLooper m_printLooper;
-	private boolean m_stopAtSetpoint = true; // @debug variable
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
@@ -25,11 +25,15 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	public AutonomoDriveTurn(double angle) {
 		requires(drivetrain);
 		requires(motionSensors);
-		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
-				 RobotMap.ClosedLoop.TURNING_I,
-				 RobotMap.ClosedLoop.TURNING_D);
-		m_timer = new Timer();
+
 		m_angleTarget = angle;
+		
+		m_pidLoop = new SynchronousPIDF(
+			RobotMap.ClosedLoop.TURNING_P,
+			RobotMap.ClosedLoop.TURNING_I,
+			RobotMap.ClosedLoop.TURNING_D);
+		
+		m_timer = new Timer();
 		m_printLooper = new DebugPrintLooper();
 	}
 
@@ -40,33 +44,34 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	 * @param d  D gain
 	 */
 	public void setPID(double p, double i, double d) {
-		m_pid.setPID(p, i, d);
+		m_pidLoop.setPID(p, i, d);
 	}
 	
 	/**
 	 * Sets whether Command ends itself after reaching the setpoint
 	 * @param stops  True if you want command to end; false if not
 	 */
-	public void stopAtSetpoint(boolean stops) {
-		m_stopAtSetpoint = stops;
+	public void willStopAtSetpoint(boolean stops) {
+		m_stopsAtSetpoint = stops;
 	}
 
 	protected void initialize() {
-		super.initialize();
-		m_pid.reset();
-		m_pid.setSetpoint(m_angleTarget);
+		motionSensors.resetAllSensors();
+		m_pidLoop.reset();
+		m_pidLoop.setSetpoint(m_angleTarget);
 		m_timer.reset();
 		m_timer.start();
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		m_printLooper.println(motionSensors.debugAllSensors());
+
+		m_output = m_pidLoop.calculate(motionSensors.getNavxAngle(), m_timer.get());
 		drivetrain.arcadeDriveAutonomo(0, m_output);
 	}
 
 	protected boolean isFinished() {
-		if (m_pid.onTarget(0.5) && m_stopAtSetpoint) {
+		if (m_pidLoop.onTarget(0.5) && m_stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -74,8 +79,9 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	}
 	
 	protected void end() {
-		super.end();
+		motionSensors.resetAllSensors();
 		m_timer.stop();
-		m_pid.reset();
+		m_pidLoop.reset();
+		drivetrain.stopDrive();
 	}
 }

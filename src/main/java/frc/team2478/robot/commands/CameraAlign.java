@@ -10,6 +10,7 @@ import frc.team2478.robot.RobotMap;
 public class CameraAlign extends Command implements CommandBase {
 	
 	private static final double SCALING_FACTOR = 0.02;
+	private static final double TURN_JOYSTICK_THRESHOLD = 0.75;
 	
 	public CameraAlign() {
 		requires(drivetrain);
@@ -18,14 +19,14 @@ public class CameraAlign extends Command implements CommandBase {
 	
 	@Override
 	protected void execute() {
-		if (limelight.doesTargetExist() && Math.abs(oi.getRightX()) < 0.75) {
+		if (limelight.doesTargetExist() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			drivetrain.arcadeDriveAutonomo(
 				oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
 				limelight.getHorizontalOffset() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			drivetrain.arcadeDriveTeleop(
-	    			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-	    			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
+    			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
+    			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
 		}
 	}
 
