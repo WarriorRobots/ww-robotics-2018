@@ -7,13 +7,16 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team2478.robot.commands.AutonomoDriveStraight;
 import frc.team2478.robot.commands.AutonomoGroupTest;
 import frc.team2478.robot.commands.CommandBase;
 import frc.team2478.robot.util.DashboardHandler;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
+	
+	AutonomoDriveStraight autonomoCommand = new AutonomoDriveStraight(2000);
 	
 	@Override
 	public void robotInit() {
@@ -39,10 +42,10 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		new AutonomoGroupTest(DashboardHandler.getDist1(),
-							  DashboardHandler.getDist2(),
-							  DashboardHandler.getTurn1(),
-							  DashboardHandler.getTurn2()).start();
+//		new AutonomoGroupTest(500, -400, 90, -90).start();
+		autonomoCommand.start();
+		autonomoCommand.setDistancePid(0.01, 0, 0);
+		autonomoCommand.willStopAtSetpoint(false);
 	}
 
 	@Override
