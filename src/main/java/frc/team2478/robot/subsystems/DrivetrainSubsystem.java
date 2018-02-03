@@ -14,11 +14,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public final class DrivetrainSubsystem extends Subsystem {
 
 	public static final int LEFT_FRONT = 2;
-	public static final int LEFT_BACK = 4;
-	public static final int RIGHT_FRONT = 1;
-	public static final int RIGHT_BACK = 3;
+	public static final int LEFT_MIDDLE = 4;
+	public static final int LEFT_BACK = 9;
+	public static final int RIGHT_FRONT = 6;
+	public static final int RIGHT_MIDDLE = 7;
+	public static final int RIGHT_BACK = 8;
 	
-	private WPI_TalonSRX m_leftFront, m_leftBack, m_rightFront, m_rightBack;
+	private WPI_TalonSRX m_leftFront, m_leftMiddle, m_leftBack, m_rightFront, m_rightMiddle, m_rightBack;
 	private SpeedControllerGroup m_leftGroup, m_rightGroup;
 	private DifferentialDrive m_differentialDrive;
 	
@@ -27,12 +29,14 @@ public final class DrivetrainSubsystem extends Subsystem {
 	*/
 	public void init() {
 		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
+		m_leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
 		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
-		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftBack);
+		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftMiddle, m_leftBack);
 		
 		m_rightFront = new WPI_TalonSRX(RIGHT_FRONT);
+		m_rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
 		m_rightBack = new WPI_TalonSRX(RIGHT_BACK);
-		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightBack);
+		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightMiddle, m_rightBack);
 
 		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
 	}
