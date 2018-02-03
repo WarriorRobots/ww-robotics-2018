@@ -1,35 +1,40 @@
 package frc.team2478.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 import frc.team2478.robot.commands.JoystickTeleop;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
 public final class DrivetrainSubsystem extends Subsystem {
 
-	private static final int LEFT_FRONT = 2;
-	private static final int LEFT_BACK = 4;
-	private static final int RIGHT_FRONT = 1;
-	private static final int RIGHT_BACK = 3;
+	public static final int LEFT_FRONT = 2;
+	public static final int LEFT_MIDDLE = 4;
+	public static final int LEFT_BACK = 9;
+	public static final int RIGHT_FRONT = 6;
+	public static final int RIGHT_MIDDLE = 7;
+	public static final int RIGHT_BACK = 8;
 	
-	private WPI_TalonSRX m_leftFront, m_leftBack, m_rightFront, m_rightBack;
+	private WPI_TalonSRX m_leftFront, m_leftMiddle, m_leftBack, m_rightFront, m_rightMiddle, m_rightBack;
+	private SpeedControllerGroup m_leftGroup, m_rightGroup;
 	private DifferentialDrive m_differentialDrive;
 	
 	public DrivetrainSubsystem() {
 		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
+		m_leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
 		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
-		m_leftBack.follow(m_leftFront);
+		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftMiddle, m_leftBack);
 		
 		m_rightFront = new WPI_TalonSRX(RIGHT_FRONT);
+		m_rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
 		m_rightBack = new WPI_TalonSRX(RIGHT_BACK);
-		m_rightBack.follow(m_leftFront);
-		
-		m_differentialDrive = new DifferentialDrive(m_leftFront, m_rightFront);
+		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightMiddle, m_rightBack);
+
+		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
 	}
 	
 	/**
