@@ -13,7 +13,7 @@ import frc.team2478.robot.interfaces.DriveInterface;
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
-public class DrivetrainSubsystem extends Subsystem implements DriveInterface, DoubleEncoderInterface {
+public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 
 	public static final int LEFT_FRONT = 2;
 	public static final int LEFT_MIDDLE = 4;
@@ -22,16 +22,9 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface, Do
 	public static final int RIGHT_MIDDLE = 7;
 	public static final int RIGHT_BACK = 8;
 	
-	public static final int LEFT_ENCODER_PORTA = 2;
-	public static final int LEFT_ENCODER_PORTB = 3;
-	public static final int RIGHT_ENCODER_PORTA = 0;
-	public static final int RIGHT_ENCODER_PORTB = 1;
-	
 	private WPI_TalonSRX m_leftFront, m_leftMiddle, m_leftBack, m_rightFront, m_rightMiddle, m_rightBack;
 	private SpeedControllerGroup m_leftGroup, m_rightGroup;
 	private DifferentialDrive m_differentialDrive;
-	
-	private Encoder m_leftEnc, m_rightEnc;
 	
 	public DrivetrainSubsystem() {
 		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
@@ -45,9 +38,6 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface, Do
 		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightMiddle, m_rightBack);
 
 		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
-		
-		m_leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
-		m_rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
 	}
 	
 	/**
@@ -100,42 +90,6 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface, Do
 	@Override
 	public void stopDrive() {
 		m_differentialDrive.stopMotor();
-	}
-
-	@Override
-	public int getEncoderTicks(Side e) {
-		switch(e) {
-		case LEFT:
-			return m_leftEnc.get();
-		case RIGHT:
-			return m_rightEnc.get();
-		default: // compiler will crash without a default statement
-			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
-		}
-	}
-
-	@Override
-	public void resetEncoderTicks(Side e) {
-		switch(e) {
-		case LEFT:
-			m_leftEnc.reset();
-			break;
-		case RIGHT:
-			m_rightEnc.reset();
-			break;
-		}
-	}
-
-	@Override
-	public void resetEncoders() {
-		this.resetEncoderTicks(Side.LEFT);
-		this.resetEncoderTicks(Side.RIGHT);
-	}
-	
-	@Override
-	public void printEncoderData() {
-		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
-						  " RIGHT: " + Double.toString(getEncoderTicks(Side.RIGHT)));
 	}
 
 	@Override

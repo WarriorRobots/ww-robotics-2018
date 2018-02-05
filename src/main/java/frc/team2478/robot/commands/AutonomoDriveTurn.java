@@ -2,30 +2,41 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.RobotMap;
-import frc.team2478.robot.util.DebugPrintLooper;
+import frc.team2478.robot.interfaces.DoubleEncoderInterface;
+import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.GyroscopeInterface;
 import frc.team2478.robot.util.SynchronousPIDF;
 
 /**
  * When run, the robot will turn to the provided angle,
  * using a PID loop to maintain accuracy and control.
  */
-public class AutonomoDriveTurn extends Command implements CommandBase {
+public class AutonomoDriveTurn extends Command {
+	
+	private DriveInterface m_drivetrain;
+	private DoubleEncoderInterface m_encoders;
+	private GyroscopeInterface m_gyro;
 	
 	private double m_angleTarget, m_output;
 	private boolean m_stopsAtSetpoint = true; // @debug variable
 	private SynchronousPIDF m_pidLoop;
 	private Timer m_timer;
-	private DebugPrintLooper m_printLooper;
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
-	public AutonomoDriveTurn(double angle) {
-		requires(drivetrain);
-		requires(motionSensors);
-
+	public AutonomoDriveTurn(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
+							 double angle) {
+		m_drivetrain = drivetrain;
+		m_encoders = encoders;
+		m_gyro = gyro;
+		requires((Subsystem) m_drivetrain);
+		requires((Subsystem) m_encoders);
+		requires((Subsystem) m_gyro);
+		
 		m_angleTarget = angle;
 		
 		m_pidLoop = new SynchronousPIDF(
@@ -34,7 +45,6 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 			RobotMap.ClosedLoop.TURNING_D);
 		
 		m_timer = new Timer();
-		m_printLooper = new DebugPrintLooper();
 	}
 
 	/**
@@ -56,7 +66,7 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	}
 
 	protected void initialize() {
-		motionSensors.resetAllSensors();
+		m_encoders.resetEncoders();
 		m_pidLoop.reset();
 		m_pidLoop.setSetpoint(m_angleTarget);
 		m_timer.reset();
@@ -64,10 +74,9 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	}
 	
 	protected void execute() {
-		m_printLooper.println(motionSensors.debugAllSensors());
-
-		m_output = m_pidLoop.calculate(motionSensors.getNavxAngle(), m_timer.get());
-		drivetrain.arcadeDriveAutonomo(0, m_output);
+		m_encoders.printEncoderData();
+		m_output = m_pidLoop.calculate(m_gyro.getAngle(), m_timer.get());
+		m_drivetrain.arcadeDriveRaw(0, m_output);
 	}
 
 	protected boolean isFinished() {
@@ -79,9 +88,9 @@ public class AutonomoDriveTurn extends Command implements CommandBase {
 	}
 	
 	protected void end() {
-		motionSensors.resetAllSensors();
+		m_encoders.resetEncoders();
 		m_timer.stop();
 		m_pidLoop.reset();
-		drivetrain.stopDrive();
+		m_drivetrain.stopDrive();
 	}
 }
