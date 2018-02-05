@@ -3,12 +3,13 @@ package frc.team2478.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team2478.robot.interfaces.CameraInterface;
 
 /**
  * Instantiates Limelight camera and related Network Table keys,
  * and provides methods for accessing their data.
  */
-public class CameraSubsystem extends Subsystem {
+public class LimelightSubsystem extends Subsystem implements CameraInterface {
 
 	// TO-DO: getTargetArea and getTargetSkew
 	// - write Javadoc documentation
@@ -16,7 +17,7 @@ public class CameraSubsystem extends Subsystem {
 	private NetworkTable m_visionTable;
 	private NetworkTableInstance m_defaultTable;
 	
-	public CameraSubsystem() {
+	public LimelightSubsystem() {
 		m_defaultTable = NetworkTableInstance.getDefault();
 		m_visionTable = m_defaultTable.getTable("limelight");
 	}
@@ -25,7 +26,7 @@ public class CameraSubsystem extends Subsystem {
 	 * Returns true if the Limelight has picked up a vision target.
 	 * @return True if target found, false by default.
 	 */
-	public boolean doesTargetExist() {
+	public boolean doesObjectExist() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target
 		return (m_visionTable.getEntry("tv").getDouble(0) == 1)
@@ -36,7 +37,7 @@ public class CameraSubsystem extends Subsystem {
 	 * Gets the horizontal distance between the camera's center and current vision target.
 	 * @return Double representing vision target's offset from the Y axis.
 	 */
-	public double getHorizontalOffset() {
+	public double getObjectX() {
 		return m_visionTable.getEntry("tx").getDouble(0);
 	}
 	
@@ -44,7 +45,7 @@ public class CameraSubsystem extends Subsystem {
 	 * Gets the vertical distance between the camera's center and current vision target.
 	 * @return Double representing vision target's offset from the X axis.
 	 */
-	public double getVerticalOffset() {
+	public double getObjectY() {
 		return m_visionTable.getEntry("ty").getDouble(0);
 	}
 	

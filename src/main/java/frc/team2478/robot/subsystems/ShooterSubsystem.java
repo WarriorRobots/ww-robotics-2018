@@ -5,12 +5,13 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team2478.robot.interfaces.MotorInterface;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
  * and provides methods for using or altering them.
  */
-public class ShooterSubsystem extends Subsystem {
+public class ShooterSubsystem extends Subsystem implements MotorInterface {
 
 	public WPI_TalonSRX m_masterMotor, m_slaveMotor;
 	
@@ -39,11 +40,12 @@ public class ShooterSubsystem extends Subsystem {
 		m_masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
-	@Deprecated
+	@Override
 	public void setPercentage(double percent) {
 		m_masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	@Override
 	public void stop() {
 		m_masterMotor.stopMotor();
 	}

@@ -19,10 +19,10 @@ public class CameraAlign extends Command implements CommandBase {
 	
 	@Override
 	protected void execute() {
-		if (limelight.doesTargetExist() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+		if (limelight.doesObjectExist() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			drivetrain.arcadeDriveAutonomo(
 				oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-				limelight.getHorizontalOffset() * SCALING_FACTOR); // spins to line up camera with cube
+				limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			drivetrain.arcadeDriveTeleop(
     			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
