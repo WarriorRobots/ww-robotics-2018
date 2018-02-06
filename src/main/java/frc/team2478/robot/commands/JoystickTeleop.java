@@ -10,20 +10,20 @@ import frc.team2478.robot.util.ControlHandler;
  */
 public class JoystickTeleop extends Command {
 	
-	private DriveInterface m_drivetrain;
-	private ControlHandler m_oi;
+	private DriveInterface drivetrain;
+	private ControlHandler oi;
 	
     public JoystickTeleop(ControlHandler oi, DriveInterface drivetrain) {
-    	m_drivetrain = drivetrain;
+    	this.drivetrain = drivetrain;
     	requires((Subsystem) drivetrain);
-    	m_oi = oi;
+    	this.oi = oi;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	m_drivetrain.tankDriveSquared(m_oi.getLeftY(), m_oi.getRightY());
+    	drivetrain.tankDriveSquared(oi.getLeftY(), oi.getRightY());
     }
 
     protected boolean isFinished() {

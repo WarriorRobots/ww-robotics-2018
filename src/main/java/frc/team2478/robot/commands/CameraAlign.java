@@ -16,28 +16,28 @@ public class CameraAlign extends Command {
 	private static final double SCALING_FACTOR = 0.02;
 	private static final double TURN_JOYSTICK_THRESHOLD = 0.75;
 
-	private DriveInterface m_drivetrain;
-	private CameraInterface m_limelight;
-	private ControlHandler m_oi;
+	private DriveInterface drivetrain;
+	private CameraInterface limelight;
+	private ControlHandler oi;
 	
 	public CameraAlign(ControlHandler oi, DriveInterface drivetrain, CameraInterface limelight) {
-		m_drivetrain = drivetrain;
-		m_limelight = limelight;
+		this.drivetrain = drivetrain;
+		this.limelight = limelight;
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) limelight);
-		m_oi = oi;
+		this.oi = oi;
 	}
 	
 	@Override
 	protected void execute() {
-		if (m_limelight.doesObjectExist() && Math.abs(m_oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
-			m_drivetrain.arcadeDriveRaw(
-				m_oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-				m_limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
+		if (limelight.doesObjectExist() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+			drivetrain.arcadeDriveRaw(
+				oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+				limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
-			m_drivetrain.arcadeDriveSquared(
-    			m_oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-    			m_oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
+			drivetrain.arcadeDriveSquared(
+    			oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+    			oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
 		}
 	}
 

@@ -13,11 +13,11 @@ import frc.team2478.robot.interfaces.GyroscopeInterface;
  */
 public class NavxSubsystem extends Subsystem implements GyroscopeInterface, AccelerometerInterface {
 
-	private AHRS m_navx;
+	private AHRS navx;
 
 	public NavxSubsystem() {
 		try {
-			m_navx = new AHRS(I2C.Port.kMXP);
+			navx = new AHRS(I2C.Port.kMXP);
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX MXP: ", true);
 		}
@@ -28,46 +28,46 @@ public class NavxSubsystem extends Subsystem implements GyroscopeInterface, Acce
 
 	@Override
 	public double getAccelX() {
-		return m_navx.getWorldLinearAccelX();
+		return navx.getWorldLinearAccelX();
 	}
 
 	@Override
 	public double getAccelY() {
-		return m_navx.getWorldLinearAccelY();
+		return navx.getWorldLinearAccelY();
 	}
 
 	@Override
 	public double getAccelZ() {
-		return m_navx.getWorldLinearAccelZ();
+		return navx.getWorldLinearAccelZ();
 	}
 
 	@Override
 	public double getPitch() {
-		return m_navx.getPitch();
+		return navx.getPitch();
 	}
 
 	@Override
 	public double getRoll() {
-		return m_navx.getRoll();
+		return navx.getRoll();
 	}
 
 	@Override
 	public double getYaw() {
-		return m_navx.getYaw();
+		return navx.getYaw();
 	}
 
 	@Override
 	public void resetYaw() {
-		m_navx.zeroYaw();
+		navx.zeroYaw();
 	}
 
 	@Override
 	public double getAngle() {
-		return m_navx.getAngle();
+		return navx.getAngle();
 	}
 
 	@Override
 	public void resetAngle() {
-		m_navx.zeroYaw();
+		navx.zeroYaw();
 	}
 }

@@ -12,22 +12,22 @@ import frc.team2478.robot.util.ControlHandler;
  */
 public class JoystickAlignment extends Command {
 
-	private DriveInterface m_drivetrain;
-	private ControlHandler m_oi;
+	private DriveInterface drivetrain;
+	private ControlHandler oi;
 	
     public JoystickAlignment(ControlHandler oi, DriveInterface drivetrain) {
-    	m_drivetrain = drivetrain;
-    	requires((Subsystem) m_drivetrain);
-    	m_oi = oi;
+    	this.drivetrain = drivetrain;
+    	requires((Subsystem) drivetrain);
+    	this.oi = oi;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	m_drivetrain.arcadeDriveSquared(
-			m_oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-			m_oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
+    	drivetrain.arcadeDriveSquared(
+			oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+			oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
     }
 
     protected boolean isFinished() {

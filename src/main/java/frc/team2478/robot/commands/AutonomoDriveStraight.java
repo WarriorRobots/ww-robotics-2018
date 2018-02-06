@@ -16,16 +16,16 @@ import frc.team2478.robot.util.SynchronousPIDF;
  */
 public class AutonomoDriveStraight extends Command {
 	
-	private DriveInterface m_drivetrain;
-	private DoubleEncoderInterface m_encoders;
-	private GyroscopeInterface m_gyro;
+	private DriveInterface drivetrain;
+	private DoubleEncoderInterface encoders;
+	private GyroscopeInterface gyro;
 	
-	private double m_distanceTarget, m_leftCount, m_rightCount;
-	private double m_avgDistance, m_angleOutput, m_distanceOutput;
-	private boolean m_stopsAtSetpoint = true; // @debug
+	private double distanceTarget, leftCount, rightCount;
+	private double avgDistance, angleOutput, distanceOutput;
+	private boolean stopsAtSetpoint = true; // @debug
 
-	private SynchronousPIDF m_pidAngle, m_pidDistance;
-	private Timer m_timer;
+	private SynchronousPIDF pidAngle, pidDistance;
+	private Timer timer;
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
@@ -33,25 +33,25 @@ public class AutonomoDriveStraight extends Command {
 	 */
 	public AutonomoDriveStraight(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
 								 double distance) {
-		m_drivetrain = drivetrain;
-		m_encoders = encoders;
-		m_gyro = gyro;
-		requires((Subsystem) m_drivetrain);
-		requires((Subsystem) m_encoders);
-		requires((Subsystem) m_gyro);
+		this.drivetrain = drivetrain;
+		this.encoders = encoders;
+		this.gyro = gyro;
+		requires((Subsystem) drivetrain);
+		requires((Subsystem) encoders);
+		requires((Subsystem) gyro);
 		
-		m_distanceTarget = distance;
+		distanceTarget = distance;
 
-		m_pidAngle = new SynchronousPIDF( // default vals
+		pidAngle = new SynchronousPIDF( // default vals
 			Constants.ClosedLoop.TURNING_P,
 			Constants.ClosedLoop.COURSECORRECTION_I,
 			Constants.ClosedLoop.TURNING_D);
-		m_pidDistance = new SynchronousPIDF(
+		pidDistance = new SynchronousPIDF(
 			Constants.ClosedLoop.DISTANCE_P,
 			Constants.ClosedLoop.DISTANCE_I,
 			Constants.ClosedLoop.DISTANCE_D);
 
-		m_timer = new Timer();
+		timer = new Timer();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class AutonomoDriveStraight extends Command {
 	 * @param d  D gain
 	 */
 	public void setAngularPid(double p, double i, double d) {
-		m_pidAngle.setPID(p, i, d);
+		pidAngle.setPID(p, i, d);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class AutonomoDriveStraight extends Command {
 	 * @param d  D gain
 	 */
 	public void setDistancePid(double p, double i, double d) {
-		m_pidDistance.setPID(p, i, d);
+		pidDistance.setPID(p, i, d);
 	}
 	
 	/**
@@ -80,33 +80,33 @@ public class AutonomoDriveStraight extends Command {
 	 * @param stops  True if you want command to end; false if not
 	 */
 	public void willStopAtSetpoint(boolean stops) {
-		m_stopsAtSetpoint = stops;
+		stopsAtSetpoint = stops;
 	}
 
 	protected void initialize() {
-		m_encoders.resetEncoders();
-		m_pidDistance.reset();
-		m_pidDistance.setSetpoint(m_distanceTarget); // needs an iZone
-		m_pidAngle.reset();
-		m_pidAngle.setSetpoint(0);
-		m_timer.reset();
-		m_timer.start();
+		encoders.resetEncoders();
+		pidDistance.reset();
+		pidDistance.setSetpoint(distanceTarget); // needs an iZone
+		pidAngle.reset();
+		pidAngle.setSetpoint(0);
+		timer.reset();
+		timer.start();
 	}
 	
 	protected void execute() {
-		m_leftCount = m_encoders.getEncoderTicks(Side.LEFT);
-		m_rightCount = m_encoders.getEncoderTicks(Side.RIGHT);
-		m_encoders.printEncoderData();
+		leftCount = encoders.getEncoderTicks(Side.LEFT);
+		rightCount = encoders.getEncoderTicks(Side.RIGHT);
+		encoders.printEncoderData();
 		
-		m_avgDistance = (m_leftCount + m_rightCount) / 2;
-		m_angleOutput = m_pidAngle.calculate(m_gyro.getAngle(), m_timer.get());
-		m_distanceOutput = m_pidDistance.calculate(m_avgDistance, m_timer.get());
+		avgDistance = (leftCount + rightCount) / 2;
+		angleOutput = pidAngle.calculate(gyro.getAngle(), timer.get());
+		distanceOutput = pidDistance.calculate(avgDistance, timer.get());
 		
-		m_drivetrain.arcadeDriveRaw(m_distanceOutput, m_angleOutput);
+		drivetrain.arcadeDriveRaw(distanceOutput, angleOutput);
 	}
 
 	protected boolean isFinished() {
-		if (m_pidDistance.onTarget(0.5) && m_stopsAtSetpoint) {
+		if (pidDistance.onTarget(0.5) && stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -114,10 +114,10 @@ public class AutonomoDriveStraight extends Command {
 	}
 	
 	protected void end() {
-		m_drivetrain.stopDrive();
-		m_encoders.resetEncoders();
-		m_timer.stop();
-		m_pidDistance.reset();
-		m_pidAngle.reset();
+		drivetrain.stopDrive();
+		encoders.resetEncoders();
+		timer.stop();
+		pidDistance.reset();
+		pidAngle.reset();
 	}
 }

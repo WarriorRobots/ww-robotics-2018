@@ -21,16 +21,12 @@ import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.NavxSubsystem;
 import frc.team2478.robot.util.ControlHandler;
 import frc.team2478.robot.util.ControlHandler.ButtonName;
-import frc.team2478.robot.util.DashboardHandler;
 
 public class Robot extends TimedRobot {
-	
-//	AutonomoDriveStraight autonomoCommand = new AutonomoDriveStraight(2000);
 	
 	public static final int LEFT_JOY = 1;
 	public static final int RIGHT_JOY = 0;
 	public static final int XBOX = 2;
-	
 	
 	private static final DriveEncoderSubsystem encoders = new DriveEncoderSubsystem();
 	private static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
@@ -45,7 +41,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		leftJoy = new Joystick(LEFT_JOY);
 		rightJoy = new Joystick(RIGHT_JOY);
-		xbox = new XboxController(2);
+		xbox = new XboxController(XBOX);
 		oi = new ControlHandler(leftJoy, rightJoy, xbox);
 		oi.whileHeld(ButtonName.LEFT_TRIGGER, new CameraAlign(oi, drivetrain, limelight));
 		oi.whileHeld(ButtonName.RIGHT_THUMB, new JoystickAlignment(oi, drivetrain));

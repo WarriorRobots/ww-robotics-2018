@@ -12,29 +12,29 @@ import frc.team2478.robot.interfaces.DriveInterface;
  */
 public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 
-	public static final int LEFT_FRONT = 2;
-	public static final int LEFT_MIDDLE = 4;
-	public static final int LEFT_BACK = 9;
-	public static final int RIGHT_FRONT = 6;
-	public static final int RIGHT_MIDDLE = 7;
-	public static final int RIGHT_BACK = 8;
+	public static final int LEFT_FRONT = 4;
+	public static final int LEFT_MIDDLE = 5;
+	public static final int LEFT_BACK = 6;
+	public static final int RIGHT_FRONT = 1;
+	public static final int RIGHT_MIDDLE = 2;
+	public static final int RIGHT_BACK = 3;
 	
-	private WPI_TalonSRX m_leftFront, m_leftMiddle, m_leftBack, m_rightFront, m_rightMiddle, m_rightBack;
-	private SpeedControllerGroup m_leftGroup, m_rightGroup;
-	private DifferentialDrive m_differentialDrive;
+	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
+	private SpeedControllerGroup leftGroup, rightGroup;
+	private DifferentialDrive differentialDrive;
 	
 	public DrivetrainSubsystem() {
-		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
-		m_leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
-		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
-		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftMiddle, m_leftBack);
+		leftFront = new WPI_TalonSRX(LEFT_FRONT);
+		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
+		leftBack = new WPI_TalonSRX(LEFT_BACK);
+		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
 		
-		m_rightFront = new WPI_TalonSRX(RIGHT_FRONT);
-		m_rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
-		m_rightBack = new WPI_TalonSRX(RIGHT_BACK);
-		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightMiddle, m_rightBack);
+		rightFront = new WPI_TalonSRX(RIGHT_FRONT);
+		rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
+		rightBack = new WPI_TalonSRX(RIGHT_BACK);
+		rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
 
-		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
+		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	 */
 	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	 */
 	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
-		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	 */
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
-		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
+		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	 */
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
-		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
+		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	 */
 	@Override
 	public void stopDrive() {
-		m_differentialDrive.stopMotor();
+		differentialDrive.stopMotor();
 	}
 
 	@Override

@@ -14,24 +14,24 @@ public class FeedSubsystem extends Subsystem implements MotorInterface {
 	private final int MASTER_MOTOR = 11;
 	private final int SLAVE_MOTOR = 12;
 
-	private WPI_TalonSRX m_masterMotor, m_slaveMotor;
+	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	public FeedSubsystem() {
-		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
-		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
+		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
+		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		
-		//m_slaveMotor.setInverted(true);
-		m_slaveMotor.follow(m_masterMotor);
+		//slaveMotor.setInverted(true);
+		slaveMotor.follow(masterMotor);
 	}
 	
 	@Override
 	public void setPercentage(double percent) {
-		m_masterMotor.set(ControlMode.PercentOutput, percent);
+		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
 	@Override
 	public void stop() {
-		m_masterMotor.stopMotor();
+		masterMotor.stopMotor();
 	}
 	
 	@Override

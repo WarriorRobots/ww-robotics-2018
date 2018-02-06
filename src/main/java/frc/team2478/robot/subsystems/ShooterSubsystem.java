@@ -13,7 +13,7 @@ import frc.team2478.robot.interfaces.MotorInterface;
  */
 public class ShooterSubsystem extends Subsystem implements MotorInterface {
 
-	public WPI_TalonSRX m_masterMotor, m_slaveMotor;
+	public WPI_TalonSRX masterMotor, slaveMotor;
 	
 	public final int MASTER_MOTOR = 7;
 	public final int SLAVE_MOTOR = 8;
@@ -22,39 +22,39 @@ public class ShooterSubsystem extends Subsystem implements MotorInterface {
 	public final int TIMEOUT_MS = 10;
 	
 	public ShooterSubsystem() {
-		m_masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
-		m_slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
+		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
+		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		
-		//m_slaveMotor.setInverted(true);
-		m_slaveMotor.follow(m_masterMotor);
+		//slaveMotor.setInverted(true);
+		slaveMotor.follow(masterMotor);
 		
-		m_masterMotor.configSelectedFeedbackSensor(
+		masterMotor.configSelectedFeedbackSensor(
 				FeedbackDevice.QuadEncoder,
 				PROCESS_ID,
 				TIMEOUT_MS);
 		
-		m_masterMotor.setSensorPhase(true);
+		masterMotor.setSensorPhase(true);
 	}
 	
 	public void setVelocity(double velocity) {
-		m_masterMotor.set(ControlMode.Velocity, velocity);
+		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
 	@Override
 	public void setPercentage(double percent) {
-		m_masterMotor.set(ControlMode.PercentOutput, percent);
+		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
 	@Override
 	public void stop() {
-		m_masterMotor.stopMotor();
+		masterMotor.stopMotor();
 	}
 	
 	public void setPID(double p, double i, double d, double f) {
-		m_masterMotor.config_kP(PROCESS_ID, p, TIMEOUT_MS);
-		m_masterMotor.config_kI(PROCESS_ID, i, TIMEOUT_MS);
-		m_masterMotor.config_kD(PROCESS_ID, d, TIMEOUT_MS); 
-		m_masterMotor.config_kF(PROCESS_ID, f, TIMEOUT_MS);
+		masterMotor.config_kP(PROCESS_ID, p, TIMEOUT_MS);
+		masterMotor.config_kI(PROCESS_ID, i, TIMEOUT_MS);
+		masterMotor.config_kD(PROCESS_ID, d, TIMEOUT_MS); 
+		masterMotor.config_kF(PROCESS_ID, f, TIMEOUT_MS);
 	}
 	
 	@Override

@@ -14,12 +14,12 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	// TO-DO: getTargetArea and getTargetSkew
 	// - write Javadoc documentation
 	
-	private NetworkTable m_visionTable;
-	private NetworkTableInstance m_defaultTable;
+	private NetworkTable visionTable;
+	private NetworkTableInstance defaultTable;
 	
 	public LimelightSubsystem() {
-		m_defaultTable = NetworkTableInstance.getDefault();
-		m_visionTable = m_defaultTable.getTable("limelight");
+		defaultTable = NetworkTableInstance.getDefault();
+		visionTable = defaultTable.getTable("limelight");
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	public boolean doesObjectExist() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target
-		return (m_visionTable.getEntry("tv").getDouble(0) == 1)
+		return (visionTable.getEntry("tv").getDouble(0) == 1)
 				? true : false;
 	}
 	
@@ -38,7 +38,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	 * @return Double representing vision target's offset from the Y axis.
 	 */
 	public double getObjectX() {
-		return m_visionTable.getEntry("tx").getDouble(0);
+		return visionTable.getEntry("tx").getDouble(0);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	 * @return Double representing vision target's offset from the X axis.
 	 */
 	public double getObjectY() {
-		return m_visionTable.getEntry("ty").getDouble(0);
+		return visionTable.getEntry("ty").getDouble(0);
 	}
 	
 	@Override

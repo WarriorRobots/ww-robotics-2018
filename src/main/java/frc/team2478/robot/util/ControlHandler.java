@@ -19,13 +19,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public final class ControlHandler {
 
-	private Joystick m_leftJoy, m_rightJoy;
-	private XboxController m_xbox;
+	private Joystick leftJoy, rightJoy;
+	private XboxController xbox;
 	
-	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
-	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
-//	private Button m_right4Button = new JoystickButton(m_rightJoy, 4);
-	private Button m_leftTriggerButton = new JoystickButton(m_leftJoy, 1);
+	private Button rightTriggerButton = new JoystickButton(rightJoy, 1);
+	private Button rightThumbButton = new JoystickButton(rightJoy, 2);
+//	private Button right4Button = new JoystickButton(rightJoy, 4);
+	private Button leftTriggerButton = new JoystickButton(leftJoy, 1);
 	
 	public enum ButtonName {
 		RIGHT_TRIGGER, RIGHT_THUMB, LEFT_TRIGGER
@@ -35,12 +35,12 @@ public final class ControlHandler {
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
 	 */
 	public ControlHandler(Joystick leftJoy, Joystick rightJoy, XboxController xbox) {
-//		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
-//		m_rightThumbButton.whileHeld(new JoystickAlignment());
-//		m_leftTriggerButton.whileHeld(new CameraAlign());
-		m_leftJoy = leftJoy;
-		m_rightJoy = rightJoy;
-		m_xbox = xbox;
+//		rightTriggerButton.whileHeld(new JoystickTurnLock());
+//		rightThumbButton.whileHeld(new JoystickAlignment());
+//		leftTriggerButton.whileHeld(new CameraAlign());
+		this.leftJoy = leftJoy;
+		this.rightJoy = rightJoy;
+		this.xbox = xbox;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public final class ControlHandler {
 	 * @return Scaled Y-value of left joystick.
 	 */
 	public double getLeftY(double scalingFactor) {
-		return -m_leftJoy.getY() * scalingFactor;
+		return -leftJoy.getY() * scalingFactor;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public final class ControlHandler {
 	 * @return Scaled Y-value of right joystick.
 	 */
 	public double getRightY(double scalingFactor) {
-		return -m_rightJoy.getY() * scalingFactor;
+		return -rightJoy.getY() * scalingFactor;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public final class ControlHandler {
 	 * @return Scaled Y-value of right Xbox joystick.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
-		return m_xbox.getX(Hand.kLeft);
+		return xbox.getX(Hand.kLeft);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public final class ControlHandler {
 	 * @return Scaled Y-value of right Xbox joystick.
 	 */	
 	public double getXboxRightY(double scalingFactor) {
-		return m_xbox.getX(Hand.kRight);
+		return xbox.getX(Hand.kRight);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public final class ControlHandler {
 	 * @return Scaled X-value of left joystick.
 	 */
 	public double getLeftX(double scalingFactor) {
-		return m_leftJoy.getX() * scalingFactor;
+		return leftJoy.getX() * scalingFactor;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public final class ControlHandler {
 	 * @return Scaled X-value of right joystick.
 	 */
 	public double getRightX(double scalingFactor) {
-		return m_rightJoy.getX() * scalingFactor;
+		return rightJoy.getX() * scalingFactor;
 	}
 
 	/**
@@ -147,9 +147,9 @@ public final class ControlHandler {
 	
 	public void whileHeld(ButtonName button, Command command) {
 		switch (button) {
-		case LEFT_TRIGGER: m_leftTriggerButton.whileHeld(command);
-		case RIGHT_THUMB: m_rightThumbButton.whileHeld(command);
-		case RIGHT_TRIGGER: m_rightTriggerButton.whileHeld(command);
+		case LEFT_TRIGGER: leftTriggerButton.whileHeld(command);
+		case RIGHT_THUMB: rightThumbButton.whileHeld(command);
+		case RIGHT_TRIGGER: rightTriggerButton.whileHeld(command);
 		}
 	}
 	
@@ -158,7 +158,7 @@ public final class ControlHandler {
 //	* @return true if pressed, false otherwise
 //	*/
 //	public boolean getRightTriggerButton() {
-//		return m_rightTriggerButton.get();
+//		return rightTriggerButton.get();
 //	}
 //	
 //	/**
@@ -166,6 +166,6 @@ public final class ControlHandler {
 //	* @return true if pressed, false otherwise
 //	*/
 //	public boolean getRightThumbButton() {
-//		return m_rightThumbButton.get();
+//		return rightThumbButton.get();
 //	}
 }

@@ -14,29 +14,27 @@ import frc.team2478.robot.util.ControlHandler;
  */
 public class JoystickTurnLock extends Command {
     
-	private DriveInterface m_drivetrain;
-	private ControlHandler m_oi;
+	private DriveInterface drivetrain;
+	private ControlHandler oi;
 	
 	public JoystickTurnLock(ControlHandler oi, DriveInterface drivetrain) {
-        m_drivetrain = drivetrain;
+        this.drivetrain = drivetrain;
 		requires((Subsystem) drivetrain);
-		m_oi = oi;
+		this.oi = oi;
     }
 
     protected void initialize() {}
 
     protected void execute() {
-    	
     	// how far apart are the joystick Y-axes?
-		double difference = Math.abs(m_oi.getLeftY() - m_oi.getRightY());
-		double average = (m_oi.getLeftY() + m_oi.getRightY()) / 2;
+		double difference = Math.abs(oi.getLeftY() - oi.getRightY());
+		double average = (oi.getLeftY() + oi.getRightY()) / 2;
 		
     	if (difference < Constants.DriveScalars.LOCKMODE_TOLERANCE) {
-    		m_drivetrain.tankDriveSquared(average, average);
+    		drivetrain.tankDriveSquared(average, average);
     	} else {
-    		m_drivetrain.tankDriveSquared(m_oi.getLeftY(), m_oi.getRightY());
-    	}
-    	
+    		drivetrain.tankDriveSquared(oi.getLeftY(), oi.getRightY());
+    	}	
     }
 
     protected boolean isFinished() {

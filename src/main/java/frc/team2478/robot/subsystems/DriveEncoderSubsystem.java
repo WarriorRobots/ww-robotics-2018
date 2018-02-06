@@ -11,18 +11,18 @@ public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInt
 	public static final int RIGHT_ENCODER_PORTA = 0;
 	public static final int RIGHT_ENCODER_PORTB = 1;
 	
-	private Encoder m_leftEnc, m_rightEnc;
+	private Encoder leftEnc, rightEnc;
 	
 	public DriveEncoderSubsystem() {
-		m_leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
-		m_rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
+		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
+		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
 	}
 	
 	@Override
 	public int getEncoderTicks(Side e) {
 		switch(e) {
-		case LEFT: return m_leftEnc.get();
-		case RIGHT: return m_rightEnc.get();
+		case LEFT: return leftEnc.get();
+		case RIGHT: return rightEnc.get();
 		default: // compiler will crash without a default statement
 			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
 		}
@@ -32,10 +32,10 @@ public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInt
 	public void resetEncoderTicks(Side e) {
 		switch(e) {
 		case LEFT:
-			m_leftEnc.reset();
+			leftEnc.reset();
 			break;
 		case RIGHT:
-			m_rightEnc.reset();
+			rightEnc.reset();
 			break;
 		}
 	}

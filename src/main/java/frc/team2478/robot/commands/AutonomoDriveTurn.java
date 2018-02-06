@@ -15,14 +15,14 @@ import frc.team2478.robot.util.SynchronousPIDF;
  */
 public class AutonomoDriveTurn extends Command {
 	
-	private DriveInterface m_drivetrain;
-	private DoubleEncoderInterface m_encoders;
-	private GyroscopeInterface m_gyro;
+	private DriveInterface drivetrain;
+	private DoubleEncoderInterface encoders;
+	private GyroscopeInterface gyro;
 	
-	private double m_angleTarget, m_output;
-	private boolean m_stopsAtSetpoint = true; // @debug variable
-	private SynchronousPIDF m_pidLoop;
-	private Timer m_timer;
+	private double angleTarget, output;
+	private boolean stopsAtSetpoint = true; // @debug variable
+	private SynchronousPIDF pidLoop;
+	private Timer timer;
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
@@ -30,21 +30,21 @@ public class AutonomoDriveTurn extends Command {
 	 */
 	public AutonomoDriveTurn(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
 							 double angle) {
-		m_drivetrain = drivetrain;
-		m_encoders = encoders;
-		m_gyro = gyro;
-		requires((Subsystem) m_drivetrain);
-		requires((Subsystem) m_encoders);
-		requires((Subsystem) m_gyro);
+		this.drivetrain = drivetrain;
+		this.encoders = encoders;
+		this.gyro = gyro;
+		requires((Subsystem) drivetrain);
+		requires((Subsystem) encoders);
+		requires((Subsystem) gyro);
 		
-		m_angleTarget = angle;
+		angleTarget = angle;
 		
-		m_pidLoop = new SynchronousPIDF(
+		pidLoop = new SynchronousPIDF(
 			Constants.ClosedLoop.TURNING_P,
 			Constants.ClosedLoop.TURNING_I,
 			Constants.ClosedLoop.TURNING_D);
 		
-		m_timer = new Timer();
+		timer = new Timer();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class AutonomoDriveTurn extends Command {
 	 * @param d  D gain
 	 */
 	public void setPID(double p, double i, double d) {
-		m_pidLoop.setPID(p, i, d);
+		pidLoop.setPID(p, i, d);
 	}
 	
 	/**
@@ -62,25 +62,25 @@ public class AutonomoDriveTurn extends Command {
 	 * @param stops  True if you want command to end; false if not
 	 */
 	public void willStopAtSetpoint(boolean stops) {
-		m_stopsAtSetpoint = stops;
+		stopsAtSetpoint = stops;
 	}
 
 	protected void initialize() {
-		m_encoders.resetEncoders();
-		m_pidLoop.reset();
-		m_pidLoop.setSetpoint(m_angleTarget);
-		m_timer.reset();
-		m_timer.start();
+		encoders.resetEncoders();
+		pidLoop.reset();
+		pidLoop.setSetpoint(angleTarget);
+		timer.reset();
+		timer.start();
 	}
 	
 	protected void execute() {
-		m_encoders.printEncoderData();
-		m_output = m_pidLoop.calculate(m_gyro.getAngle(), m_timer.get());
-		m_drivetrain.arcadeDriveRaw(0, m_output);
+		encoders.printEncoderData();
+		output = pidLoop.calculate(gyro.getAngle(), timer.get());
+		drivetrain.arcadeDriveRaw(0, output);
 	}
 
 	protected boolean isFinished() {
-		if (m_pidLoop.onTarget(0.5) && m_stopsAtSetpoint) {
+		if (pidLoop.onTarget(0.5) && stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -88,9 +88,9 @@ public class AutonomoDriveTurn extends Command {
 	}
 	
 	protected void end() {
-		m_encoders.resetEncoders();
-		m_timer.stop();
-		m_pidLoop.reset();
-		m_drivetrain.stopDrive();
+		encoders.resetEncoders();
+		timer.stop();
+		pidLoop.reset();
+		drivetrain.stopDrive();
 	}
 }
