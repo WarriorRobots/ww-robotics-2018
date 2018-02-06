@@ -26,7 +26,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	 * Returns true if the Limelight has picked up a vision target.
 	 * @return True if target found, false by default.
 	 */
-	public boolean doesObjectExist() {
+	public boolean canSeeObject() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target
 		return (visionTable.getEntry("tv").getDouble(0) == 1)

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.interfaces.CameraInterface;
-import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 import frc.team2478.robot.util.ControlHandler;
 
 /**
@@ -16,11 +16,11 @@ public class CameraAlign extends Command {
 	private static final double SCALING_FACTOR = 0.02;
 	private static final double TURN_JOYSTICK_THRESHOLD = 0.75;
 
-	private DriveInterface drivetrain;
+	private DrivetrainInterface drivetrain;
 	private CameraInterface limelight;
 	private ControlHandler oi;
 	
-	public CameraAlign(ControlHandler oi, DriveInterface drivetrain, CameraInterface limelight) {
+	public CameraAlign(ControlHandler oi, DrivetrainInterface drivetrain, CameraInterface limelight) {
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) limelight);
 		this.drivetrain = drivetrain;
@@ -30,7 +30,7 @@ public class CameraAlign extends Command {
 	
 	@Override
 	protected void execute() {
-		if (limelight.doesObjectExist() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+		if (limelight.canSeeObject() && Math.abs(oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			drivetrain.arcadeDriveRaw(
 				oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
 				limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube

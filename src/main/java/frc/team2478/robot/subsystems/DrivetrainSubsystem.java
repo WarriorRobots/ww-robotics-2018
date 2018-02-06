@@ -5,12 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
-public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
+public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterface {
 
 	public static final int LEFT_FRONT = 4;
 	public static final int LEFT_MIDDLE = 5;

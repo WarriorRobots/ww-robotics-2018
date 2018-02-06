@@ -2,9 +2,9 @@ package frc.team2478.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.interfaces.DoubleEncoderInterface;
+import frc.team2478.robot.interfaces.DriveEncoderInterface;
 
-public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInterface {
+public class DriveEncoderSubsystem extends Subsystem implements DriveEncoderInterface {
 
 	public static final int LEFT_ENCODER_PORTA = 2;
 	public static final int LEFT_ENCODER_PORTB = 3;
@@ -19,8 +19,8 @@ public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInt
 	}
 	
 	@Override
-	public int getEncoderTicks(Side e) {
-		switch(e) {
+	public int getEncoderTicks(Side side) {
+		switch(side) {
 		case LEFT: return leftEnc.get();
 		case RIGHT: return rightEnc.get();
 		default: // compiler will crash without a default statement
@@ -29,8 +29,8 @@ public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInt
 	}
 
 	@Override
-	public void resetEncoderTicks(Side e) {
-		switch(e) {
+	public void resetEncoderTicks(Side side) {
+		switch(side) {
 		case LEFT:
 			leftEnc.reset();
 			break;

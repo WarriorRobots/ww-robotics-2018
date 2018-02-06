@@ -3,7 +3,7 @@ package frc.team2478.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 import frc.team2478.robot.util.ControlHandler;
 
 /**
@@ -12,10 +12,10 @@ import frc.team2478.robot.util.ControlHandler;
  */
 public class JoystickAlignment extends Command {
 
-	private DriveInterface drivetrain;
+	private DrivetrainInterface drivetrain;
 	private ControlHandler oi;
 	
-    public JoystickAlignment(ControlHandler oi, DriveInterface drivetrain) {
+    public JoystickAlignment(ControlHandler oi, DrivetrainInterface drivetrain) {
     	requires((Subsystem) drivetrain);
         this.drivetrain = drivetrain;
     	this.oi = oi;

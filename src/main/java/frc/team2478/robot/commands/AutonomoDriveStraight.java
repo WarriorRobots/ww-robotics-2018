@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DoubleEncoderInterface;
-import frc.team2478.robot.interfaces.DoubleEncoderInterface.Side;
-import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.DriveEncoderInterface;
+import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 import frc.team2478.robot.interfaces.GyroscopeInterface;
 import frc.team2478.robot.util.SynchronousPIDF;
 
@@ -16,8 +16,8 @@ import frc.team2478.robot.util.SynchronousPIDF;
  */
 public class AutonomoDriveStraight extends Command {
 	
-	private DriveInterface drivetrain;
-	private DoubleEncoderInterface encoders;
+	private DrivetrainInterface drivetrain;
+	private DriveEncoderInterface encoders;
 	private GyroscopeInterface gyro;
 	
 	private double distanceTarget, leftCount, rightCount;
@@ -31,7 +31,7 @@ public class AutonomoDriveStraight extends Command {
 	 * Create a new instance of {@link AutonomoDriveStraight}.
 	 * @param distance How many encoder clicks to travel.
 	 */
-	public AutonomoDriveStraight(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
+	public AutonomoDriveStraight(DrivetrainInterface drivetrain, DriveEncoderInterface encoders, GyroscopeInterface gyro,
 								 double distance) {
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) encoders);

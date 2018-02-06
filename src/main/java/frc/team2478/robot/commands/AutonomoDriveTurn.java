@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DoubleEncoderInterface;
-import frc.team2478.robot.interfaces.DriveInterface;
+import frc.team2478.robot.interfaces.DriveEncoderInterface;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 import frc.team2478.robot.interfaces.GyroscopeInterface;
 import frc.team2478.robot.util.SynchronousPIDF;
 
@@ -15,8 +15,8 @@ import frc.team2478.robot.util.SynchronousPIDF;
  */
 public class AutonomoDriveTurn extends Command {
 	
-	private DriveInterface drivetrain;
-	private DoubleEncoderInterface encoders;
+	private DrivetrainInterface drivetrain;
+	private DriveEncoderInterface encoders;
 	private GyroscopeInterface gyro;
 	
 	private double angleTarget, output;
@@ -28,7 +28,7 @@ public class AutonomoDriveTurn extends Command {
 	 * Create a new instance of {@link AutonomoDriveStraight}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
-	public AutonomoDriveTurn(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
+	public AutonomoDriveTurn(DrivetrainInterface drivetrain, DriveEncoderInterface encoders, GyroscopeInterface gyro,
 							 double angle) {
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) encoders);
