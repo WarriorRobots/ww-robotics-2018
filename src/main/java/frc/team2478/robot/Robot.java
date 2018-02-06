@@ -7,29 +7,62 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.team2478.robot.commands.AutonomoDriveStraight;
+import frc.team2478.robot.commands.AutonomoGroupTest;
+import frc.team2478.robot.commands.CameraAlign;
+import frc.team2478.robot.commands.JoystickAlignment;
+import frc.team2478.robot.commands.JoystickTurnLock;
+import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
+import frc.team2478.robot.subsystems.DrivetrainSubsystem;
+import frc.team2478.robot.subsystems.LimelightSubsystem;
+import frc.team2478.robot.subsystems.NavxSubsystem;
+import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.util.ControlHandler.ButtonName;
 import frc.team2478.robot.util.DashboardHandler;
 
 public class Robot extends TimedRobot {
 	
-	AutonomoDriveStraight autonomoCommand = new AutonomoDriveStraight(2000);
+//	AutonomoDriveStraight autonomoCommand = new AutonomoDriveStraight(2000);
+	
+	public static final int LEFT_JOY = 1;
+	public static final int RIGHT_JOY = 0;
+	public static final int XBOX = 2;
+	
+	
+	private static final DriveEncoderSubsystem encoders = new DriveEncoderSubsystem();
+	private static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	private static final NavxSubsystem navx = new NavxSubsystem();
+	private static final LimelightSubsystem limelight = new LimelightSubsystem();
+
+	private static Joystick leftJoy, rightJoy;
+	private static XboxController xbox;
+	private static ControlHandler oi;
 	
 	@Override
-	public void robotInit() {}
+	public void robotInit() {
+		leftJoy = new Joystick(LEFT_JOY);
+		rightJoy = new Joystick(RIGHT_JOY);
+		xbox = new XboxController(2);
+		oi = new ControlHandler(leftJoy, rightJoy, xbox);
+		oi.whileHeld(ButtonName.LEFT_TRIGGER, new CameraAlign(oi, drivetrain, limelight));
+		oi.whileHeld(ButtonName.RIGHT_THUMB, new JoystickAlignment(oi, drivetrain));
+		oi.whileHeld(ButtonName.RIGHT_TRIGGER, new JoystickTurnLock(oi, drivetrain));
+	}
 	
 	@Override
 	public void robotPeriodic() {
-		if (DashboardHandler.getResetButton()) {
-			DashboardHandler.putAutonomoWidgets();
-			DashboardHandler.putResetButton();
-		}
+//		if (DashboardHandler.getResetButton()) {
+//			DashboardHandler.putAutonomoWidgets();
+//			DashboardHandler.putResetButton();
+//		}
 	}
 
 	@Override
 	public void disabledInit() {
-		DashboardHandler.putResetButton();
+//		DashboardHandler.putResetButton();
 		Scheduler.getInstance().removeAll();
 	}
 
@@ -38,10 +71,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-//		new AutonomoGroupTest(500, -400, 90, -90).start();
-		autonomoCommand.start();
-		autonomoCommand.setDistancePid(0.01, 0, 0);
-		autonomoCommand.willStopAtSetpoint(false);
+		// use null detector to prevent injuries
+		new AutonomoGroupTest(drivetrain, encoders, navx).start();
 	}
 
 	@Override
@@ -50,7 +81,9 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {}
+	public void teleopInit() {
+		Scheduler.getInstance().removeAll();
+	}
 
 	@Override
 	public void teleopPeriodic() {

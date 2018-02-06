@@ -3,7 +3,7 @@ package frc.team2478.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.RobotMap;
+import frc.team2478.robot.Constants;
 import frc.team2478.robot.interfaces.DoubleEncoderInterface;
 import frc.team2478.robot.interfaces.DoubleEncoderInterface.Side;
 import frc.team2478.robot.interfaces.DriveInterface;
@@ -43,13 +43,13 @@ public class AutonomoDriveStraight extends Command {
 		m_distanceTarget = distance;
 
 		m_pidAngle = new SynchronousPIDF( // default vals
-			RobotMap.ClosedLoop.TURNING_P,
-			RobotMap.ClosedLoop.COURSECORRECTION_I,
-			RobotMap.ClosedLoop.TURNING_D);
+			Constants.ClosedLoop.TURNING_P,
+			Constants.ClosedLoop.COURSECORRECTION_I,
+			Constants.ClosedLoop.TURNING_D);
 		m_pidDistance = new SynchronousPIDF(
-			RobotMap.ClosedLoop.DISTANCE_P,
-			RobotMap.ClosedLoop.DISTANCE_I,
-			RobotMap.ClosedLoop.DISTANCE_D);
+			Constants.ClosedLoop.DISTANCE_P,
+			Constants.ClosedLoop.DISTANCE_I,
+			Constants.ClosedLoop.DISTANCE_D);
 
 		m_timer = new Timer();
 	}

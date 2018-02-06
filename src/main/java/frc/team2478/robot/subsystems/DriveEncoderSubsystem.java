@@ -21,10 +21,8 @@ public class DriveEncoderSubsystem extends Subsystem implements DoubleEncoderInt
 	@Override
 	public int getEncoderTicks(Side e) {
 		switch(e) {
-		case LEFT:
-			return m_leftEnc.get();
-		case RIGHT:
-			return m_rightEnc.get();
+		case LEFT: return m_leftEnc.get();
+		case RIGHT: return m_rightEnc.get();
 		default: // compiler will crash without a default statement
 			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
 		}

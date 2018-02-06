@@ -10,7 +10,7 @@ package frc.team2478.robot;
 /**
  * Contains all constants that are used in the program, grouped into subclasses.
  */
-public final class RobotMap {
+public final class Constants {
 	
 	/**
 	 * Contains PID constants. 
@@ -22,7 +22,7 @@ public final class RobotMap {
 		public static final double COURSECORRECTION_I = 0.000; //course correction
 		public static final double TURNING_D = 0.02225; //01725 bck
 		public static final double TURNING_TOLERANCE = 0.05;
-		public static final double DISTANCE_P = 0;
+		public static final double DISTANCE_P = 0.01;
 		public static final double DISTANCE_I = 0;
 		public static final double DISTANCE_D = 0;
 	}

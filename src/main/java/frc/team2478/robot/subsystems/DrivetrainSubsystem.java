@@ -2,12 +2,9 @@ package frc.team2478.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.team2478.robot.commands.JoystickTeleop;
-import frc.team2478.robot.interfaces.DoubleEncoderInterface;
 import frc.team2478.robot.interfaces.DriveInterface;
 
 /**
@@ -93,7 +90,5 @@ public class DrivetrainSubsystem extends Subsystem implements DriveInterface {
 	}
 
 	@Override
-	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickTeleop());
-	}
+	public void initDefaultCommand() {}
 }

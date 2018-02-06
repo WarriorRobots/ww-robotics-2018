@@ -5,44 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team2478.robot;
+package frc.team2478.robot.util;
 
-import frc.team2478.robot.commands.CameraAlign;
-import frc.team2478.robot.commands.JoystickAlignment;
-import frc.team2478.robot.commands.JoystickTurnLock;
-
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
  */
-public final class OI {
-	
-	// Joystick / Controller USB ID codes
-	public static final int LEFT_JOY = 1;
-	public static final int RIGHT_JOY = 0;
-	public static final int XBOX = 2;
-	
-	private Joystick m_leftJoy = new Joystick(LEFT_JOY);
-	private Joystick m_rightJoy = new Joystick(RIGHT_JOY);
-	private XboxController m_xbox = new XboxController(XBOX);
+public final class ControlHandler {
 
+	private Joystick m_leftJoy, m_rightJoy;
+	private XboxController m_xbox;
+	
 	private Button m_rightTriggerButton = new JoystickButton(m_rightJoy, 1);
 	private Button m_rightThumbButton = new JoystickButton(m_rightJoy, 2);
 //	private Button m_right4Button = new JoystickButton(m_rightJoy, 4);
 	private Button m_leftTriggerButton = new JoystickButton(m_leftJoy, 1);
 	
+	public enum ButtonName {
+		RIGHT_TRIGGER, RIGHT_THUMB, LEFT_TRIGGER
+	}
+	
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
 	 */
-	public OI() {
-		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
-		m_rightThumbButton.whileHeld(new JoystickAlignment());
-		m_leftTriggerButton.whileHeld(new CameraAlign());
+	public ControlHandler(Joystick leftJoy, Joystick rightJoy, XboxController xbox) {
+//		m_rightTriggerButton.whileHeld(new JoystickTurnLock());
+//		m_rightThumbButton.whileHeld(new JoystickAlignment());
+//		m_leftTriggerButton.whileHeld(new CameraAlign());
+		m_leftJoy = leftJoy;
+		m_rightJoy = rightJoy;
+		m_xbox = xbox;
 	}
 
 	/**
@@ -147,19 +145,27 @@ public final class OI {
 		return this.getRightX(1);
 	}
 	
-	/**
-	* Gets state of right trigger button.
-	* @return true if pressed, false otherwise
-	*/
-	public boolean getRightTriggerButton() {
-		return m_rightTriggerButton.get();
+	public void whileHeld(ButtonName button, Command command) {
+		switch (button) {
+		case LEFT_TRIGGER: m_leftTriggerButton.whileHeld(command);
+		case RIGHT_THUMB: m_rightThumbButton.whileHeld(command);
+		case RIGHT_TRIGGER: m_rightTriggerButton.whileHeld(command);
+		}
 	}
 	
-	/**
-	* Gets state of right thumb button.
-	* @return true if pressed, false otherwise
-	*/
-	public boolean getRightThumbButton() {
-		return m_rightThumbButton.get();
-	}
+//	/**
+//	* Gets state of right trigger button.
+//	* @return true if pressed, false otherwise
+//	*/
+//	public boolean getRightTriggerButton() {
+//		return m_rightTriggerButton.get();
+//	}
+//	
+//	/**
+//	* Gets state of right thumb button.
+//	* @return true if pressed, false otherwise
+//	*/
+//	public boolean getRightThumbButton() {
+//		return m_rightThumbButton.get();
+//	}
 }
