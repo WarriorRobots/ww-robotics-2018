@@ -21,10 +21,10 @@ public class CameraAlign extends Command {
 	private ControlHandler oi;
 	
 	public CameraAlign(ControlHandler oi, DriveInterface drivetrain, CameraInterface limelight) {
-		this.drivetrain = drivetrain;
-		this.limelight = limelight;
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) limelight);
+		this.drivetrain = drivetrain;
+		this.limelight = limelight;
 		this.oi = oi;
 	}
 	

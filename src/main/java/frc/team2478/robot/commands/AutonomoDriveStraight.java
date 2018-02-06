@@ -33,12 +33,12 @@ public class AutonomoDriveStraight extends Command {
 	 */
 	public AutonomoDriveStraight(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
 								 double distance) {
-		this.drivetrain = drivetrain;
-		this.encoders = encoders;
-		this.gyro = gyro;
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) encoders);
 		requires((Subsystem) gyro);
+		this.drivetrain = drivetrain;
+		this.encoders = encoders;
+		this.gyro = gyro;
 		
 		distanceTarget = distance;
 

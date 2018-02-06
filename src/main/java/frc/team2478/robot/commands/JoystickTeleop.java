@@ -14,8 +14,8 @@ public class JoystickTeleop extends Command {
 	private ControlHandler oi;
 	
     public JoystickTeleop(ControlHandler oi, DriveInterface drivetrain) {
-    	this.drivetrain = drivetrain;
     	requires((Subsystem) drivetrain);
+        this.drivetrain = drivetrain;
     	this.oi = oi;
     }
 

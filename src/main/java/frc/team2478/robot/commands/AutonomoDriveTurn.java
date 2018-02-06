@@ -30,12 +30,12 @@ public class AutonomoDriveTurn extends Command {
 	 */
 	public AutonomoDriveTurn(DriveInterface drivetrain, DoubleEncoderInterface encoders, GyroscopeInterface gyro,
 							 double angle) {
-		this.drivetrain = drivetrain;
-		this.encoders = encoders;
-		this.gyro = gyro;
 		requires((Subsystem) drivetrain);
 		requires((Subsystem) encoders);
 		requires((Subsystem) gyro);
+		this.drivetrain = drivetrain;
+		this.encoders = encoders;
+		this.gyro = gyro;
 		
 		angleTarget = angle;
 		

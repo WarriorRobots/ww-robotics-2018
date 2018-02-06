@@ -16,8 +16,8 @@ public class JoystickAlignment extends Command {
 	private ControlHandler oi;
 	
     public JoystickAlignment(ControlHandler oi, DriveInterface drivetrain) {
-    	this.drivetrain = drivetrain;
     	requires((Subsystem) drivetrain);
+        this.drivetrain = drivetrain;
     	this.oi = oi;
     }
 

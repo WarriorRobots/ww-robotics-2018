@@ -18,8 +18,8 @@ public class JoystickTurnLock extends Command {
 	private ControlHandler oi;
 	
 	public JoystickTurnLock(ControlHandler oi, DriveInterface drivetrain) {
-        this.drivetrain = drivetrain;
 		requires((Subsystem) drivetrain);
+        this.drivetrain = drivetrain;
 		this.oi = oi;
     }
 
