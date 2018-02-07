@@ -1,10 +1,8 @@
 package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DrivetrainInterface;
-import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.Robot;
 
 /**
  * When called, robot will drive in Alignment mode, an implementation of Arcade Drive intended for use in tiny movements on the field.
@@ -12,22 +10,17 @@ import frc.team2478.robot.util.ControlHandler;
  */
 public class JoystickAlignment extends Command {
 
-	private DrivetrainInterface drivetrain;
-	private ControlHandler oi;
-	
-    public JoystickAlignment(ControlHandler oi, DrivetrainInterface drivetrain) {
-    	requires((Subsystem) drivetrain);
-        this.drivetrain = drivetrain;
-    	this.oi = oi;
+    public JoystickAlignment() {
+    	requires(Robot.drivetrain);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	drivetrain.arcadeDriveSquared(
-			oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-			oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
+    	Robot.drivetrain.arcadeDriveSquared(
+			Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+			Robot.oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
     }
 
     protected boolean isFinished() {
@@ -38,7 +31,6 @@ public class JoystickAlignment extends Command {
     }
 
     protected void interrupted() {
-    	System.out.print("Debug successful @ JoystickAlignment");
     	this.end();
     }
 }

@@ -22,7 +22,7 @@ public class DriveEncoderSubsystem extends Subsystem implements DriveEncoderInte
 	public int getEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
-		case RIGHT: return rightEnc.get();
+		case RIGHT: return -rightEnc.get();
 		default: // compiler will crash without a default statement
 			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
 		}
@@ -42,8 +42,8 @@ public class DriveEncoderSubsystem extends Subsystem implements DriveEncoderInte
 
 	@Override
 	public void resetEncoders() {
-		this.resetEncoderTicks(Side.LEFT);
-		this.resetEncoderTicks(Side.RIGHT);
+		leftEnc.reset();
+		rightEnc.reset();
 	}
 	
 	@Override

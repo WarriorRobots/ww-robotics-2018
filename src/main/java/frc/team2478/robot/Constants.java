@@ -22,7 +22,7 @@ public final class Constants {
 		public static final double COURSECORRECTION_I = 0.000; //course correction
 		public static final double TURNING_D = 0.02225; //01725 bck
 		public static final double TURNING_TOLERANCE = 0.05;
-		public static final double DISTANCE_P = 0.01;
+		public static final double DISTANCE_P = 0.005;
 		public static final double DISTANCE_I = 0;
 		public static final double DISTANCE_D = 0;
 	}
@@ -33,7 +33,7 @@ public final class Constants {
 	public static final class DriveScalars {
 		// alternate driving mode scalars
 		public static final double ARCADE_FORWARDSPEED = 0.5;
-		public static final double ARCADE_TURNSPEED = 0.7;
+		public static final double ARCADE_TURNSPEED = 0.5;
 		public static final double LOCKMODE_TOLERANCE = 0.2;
 //		public static final double TEST_PID_COURSECORRECTION = 0.6;
 		// autonomous scalars

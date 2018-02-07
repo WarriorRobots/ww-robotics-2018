@@ -2,11 +2,8 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DriveEncoderInterface;
-import frc.team2478.robot.interfaces.DrivetrainInterface;
-import frc.team2478.robot.interfaces.GyroscopeInterface;
+import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
 
 /**
@@ -14,10 +11,6 @@ import frc.team2478.robot.util.SynchronousPIDF;
  * using a PID loop to maintain accuracy and control.
  */
 public class AutonomoDriveTurn extends Command {
-	
-	private DrivetrainInterface drivetrain;
-	private DriveEncoderInterface encoders;
-	private GyroscopeInterface gyro;
 	
 	private double angleTarget, output;
 	private boolean stopsAtSetpoint = true; // @debug variable
@@ -28,15 +21,11 @@ public class AutonomoDriveTurn extends Command {
 	 * Create a new instance of {@link AutonomoDriveStraight}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
-	public AutonomoDriveTurn(DrivetrainInterface drivetrain, DriveEncoderInterface encoders, GyroscopeInterface gyro,
-							 double angle) {
-		requires((Subsystem) drivetrain);
-		requires((Subsystem) encoders);
-		requires((Subsystem) gyro);
-		this.drivetrain = drivetrain;
-		this.encoders = encoders;
-		this.gyro = gyro;
-		
+	public AutonomoDriveTurn(double angle) {
+		requires(Robot.drivetrain);
+		requires(Robot.encoders);
+		requires(Robot.gyro);
+
 		angleTarget = angle;
 		
 		pidLoop = new SynchronousPIDF(
@@ -66,7 +55,7 @@ public class AutonomoDriveTurn extends Command {
 	}
 
 	protected void initialize() {
-		encoders.resetEncoders();
+		Robot.encoders.resetEncoders();
 		pidLoop.reset();
 		pidLoop.setSetpoint(angleTarget);
 		timer.reset();
@@ -74,9 +63,9 @@ public class AutonomoDriveTurn extends Command {
 	}
 	
 	protected void execute() {
-		encoders.printEncoderData();
-		output = pidLoop.calculate(gyro.getAngle(), timer.get());
-		drivetrain.arcadeDriveRaw(0, output);
+		Robot.encoders.printEncoderData();
+		output = pidLoop.calculate(Robot.gyro.getAngle(), timer.get());
+		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 
 	protected boolean isFinished() {
@@ -88,9 +77,9 @@ public class AutonomoDriveTurn extends Command {
 	}
 	
 	protected void end() {
-		encoders.resetEncoders();
+		Robot.encoders.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
-		drivetrain.stopDrive();
+		Robot.drivetrain.stopDrive();
 	}
 }

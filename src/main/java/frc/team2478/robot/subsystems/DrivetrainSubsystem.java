@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.team2478.robot.Robot;
 import frc.team2478.robot.commands.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
@@ -71,7 +70,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
-		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
+		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	/**
@@ -82,7 +81,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
-		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
+		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
 	/**
@@ -94,5 +93,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	}
 
 	@Override
-	public void initDefaultCommand() {}
+	public void initDefaultCommand() {
+		setDefaultCommand(new JoystickTeleop());
+	}
 }

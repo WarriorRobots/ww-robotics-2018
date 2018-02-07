@@ -16,3 +16,4 @@
 - PID 3 modes for shooter
 - driver override in case of jam
 - requires((Subsystem) this.drivetrain)
+- reverse talon ids

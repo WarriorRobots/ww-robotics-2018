@@ -2,12 +2,9 @@ package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.DriveEncoderInterface;
+import frc.team2478.robot.Robot;
 import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
-import frc.team2478.robot.interfaces.DrivetrainInterface;
-import frc.team2478.robot.interfaces.GyroscopeInterface;
 import frc.team2478.robot.util.SynchronousPIDF;
 
 /**
@@ -16,31 +13,21 @@ import frc.team2478.robot.util.SynchronousPIDF;
  */
 public class AutonomoDriveStraight extends Command {
 	
-	private DrivetrainInterface drivetrain;
-	private DriveEncoderInterface encoders;
-	private GyroscopeInterface gyro;
-	
-	private double distanceTarget, leftCount, rightCount;
-	private double avgDistance, angleOutput, distanceOutput;
-	private boolean stopsAtSetpoint = true; // @debug
+	private int distanceTarget, leftCount, rightCount, avgCount;
+	private double angleOutput, distanceOutput;
+	private boolean stopsAtSetpoint = false; // @debug
 
 	private SynchronousPIDF pidAngle, pidDistance;
 	private Timer timer;
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
-	 * @param distance How many encoder clicks to travel.
+	 * @param distanceTarget How many encoder clicks to travel.
 	 */
-	public AutonomoDriveStraight(DrivetrainInterface drivetrain, DriveEncoderInterface encoders, GyroscopeInterface gyro,
-								 double distance) {
-		requires((Subsystem) drivetrain);
-		requires((Subsystem) encoders);
-		requires((Subsystem) gyro);
-		this.drivetrain = drivetrain;
-		this.encoders = encoders;
-		this.gyro = gyro;
-		
-		distanceTarget = distance;
+	public AutonomoDriveStraight(int distanceTarget) {
+		requires(Robot.drivetrain);
+		requires(Robot.encoders);
+		requires(Robot.gyro);
 
 		pidAngle = new SynchronousPIDF( // default vals
 			Constants.ClosedLoop.TURNING_P,
@@ -51,6 +38,8 @@ public class AutonomoDriveStraight extends Command {
 			Constants.ClosedLoop.DISTANCE_I,
 			Constants.ClosedLoop.DISTANCE_D);
 
+		this.distanceTarget = distanceTarget;
+		System.out.println("distanceTarget" + Double.toString(this.distanceTarget) + " " + Double.toString(distanceTarget));
 		timer = new Timer();
 	}
 	
@@ -84,29 +73,31 @@ public class AutonomoDriveStraight extends Command {
 	}
 
 	protected void initialize() {
-		encoders.resetEncoders();
-		pidDistance.reset();
-		pidDistance.setSetpoint(distanceTarget); // needs an iZone
+		Robot.encoders.resetEncoders();
+		Robot.gyro.resetAngle();
 		pidAngle.reset();
-		pidAngle.setSetpoint(0);
-		timer.reset();
 		timer.start();
+		pidDistance.setSetpoint(distanceTarget);
+		pidAngle.setSetpoint(0.0);
 	}
 	
 	protected void execute() {
-		leftCount = encoders.getEncoderTicks(Side.LEFT);
-		rightCount = encoders.getEncoderTicks(Side.RIGHT);
-		encoders.printEncoderData();
+		leftCount = Robot.encoders.getEncoderTicks(Side.LEFT);
+		rightCount = Robot.encoders.getEncoderTicks(Side.RIGHT);
+		Robot.encoders.printEncoderData();
 		
-		avgDistance = (leftCount + rightCount) / 2;
-		angleOutput = pidAngle.calculate(gyro.getAngle(), timer.get());
-		distanceOutput = pidDistance.calculate(avgDistance, timer.get());
+		avgCount = (int) ((leftCount + rightCount) / 2);
+		angleOutput = pidAngle.calculate(Robot.gyro.getAngle(), timer.get());
+		distanceOutput = pidDistance.calculate(avgCount, timer.get());
 		
-		drivetrain.arcadeDriveRaw(distanceOutput, angleOutput);
+		System.out.println(Double.toString(distanceOutput) + " " + Double.toString(angleOutput));
+		System.out.println(Robot.gyro.getAngle());
+		
+		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}
 
 	protected boolean isFinished() {
-		if (pidDistance.onTarget(0.5) && stopsAtSetpoint) {
+		if (pidDistance.onTarget(5) && stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -114,8 +105,9 @@ public class AutonomoDriveStraight extends Command {
 	}
 	
 	protected void end() {
-		drivetrain.stopDrive();
-		encoders.resetEncoders();
+		System.out.println("STOP!!!");
+		Robot.drivetrain.stopDrive();
+		Robot.encoders.resetEncoders();
 		timer.stop();
 		pidDistance.reset();
 		pidAngle.reset();

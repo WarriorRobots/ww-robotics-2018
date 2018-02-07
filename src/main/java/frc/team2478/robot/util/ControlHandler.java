@@ -8,44 +8,41 @@
 package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.commands.JoystickAlignment;
+import frc.team2478.robot.commands.JoystickTurnLock;
 
 /**
  * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
  */
 public final class ControlHandler {
 
+	public static final int LEFT_JOY = 1;
+	public static final int RIGHT_JOY = 0;
+	public static final int XBOX = 2;
+	
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
 	private Button rightTriggerButton, rightThumbButton, leftTriggerButton;
 
 	/**
-	 * Represents each button on the driver station.
-	 */
-	public enum ButtonName {
-		RIGHT_TRIGGER,
-		RIGHT_THUMB,
-		LEFT_TRIGGER,
-		LEFT_THUMB // hard to reach, not recommended for drivers
-	}
-	
-	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
 	 */
-	public ControlHandler(Joystick leftJoy, Joystick rightJoy, XboxController xbox) {
-		this.leftJoy = leftJoy;
-		this.rightJoy = rightJoy;
-		this.xbox = xbox;
+	public ControlHandler() {
+		leftJoy = new Joystick(LEFT_JOY);
+		rightJoy = new Joystick(RIGHT_JOY);
+		xbox = new XboxController(XBOX);
 		
 		rightTriggerButton = new JoystickButton(rightJoy, 1);
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightThumbButton = new JoystickButton(rightJoy, 2);
+		
+		rightTriggerButton.whileHeld(new JoystickTurnLock());
+		rightThumbButton.whileHeld(new JoystickAlignment());
 	}
 
 	/**
@@ -137,27 +134,5 @@ public final class ControlHandler {
 	 */
 	public double getRightX() {
 		return this.getRightX(1);
-	}
-	
-	/**
-	 * Wraps whileHeld() command so it can be used externally.
-	 * @param buttonName  Enum constant specifying name of button to be used.
-	 * @param command  New instance of any command (type in <code>new MyCommand()</code>, for example).
-	 */
-	public void whileHeld(ButtonName buttonName, final Command command) {
-		switch (buttonName) {
-		case LEFT_TRIGGER:
-			leftTriggerButton.whileHeld(command);
-			break;
-		case RIGHT_THUMB:
-			rightThumbButton.whileHeld(command);
-			break;
-		case RIGHT_TRIGGER:
-			rightTriggerButton.whileHeld(command);
-			break;
-		default:
-			DriverStation.reportWarning("ButtonName specified does not have a command associated with it", true);
-			break;
-		}
 	}
 }
