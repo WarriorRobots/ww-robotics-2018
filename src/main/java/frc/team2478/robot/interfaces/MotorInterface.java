@@ -8,7 +8,7 @@ public interface MotorInterface {
 	/**
 	 * Sets motor speed to percentage value, from -1.0 to 1.0.
 	 */
-	public void setPercentage(double percentage);
+	public void setTargetPercentage(double percentage);
 	
 	/**
 	 * Stops motors from running.

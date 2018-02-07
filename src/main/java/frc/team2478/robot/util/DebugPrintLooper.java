@@ -20,7 +20,7 @@ public class DebugPrintLooper {
 	/**
 	 * Implementation of System.out.println that saves memory by running every specified number of loops.
 	 * @param text  String to be printed.
-	 * @param loopCount  How many loops to be waited between each console print
+	 * @param loopCount  How many loops to be waited between each console print.
 	 */
 	public void println(String text, double loopCount) {
 		if (loops >= loopCount) {

@@ -23,8 +23,7 @@ public class DashboardHandler {
 	
 	/**
 	 * Gets the state of the user-generated Reset button.
-	 * 
-	 * @return True if button is pressed, false if not
+	 * @return True if button is pressed, false otherwise.
 	 */
 	public static boolean getResetButton() {
 		return SmartDashboard.getBoolean(RESET, false);

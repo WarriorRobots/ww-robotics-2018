@@ -5,13 +5,13 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.interfaces.MotorInterface;
+import frc.team2478.robot.interfaces.ShooterInterface;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
  * and provides methods for using or altering them.
  */
-public class ShooterSubsystem extends Subsystem implements MotorInterface {
+public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 
 	public WPI_TalonSRX masterMotor, slaveMotor;
 	
@@ -36,12 +36,23 @@ public class ShooterSubsystem extends Subsystem implements MotorInterface {
 		masterMotor.setSensorPhase(true);
 	}
 	
-	public void setVelocity(double velocity) {
+	@Override
+	public void setTargetVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
 	@Override
-	public void setPercentage(double percent) {
+	public double getVelocity() {
+		return masterMotor.getSelectedSensorVelocity(PROCESS_ID);
+	}
+	
+	@Override
+	public double getPosition() {
+		return masterMotor.getSelectedSensorPosition(PROCESS_ID);
+	}
+	
+	@Override
+	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
@@ -50,13 +61,33 @@ public class ShooterSubsystem extends Subsystem implements MotorInterface {
 		masterMotor.stopMotor();
 	}
 	
-	public void setPID(double p, double i, double d, double f) {
+	@Override
+	public void setPID(double p, double i, double d) {
 		masterMotor.config_kP(PROCESS_ID, p, TIMEOUT_MS);
 		masterMotor.config_kI(PROCESS_ID, i, TIMEOUT_MS);
-		masterMotor.config_kD(PROCESS_ID, d, TIMEOUT_MS); 
-		masterMotor.config_kF(PROCESS_ID, f, TIMEOUT_MS);
+		masterMotor.config_kD(PROCESS_ID, d, TIMEOUT_MS);
 	}
 	
+	@Override
+	public void setFeedForward(double f) {
+		masterMotor.config_kF(PROCESS_ID, f, TIMEOUT_MS);		
+	}
+
+	@Override
+	public void resetEncoder() {
+		masterMotor.setSelectedSensorPosition(0, PROCESS_ID, TIMEOUT_MS);
+	}
+
+	@Override
+	@Deprecated
+	public boolean isUsingPid() {
+		return true;
+	}
+	
+	@Override
+	@Deprecated
+	public void setUsingPid(boolean b) {}
+
 	@Override
 	protected void initDefaultCommand() {}
 }

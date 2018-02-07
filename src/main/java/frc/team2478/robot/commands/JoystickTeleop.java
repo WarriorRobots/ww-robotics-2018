@@ -34,6 +34,7 @@ public class JoystickTeleop extends Command {
     }
 
     protected void interrupted() {
+    	System.out.print("Debug successful @ JoystickTeleop");
     	this.end();
     }
 }

@@ -10,17 +10,18 @@ package frc.team2478.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2478.robot.commands.AutonomoGroupTest;
-import frc.team2478.robot.commands.CameraAlign;
 import frc.team2478.robot.commands.JoystickAlignment;
+import frc.team2478.robot.commands.JoystickTeleop;
 import frc.team2478.robot.commands.JoystickTurnLock;
 import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
-import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.NavxSubsystem;
 import frc.team2478.robot.util.ControlHandler;
 import frc.team2478.robot.util.ControlHandler.ButtonName;
+import frc.team2478.robot.util.DashboardHandler;
 
 public class Robot extends TimedRobot {
 	
@@ -28,32 +29,33 @@ public class Robot extends TimedRobot {
 	public static final int RIGHT_JOY = 0;
 	public static final int XBOX = 2;
 	
-	private static final DriveEncoderSubsystem encoders = new DriveEncoderSubsystem();
-	private static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
-	private static final NavxSubsystem navx = new NavxSubsystem();
-	private static final LimelightSubsystem limelight = new LimelightSubsystem();
-
-	private static Joystick leftJoy, rightJoy;
-	private static XboxController xbox;
-	private static ControlHandler oi;
+	public static final DriveEncoderSubsystem encoders = new DriveEncoderSubsystem();
+	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+	public static final NavxSubsystem navx = new NavxSubsystem();
+//	private static final LimelightSubsystem limelight = new LimelightSubsystem();
+	public static ControlHandler oi;
+	
+	public static Command teleop;
 	
 	@Override
 	public void robotInit() {
-		leftJoy = new Joystick(LEFT_JOY);
-		rightJoy = new Joystick(RIGHT_JOY);
-		xbox = new XboxController(XBOX);
-		oi = new ControlHandler(leftJoy, rightJoy, xbox);
-		oi.whileHeld(ButtonName.LEFT_TRIGGER, new CameraAlign(oi, drivetrain, limelight));
+		oi = new ControlHandler(
+				new Joystick(LEFT_JOY),
+				new Joystick(RIGHT_JOY), 
+				new XboxController(XBOX));
+		
 		oi.whileHeld(ButtonName.RIGHT_THUMB, new JoystickAlignment(oi, drivetrain));
 		oi.whileHeld(ButtonName.RIGHT_TRIGGER, new JoystickTurnLock(oi, drivetrain));
+//		oi.whileHeld(ButtonName.LEFT_TRIGGER, new CameraAlign(oi, drivetrain, limelight));
+		teleop = new JoystickTeleop(oi, drivetrain);
 	}
 	
 	@Override
 	public void robotPeriodic() {
-//		if (DashboardHandler.getResetButton()) {
+		if (DashboardHandler.getResetButton()) {
 //			DashboardHandler.putAutonomoWidgets();
-//			DashboardHandler.putResetButton();
-//		}
+			DashboardHandler.putResetButton();
+		}
 	}
 
 	@Override
@@ -79,6 +81,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		Scheduler.getInstance().removeAll();
+		//test this code!
+//		new JoystickAlignment(oi, drivetrain).start();
+//		new JoystickTeleop(oi, drivetrain).start();
 	}
 
 	@Override

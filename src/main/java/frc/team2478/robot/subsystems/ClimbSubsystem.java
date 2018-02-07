@@ -25,7 +25,7 @@ public class ClimbSubsystem extends Subsystem implements MotorInterface {
 	}
 	
 	@Override
-	public void setPercentage(double percent) {
+	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	

@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.team2478.robot.Robot;
+import frc.team2478.robot.commands.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
 /**
@@ -28,11 +30,13 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
 		leftBack = new WPI_TalonSRX(LEFT_BACK);
 		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
+		leftGroup.setInverted(true);
 		
 		rightFront = new WPI_TalonSRX(RIGHT_FRONT);
 		rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
 		rightBack = new WPI_TalonSRX(RIGHT_BACK);
 		rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
+		rightGroup.setInverted(true);
 
 		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
 	}

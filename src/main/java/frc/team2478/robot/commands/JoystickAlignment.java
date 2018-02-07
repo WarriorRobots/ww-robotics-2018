@@ -38,6 +38,7 @@ public class JoystickAlignment extends Command {
     }
 
     protected void interrupted() {
+    	System.out.print("Debug successful @ JoystickAlignment");
     	this.end();
     }
 }
