@@ -14,6 +14,14 @@ public class DashboardHandler {
 	private static final String D_GAIN = "D gain";	
 	private static final String F_GAIN = "F gain";
 	
+	public static enum Position {
+		LEFT, MIDDLE, RIGHT
+	}
+	
+	public static enum Priority {
+		HIGH, LOW
+	}
+	
 	/**
 	 * Places a reset button on the dashboard.
 	 */
@@ -111,6 +119,14 @@ public class DashboardHandler {
 	 */
 	public static double getF() {
 		return SmartDashboard.getNumber(F_GAIN, 0);
+	}
+	
+	public static Position getPosition() throws Exception {
+		throw new Exception("NOT IMPLEMENTED");
+	}
+	
+	public static Priority getPriority() throws Exception {
+		throw new Exception("NOT IMPLEMENTED");
 	}
 	
 }
