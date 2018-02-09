@@ -80,6 +80,18 @@ public class Robot extends TimedRobot {
 						// cross line
 					}
 				}
+			} else if (DashboardHandler.getPosition() == Position.RIGHT) {
+				if (gameData.charAt(1) == 'R') {
+					// right scale
+				} else if (gameData.charAt(1) == 'L') {
+					if (DashboardHandler.getPriority() == Priority.HIGH) {
+						// left scale
+					} else if (DashboardHandler.getPriority() == Priority.LOW) {
+						// cross line
+					}
+				}
+			} else {
+				throw new Exception("skipped the main if statement");
 			}
 		} catch (Exception e) {
 			DriverStation.reportError("Failure to parse Driver Station autonomous data: " + e.getMessage(), true);
