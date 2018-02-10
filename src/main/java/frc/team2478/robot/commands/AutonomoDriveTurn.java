@@ -18,7 +18,7 @@ public class AutonomoDriveTurn extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveStraight}.
+	 * Create a new instance of {@link AutonomoDriveTurn}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
 	public AutonomoDriveTurn(double angle) {

@@ -17,8 +17,8 @@ import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.NavxSubsystem;
 import frc.team2478.robot.util.ControlHandler;
 import frc.team2478.robot.util.DashboardHandler;
+import frc.team2478.robot.util.DashboardHandler.AutoTarget;
 import frc.team2478.robot.util.DashboardHandler.Position;
-import frc.team2478.robot.util.DashboardHandler.Priority;
 
 public class Robot extends TimedRobot {
 	
@@ -60,49 +60,73 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		// use null detector to prevent injuries
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		try {
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
 			if (DashboardHandler.getPosition() == Position.MIDDLE) {
-				if (gameData.charAt(0) == 'L') {
-					// left switch
-					System.out.println("switch-left");
-				} else if (gameData.charAt(0) == 'R') {
-					// right switch
-					System.out.println("switch-right");
+				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+					if (gameData.charAt(0) == 'L') {
+						System.out.println("middle to left switch");
+					} else if (gameData.charAt(0) == 'R') {
+						System.out.println("middle to right switch");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
+					}
+				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+					if (gameData.charAt(1) == 'L') {
+						System.out.println("middle to left scale");
+					} else if (gameData.charAt(1) == 'R') {
+						System.out.println("middle to right scale");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
+					}
 				} else {
-					// cross line
+					throw new Exception("Failed to choose target");
 				}
 			} else if (DashboardHandler.getPosition() == Position.LEFT) {
-				if (gameData.charAt(1) == 'L') {
-					// left scale
-					System.out.println("scale-left");
-				} else if (gameData.charAt(1) == 'R') {
-					if (DashboardHandler.getPriority() == Priority.HIGH) {
-						// right scale
-						System.out.println("scale-right");
-					} else if (DashboardHandler.getPriority() == Priority.LOW) {
-						// cross line
-						System.out.println("crossline");
+				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+					if (gameData.charAt(0) == 'L') {
+						System.out.println("left to left switch");
+					} else if (gameData.charAt(0) == 'R') {
+						System.out.println("left to right switch");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
 					}
+				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+					if (gameData.charAt(1) == 'L') {
+						System.out.println("left to left scale");
+					} else if (gameData.charAt(1) == 'R') {
+						System.out.println("left to right scale");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
+					}
+				} else {
+					throw new Exception("Failed to choose target");
 				}
 			} else if (DashboardHandler.getPosition() == Position.RIGHT) {
-				if (gameData.charAt(1) == 'R') {
-					// right scale
-					System.out.println("scale-right");
-				} else if (gameData.charAt(1) == 'L') {
-					if (DashboardHandler.getPriority() == Priority.HIGH) {
-						// left scale
-						System.out.println("scale-left");
-					} else if (DashboardHandler.getPriority() == Priority.LOW) {
-						// cross line
-						System.out.println("crossline");
+				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+					if (gameData.charAt(0) == 'L') {
+						System.out.println("right to left switch");
+					} else if (gameData.charAt(0) == 'R') {
+						System.out.println("right to right switch");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
 					}
+				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+					if (gameData.charAt(1) == 'L') {
+						System.out.println("right to left scale");
+					} else if (gameData.charAt(1) == 'R') {
+						System.out.println("right to right scale");
+					} else {
+						throw new Exception("Failed to get game-specific-message");
+					}
+				} else {
+					throw new Exception("Failed to choose target");
 				}
 			} else {
-				throw new Exception("skipped the main if statement");
+				throw new Exception("Failed to choose position");
 			}
 		} catch (Exception e) {
-			DriverStation.reportError("Failure to parse Driver Station autonomous data: " + e.getMessage(), true);
+			DriverStation.reportError(e.getMessage(), true);
 		}
 	}
 

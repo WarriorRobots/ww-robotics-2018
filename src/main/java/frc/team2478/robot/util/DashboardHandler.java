@@ -1,5 +1,6 @@
 package frc.team2478.robot.util;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DashboardHandler {
@@ -14,12 +15,15 @@ public class DashboardHandler {
 	private static final String D_GAIN = "D gain";	
 	private static final String F_GAIN = "F gain";
 	
+	private static SendableChooser<Position> positionSelect = new SendableChooser<>();
+	private static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
+	
 	public static enum Position {
 		LEFT, MIDDLE, RIGHT
 	}
 	
-	public static enum Priority {
-		HIGH, LOW
+	public static enum AutoTarget {
+		SWITCH, SCALE
 	}
 	
 	/**
@@ -45,6 +49,9 @@ public class DashboardHandler {
 		SmartDashboard.putNumber(AUTO_DIST2, 250);
 		SmartDashboard.putNumber(AUTO_TURN1, 90);
 		SmartDashboard.putNumber(AUTO_TURN2, 135);
+		
+		SmartDashboard.putData(positionSelect);
+		SmartDashboard.putData(targetSelect);
 	}
 	
 	/**
@@ -121,12 +128,11 @@ public class DashboardHandler {
 		return SmartDashboard.getNumber(F_GAIN, 0);
 	}
 	
-	public static Position getPosition() throws Exception {
-		throw new Exception("NOT IMPLEMENTED");
+	public static Position getPosition() {
+		return positionSelect.getSelected();
 	}
 	
-	public static Priority getPriority() throws Exception {
-		throw new Exception("NOT IMPLEMENTED");
+	public static AutoTarget getAutoTarget() {
+		return targetSelect.getSelected();
 	}
-	
 }
