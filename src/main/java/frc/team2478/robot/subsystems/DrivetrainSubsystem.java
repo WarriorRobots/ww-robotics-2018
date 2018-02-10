@@ -20,7 +20,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final int RIGHT_MIDDLE = 2;
 	public static final int RIGHT_BACK = 3;
 	
-	public static final double RAMPRATE_SECONDS = 0.20;
+	public static final double RAMPRATE_SECONDS = 0;//0.30;
 	public static final int TIMEOUT_MS = 10;
 	
 	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
@@ -48,6 +48,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		rightGroup.setInverted(true);
 
 		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
+		differentialDrive.setSafetyEnabled(false); // @debug
 	}
 	
 	/**

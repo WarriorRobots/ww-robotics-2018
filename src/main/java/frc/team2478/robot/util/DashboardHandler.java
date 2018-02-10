@@ -1,7 +1,7 @@
 package frc.team2478.robot.util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.Robot;
 
 public class DashboardHandler {
 	
@@ -14,9 +14,6 @@ public class DashboardHandler {
 	private static final String I_GAIN = "I gain";
 	private static final String D_GAIN = "D gain";	
 	private static final String F_GAIN = "F gain";
-	
-	private static SendableChooser<Position> positionSelect = new SendableChooser<>();
-	private static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
 	
 	public static enum Position {
 		LEFT, MIDDLE, RIGHT
@@ -45,13 +42,10 @@ public class DashboardHandler {
 	 * Places all editable autonomous widgets on the dashboard.
 	 */
 	public static void putAutonomoWidgets() {
-		SmartDashboard.putNumber(AUTO_DIST1, 500);
-		SmartDashboard.putNumber(AUTO_DIST2, 250);
-		SmartDashboard.putNumber(AUTO_TURN1, 90);
-		SmartDashboard.putNumber(AUTO_TURN2, 135);
-		
-		SmartDashboard.putData(positionSelect);
-		SmartDashboard.putData(targetSelect);
+//		SmartDashboard.putNumber(AUTO_DIST1, 500);
+//		SmartDashboard.putNumber(AUTO_DIST2, 250);
+//		SmartDashboard.putNumber(AUTO_TURN1, 90);
+//		SmartDashboard.putNumber(AUTO_TURN2, 135);
 	}
 	
 	/**
@@ -129,10 +123,12 @@ public class DashboardHandler {
 	}
 	
 	public static Position getPosition() {
-		return positionSelect.getSelected();
+//		return Robot.positionSelect.getSelected();
+		return Position.RIGHT;
 	}
 	
 	public static AutoTarget getAutoTarget() {
-		return targetSelect.getSelected();
+//		return Robot.targetSelect.getSelected();
+		return AutoTarget.SCALE;
 	}
 }

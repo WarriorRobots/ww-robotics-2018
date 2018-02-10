@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.team2478.robot.commands.AutonomoDriveTurn;
+import frc.team2478.robot.commands.AutonomoGroupTest;
 import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
@@ -23,16 +26,26 @@ import frc.team2478.robot.util.DashboardHandler.Position;
 public class Robot extends TimedRobot {
 	
 	String gameData;
-	
+		
 	public static final DriveEncoderSubsystem encoders = new DriveEncoderSubsystem();
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final NavxSubsystem gyro = new NavxSubsystem();
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
 	public static ControlHandler oi;
 	
+	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
+	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
+	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
+//		Robot.positionSelect.addObject("left position", Position.LEFT);
+//		Robot.positionSelect.addObject("middle position", Position.MIDDLE);
+//		Robot.positionSelect.addObject("right position", Position.RIGHT);
+//		Robot.targetSelect.addObject("switch", AutoTarget.SWITCH);
+//		Robot.targetSelect.addObject("scale", AutoTarget.SCALE);
+//		SmartDashboard.putData(Robot.positionSelect);
+//		SmartDashboard.putData(Robot.targetSelect);
 	}
 	
 	@Override
@@ -44,7 +57,6 @@ public class Robot extends TimedRobot {
 		if(RobotController.isBrownedOut()) {
 			DriverStation.reportWarning("VOLTAGE WARNING: " + Double.toString(RobotController.getInputVoltage()) + "V", false);
 		}
-		System.out.println(RobotController.getInputVoltage());
 	}
 			
 
@@ -52,6 +64,7 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 //		DashboardHandler.putResetButton();
 		Scheduler.getInstance().removeAll();
+		DashboardHandler.putAutonomoWidgets();
 	}
 
 	@Override
@@ -62,72 +75,78 @@ public class Robot extends TimedRobot {
 		// use null detector to prevent injuries
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		try {
-			if (DashboardHandler.getPosition() == Position.MIDDLE) {
-				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-					if (gameData.charAt(0) == 'L') {
-						System.out.println("middle to left switch");
-					} else if (gameData.charAt(0) == 'R') {
-						System.out.println("middle to right switch");
+			if(gameData.length() > 0) {
+				if (DashboardHandler.getPosition() == Position.MIDDLE) {
+					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+						if (gameData.charAt(0) == 'L') {
+							DriverStation.reportWarning("middle to left switch", false);
+						} else if (gameData.charAt(0) == 'R') {
+							DriverStation.reportWarning("middle to right switch", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
+					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+						if (gameData.charAt(1) == 'L') {
+							DriverStation.reportWarning("middle to left scale", false);
+						} else if (gameData.charAt(1) == 'R') {
+							DriverStation.reportWarning("middle to right scale", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
 					} else {
-						throw new Exception("Failed to get game-specific-message");
+						throw new Exception("Failed to choose target");
 					}
-				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-					if (gameData.charAt(1) == 'L') {
-						System.out.println("middle to left scale");
-					} else if (gameData.charAt(1) == 'R') {
-						System.out.println("middle to right scale");
+				} else if (DashboardHandler.getPosition() == Position.LEFT) {
+					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+						if (gameData.charAt(0) == 'L') {
+							DriverStation.reportWarning("left to left switch", false);
+						} else if (gameData.charAt(0) == 'R') {
+							DriverStation.reportWarning("left to right switch", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
+					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+						if (gameData.charAt(1) == 'L') {
+							DriverStation.reportWarning("left to left scale", false);
+						} else if (gameData.charAt(1) == 'R') {
+							DriverStation.reportWarning("left to right scale", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
 					} else {
-						throw new Exception("Failed to get game-specific-message");
+						throw new Exception("Failed to choose target");
+					}
+				} else if (DashboardHandler.getPosition() == Position.RIGHT) {
+					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
+						if (gameData.charAt(0) == 'L') {
+							DriverStation.reportWarning("right to left switch", false);
+						} else if (gameData.charAt(0) == 'R') {
+							DriverStation.reportWarning("right to right switch", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
+					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
+						if (gameData.charAt(1) == 'L') {
+							DriverStation.reportWarning("right to left scale", false);
+						} else if (gameData.charAt(1) == 'R') {
+							DriverStation.reportWarning("right to right scale", false);
+						} else {
+							throw new Exception("Failed to get game-specific-message");
+						}
+					} else {
+						throw new Exception("Failed to choose target");
 					}
 				} else {
-					throw new Exception("Failed to choose target");
-				}
-			} else if (DashboardHandler.getPosition() == Position.LEFT) {
-				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-					if (gameData.charAt(0) == 'L') {
-						System.out.println("left to left switch");
-					} else if (gameData.charAt(0) == 'R') {
-						System.out.println("left to right switch");
-					} else {
-						throw new Exception("Failed to get game-specific-message");
-					}
-				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-					if (gameData.charAt(1) == 'L') {
-						System.out.println("left to left scale");
-					} else if (gameData.charAt(1) == 'R') {
-						System.out.println("left to right scale");
-					} else {
-						throw new Exception("Failed to get game-specific-message");
-					}
-				} else {
-					throw new Exception("Failed to choose target");
-				}
-			} else if (DashboardHandler.getPosition() == Position.RIGHT) {
-				if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-					if (gameData.charAt(0) == 'L') {
-						System.out.println("right to left switch");
-					} else if (gameData.charAt(0) == 'R') {
-						System.out.println("right to right switch");
-					} else {
-						throw new Exception("Failed to get game-specific-message");
-					}
-				} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-					if (gameData.charAt(1) == 'L') {
-						System.out.println("right to left scale");
-					} else if (gameData.charAt(1) == 'R') {
-						System.out.println("right to right scale");
-					} else {
-						throw new Exception("Failed to get game-specific-message");
-					}
-				} else {
-					throw new Exception("Failed to choose target");
+					throw new Exception("Failed to choose position");
 				}
 			} else {
-				throw new Exception("Failed to choose position");
+				DriverStation.reportError("string too short", false);
 			}
 		} catch (Exception e) {
 			DriverStation.reportError(e.getMessage(), true);
 		}
+		
+		new AutonomoGroupTest().start();
 	}
 
 	@Override

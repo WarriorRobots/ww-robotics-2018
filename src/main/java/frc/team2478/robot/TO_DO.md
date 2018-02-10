@@ -17,3 +17,5 @@
 - driver override in case of jam
 - requires((Subsystem) this.drivetrain)
 - reverse talon ids
+- merge drivetrain subsystem changes in
+- change autonomodrivestraight int to double

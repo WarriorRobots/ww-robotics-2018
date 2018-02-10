@@ -19,10 +19,10 @@ public final class Constants {
 		// PID constants
 		public static final double TURNING_P = 0.02325;
 		public static final double TURNING_I = 0.0003; //turning
+		public static final double TURNING_D = 0.025; //02225 bck
 		public static final double COURSECORRECTION_I = 0.000; //course correction
-		public static final double TURNING_D = 0.02225; //01725 bck
 		public static final double TURNING_TOLERANCE = 0.05;
-		public static final double DISTANCE_P = 0.005;
+		public static final double DISTANCE_P = 0.01;
 		public static final double DISTANCE_I = 0;
 		public static final double DISTANCE_D = 0;
 	}

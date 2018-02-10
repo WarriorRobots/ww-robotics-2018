@@ -56,9 +56,8 @@ public class AutonomoDriveTurn extends Command {
 
 	protected void initialize() {
 		Robot.encoders.resetEncoders();
-		pidLoop.reset();
+		Robot.gyro.resetAngle();
 		pidLoop.setSetpoint(angleTarget);
-		timer.reset();
 		timer.start();
 	}
 	

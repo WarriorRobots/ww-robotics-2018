@@ -4,9 +4,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutonomoGroupTest extends CommandGroup {
 	
-	public AutonomoGroupTest(int dist, double turn) {
-		addSequential(new AutonomoDriveStraight(dist));
-		addSequential(new AutonomoDriveTurn(turn));
+	public AutonomoGroupTest() {
+		addSequential(new AutonomoDriveStraight(300));
+		addSequential(new AutonomoDriveTurn(90));
+		addSequential(new AutonomoDriveStraight(300));
+		addSequential(new AutonomoDriveTurn(90));
+		addSequential(new AutonomoDriveStraight(300));
+		addSequential(new AutonomoDriveTurn(90));
+		addSequential(new AutonomoDriveStraight(300));
+		addSequential(new AutonomoDriveTurn(90));
 	}
 
 }
