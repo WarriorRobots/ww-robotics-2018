@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands;
+package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
