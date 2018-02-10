@@ -46,20 +46,20 @@ public class AutoRobot {
 					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
 						if (gameData.charAt(0) == 'L') {
 							DriverStation.reportWarning("left to left switch", false);
-							
+							new LefttoLeftSwitch().start();
 						} else if (gameData.charAt(0) == 'R') {
 							DriverStation.reportWarning("left to right switch", false);
-							
+							new LefttoRightSwitch().start();
 						} else {
 							throw new Exception("Failed to get game-specific-message");
 						}
 					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
 						if (gameData.charAt(1) == 'L') {
 							DriverStation.reportWarning("left to left scale", false);
-							
+							new LefttoLeftScale().start();
 						} else if (gameData.charAt(1) == 'R') {
 							DriverStation.reportWarning("left to right scale", false);
-							
+							new LefttoRightScale().start();
 						} else {
 							throw new Exception("Failed to get game-specific-message");
 						}
@@ -70,16 +70,20 @@ public class AutoRobot {
 					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
 						if (gameData.charAt(0) == 'L') {
 							DriverStation.reportWarning("right to left switch", false);
+							new RighttoLeftSwitch().start();
 						} else if (gameData.charAt(0) == 'R') {
 							DriverStation.reportWarning("right to right switch", false);
+							new RighttoRightSwitch().start();
 						} else {
 							throw new Exception("Failed to get game-specific-message");
 						}
 					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
 						if (gameData.charAt(1) == 'L') {
 							DriverStation.reportWarning("right to left scale", false);
+							new RighttoLeftScale().start();
 						} else if (gameData.charAt(1) == 'R') {
 							DriverStation.reportWarning("right to right scale", false);
+							new RighttoRightScale().start();
 						} else {
 							throw new Exception("Failed to get game-specific-message");
 						}

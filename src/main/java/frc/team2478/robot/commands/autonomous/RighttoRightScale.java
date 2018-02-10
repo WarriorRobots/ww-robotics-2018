@@ -4,15 +4,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team2478.robot.commands.AutonomoDriveStraight;
 import frc.team2478.robot.commands.AutonomoDriveTurn;
 
-public class MidtoLeftScale extends CommandGroup{
+public class RighttoRightScale extends CommandGroup{
 	
-	public MidtoLeftScale() {
-		addSequential(new AutonomoDriveStraight(30));
-		addSequential(new AutonomoDriveTurn(-90));
-		addSequential(new AutonomoDriveStraight(200));
-		addSequential(new AutonomoDriveTurn(90));
+	public RighttoRightScale() {
 		addSequential(new AutonomoDriveStraight(300));
 		addSequential(new AutonomoDriveTurn(45));
+		
 	}
 
 }

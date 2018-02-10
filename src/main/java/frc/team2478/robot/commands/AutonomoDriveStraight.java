@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.autonomous;
+package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
