@@ -1,15 +1,22 @@
-package frc.team2478.robot;
+package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.team2478.robot.commands.autonomous.LefttoLeftScale;
+import frc.team2478.robot.commands.autonomous.LefttoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.LefttoRightScale;
+import frc.team2478.robot.commands.autonomous.LefttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.MidtoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.MidtoRightScale;
 import frc.team2478.robot.commands.autonomous.MidtoRightSwitch;
-import frc.team2478.robot.util.DashboardHandler;
+import frc.team2478.robot.commands.autonomous.RighttoLeftScale;
+import frc.team2478.robot.commands.autonomous.RighttoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.RighttoRightScale;
+import frc.team2478.robot.commands.autonomous.RighttoRightSwitch;
 import frc.team2478.robot.util.DashboardHandler.AutoTarget;
 import frc.team2478.robot.util.DashboardHandler.Position;
 
-public class AutoRobot {
+public class AutonomoSelector {
 	
 	private static String gameData;
 	
@@ -100,5 +107,4 @@ public class AutoRobot {
 			DriverStation.reportError(e.getMessage(), true);
 		}
 	}
-
 }
