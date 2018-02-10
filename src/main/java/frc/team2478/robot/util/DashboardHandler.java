@@ -1,6 +1,7 @@
 package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.Robot;
 
 public class DashboardHandler {
 	
@@ -14,6 +15,14 @@ public class DashboardHandler {
 	private static final String D_GAIN = "D gain";	
 	private static final String F_GAIN = "F gain";
 	
+	public static enum Position {
+		LEFT, MIDDLE, RIGHT
+	}
+	
+	public static enum AutoTarget {
+		SWITCH, SCALE
+	}
+	
 	/**
 	 * Places a reset button on the dashboard.
 	 */
@@ -23,8 +32,7 @@ public class DashboardHandler {
 	
 	/**
 	 * Gets the state of the user-generated Reset button.
-	 * 
-	 * @return True if button is pressed, false if not
+	 * @return True if button is pressed, false otherwise.
 	 */
 	public static boolean getResetButton() {
 		return SmartDashboard.getBoolean(RESET, false);
@@ -34,10 +42,10 @@ public class DashboardHandler {
 	 * Places all editable autonomous widgets on the dashboard.
 	 */
 	public static void putAutonomoWidgets() {
-		SmartDashboard.putNumber(AUTO_DIST1, 500);
-		SmartDashboard.putNumber(AUTO_DIST2, 250);
-		SmartDashboard.putNumber(AUTO_TURN1, 90);
-		SmartDashboard.putNumber(AUTO_TURN2, 135);
+//		SmartDashboard.putNumber(AUTO_DIST1, 500);
+//		SmartDashboard.putNumber(AUTO_DIST2, 250);
+//		SmartDashboard.putNumber(AUTO_TURN1, 90);
+//		SmartDashboard.putNumber(AUTO_TURN2, 135);
 	}
 	
 	/**
@@ -114,4 +122,13 @@ public class DashboardHandler {
 		return SmartDashboard.getNumber(F_GAIN, 0);
 	}
 	
+	public static Position getPosition() {
+//		return Robot.positionSelect.getSelected();
+		return Position.RIGHT;
+	}
+	
+	public static AutoTarget getAutoTarget() {
+//		return Robot.targetSelect.getSelected();
+		return AutoTarget.SCALE;
+	}
 }

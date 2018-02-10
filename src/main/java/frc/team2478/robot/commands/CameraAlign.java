@@ -1,30 +1,33 @@
 package frc.team2478.robot.commands;
 
-import frc.team2478.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.Robot;
 
 /**
  * Aligns the robot with the most prominent vision target,
  * enabling Alignment mode if a target is not found.
  */
-public class CameraAlign extends CommandBase {
+public class CameraAlign extends Command {
 	
 	private static final double SCALING_FACTOR = 0.02;
-	
+	private static final double TURN_JOYSTICK_THRESHOLD = 0.75;
+
 	public CameraAlign() {
-		requires(drivetrain);
-		requires(limelight);
+		requires(Robot.drivetrain);
+		requires(Robot.limelight);
 	}
 	
 	@Override
 	protected void execute() {
-		if (limelight.doesTargetExist() && Math.abs(oi.getRightX()) < 0.75) {
-			drivetrain.arcadeDriveAutonomo(
-				oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-				limelight.getHorizontalOffset() * SCALING_FACTOR); // spins to line up camera with cube
+		if (Robot.limelight.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+			Robot.drivetrain.arcadeDriveRaw(
+				Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+				Robot.limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
-			drivetrain.arcadeDriveTeleop(
-	    			oi.getRightY(RobotMap.DriveScalars.ARCADE_FORWARDSPEED),
-	    			oi.getRightX(RobotMap.DriveScalars.ARCADE_TURNSPEED));
+			Robot.drivetrain.arcadeDriveSquared(
+    			Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+    			Robot.oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
 		}
 	}
 

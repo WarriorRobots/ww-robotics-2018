@@ -1,35 +1,40 @@
 package frc.team2478.robot.commands;
 
-import frc.team2478.robot.RobotMap;
-import frc.team2478.robot.util.DebugPrintLooper;
-import frc.team2478.robot.util.SynchronousPIDF;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.Robot;
+import frc.team2478.robot.util.SynchronousPIDF;
 
 /**
  * When run, the robot will turn to the provided angle,
  * using a PID loop to maintain accuracy and control.
  */
-public class AutonomoDriveTurn extends AutonomoBase {
+public class AutonomoDriveTurn extends Command {
 	
-	private double m_angleTarget, m_output;
-	private SynchronousPIDF m_pid;
-	private Timer m_timer;
-	private DebugPrintLooper m_printLooper;
-	private boolean m_stopAtSetpoint = true; // @debug variable
+	private double angleTarget, output;
+	private boolean stopsAtSetpoint = true; // @debug variable
+	private SynchronousPIDF pidLoop;
+	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveStraight}.
+	 * Create a new instance of {@link AutonomoDriveTurn}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
 	public AutonomoDriveTurn(double angle) {
-		requires(drivetrain);
-		requires(motionSensors);
-		m_pid = new SynchronousPIDF(RobotMap.ClosedLoop.TURNING_P,
-				 RobotMap.ClosedLoop.TURNING_I,
-				 RobotMap.ClosedLoop.TURNING_D);
-		m_timer = new Timer();
-		m_angleTarget = angle;
-		m_printLooper = new DebugPrintLooper();
+		requires(Robot.drivetrain);
+		requires(Robot.encoders);
+		requires(Robot.gyro);
+
+		angleTarget = angle;
+		
+		pidLoop = new SynchronousPIDF(
+			Constants.ClosedLoop.TURNING_P,
+			Constants.ClosedLoop.TURNING_I,
+			Constants.ClosedLoop.TURNING_D);
+		
+		timer = new Timer();
+		System.out.println("angleTarget " + Double.toString(this.angleTarget));
 	}
 
 	/**
@@ -39,33 +44,34 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	 * @param d  D gain
 	 */
 	public void setPID(double p, double i, double d) {
-		m_pid.setPID(p, i, d);
+		pidLoop.setPID(p, i, d);
 	}
 	
 	/**
 	 * Sets whether Command ends itself after reaching the setpoint
 	 * @param stops  True if you want command to end; false if not
 	 */
-	public void stopAtSetpoint(boolean stops) {
-		m_stopAtSetpoint = stops;
+	public void willStopAtSetpoint(boolean stops) {
+		stopsAtSetpoint = stops;
 	}
 
 	protected void initialize() {
-		super.initialize();
-		m_pid.reset();
-		m_pid.setSetpoint(m_angleTarget);
-		m_timer.reset();
-		m_timer.start();
+		Robot.encoders.resetEncoders();
+		Robot.gyro.resetAngle();
+		pidLoop.setIzone(-0.2, 0.2);
+		pidLoop.setSetpoint(angleTarget);
+		timer.start();
 	}
 	
 	protected void execute() {
-		m_output = m_pid.calculate(motionSensors.getNavxAngle(), m_timer.get());
-		m_printLooper.println(motionSensors.debugAllSensors());
-		drivetrain.arcadeDriveAutonomo(0, m_output);
+		System.out.println(Robot.gyro.getAngle());
+		output = pidLoop.calculate(Robot.gyro.getAngle(), timer.get());
+		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 
 	protected boolean isFinished() {
-		if (m_pid.onTarget(0.5) && m_stopAtSetpoint) {
+		if (pidLoop.onTarget(0.25) && stopsAtSetpoint) {
+//		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -73,8 +79,9 @@ public class AutonomoDriveTurn extends AutonomoBase {
 	}
 	
 	protected void end() {
-		super.end();
-		m_timer.stop();
-		m_pid.reset();
+		Robot.encoders.resetEncoders();
+		timer.stop();
+		pidLoop.reset();
+		Robot.drivetrain.stopDrive();
 	}
 }

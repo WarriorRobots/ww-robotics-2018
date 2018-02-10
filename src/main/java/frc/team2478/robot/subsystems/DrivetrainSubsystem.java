@@ -1,44 +1,54 @@
 package frc.team2478.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 import frc.team2478.robot.commands.JoystickTeleop;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.team2478.robot.interfaces.DrivetrainInterface;
 
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
-public final class DrivetrainSubsystem extends Subsystem {
+public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterface {
 
-	public static final int LEFT_FRONT = 2;
-	public static final int LEFT_MIDDLE = 4;
-	public static final int LEFT_BACK = 9;
-	public static final int RIGHT_FRONT = 6;
-	public static final int RIGHT_MIDDLE = 7;
-	public static final int RIGHT_BACK = 8;
+	public static final int LEFT_FRONT = 4;
+	public static final int LEFT_MIDDLE = 5;
+	public static final int LEFT_BACK = 6;
+	public static final int RIGHT_FRONT = 1;
+	public static final int RIGHT_MIDDLE = 2;
+	public static final int RIGHT_BACK = 3;
 	
-	private WPI_TalonSRX m_leftFront, m_leftMiddle, m_leftBack, m_rightFront, m_rightMiddle, m_rightBack;
-	private SpeedControllerGroup m_leftGroup, m_rightGroup;
-	private DifferentialDrive m_differentialDrive;
+	public static final double RAMPRATE_SECONDS = 0.15;
+	public static final int TIMEOUT_MS = 10;
 	
-	/**
-	* Initializes Talons and drivetrain subsystem; run before calling drive functions.
-	*/
-	public void init() {
-		m_leftFront = new WPI_TalonSRX(LEFT_FRONT);
-		m_leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
-		m_leftBack = new WPI_TalonSRX(LEFT_BACK);
-		m_leftGroup = new SpeedControllerGroup(m_leftFront, m_leftMiddle, m_leftBack);
+	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
+	private SpeedControllerGroup leftGroup, rightGroup;
+	private DifferentialDrive differentialDrive;
+	
+	public DrivetrainSubsystem() {
+		leftFront = new WPI_TalonSRX(LEFT_FRONT);
+		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
+		leftBack = new WPI_TalonSRX(LEFT_BACK);
+		leftFront.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		leftMiddle.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		leftBack.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
 		
-		m_rightFront = new WPI_TalonSRX(RIGHT_FRONT);
-		m_rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
-		m_rightBack = new WPI_TalonSRX(RIGHT_BACK);
-		m_rightGroup = new SpeedControllerGroup(m_rightFront, m_rightMiddle, m_rightBack);
+		rightFront = new WPI_TalonSRX(RIGHT_FRONT);
+		rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
+		rightBack = new WPI_TalonSRX(RIGHT_BACK);
+		rightFront.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		rightMiddle.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		rightBack.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
 
-		m_differentialDrive = new DifferentialDrive(m_leftGroup, m_rightGroup);
+		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
+		leftGroup.setInverted(true);
+		rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
+		rightGroup.setInverted(true);
+
+		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
+		differentialDrive.setSafetyEnabled(false); // @debug
 	}
 	
 	/**
@@ -47,8 +57,9 @@ public final class DrivetrainSubsystem extends Subsystem {
 	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
-	public void tankDriveTeleop(double leftSpeed, double rightSpeed) {
-		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+	@Override
+	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
 	/**
@@ -57,8 +68,9 @@ public final class DrivetrainSubsystem extends Subsystem {
 	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
-	public void tankDriveAutonomo(double leftSpeed, double rightSpeed) {
-		m_differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+	@Override
+	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	/**
@@ -67,8 +79,9 @@ public final class DrivetrainSubsystem extends Subsystem {
 	 * @param forwardSpeed  Percentage speed of forwards drive, from -1 to 1.
 	 * @param turnSpeed  Percentage speed of turning, from -1 to 1.
 	 */
-	public void arcadeDriveTeleop(double forwardSpeed, double turnSpeed) {
-		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
+	@Override
+	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
+		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	/**
@@ -77,19 +90,21 @@ public final class DrivetrainSubsystem extends Subsystem {
 	 * @param forwardSpeed  Percentage speed of forwards drive, from -1 to 1.
 	 * @param turnSpeed  Percentage speed of turning, from -1 to 1.
 	 */
-	public void arcadeDriveAutonomo(double forwardSpeed, double turnSpeed) {
-		m_differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
+	@Override
+	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
+		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
 	/**
 	 * Shuts off motors and stops driving.
 	 */
+	@Override
 	public void stopDrive() {
-		m_differentialDrive.stopMotor();
+		differentialDrive.stopMotor();
 	}
 
 	@Override
-    public void initDefaultCommand() {
-    	 setDefaultCommand(new JoystickTeleop());
-    }
+	public void initDefaultCommand() {
+		setDefaultCommand(new JoystickTeleop());
+	}
 }

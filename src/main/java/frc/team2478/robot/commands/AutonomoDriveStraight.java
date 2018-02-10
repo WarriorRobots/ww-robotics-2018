@@ -1,41 +1,46 @@
 package frc.team2478.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.team2478.robot.RobotMap;
-import frc.team2478.robot.util.DebugPrintLooper;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.Robot;
+import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
 import frc.team2478.robot.util.SynchronousPIDF;
 
 /**
  * When run, the robot will drive straight at the provided distance,
  * using a PID loop to stay on-course.
  */
-public class AutonomoDriveStraight extends CommandBase {
+public class AutonomoDriveStraight extends Command {
 	
-	private double m_distanceTarget, m_leftCount, m_rightCount;
-	private double m_avgDistance, m_angleOutput, m_distanceOutput;
-	private boolean m_stopsAtSetpoint = true; // @debug
-	private SynchronousPIDF m_pidAngle, m_pidDistance;
-	private Timer m_timer;
-	private DebugPrintLooper m_printLooper;
+	private int distanceTarget, leftCount, rightCount, avgCount;
+	private double angleOutput, distanceOutput;
+	private boolean stopsAtSetpoint = true; // @debug
+
+	private SynchronousPIDF pidAngle, pidDistance;
+	private Timer timer;
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
-	 * @param distance How many encoder clicks to travel.
+	 * @param distanceTarget How many encoder clicks to travel.
 	 */
-	public AutonomoDriveStraight(double distance) {
-		requires(drivetrain);
-		requires(motionSensors);
-		
-		m_distanceTarget = distance;
+	public AutonomoDriveStraight(int distanceTarget) {
+		requires(Robot.drivetrain);
+		requires(Robot.encoders);
+		requires(Robot.gyro);
 
-		m_pidAngle = new SynchronousPIDF( // default vals
-			RobotMap.ClosedLoop.TURNING_P,
-			RobotMap.ClosedLoop.COURSECORRECTION_I,
-			RobotMap.ClosedLoop.TURNING_D);
-		m_pidDistance = new SynchronousPIDF(0.01, 0, 0);
+		pidAngle = new SynchronousPIDF( // default vals
+			Constants.ClosedLoop.TURNING_P,
+			Constants.ClosedLoop.COURSECORRECTION_I,
+			Constants.ClosedLoop.TURNING_D);
+		pidDistance = new SynchronousPIDF(
+			Constants.ClosedLoop.DISTANCE_P,
+			Constants.ClosedLoop.DISTANCE_I,
+			Constants.ClosedLoop.DISTANCE_D);
 
-		m_timer = new Timer();
-		m_printLooper = new DebugPrintLooper();
+		this.distanceTarget = distanceTarget;
+		System.out.println("distanceTarget " + Double.toString(this.distanceTarget) + " " + Double.toString(distanceTarget));
+		timer = new Timer();
 	}
 	
 	/**
@@ -45,7 +50,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	 * @param d  D gain
 	 */
 	public void setAngularPid(double p, double i, double d) {
-		m_pidAngle.setPID(p, i, d);
+		pidAngle.setPID(p, i, d);
 	}
 	
 	/**
@@ -55,7 +60,7 @@ public class AutonomoDriveStraight extends CommandBase {
 	 * @param d  D gain
 	 */
 	public void setDistancePid(double p, double i, double d) {
-		m_pidDistance.setPID(p, i, d);
+		pidDistance.setPID(p, i, d);
 	}
 	
 	/**
@@ -64,33 +69,38 @@ public class AutonomoDriveStraight extends CommandBase {
 	 * @param stops  True if you want command to end; false if not
 	 */
 	public void willStopAtSetpoint(boolean stops) {
-		m_stopsAtSetpoint = stops;
+		stopsAtSetpoint = stops;
 	}
 
 	protected void initialize() {
-		motionSensors.resetAllSensors();
-		m_pidDistance.reset();
-		m_pidDistance.setSetpoint(m_distanceTarget); // needs an iZone
-		m_pidAngle.reset();
-		m_pidAngle.setSetpoint(0);
-		m_timer.reset();
-		m_timer.start();
+		Robot.encoders.resetEncoders();
+		Robot.gyro.resetAngle();
+		pidAngle.reset();
+		timer.start();
+		pidDistance.setSetpoint(distanceTarget);
+		pidDistance.setIzone(-0.15, 0.15);
+		pidAngle.setSetpoint(0.0);
 	}
 	
 	protected void execute() {
-		m_leftCount = motionSensors.getLeftEncCount();
-		m_rightCount = motionSensors.getRightEncCount();
-		m_printLooper.println(motionSensors.debugAllSensors());
+		leftCount = Robot.encoders.getEncoderTicks(Side.LEFT);
+		rightCount = Robot.encoders.getEncoderTicks(Side.RIGHT);
+		Robot.encoders.printEncoderData();
 		
-		m_avgDistance = (m_leftCount + m_rightCount) / 2;
-		m_angleOutput = m_pidAngle.calculate(motionSensors.getNavxAngle(), m_timer.get());
-		m_distanceOutput = m_pidDistance.calculate(m_avgDistance, m_timer.get());
+		avgCount = (int) ((leftCount + rightCount) / 2);
+		angleOutput = pidAngle.calculate(Robot.gyro.getAngle(), timer.get());
+		distanceOutput = pidDistance.calculate(avgCount, timer.get());
 		
-		drivetrain.arcadeDriveAutonomo(m_distanceOutput, m_angleOutput);
+		System.out.println(Double.toString(distanceOutput) + " " + Double.toString(angleOutput));
+		System.out.println(Robot.gyro.getAngle());
+		
+		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}
 
 	protected boolean isFinished() {
-		if (m_pidDistance.onTarget(0.5) && m_stopsAtSetpoint) {
+		if (pidDistance.onTarget(5) && stopsAtSetpoint) {
+//		if (timer.get() > 2.5) {
+//		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;
@@ -98,10 +108,11 @@ public class AutonomoDriveStraight extends CommandBase {
 	}
 	
 	protected void end() {
-		motionSensors.resetAllSensors();
-		m_timer.stop();
-		m_pidDistance.reset();
-		m_pidAngle.reset();
-		drivetrain.stopDrive();
+		System.out.println("STOP!!!");
+		Robot.drivetrain.stopDrive();
+		Robot.encoders.resetEncoders();
+		timer.stop();
+		pidDistance.reset();
+		pidAngle.reset();
 	}
 }

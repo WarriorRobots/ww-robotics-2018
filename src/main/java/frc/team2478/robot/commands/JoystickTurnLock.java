@@ -1,6 +1,8 @@
 package frc.team2478.robot.commands;
 
-import frc.team2478.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.Robot;
 
 /**
  * When called, robot will drive identically to {@link JoystickTeleop} unless the sticks are very close in position:
@@ -8,26 +10,24 @@ import frc.team2478.robot.RobotMap;
  * @author avuong0922
  *
  */
-public class JoystickTurnLock extends CommandBase {
+public class JoystickTurnLock extends Command {
     
 	public JoystickTurnLock() {
-        requires(drivetrain);
+		requires(Robot.drivetrain);
     }
 
     protected void initialize() {}
 
     protected void execute() {
-    	
     	// how far apart are the joystick Y-axes?
-		double difference = Math.abs(oi.getLeftY() - oi.getRightY());
-		double average = (oi.getLeftY() + oi.getRightY()) / 2;
+		double difference = Math.abs(Robot.oi.getLeftY() - Robot.oi.getRightY());
+		double average = (Robot.oi.getLeftY() + Robot.oi.getRightY()) / 2;
 		
-    	if (difference < RobotMap.DriveScalars.LOCKMODE_TOLERANCE) {
-    		drivetrain.tankDriveTeleop(average, average);
+    	if (difference < Constants.DriveScalars.LOCKMODE_TOLERANCE) {
+    		Robot.drivetrain.tankDriveSquared(average, average);
     	} else {
-    		drivetrain.tankDriveTeleop(oi.getLeftY(), oi.getRightY());
-    	}
-    	
+    		Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
+    	}	
     }
 
     protected boolean isFinished() {
