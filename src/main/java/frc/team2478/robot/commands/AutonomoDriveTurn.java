@@ -58,18 +58,19 @@ public class AutonomoDriveTurn extends Command {
 	protected void initialize() {
 		Robot.encoders.resetEncoders();
 		Robot.gyro.resetAngle();
+		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
 	}
 	
 	protected void execute() {
-		Robot.encoders.printEncoderData();
+		System.out.println(Robot.gyro.getAngle());
 		output = pidLoop.calculate(Robot.gyro.getAngle(), timer.get());
 		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 
 	protected boolean isFinished() {
-		if (pidLoop.onTarget(0.5) && stopsAtSetpoint) {
+		if (pidLoop.onTarget(0.25) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
 			return true;
 		} else {

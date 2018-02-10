@@ -19,6 +19,8 @@
 - reverse talon ids
 - merge drivetrain subsystem changes in
 - change autonomodrivestraight int to double
+- make the if statement better with var assignments
+- debug statement for gyro
 
 ---
 
