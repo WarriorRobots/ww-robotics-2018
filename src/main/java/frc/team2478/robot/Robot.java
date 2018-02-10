@@ -44,7 +44,9 @@ public class Robot extends TimedRobot {
 		if(RobotController.isBrownedOut()) {
 			DriverStation.reportWarning("VOLTAGE WARNING: " + Double.toString(RobotController.getInputVoltage()) + "V", false);
 		}
+		System.out.println(RobotController.getInputVoltage());
 	}
+			
 
 	@Override
 	public void disabledInit() {
@@ -63,31 +65,37 @@ public class Robot extends TimedRobot {
 			if (DashboardHandler.getPosition() == Position.MIDDLE) {
 				if (gameData.charAt(0) == 'L') {
 					// left switch
+					System.out.println("switch-left");
 				} else if (gameData.charAt(0) == 'R') {
 					// right switch
+					System.out.println("switch-right");
 				} else {
 					// cross line
 				}
 			} else if (DashboardHandler.getPosition() == Position.LEFT) {
 				if (gameData.charAt(1) == 'L') {
 					// left scale
+					System.out.println("scale-left");
 				} else if (gameData.charAt(1) == 'R') {
 					if (DashboardHandler.getPriority() == Priority.HIGH) {
 						// right scale
+						System.out.println("scale-right");
 					} else if (DashboardHandler.getPriority() == Priority.LOW) {
 						// cross line
-					} else {
-						// cross line
+						System.out.println("crossline");
 					}
 				}
 			} else if (DashboardHandler.getPosition() == Position.RIGHT) {
 				if (gameData.charAt(1) == 'R') {
 					// right scale
+					System.out.println("scale-right");
 				} else if (gameData.charAt(1) == 'L') {
 					if (DashboardHandler.getPriority() == Priority.HIGH) {
 						// left scale
+						System.out.println("scale-left");
 					} else if (DashboardHandler.getPriority() == Priority.LOW) {
 						// cross line
+						System.out.println("crossline");
 					}
 				}
 			} else {

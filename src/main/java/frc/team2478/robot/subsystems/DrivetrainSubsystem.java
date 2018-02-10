@@ -20,6 +20,9 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final int RIGHT_MIDDLE = 2;
 	public static final int RIGHT_BACK = 3;
 	
+	public static final double RAMPRATE_SECONDS = 0.20;
+	public static final int TIMEOUT_MS = 10;
+	
 	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
 	private SpeedControllerGroup leftGroup, rightGroup;
 	private DifferentialDrive differentialDrive;
@@ -28,12 +31,19 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		leftFront = new WPI_TalonSRX(LEFT_FRONT);
 		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
 		leftBack = new WPI_TalonSRX(LEFT_BACK);
-		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
-		leftGroup.setInverted(true);
+		leftFront.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		leftMiddle.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		leftBack.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
 		
 		rightFront = new WPI_TalonSRX(RIGHT_FRONT);
 		rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
 		rightBack = new WPI_TalonSRX(RIGHT_BACK);
+		rightFront.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		rightMiddle.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+		rightBack.configOpenloopRamp(RAMPRATE_SECONDS, TIMEOUT_MS);
+
+		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
+		leftGroup.setInverted(true);
 		rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
 		rightGroup.setInverted(true);
 
