@@ -23,8 +23,6 @@ public class AutonomoDriveTurn extends Command {
 	 */
 	public AutonomoDriveTurn(double angle) {
 		requires(Robot.drivetrain);
-		requires(Robot.encoders);
-		requires(Robot.gyro);
 
 		angleTarget = angle;
 		
@@ -56,16 +54,16 @@ public class AutonomoDriveTurn extends Command {
 	}
 
 	protected void initialize() {
-		Robot.encoders.resetEncoders();
-		Robot.gyro.resetAngle();
+		Robot.drivetrain.resetEncoders();
+		Robot.drivetrain.resetAngle();
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
 	}
 	
 	protected void execute() {
-		System.out.println(Robot.gyro.getAngle());
-		output = pidLoop.calculate(Robot.gyro.getAngle(), timer.get());
+		System.out.println(Robot.drivetrain.getAngle());
+		output = pidLoop.calculate(Robot.drivetrain.getAngle(), timer.get());
 		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 
@@ -79,7 +77,7 @@ public class AutonomoDriveTurn extends Command {
 	}
 	
 	protected void end() {
-		Robot.encoders.resetEncoders();
+		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
 		Robot.drivetrain.stopDrive();
