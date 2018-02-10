@@ -15,7 +15,7 @@ public class AutonomoDriveStraight extends Command {
 	
 	private int distanceTarget, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
-	private boolean stopsAtSetpoint = false; // @debug
+	private boolean stopsAtSetpoint = true; // @debug
 
 	private SynchronousPIDF pidAngle, pidDistance;
 	private Timer timer;
@@ -39,7 +39,7 @@ public class AutonomoDriveStraight extends Command {
 			Constants.ClosedLoop.DISTANCE_D);
 
 		this.distanceTarget = distanceTarget;
-		System.out.println("distanceTarget" + Double.toString(this.distanceTarget) + " " + Double.toString(distanceTarget));
+		System.out.println("distanceTarget " + Double.toString(this.distanceTarget) + " " + Double.toString(distanceTarget));
 		timer = new Timer();
 	}
 	
@@ -78,6 +78,7 @@ public class AutonomoDriveStraight extends Command {
 		pidAngle.reset();
 		timer.start();
 		pidDistance.setSetpoint(distanceTarget);
+		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);
 	}
 	
@@ -97,8 +98,9 @@ public class AutonomoDriveStraight extends Command {
 	}
 
 	protected boolean isFinished() {
-//		if (pidDistance.onTarget(5) && stopsAtSetpoint) {
-		if (timer.get() > 2.5) {
+		if (pidDistance.onTarget(5) && stopsAtSetpoint) {
+//		if (timer.get() > 2.5) {
+//		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;

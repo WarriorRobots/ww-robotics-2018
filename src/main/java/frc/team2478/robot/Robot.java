@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.team2478.robot.commands.AutonomoDriveTurn;
 import frc.team2478.robot.commands.AutonomoGroupTest;
 import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
@@ -54,8 +53,9 @@ public class Robot extends TimedRobot {
 //			DashboardHandler.putAutonomoWidgets();
 //			DashboardHandler.putResetButton();
 //		}
-		if(RobotController.isBrownedOut()) {
-			DriverStation.reportWarning("VOLTAGE WARNING: " + Double.toString(RobotController.getInputVoltage()) + "V", false);
+		if (RobotController.getInputVoltage() < 9) {
+//			DriverStation.reportWarning("VOLTAGE WARNING: " + Double.toString(RobotController.getInputVoltage()) + "V", false);
+			DriverStation.reportError("REPLACE BATTERY!!!! " + Double.toString(RobotController.getInputVoltage()), false);
 		}
 	}
 			

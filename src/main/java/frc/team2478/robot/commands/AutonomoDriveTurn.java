@@ -34,6 +34,7 @@ public class AutonomoDriveTurn extends Command {
 			Constants.ClosedLoop.TURNING_D);
 		
 		timer = new Timer();
+		System.out.println("angleTarget " + Double.toString(this.angleTarget));
 	}
 
 	/**
@@ -69,6 +70,7 @@ public class AutonomoDriveTurn extends Command {
 
 	protected boolean isFinished() {
 		if (pidLoop.onTarget(0.5) && stopsAtSetpoint) {
+//		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;

@@ -19,3 +19,14 @@
 - reverse talon ids
 - merge drivetrain subsystem changes in
 - change autonomodrivestraight int to double
+
+---
+
+### ERRORS
+
+- Motor Safety Handler
+- gradlew socket is not established
+- battery voltage enters brownout with new batteries
+- inconsistent radio connections
+	+ solution tested 2/10 12:31pm: change roborio to static ((failure))
+	+ needs practice static ip
