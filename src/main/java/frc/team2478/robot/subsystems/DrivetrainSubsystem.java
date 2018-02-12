@@ -60,6 +60,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 
 		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
 		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
+		rightEnc.setReverseDirection(true);
 		
 		leftFront.configOpenloopRamp(0.35, 10);
 		leftMiddle.configOpenloopRamp(0.35, 10);
