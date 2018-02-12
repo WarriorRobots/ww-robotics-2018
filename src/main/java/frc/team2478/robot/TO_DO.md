@@ -14,13 +14,13 @@
 ---
 
 - PID 3 modes for shooter
-- driver override in case of jam
-- requires((Subsystem) this.drivetrain)
+	+ driver override in case of jam
 - reverse talon ids
 - merge drivetrain subsystem changes in
 - change autonomodrivestraight int to double
 - make the if statement better with var assignments
 - debug statement for gyro
+- auto encoder measurement conversion
 
 ---
 

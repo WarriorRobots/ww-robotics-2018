@@ -1,6 +1,7 @@
 package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.commands.autonomous.LefttoLeftScale;
 import frc.team2478.robot.commands.autonomous.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.LefttoRightScale;
@@ -24,52 +25,60 @@ public class AutonomoSelector {
 	private static boolean scaleOnLeft, scaleOnRight = false;
 
 	public static void selectCase() throws Exception {
+		
 		initData();
-
+		Command autoCommand = null;
+		
 		if (atMiddlePos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					new MidtoLeftSwitch().start();
+					autoCommand = new MidtoLeftSwitch();
 				} else if (switchOnRight) {
-					new MidtoRightSwitch().start();
+					autoCommand = new MidtoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
-					new MidtoLeftScale().start();
+					autoCommand = new MidtoLeftScale();
 				} else if (scaleOnRight) {
-					new MidtoRightScale().start();
+					autoCommand = new MidtoRightScale();
 				}
 			}
 		} else if (atLeftPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					new LefttoLeftSwitch().start();
+					autoCommand = new LefttoLeftSwitch();
 				} else if (switchOnRight) {
-					new LefttoRightSwitch().start();
+					autoCommand = new LefttoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
-					new LefttoLeftScale().start();
+					autoCommand = new LefttoLeftScale();
 				} else if (scaleOnRight) {
-					new LefttoRightScale().start();
+					autoCommand = new LefttoRightScale();
 				}
 			}
 		} else if (atRightPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					new RighttoLeftSwitch().start();
+					autoCommand = new RighttoLeftSwitch();
 				} else if (switchOnRight) {
-					new RighttoRightSwitch().start();
+					autoCommand = new RighttoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
-					new RighttoLeftScale().start();
+					autoCommand = new RighttoLeftScale();
 				} else if (scaleOnRight) {
-					new RighttoRightScale().start();
+					autoCommand = new RighttoRightScale();
 				}
 			}
 		}
-
+		
+		if (autoCommand != null) {
+			autoCommand.start();
+		} else {
+			throw new NullPointerException("Autonomous not initialized to a command");
+		}
+		
 		resetData();
 	}
 	
