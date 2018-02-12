@@ -13,98 +13,127 @@ import frc.team2478.robot.commands.autonomous.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.RighttoRightSwitch;
-import frc.team2478.robot.util.DashboardHandler.AutoTarget;
-import frc.team2478.robot.util.DashboardHandler.Position;
 
 public class AutonomoSelector {
-	
-	private static String gameData;
-	
-	public static void selectCase() {
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		try {
-			if(gameData.length() > 0) {
-				if (DashboardHandler.getPosition() == Position.MIDDLE) {
-					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-						if (gameData.charAt(0) == 'L') {
-							DriverStation.reportWarning("middle to left switch", false);
-							new MidtoLeftSwitch().start();
-						} else if (gameData.charAt(0) == 'R') {
-							DriverStation.reportWarning("middle to right switch", false);
-							new MidtoRightSwitch().start();
-							
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-						if (gameData.charAt(1) == 'L') {
-							DriverStation.reportWarning("middle to left scale", false);
-							new MidtoLeftScale().start();
-						} else if (gameData.charAt(1) == 'R') {
-							DriverStation.reportWarning("middle to right scale", false);
-							new MidtoRightScale().start();
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else {
-						throw new Exception("Failed to choose target");
-					}
-				} else if (DashboardHandler.getPosition() == Position.LEFT) {
-					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-						if (gameData.charAt(0) == 'L') {
-							DriverStation.reportWarning("left to left switch", false);
-							new LefttoLeftSwitch().start();
-						} else if (gameData.charAt(0) == 'R') {
-							DriverStation.reportWarning("left to right switch", false);
-							new LefttoRightSwitch().start();
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-						if (gameData.charAt(1) == 'L') {
-							DriverStation.reportWarning("left to left scale", false);
-							new LefttoLeftScale().start();
-						} else if (gameData.charAt(1) == 'R') {
-							DriverStation.reportWarning("left to right scale", false);
-							new LefttoRightScale().start();
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else {
-						throw new Exception("Failed to choose target");
-					}
-				} else if (DashboardHandler.getPosition() == Position.RIGHT) {
-					if (DashboardHandler.getAutoTarget() == AutoTarget.SWITCH) {
-						if (gameData.charAt(0) == 'L') {
-							DriverStation.reportWarning("right to left switch", false);
-							new RighttoLeftSwitch().start();
-						} else if (gameData.charAt(0) == 'R') {
-							DriverStation.reportWarning("right to right switch", false);
-							new RighttoRightSwitch().start();
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else if (DashboardHandler.getAutoTarget() == AutoTarget.SCALE) {
-						if (gameData.charAt(1) == 'L') {
-							DriverStation.reportWarning("right to left scale", false);
-							new RighttoLeftScale().start();
-						} else if (gameData.charAt(1) == 'R') {
-							DriverStation.reportWarning("right to right scale", false);
-							new RighttoRightScale().start();
-						} else {
-							throw new Exception("Failed to get game-specific-message");
-						}
-					} else {
-						throw new Exception("Failed to choose target");
-					}
-				} else {
-					throw new Exception("Failed to choose position");
+
+	private static String gameData = null;
+
+	private static boolean atLeftPos, atMiddlePos, atRightPos = false;
+	private static boolean goToScale, goToSwitch = false;
+	private static boolean switchOnLeft, switchOnRight = false;
+	private static boolean scaleOnLeft, scaleOnRight = false;
+
+	public static void selectCase() throws Exception {
+		initData();
+
+		if (atMiddlePos) {
+			if (goToSwitch) {
+				if (switchOnLeft) {
+					new MidtoLeftSwitch().start();
+				} else if (switchOnRight) {
+					new MidtoRightSwitch().start();
 				}
-			} else {
-				DriverStation.reportError("string too short", false);
+			} else if (goToScale) {
+				if (scaleOnLeft) {
+					new MidtoLeftScale().start();
+				} else if (scaleOnRight) {
+					new MidtoRightScale().start();
+				}
 			}
-		} catch (Exception e) {
-			DriverStation.reportError(e.getMessage(), true);
+		} else if (atLeftPos) {
+			if (goToSwitch) {
+				if (switchOnLeft) {
+					new LefttoLeftSwitch().start();
+				} else if (switchOnRight) {
+					new LefttoRightSwitch().start();
+				}
+			} else if (goToScale) {
+				if (scaleOnLeft) {
+					new LefttoLeftScale().start();
+				} else if (scaleOnRight) {
+					new LefttoRightScale().start();
+				}
+			}
+		} else if (atRightPos) {
+			if (goToSwitch) {
+				if (switchOnLeft) {
+					new RighttoLeftSwitch().start();
+				} else if (switchOnRight) {
+					new RighttoRightSwitch().start();
+				}
+			} else if (goToScale) {
+				if (scaleOnLeft) {
+					new RighttoLeftScale().start();
+				} else if (scaleOnRight) {
+					new RighttoRightScale().start();
+				}
+			}
 		}
+
+		resetData();
+	}
+	
+	private static void initData() throws Exception {
+		if (gameData.length() > 0) {
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		} else {
+			throw new Exception("Driver Station is missing autonomous data");
+		}
+
+		switch (DashboardHandler.getPosition()) {
+		case MIDDLE:
+			atMiddlePos = true;
+			break;
+		case LEFT:
+			atLeftPos = true;
+			break;
+		case RIGHT:
+			atRightPos = true;
+			break;
+		default:
+			throw new Exception("Failed to get position");
+		}
+
+		switch (DashboardHandler.getAutoTarget()) {
+		case SWITCH:
+			goToSwitch = true;
+			break;
+		case SCALE:
+			goToScale = true;
+			break;
+		default:
+			throw new Exception("Failed to get intended target");
+		}
+
+		switch (gameData.charAt(0)) {
+		case 'L':
+			switchOnLeft = true;
+			break;
+		case 'R':
+			switchOnRight = true;
+			break;
+		default:
+			throw new Exception("Failed to get switch position");
+		}
+
+		switch (gameData.charAt(1)) {
+		case 'L':
+			scaleOnLeft = true;
+			break;
+		case 'R':
+			scaleOnRight = true;
+			break;
+		default:
+			throw new Exception("Failed to get scale position");
+		}
+	}
+
+
+	private static void resetData() {
+		gameData = null;
+		atLeftPos = atMiddlePos = atRightPos = false;
+		goToScale = goToSwitch = false;
+		switchOnLeft = switchOnRight = false;
+		scaleOnLeft = scaleOnRight = false;
 	}
 }
