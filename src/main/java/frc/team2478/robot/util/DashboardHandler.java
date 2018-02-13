@@ -1,7 +1,6 @@
 package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2478.robot.Robot;
 
 public class DashboardHandler {
 	

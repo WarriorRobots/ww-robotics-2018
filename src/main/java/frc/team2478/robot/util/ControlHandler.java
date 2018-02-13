@@ -27,7 +27,7 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private Button rightTriggerButton, rightThumbButton, leftTriggerButton;
+	private Button rightTriggerButton, rightThumbButton;
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -38,7 +38,7 @@ public final class ControlHandler {
 		xbox = new XboxController(XBOX);
 		
 		rightTriggerButton = new JoystickButton(rightJoy, 1);
-		leftTriggerButton = new JoystickButton(leftJoy, 1);
+//		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightThumbButton = new JoystickButton(rightJoy, 2);
 		
 		rightTriggerButton.whileHeld(new JoystickTurnLock());
