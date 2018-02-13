@@ -18,7 +18,7 @@ public class JoystickTeleop extends Command {
     protected void execute() {
     	Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
     	Robot.drivetrain.printEncoderData();
-    	Robot.drivetrain.printAngleData();
+//    	Robot.drivetrain.printAngleData();
     }
 
     protected boolean isFinished() {

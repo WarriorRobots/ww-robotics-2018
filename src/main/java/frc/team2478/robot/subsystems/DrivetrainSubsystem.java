@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.team2478.robot.commands.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
 /**
@@ -36,21 +37,19 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	private DifferentialDrive differentialDrive;
 	
 	public DrivetrainSubsystem() {
-		try {
-			leftFront = new WPI_TalonSRX(LEFT_FRONT);
-			leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
-			leftBack = new WPI_TalonSRX(LEFT_BACK);
-			leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
-			
-			rightFront = new WPI_TalonSRX(RIGHT_FRONT);
-			rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
-			rightBack = new WPI_TalonSRX(RIGHT_BACK);
-			rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
-			
-			differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
-		} catch (Exception ex) {
-			DriverStation.reportError(ex.getMessage(), true);
-		}
+		leftFront = new WPI_TalonSRX(LEFT_FRONT);
+		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
+		leftBack = new WPI_TalonSRX(LEFT_BACK);
+		leftGroup = new SpeedControllerGroup(leftFront, leftMiddle, leftBack);
+		leftGroup.setInverted(true);
+		
+		rightFront = new WPI_TalonSRX(RIGHT_FRONT);
+		rightMiddle = new WPI_TalonSRX(RIGHT_MIDDLE);
+		rightBack = new WPI_TalonSRX(RIGHT_BACK);
+		rightGroup = new SpeedControllerGroup(rightFront, rightMiddle, rightBack);
+		rightGroup.setInverted(true);
+		
+		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
 		
 		try {
 			navx = new AHRS(I2C.Port.kMXP);
@@ -59,6 +58,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 
 		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
+		leftEnc.setReverseDirection(false);
 		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
 		rightEnc.setReverseDirection(true);
 		
@@ -127,7 +127,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		switch(side) {
 		case LEFT: return leftEnc.get();
 		case RIGHT: return rightEnc.get();
-		default: // compiler will crash without a default statement
+		default: // compiler will throw error without a default statement
 			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
 		}
 	}
@@ -206,5 +206,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
 	
-	public void initDefaultCommand() {}
+	public void initDefaultCommand() {
+		setDefaultCommand(new JoystickTeleop());
+}
 }

@@ -32,3 +32,4 @@
 - inconsistent radio connections
 	+ solution tested 2/10 12:31pm: change roborio to static ((failure))
 	+ needs practice static ip
+- navx fails on practice bots

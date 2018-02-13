@@ -11,14 +11,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
-import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
-import frc.team2478.robot.util.DashboardHandler;
-import frc.team2478.robot.util.DashboardHandler.AutoTarget;
-import frc.team2478.robot.util.DashboardHandler.Position;
 
 public class Robot extends TimedRobot {
 		
@@ -26,8 +21,8 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
 	public static ControlHandler oi;
 	
-	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
-	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
+//	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
+//	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
 	
 	@Override
 	public void robotInit() {
@@ -48,7 +43,6 @@ public class Robot extends TimedRobot {
 //			DashboardHandler.putResetButton();
 //		}
 		if (RobotController.getInputVoltage() < 9) {
-//			DriverStation.reportWarning("VOLTAGE WARNING: " + Double.toString(RobotController.getInputVoltage()) + "V", false);
 			DriverStation.reportError("REPLACE BATTERY!!!! " + Double.toString(RobotController.getInputVoltage()), false);
 		}
 	}
@@ -57,8 +51,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 //		DashboardHandler.putResetButton();
+//		DashboardHandler.putAutonomoWidgets();
 		Scheduler.getInstance().removeAll();
-		DashboardHandler.putAutonomoWidgets();
 	}
 
 	@Override
@@ -67,7 +61,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		// use null detector to prevent injuries
-		AutonomoSelector.selectCase();
+//		AutonomoSelector.selectCase();
 	}
 
 	@Override
@@ -83,6 +77,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		drivetrain.printAngleData();
 	}
 
 	@Override
