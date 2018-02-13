@@ -19,7 +19,7 @@
 - merge drivetrain subsystem changes in
 - change autonomodrivestraight int to double
 - make the if statement better with var assignments
-- debug statement for gyro
+- debug statement for gyro (add a space)
 - auto encoder measurement conversion
 
 ---
@@ -32,3 +32,4 @@
 - inconsistent radio connections
 	+ solution tested 2/10 12:31pm: change roborio to static ((failure))
 	+ needs practice static ip
+- robot lags behind during low voltage turn

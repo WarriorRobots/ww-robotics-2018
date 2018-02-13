@@ -2,6 +2,7 @@ package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.commands.autonomous.AutonomoGroupTest;
 import frc.team2478.robot.commands.autonomous.LefttoLeftScale;
 import frc.team2478.robot.commands.autonomous.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.LefttoRightScale;
@@ -24,8 +25,7 @@ public class AutonomoSelector {
 	private static boolean switchOnLeft, switchOnRight = false;
 	private static boolean scaleOnLeft, scaleOnRight = false;
 
-	public static void selectCase() throws Exception {
-		
+	public static void selectCase() {
 		initData();
 		Command autoCommand = null;
 		
@@ -72,22 +72,15 @@ public class AutonomoSelector {
 				}
 			}
 		}
-		
-		if (autoCommand != null) {
-			autoCommand.start();
-		} else {
-			throw new NullPointerException("Autonomous not initialized to a command");
-		}
+
+		autoCommand.start();
 		
 		resetData();
 	}
 	
-	private static void initData() throws Exception {
-		if (gameData.length() > 0) {
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
-		} else {
-			throw new Exception("Driver Station is missing autonomous data");
-		}
+	private static void initData() {
+		resetData();
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
 		switch (DashboardHandler.getPosition()) {
 		case MIDDLE:
@@ -99,8 +92,6 @@ public class AutonomoSelector {
 		case RIGHT:
 			atRightPos = true;
 			break;
-		default:
-			throw new Exception("Failed to get position");
 		}
 
 		switch (DashboardHandler.getAutoTarget()) {
@@ -110,8 +101,6 @@ public class AutonomoSelector {
 		case SCALE:
 			goToScale = true;
 			break;
-		default:
-			throw new Exception("Failed to get intended target");
 		}
 
 		switch (gameData.charAt(0)) {
@@ -121,8 +110,6 @@ public class AutonomoSelector {
 		case 'R':
 			switchOnRight = true;
 			break;
-		default:
-			throw new Exception("Failed to get switch position");
 		}
 
 		switch (gameData.charAt(1)) {
@@ -132,8 +119,6 @@ public class AutonomoSelector {
 		case 'R':
 			scaleOnRight = true;
 			break;
-		default:
-			throw new Exception("Failed to get scale position");
 		}
 	}
 

@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.team2478.robot.commands.autonomous.AutonomoGroupTest;
 import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.NavxSubsystem;
+import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
 import frc.team2478.robot.util.DashboardHandler;
 import frc.team2478.robot.util.DashboardHandler.AutoTarget;
@@ -70,10 +70,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		// use null detector to prevent injuries
-//		AutoRobot.selectCase();
-		
-		new AutonomoGroupTest().start();
+		AutonomoSelector.selectCase();
 	}
 
 	@Override
