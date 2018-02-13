@@ -34,6 +34,22 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 		return visionTable.getEntry("ty").getDouble(0);
 	}
 	
+	/**
+	 * Gets the percentage area of the currently-seen object relative to the image size. 
+	 * @return Decimal representing percentage of image taken up by object, -1 to 1.
+	 */
+	public double getObjectArea() {
+		return visionTable.getEntry("ta").getDouble(0);
+	}
+	
+	/**
+	 * Gets the rotation angle of the currently-seen object.
+	 * @return -90 degrees to 90 degrees
+	 */
+	public double getObjectRotationAngle() {
+		return visionTable.getEntry("ts").getDouble(0);
+	}
+	
 	@Override
     public void initDefaultCommand() {}
 }
