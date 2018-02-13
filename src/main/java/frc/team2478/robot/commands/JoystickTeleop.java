@@ -10,7 +10,6 @@ public class JoystickTeleop extends Command {
 	
     public JoystickTeleop() {
     	requires(Robot.drivetrain);
-    	requires(Robot.encoders);
     }
 
     protected void initialize() {
@@ -18,8 +17,6 @@ public class JoystickTeleop extends Command {
 
     protected void execute() {
     	Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
-    	Robot.encoders.printEncoderData();
-    	System.out.print(Robot.gyro.getAngle());
     }
 
     protected boolean isFinished() {

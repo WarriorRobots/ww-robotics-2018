@@ -34,5 +34,10 @@ public interface GyroscopeInterface {
 	 * Resets current angle to 0.
 	 */
 	public void resetAngle();
+	
+	/**
+	 * Prints angle data to console.
+	 */
+	public void printAngleData();
 
 }

@@ -1,7 +1,11 @@
 package frc.team2478.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -20,8 +24,16 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final int RIGHT_MIDDLE = 2;
 	public static final int RIGHT_BACK = 3;
 	
+	public static final int LEFT_ENCODER_PORTA = 2;
+	public static final int LEFT_ENCODER_PORTB = 3;
+	public static final int RIGHT_ENCODER_PORTA = 0;
+	public static final int RIGHT_ENCODER_PORTB = 1;
+	
 	public static final double RAMPRATE_SECONDS = 0.15;
 	public static final int TIMEOUT_MS = 10;
+	
+	private Encoder leftEnc, rightEnc;
+	private AHRS navx;
 	
 	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
 	private SpeedControllerGroup leftGroup, rightGroup;
@@ -48,7 +60,17 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		rightGroup.setInverted(true);
 
 		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
-		differentialDrive.setSafetyEnabled(false); // @debug
+		
+		try {
+			navx = new AHRS(I2C.Port.kMXP);
+		} catch (Exception ex) {
+			DriverStation.reportError(ex.getMessage(), true);
+		}
+
+		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
+		leftEnc.setReverseDirection(false);
+		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
+		rightEnc.setReverseDirection(true);
 	}
 	
 	/**
@@ -92,7 +114,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
-		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
+		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
 	/**
@@ -102,8 +124,91 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public void stopDrive() {
 		differentialDrive.stopMotor();
 	}
+	
+	@Override
+	public int getEncoderTicks(Side side) {
+		switch(side) {
+		case LEFT: return leftEnc.get();
+		case RIGHT: return rightEnc.get();
+		default: // compiler will throw error without a default statement
+			throw new IllegalArgumentException("Invalid argument for getEncoderTicks()");
+		}
+	}
 
 	@Override
+	public void resetEncoderTicks(Side side) {
+		switch(side) {
+		case LEFT:
+			leftEnc.reset();
+			break;
+		case RIGHT:
+			rightEnc.reset();
+			break;
+		}
+	}
+
+	@Override
+	public void resetEncoders() {
+		this.resetEncoderTicks(Side.LEFT);
+		this.resetEncoderTicks(Side.RIGHT);
+	}
+	
+	@Override
+	public void printEncoderData() {
+		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
+						  " RIGHT: " + Double.toString(getEncoderTicks(Side.RIGHT)));
+	}
+
+	@Override
+	public double getAccelX() {
+		return navx.getWorldLinearAccelX();
+	}
+
+	@Override
+	public double getAccelY() {
+		return navx.getWorldLinearAccelY();
+	}
+
+	@Override
+	public double getAccelZ() {
+		return navx.getWorldLinearAccelZ();
+	}
+
+	@Override
+	public double getPitch() {
+		return navx.getPitch();
+	}
+
+	@Override
+	public double getRoll() {
+		return navx.getRoll();
+	}
+
+	@Override
+	public double getYaw() {
+		return navx.getYaw();
+	}
+
+	@Override
+	public void resetYaw() {
+		navx.zeroYaw();
+	}
+
+	@Override
+	public double getAngle() {
+		return navx.getAngle();
+	}
+
+	@Override
+	public void resetAngle() {
+		navx.zeroYaw();
+	}
+	
+	@Override
+	public void printAngleData() {
+		System.out.println("ANGLE: " + Double.toString(getAngle()));
+	}
+	
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickTeleop());
 	}

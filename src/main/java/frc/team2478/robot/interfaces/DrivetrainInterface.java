@@ -3,7 +3,7 @@ package frc.team2478.robot.interfaces;
 /**
  * Interface for controlling a differential drivetrain.
  */
-public interface DrivetrainInterface {
+public interface DrivetrainInterface extends DriveEncoderInterface, GyroscopeInterface, AccelerometerInterface {
 
 	/**
 	 * Drives robot in tank drive mode, with inputs squared for ease of human control.

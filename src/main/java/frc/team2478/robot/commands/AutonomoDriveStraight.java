@@ -26,8 +26,6 @@ public class AutonomoDriveStraight extends Command {
 	 */
 	public AutonomoDriveStraight(int distanceTarget) {
 		requires(Robot.drivetrain);
-		requires(Robot.encoders);
-		requires(Robot.gyro);
 
 		pidAngle = new SynchronousPIDF( // default vals
 			Constants.ClosedLoop.TURNING_P,
@@ -73,8 +71,8 @@ public class AutonomoDriveStraight extends Command {
 	}
 
 	protected void initialize() {
-		Robot.encoders.resetEncoders();
-		Robot.gyro.resetAngle();
+		Robot.drivetrain.resetEncoders();
+		Robot.drivetrain.resetAngle();
 		pidAngle.reset();
 		timer.start();
 		pidDistance.setSetpoint(distanceTarget);
@@ -83,16 +81,16 @@ public class AutonomoDriveStraight extends Command {
 	}
 	
 	protected void execute() {
-		leftCount = Robot.encoders.getEncoderTicks(Side.LEFT);
-		rightCount = Robot.encoders.getEncoderTicks(Side.RIGHT);
-		Robot.encoders.printEncoderData();
+		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
+		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
+		Robot.drivetrain.printEncoderData();
 		
 		avgCount = (int) ((leftCount + rightCount) / 2);
-		angleOutput = pidAngle.calculate(Robot.gyro.getAngle(), timer.get());
+		angleOutput = pidAngle.calculate(Robot.drivetrain.getAngle(), timer.get());
 		distanceOutput = pidDistance.calculate(avgCount, timer.get());
 		
 		System.out.println(Double.toString(distanceOutput) + " " + Double.toString(angleOutput));
-		System.out.println(Robot.gyro.getAngle());
+		System.out.println(Robot.drivetrain.getAngle());
 		
 		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}
@@ -110,7 +108,7 @@ public class AutonomoDriveStraight extends Command {
 	protected void end() {
 		System.out.println("STOP!!!");
 		Robot.drivetrain.stopDrive();
-		Robot.encoders.resetEncoders();
+		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidDistance.reset();
 		pidAngle.reset();

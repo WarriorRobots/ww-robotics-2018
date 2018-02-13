@@ -35,6 +35,7 @@
 	+ needs practice static ip
 - robot lags behind during low voltage turn
 - robot using average of two encoders will drive at double distance
+- navx failure on practice bots 2/12 5pm
 
 ### HOW TO DEBUG THE ROBOT
 
