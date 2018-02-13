@@ -92,7 +92,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
-		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
+		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
 	}
 	
 	/**

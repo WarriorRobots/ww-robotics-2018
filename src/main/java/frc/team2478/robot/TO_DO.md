@@ -21,6 +21,7 @@
 - make the if statement better with var assignments
 - debug statement for gyro (add a space)
 - auto encoder measurement conversion
+- exponential turning in tank drive
 
 ---
 
@@ -33,3 +34,11 @@
 	+ solution tested 2/10 12:31pm: change roborio to static ((failure))
 	+ needs practice static ip
 - robot lags behind during low voltage turn
+- robot using average of two encoders will drive at double distance
+
+### HOW TO DEBUG THE ROBOT
+
+- DO THIS BEFORE COMMITTING PULL REQUESTS
+- open console, connect to robot, check that there are no errors or java stacktraces
+- enable teleop, drive with all possible teleop commands
+- enable autonomous, check that autonomous selector works and that commands run

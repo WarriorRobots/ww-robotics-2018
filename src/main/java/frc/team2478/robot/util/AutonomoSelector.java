@@ -2,7 +2,6 @@ package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.commands.autonomous.AutonomoGroupTest;
 import frc.team2478.robot.commands.autonomous.LefttoLeftScale;
 import frc.team2478.robot.commands.autonomous.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.LefttoRightScale;
