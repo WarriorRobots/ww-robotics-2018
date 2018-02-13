@@ -11,9 +11,6 @@ import frc.team2478.robot.interfaces.CameraInterface;
  */
 public class LimelightSubsystem extends Subsystem implements CameraInterface {
 
-	// TO-DO: getTargetArea and getTargetSkew
-	// - write Javadoc documentation
-	
 	private NetworkTable visionTable;
 	private NetworkTableInstance defaultTable;
 	
@@ -22,29 +19,17 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 		visionTable = defaultTable.getTable("limelight");
 	}
 	
-	/**
-	 * Returns true if the Limelight has picked up a vision target.
-	 * @return True if target found, false by default.
-	 */
 	public boolean canSeeObject() {
 		// if network table returns 1, vision target exists
-		// else (should be 0) there is no target
+		// else (should be 0) there is no target visible
 		return (visionTable.getEntry("tv").getDouble(0) == 1)
 				? true : false;
 	}
 	
-	/**
-	 * Gets the horizontal distance between the camera's center and current vision target.
-	 * @return Double representing vision target's offset from the Y axis.
-	 */
 	public double getObjectX() {
 		return visionTable.getEntry("tx").getDouble(0);
 	}
 	
-	/**
-	 * Gets the vertical distance between the camera's center and current vision target.
-	 * @return Double representing vision target's offset from the X axis.
-	 */
 	public double getObjectY() {
 		return visionTable.getEntry("ty").getDouble(0);
 	}

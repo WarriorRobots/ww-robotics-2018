@@ -84,42 +84,21 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
-	/**
-	 * Drives the left and right sides separately, with inputs NOT squared.
-	 * Intended for use with PID and autonomous.
-	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
-	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
-	 */
 	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
-	/**
-	 * Sets forward and turning speed, with inputs squared of ease of driver use.
-	 * Intended for use with PID and autonomous.
-	 * @param forwardSpeed  Percentage speed of forwards drive, from -1 to 1.
-	 * @param turnSpeed  Percentage speed of turning, from -1 to 1.
-	 */
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
-	/**
-	 * Sets forward and turning speed, with inputs NOT squared.
-	 * <p> DO NOT USE WITH PID.
-	 * @param forwardSpeed  Percentage speed of forwards drive, from -1 to 1.
-	 * @param turnSpeed  Percentage speed of turning, from -1 to 1.
-	 */
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
-	/**
-	 * Shuts off motors and stops driving.
-	 */
 	@Override
 	public void stopDrive() {
 		differentialDrive.stopMotor();
@@ -153,6 +132,10 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		this.resetEncoderTicks(Side.RIGHT);
 	}
 	
+	/**
+	 * {@code println()} the current counts of both encoders.
+	 * <p> Formatted as: {@code LEFT: 00 RIGHT: 00}
+	 */
 	@Override
 	public void printEncoderData() {
 		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
@@ -204,6 +187,10 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		navx.zeroYaw();
 	}
 	
+	/**
+	 * {@code println()} the current angle of the gyroscope.
+	 * <p> Formatted as: {@code ANGLE: 00}
+	 */
 	@Override
 	public void printAngleData() {
 		System.out.println("ANGLE: " + Double.toString(getAngle()));

@@ -68,7 +68,7 @@ public class AutonomoDriveTurn extends Command {
 	}
 
 	protected boolean isFinished() {
-		if (pidLoop.onTarget(0.25) && stopsAtSetpoint) {
+		if (pidLoop.onTarget(Constants.ClosedLoop.TURNING_TOLERANCE) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
 			return true;
 		} else {

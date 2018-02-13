@@ -96,8 +96,7 @@ public class AutonomoDriveStraight extends Command {
 	}
 
 	protected boolean isFinished() {
-		if (pidDistance.onTarget(5) && stopsAtSetpoint) {
-//		if (timer.get() > 2.5) {
+		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
 			return true;
 		} else {

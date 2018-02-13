@@ -24,7 +24,10 @@ public class AutonomoSelector {
 	private static boolean switchOnLeft, switchOnRight = false;
 	private static boolean scaleOnLeft, scaleOnRight = false;
 
-	public static void selectCase() {
+	/**
+	 * Selects autonomous case and calls {@code start()} on the chosen {@code CommandGroup}.
+	 */
+	public static void selectAutoCase() {
 		initData();
 		Command autoCommand = null;
 		

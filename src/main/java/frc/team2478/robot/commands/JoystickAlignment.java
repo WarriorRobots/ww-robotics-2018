@@ -19,8 +19,8 @@ public class JoystickAlignment extends Command {
 
     protected void execute() {
     	Robot.drivetrain.arcadeDriveSquared(
-			Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-			Robot.oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
+			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
+			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
     }
 
     protected boolean isFinished() {

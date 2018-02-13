@@ -14,19 +14,19 @@ public interface DriveEncoderInterface {
 	}
 
 	/**
-	 * Returns encoder ticks of the side specified.
-	 * @param side  LEFT or RIGHT
+	 * Returns current ticks of encoder on side specified.
+	 * @param side  Side to retrieve ticks from, {@code Side.LEFT} or {@code Side.RIGHT}
 	 */
 	public int getEncoderTicks(Side side);
 	
 	/**
-	 * Resets encoder on specified side.
-	 * @param side  LEFT or RIGHT
+	 * Resets encoder ticks on specified side to 0.
+	 * @param side  Side to reset ticks on, {@code Side.LEFT} or {@code Side.RIGHT}
 	 */
 	public void resetEncoderTicks(Side side);
 
 	/**
-	 * Resets both encoders.
+	 * Resets both encoders to 0.
 	 */
 	public void resetEncoders();
 	

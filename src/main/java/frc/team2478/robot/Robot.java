@@ -17,7 +17,7 @@ import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
 
 public class Robot extends TimedRobot {
-		
+	
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
 	public static ControlHandler oi;
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		AutonomoSelector.selectCase();
+		AutonomoSelector.selectAutoCase();
 	}
 
 	@Override

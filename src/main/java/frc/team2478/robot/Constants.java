@@ -13,17 +13,52 @@ package frc.team2478.robot;
 public final class Constants {
 	
 	/**
-	 * Contains PID constants. 
+	 * Contains PID constants used for closed-loop control.
 	 */
 	public static final class ClosedLoop {
-		// PID constants
-		public static final double TURNING_P = 0.017; // 0,02325
-		public static final double TURNING_I = 0.0015; // 0.0003
-		public static final double TURNING_D = 0.02225; //02225 bck
-		public static final double COURSECORRECTION_I = 0.000; //course correction
-		public static final double TURNING_TOLERANCE = 0.05;
-		public static final double DISTANCE_P = 0.02; // 0.1
+		/**
+		 * P value for the loop used while turning.
+		 */
+		public static final double TURNING_P = 0.017;
+		
+		/**
+		 * I value for the loop used while turning.
+		 */
+		public static final double TURNING_I = 0.0015;
+		
+		/**
+		 * D value for the loop used while turning.
+		 */
+		public static final double TURNING_D = 0.02225;
+		
+		/**
+		 * I value for the loop used while driving straight.
+		 */
+		public static final double COURSECORRECTION_I = 0.000;
+		
+		/**
+		 * Tolerance of the PID loop used while turning.
+		 */
+		public static final double TURNING_TOLERANCE = 0.25;
+		
+		/**
+		 * Tolerance of the PID loop used for measuring distance driven.
+		 */
+		public static final double DISTANCE_TOLERANCE = 5;
+		
+		/**
+		 * P value for the loop used while driving forwards.
+		 */
+		public static final double DISTANCE_P = 0.02;
+		
+		/**
+		 * I value for the loop used while driving forwards.
+		 */
 		public static final double DISTANCE_I = 0.0001;
+		
+		/**
+		 * D value for the loop used while driving forwards.
+		 */
 		public static final double DISTANCE_D = 0.06;
 	}
 
@@ -31,22 +66,19 @@ public final class Constants {
 	 * Contains scaling factors for drive methods.
 	 */
 	public static final class DriveScalars {
-		// alternate driving mode scalars
-		public static final double ARCADE_FORWARDSPEED = 0.5;
-		public static final double ARCADE_TURNSPEED = 0.5;
+		/**
+		 * Joystick multiplier of robot while driving forwards in alignment mode.
+		 */
+		public static final double ALIGNMENT_FORWARDSPEED = 0.5;
+		
+		/**
+		 * Joystick multiplier of robot while turning in alignment mode.
+		 */
+		public static final double ALIGNMENT_TURNSPEED = 0.5;
+		
+		/**
+		 * Percentage difference between joysticks required before lockmode disables.
+		 */
 		public static final double LOCKMODE_TOLERANCE = 0.2;
-//		public static final double TEST_PID_COURSECORRECTION = 0.6;
-		// autonomous scalars
-		public static final double AUTO_SPEED_FORWARDS = 0.4; //0.6
 	}
-	
-	/**
-	 * Contains IDs for the RoboRIO DIO ports.
-	 */
-	public static final class DioPorts {}
-	
-	/**
-	 * Contains IDs for the RoboRIO PWM ports.
-	 */
-	public static final class PwmPorts {}
 }

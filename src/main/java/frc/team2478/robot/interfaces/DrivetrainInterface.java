@@ -33,6 +33,9 @@ public interface DrivetrainInterface extends DriveEncoderInterface, GyroscopeInt
 	 */
 	public void arcadeDriveRaw(double forward, double turn);
 	
+	/**
+	 * Stops all drive motors, halting the robot.
+	 */
 	public void stopDrive();
 	
 }

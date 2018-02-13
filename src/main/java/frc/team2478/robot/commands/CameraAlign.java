@@ -22,12 +22,12 @@ public class CameraAlign extends Command {
 	protected void execute() {
 		if (Robot.limelight.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			Robot.drivetrain.arcadeDriveRaw(
-				Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
+				Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
 				Robot.limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			Robot.drivetrain.arcadeDriveSquared(
-    			Robot.oi.getRightY(Constants.DriveScalars.ARCADE_FORWARDSPEED),
-    			Robot.oi.getRightX(Constants.DriveScalars.ARCADE_TURNSPEED));
+    			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
+    			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
 		}
 	}
 
