@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.commands.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
@@ -194,6 +195,15 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	@Override
 	public void printAngleData() {
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
+	}
+	
+	public void currentToDashboard() {
+		SmartDashboard.putNumber("LEFTFRONT", leftFront.getOutputCurrent());
+		SmartDashboard.putNumber("LEFTMIDDLE", leftMiddle.getOutputCurrent());
+		SmartDashboard.putNumber("LEFTBACK", leftBack.getOutputCurrent());
+		SmartDashboard.putNumber("RIGHTFRONT", rightFront.getOutputCurrent());
+		SmartDashboard.putNumber("RIGHTMIDDLE", rightMiddle.getOutputCurrent());
+		SmartDashboard.putNumber("RIGHTBACK", rightBack.getOutputCurrent());
 	}
 	
 	public void initDefaultCommand() {

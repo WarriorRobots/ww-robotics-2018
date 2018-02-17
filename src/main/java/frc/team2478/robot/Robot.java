@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.util.DebugPrintLooper;
 
 public class Robot extends TimedRobot {
 	
@@ -62,6 +64,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		AutonomoSelector.selectAutoCase();
+		
 	}
 
 	@Override
@@ -77,6 +80,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		drivetrain.currentToDashboard();
 	}
 
 	@Override
