@@ -11,8 +11,8 @@ import frc.team2478.robot.interfaces.MotorInterface;
  */
 public class FeedSubsystem extends Subsystem implements MotorInterface {
 
-	private final int MASTER_MOTOR = 11;
-	private final int SLAVE_MOTOR = 12;
+	private final int SLAVE_MOTOR = 9; // right
+	private final int MASTER_MOTOR = 10; // left
 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
@@ -23,12 +23,19 @@ public class FeedSubsystem extends Subsystem implements MotorInterface {
 		//slaveMotor.setInverted(true);
 		slaveMotor.follow(masterMotor);
 	}
-	
+
+	/**
+	 * Set the percent moter speed.
+	 * @param percent -1 to 1
+	 */
 	@Override
 	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	/**
+	 * Stop the shooter.
+	 */
 	@Override
 	public void stop() {
 		masterMotor.stopMotor();

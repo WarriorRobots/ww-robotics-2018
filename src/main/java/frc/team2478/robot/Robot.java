@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2478.robot.subsystems.DriveEncoderSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
+import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
+import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
 import frc.team2478.robot.util.DebugPrintLooper;
@@ -22,6 +24,8 @@ public class Robot extends TimedRobot {
 	
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
+	public static final ShooterSubsystem shooter = new ShooterSubsystem();
+	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static ControlHandler oi;
 	
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
@@ -81,6 +85,12 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.currentToDashboard();
+		shooter.setPID(0.04, 0, 0);
+		if (oi.getXboxLeftY() > 0.3)
+			shooter.setTargetVelocity(oi.getXboxLeftY(10000)); // so full stick would get 10000, an arbatrary value that worked on the old shooter setup
+		if (oi.getXboxRightY() > 0.3)
+			feed.setTargetPercentage(oi.getXboxRightY());
+		
 	}
 
 	@Override
