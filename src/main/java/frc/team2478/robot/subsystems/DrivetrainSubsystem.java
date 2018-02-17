@@ -33,6 +33,8 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final double RAMPRATE_SECONDS = 0.15;
 	public static final int TIMEOUT_MS = 10;
 	
+	public boolean REVERSE = false;
+	
 	private Encoder leftEnc, rightEnc;
 	private AHRS navx;
 	
@@ -82,6 +84,8 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
+		leftSpeed=checkReverse(leftSpeed);
+		rightSpeed=checkReverse(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
@@ -92,6 +96,8 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
+		forwardSpeed=checkReverse(forwardSpeed);
+		turnSpeed=checkReverse(turnSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
@@ -204,6 +210,18 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		SmartDashboard.putNumber("RIGHTFRONT", rightFront.getOutputCurrent());
 		SmartDashboard.putNumber("RIGHTMIDDLE", rightMiddle.getOutputCurrent());
 		SmartDashboard.putNumber("RIGHTBACK", rightBack.getOutputCurrent());
+	}
+	
+	/**
+	 * 
+	 * @param drive A number to be reversed if the robot is in reverse.
+	 * @return The same number that was input or its opposite.
+	 * @see {@code frc.team2478.robot.commands.InputReverse}
+	 */
+	public double checkReverse(double drive) {
+		if(this.REVERSE)
+			drive=-drive;
+		return drive;
 	}
 	
 	public void initDefaultCommand() {

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.team2478.robot.commands.InputReverse;
 import frc.team2478.robot.commands.JoystickAlignment;
 import frc.team2478.robot.commands.JoystickTurnLock;
 
@@ -27,7 +28,7 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private Button rightTriggerButton, rightThumbButton;
+	private Button rightTriggerButton, rightThumbButton, rightTopThumbButton;
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -40,9 +41,11 @@ public final class ControlHandler {
 		rightTriggerButton = new JoystickButton(rightJoy, 1);
 //		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightThumbButton = new JoystickButton(rightJoy, 2);
+		rightTopThumbButton = new JoystickButton(rightJoy, 3);
 		
 		rightTriggerButton.whileHeld(new JoystickTurnLock());
 		rightThumbButton.whileHeld(new JoystickAlignment());
+		rightTopThumbButton.whileHeld(new InputReverse());
 	}
 
 	/**

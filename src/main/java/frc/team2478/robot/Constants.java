@@ -81,4 +81,61 @@ public final class Constants {
 		 */
 		public static final double LOCKMODE_TOLERANCE = 0.2;
 	}
+	
+	/**
+	 * Variables related to the shooter (excluding the PID).
+	 * @author Josh
+	 */
+	public static final class ShooterRig {
+		public static final double SHOOTER_DEFAULT_RPM = 1000;
+		public static final double FEED_DEFAULT_PERC = 1.0;
+		public static final double SHOOTER_DEFAULT_PERC = 0.4;
+		
+		/**
+		 * Equals 600 / 4096 in 100ms/clicks.
+		 * (Decimal {@value}.)
+		 */
+		public static final double ENCODER_UNITS_TO_RPM_CONVERSION = 600.0 / 4096.0; //0.1465
+		/**
+		 * Is for every 5 rotations of the motor, the shooter rotatates 1 time.
+		 * (Decimal {@value}.)
+		 */
+		public static final double Out_per_in_GEARBOX = 1.0 / 5.0;
+		
+		/**
+		 * Convert a velocity to an RPM
+		 * @param vel Velocity In clicks per 100ms
+		 * @return Velocity in rotations/min
+		 */
+	    public static double velocityToRpm(double vel) {
+			return vel * ENCODER_UNITS_TO_RPM_CONVERSION;
+		}
+	    
+	    /**
+		 * Convert a velocity to an RPM
+		 * @param vel Velocity In clicks per 100ms
+		 * @return Velocity in rotations/min
+		 */
+	    public static double rpmToVelocity(double rpm) {
+			return rpm / ENCODER_UNITS_TO_RPM_CONVERSION;
+		}
+	    
+	    /**
+	     * Convert the rotation of the shooter into the rotations of the motor
+	     * @param out The outward shooter speed.
+	     * @return The inward motor speed.
+	     */
+	    public static double gearboxIn(double out) {
+	    	return out/Out_per_in_GEARBOX;
+	    }
+	    
+	    /**
+	     * Convert the rotation of the motor into the rotations of the shooter
+	     * @param in The inward motor speed.
+	     * @return The outward shooter speed.
+	     */
+	    public static double gearboxOut(double in) {
+	    	return in*Out_per_in_GEARBOX;
+	    }
+	}
 }
