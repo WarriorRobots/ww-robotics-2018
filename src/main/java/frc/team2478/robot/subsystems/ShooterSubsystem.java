@@ -15,8 +15,8 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 
 	public WPI_TalonSRX masterMotor, slaveMotor;
 	
-	public final int MASTER_MOTOR = 7;
-	public final int SLAVE_MOTOR = 8;
+	public final int SLAVE_MOTOR = 11; // right
+	public final int MASTER_MOTOR = 12; // left
 	
 	public final int PROCESS_ID = 0;
 	public final int TIMEOUT_MS = 10;
@@ -36,11 +36,19 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 		masterMotor.setSensorPhase(true);
 	}
 	
+	/**
+	 * Set velocity of the shooter.
+	 * @param velocity Velocity in clicks/100ms
+	 */
 	@Override
 	public void setTargetVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
+	/**
+	 * Get velocity of the shooter.
+	 * @return Velocity in clicks/100ms
+	 */
 	@Override
 	public double getVelocity() {
 		return masterMotor.getSelectedSensorVelocity(PROCESS_ID);
@@ -51,11 +59,18 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 		return masterMotor.getSelectedSensorPosition(PROCESS_ID);
 	}
 	
+	/**
+	 * Set the percent moter speed.
+	 * @param percent -1 to 1
+	 */
 	@Override
 	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	/**
+	 * Stop the shooter.
+	 */
 	@Override
 	public void stop() {
 		masterMotor.stopMotor();
