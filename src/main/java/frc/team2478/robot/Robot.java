@@ -27,6 +27,9 @@ public class Robot extends TimedRobot {
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static ControlHandler oi;
+	/**
+	 * {@link ShooterFeedHandler}
+	 */
 	public static final ShooterFeedHandler bob = new ShooterFeedHandler();
 	
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
