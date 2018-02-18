@@ -33,6 +33,9 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final double RAMPRATE_SECONDS = 0.15;
 	public static final int TIMEOUT_MS = 10;
 	
+	/**
+	 * Used to denote the direction
+	 */
 	public boolean REVERSE = false;
 	
 	private Encoder leftEnc, rightEnc;
