@@ -140,5 +140,4 @@ public final class Constants {
 	    	return in*Out_per_in_GEARBOX;
 	    }
 	}
-
 }

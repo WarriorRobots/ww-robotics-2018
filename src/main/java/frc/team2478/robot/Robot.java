@@ -61,11 +61,12 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		drivetrain.REVERSE=false;
+		drivetrain.setReversed(false);
 	}
 
 	@Override
 	public void autonomousInit() {
+		drivetrain.setReversed(false);
 		AutonomoSelector.selectAutoCase();
 		
 	}

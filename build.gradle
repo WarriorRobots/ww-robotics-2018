@@ -45,6 +45,6 @@ task wrapper(type: Wrapper) {
 }
 
 wpi {
-    wpilibVersion = '2018.2.2'
-    shuffleboardVersion = '1.1.1'
+    wpilibVersion = '2018.3.2'
+    shuffleboardVersion = '1.2.1'
 }

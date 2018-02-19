@@ -19,8 +19,8 @@ import frc.team2478.robot.commands.scoring.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.IncrementShooterTarget;
 import frc.team2478.robot.commands.scoring.ShooterFeedHandlerGroup;
 import frc.team2478.robot.util.triggers.DpadTrigger;
-import frc.team2478.robot.util.triggers.RightTrigger;
 import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
+import frc.team2478.robot.util.triggers.RightTrigger;
 
 /**
  * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
@@ -34,7 +34,8 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyTopThumbButton;
+	@SuppressWarnings("unused")
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyTopThumbButton, leftTriggerButton;
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
 
@@ -47,7 +48,7 @@ public final class ControlHandler {
 		xbox = new XboxController(XBOX);
 		
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
-//		leftTriggerButton = new JoystickButton(leftJoy, 1);
+		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyTopThumbButton = new JoystickButton(rightJoy, 3);
 		rightXboxTrigger = new RightTrigger();
@@ -122,7 +123,6 @@ public final class ControlHandler {
 	public double getXboxRightY() {
 		return this.getXboxRightY(1);
 	}
-
 	
 	/**
 	 * Gets Y-value of left Xbox trigger.
