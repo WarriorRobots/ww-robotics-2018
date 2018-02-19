@@ -17,7 +17,7 @@ import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
-import frc.team2478.robot.util.DebugPrintLooper;
+//import frc.team2478.robot.util.DebugPrintLooper; this isn't being used here, do we need it?
 import frc.team2478.robot.util.ShooterFeedHandler;
 
 public class Robot extends TimedRobot {
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 //			DashboardHandler.putAutonomoWidgets();
 //			DashboardHandler.putResetButton();
 //		}
-		if (RobotController.getInputVoltage() < 9) {
+		if (RobotController.getInputVoltage() < 7) {
 			DriverStation.reportError("REPLACE BATTERY!!!! " + Double.toString(RobotController.getInputVoltage()), false);
 		}
 	}
