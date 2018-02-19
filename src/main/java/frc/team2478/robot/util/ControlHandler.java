@@ -45,7 +45,7 @@ public final class ControlHandler {
 		
 		rightTriggerButton.whileHeld(new JoystickTurnLock());
 		rightThumbButton.whileHeld(new JoystickAlignment());
-		rightTopThumbButton.whileHeld(new InputReverse());
+		rightTopThumbButton.whenPressed(new InputReverse());
 	}
 
 	/**

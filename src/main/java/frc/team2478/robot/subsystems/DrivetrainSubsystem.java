@@ -34,9 +34,9 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	public static final int TIMEOUT_MS = 10;
 	
 	/**
-	 * Used to denote the direction
+	 * Used to denote the direction of drive.
 	 */
-	public boolean REVERSE = false;
+	private boolean isReversed = false;
 	
 	private Encoder leftEnc, rightEnc;
 	private AHRS navx;
@@ -87,25 +87,29 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		leftSpeed=checkReverse(leftSpeed);
-		rightSpeed=checkReverse(rightSpeed);
+		leftSpeed = invertIfReversed(leftSpeed);
+		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
 	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
+		leftSpeed = invertIfReversed(leftSpeed);
+		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
-		forwardSpeed=checkReverse(forwardSpeed);
-		turnSpeed=checkReverse(turnSpeed);
+		forwardSpeed = invertIfReversed(forwardSpeed);
+		turnSpeed = invertIfReversed(turnSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
+		forwardSpeed = invertIfReversed(forwardSpeed);
+		turnSpeed = invertIfReversed(turnSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
@@ -221,10 +225,16 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * @return The same number that was input or its opposite.
 	 * @see {@code frc.team2478.robot.commands.InputReverse}
 	 */
-	public double checkReverse(double drive) {
-		if(this.REVERSE)
-			drive=-drive;
-		return drive;
+	public double invertIfReversed(double drive) {
+		return (getReversed() == true) ? -drive : drive;
+	}
+	
+	public boolean getReversed() {
+		return isReversed;
+	}
+	
+	public void setReversed(boolean isReversed) {
+		this.isReversed = isReversed;
 	}
 	
 	public void initDefaultCommand() {

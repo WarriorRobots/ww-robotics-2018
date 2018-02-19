@@ -22,6 +22,8 @@
 - debug statement for gyro (add a space)
 - auto encoder measurement conversion
 - exponential turning in tank drive
+- reverse drive method
+- drive disable method for debugging
 
 ---
 
