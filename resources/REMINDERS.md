@@ -16,6 +16,7 @@
 - static fields are shared across all instantiations.
 - final classes *cannot* be subclassed
 - favor arcadeDriveAutonomous() instead of Tank Drive
+- you can't use methods of a class inside its own constructor
 
 ### Inches per Click
 

@@ -15,20 +15,17 @@
 
 - PID 3 modes for shooter
 	+ driver override in case of jam
-- reverse talon ids
-- merge drivetrain subsystem changes in
 - change autonomodrivestraight int to double
 - make the if statement better with var assignments
-- debug statement for gyro (add a space)
 - auto encoder measurement conversion
 - exponential turning in tank drive
 - fix up trigger / button clash & make naming convention
-- make subpackages in commands
-- reverse drive method
 - drive disable method for debugging
 - change pid of shootermotors to use both encoders
 - remove all @debug variables right before comp
 - label talons
+- make subsystems Sendable and give them data
+- add a reset button that does Scheduler.getInstance().removeAll() and sets all motors to 0
 
 ---
 
