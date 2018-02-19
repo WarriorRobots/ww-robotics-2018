@@ -219,7 +219,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	/**
 	 * @param drive  A number to be reversed if the robot is in reverse.
 	 * @return The same number that was input or its opposite.
-	 * @see {@code frc.team2478.robot.commands.InputReverse}
+	 * @see {@link frc.team2478.robot.commands.drive.InputReverse}
 	 */
 	public double invertIfReversed(double drive) {
 		return (getReversed() == true) ? -drive : drive;
