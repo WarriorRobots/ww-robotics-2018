@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
+import frc.team2478.robot.util.annotations.Debug;
 
 /**
  * When run, the robot will turn to the provided angle,
@@ -13,7 +14,10 @@ import frc.team2478.robot.util.SynchronousPIDF;
 public class AutonomoDriveTurn extends Command {
 	
 	private double angleTarget, output;
-	private boolean stopsAtSetpoint = true; // @debug variable
+	
+	@Debug
+	private boolean stopsAtSetpoint = true;
+	
 	private SynchronousPIDF pidLoop;
 	private Timer timer;
 	

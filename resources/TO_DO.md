@@ -27,6 +27,8 @@
 - reverse drive method
 - drive disable method for debugging
 - change pid of shootermotors to use both encoders
+- remove all @debug variables right before comp
+- label talons
 
 ---
 

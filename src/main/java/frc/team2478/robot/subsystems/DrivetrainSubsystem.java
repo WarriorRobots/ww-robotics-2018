@@ -99,14 +99,12 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
 		forwardSpeed = invertIfReversed(forwardSpeed);
-		turnSpeed = invertIfReversed(turnSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
 		forwardSpeed = invertIfReversed(forwardSpeed);
-		turnSpeed = invertIfReversed(turnSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	

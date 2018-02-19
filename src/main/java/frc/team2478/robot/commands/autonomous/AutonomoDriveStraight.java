@@ -6,6 +6,7 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
 import frc.team2478.robot.util.SynchronousPIDF;
+import frc.team2478.robot.util.annotations.Debug;
 
 /**
  * When run, the robot will drive straight at the provided distance,
@@ -15,7 +16,9 @@ public class AutonomoDriveStraight extends Command {
 	
 	private int distanceTarget, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
-	private boolean stopsAtSetpoint = true; // @debug
+	
+	@Debug
+	private boolean stopsAtSetpoint = true;
 
 	private SynchronousPIDF pidAngle, pidDistance;
 	private Timer timer;

@@ -7,6 +7,7 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -17,6 +18,7 @@ import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.util.annotations.Debug;
 
 public class Robot extends TimedRobot {
 	
@@ -28,9 +30,14 @@ public class Robot extends TimedRobot {
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
 //	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
 	
+	@Debug
+	Compressor c = new Compressor();
+	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
+		oi.init();
+		c.setClosedLoopControl(true);
 //		Robot.positionSelect.addObject("left position", Position.LEFT);
 //		Robot.positionSelect.addObject("middle position", Position.MIDDLE);
 //		Robot.positionSelect.addObject("right position", Position.RIGHT);

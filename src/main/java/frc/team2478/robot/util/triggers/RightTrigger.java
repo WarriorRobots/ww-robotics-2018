@@ -7,7 +7,7 @@ public class RightTrigger extends Button {
 
 	@Override
 	public boolean get() {
-		return (Robot.oi.getXboxRightTrigger() > 0.7) ? true : false;
+		return (Robot.oi.getXboxRightTrigger() > 0.5) ? true : false;
 	}
 
 }

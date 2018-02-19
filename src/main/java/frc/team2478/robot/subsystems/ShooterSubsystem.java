@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.interfaces.ShooterInterface;
 
@@ -30,8 +29,8 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
-		
-		//slaveMotor.setInverted(true);
+		masterMotor.setInverted(true);
+		slaveMotor.setInverted(true);
 		slaveMotor.follow(masterMotor);
 		
 		masterMotor.configSelectedFeedbackSensor(
@@ -48,7 +47,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	
 	/**
 	 * Set velocity of the shooter.
-	 * @param velocity Velocity in clicks/100ms
+	 * @param velocity  Velocity in clicks/100ms
 	 */
 	@Override
 	public void setTargetVelocity(double velocity) {
@@ -76,7 +75,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	public void incrementTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			DriverStation.reportWarning("Target already at max", false);
+			System.out.println("Target already at max");
 			break;
 		case MID:
 			currentTarget = Target.HIGH;
@@ -96,7 +95,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 			currentTarget = Target.LOW;
 			break;
 		case LOW:
-			DriverStation.reportWarning("Target already at min", false);
+			System.out.println("Target already at min");
 			break;
 		}
 	}
@@ -116,7 +115,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	}
 	
 	/**
-	 * Set the percent moter speed.
+	 * Set the percent motor speed.
 	 * @param percent -1 to 1
 	 */
 	@Override

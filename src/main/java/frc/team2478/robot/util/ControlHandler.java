@@ -17,7 +17,8 @@ import frc.team2478.robot.commands.drive.JoystickAlignment;
 import frc.team2478.robot.commands.drive.JoystickTurnLock;
 import frc.team2478.robot.commands.scoring.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.IncrementShooterTarget;
-import frc.team2478.robot.commands.scoring.ShooterFeedHandlerGroup;
+import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
+import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
 import frc.team2478.robot.util.triggers.RightTrigger;
@@ -35,7 +36,8 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	@SuppressWarnings("unused")
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyTopThumbButton, leftTriggerButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
+	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
 
@@ -46,19 +48,21 @@ public final class ControlHandler {
 		leftJoy = new Joystick(LEFT_JOY);
 		rightJoy = new Joystick(RIGHT_JOY);
 		xbox = new XboxController(XBOX);
-		
+	}
+	
+	public void init() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
-		rightJoyTopThumbButton = new JoystickButton(rightJoy, 3);
+		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		rightXboxTrigger = new RightTrigger();
 		xboxUp = new DpadTrigger(Direction.UP);
 		xboxDown = new DpadTrigger(Direction.DOWN);
 		
 		rightJoyTriggerButton.whileHeld(new JoystickTurnLock());
 		rightJoyThumbButton.whileHeld(new JoystickAlignment());
-		rightJoyTopThumbButton.whileHeld(new InputReverse());
-		rightXboxTrigger.whileHeld(new ShooterFeedHandlerGroup());
+		rightJoyButton3.whenPressed(new InputReverse());
+		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
 		xboxUp.whenPressed(new IncrementShooterTarget());
 		xboxDown.whenPressed(new DecrementShooterTarget());
 	}
@@ -144,7 +148,7 @@ public final class ControlHandler {
 		return xbox.getPOV();
 	}
 	
-	@Deprecated
+	@Debug
 	public void setLeftRumble() {
 		xbox.setRumble(RumbleType.kLeftRumble, 0.5);
 	}
