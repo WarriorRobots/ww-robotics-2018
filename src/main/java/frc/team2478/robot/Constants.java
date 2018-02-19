@@ -89,36 +89,34 @@ public final class Constants {
 	 * @author Josh
 	 */
 	public static final class ShooterRig {
-		public static final double SHOOTER_DEFAULT_RPM = 1000;
-		public static final double FEED_DEFAULT_PERC = 1.0;
-		public static final double SHOOTER_DEFAULT_PERC = 0.4;
-		
 		/**
-		 * Equals 600 / 4096 in 100ms/clicks.
-		 * (Decimal {@value}.)
+		 * Conversion factor equal to 600ms / 4096clicks.
+		 * Used for converting encoder clicks to revolutions per minute.
+		 * <p>Equivalent to {@value}.
 		 */
 		public static final double ENCODER_UNITS_TO_RPM_CONVERSION = 600.0 / 4096.0; //0.1465
-		/**
-		 * Is for every 5 rotations of the motor, the shooter rotatates 1 time.
-		 * (Decimal {@value}.)
-		 */
-		public static final double Out_per_in_GEARBOX = 1.0 / 5.0;
 		
 		/**
-		 * Convert a velocity to an RPM
-		 * @param vel Velocity In clicks per 100ms
-		 * @return Velocity in rotations/min
+		 * Defines the gearbox ratio (out to in).
+		 * <p>Equivalent to {@value}.
 		 */
-	    public static double velocityToRpm(double vel) {
+		public static final double GEARBOX_RATIO = 1.0 / 5.0;
+		
+		/**
+		 * Convert raw encoder measurements to RPM.
+		 * @param vel  velocity in clicks per 100ms
+		 * @return velocity in revolutions per minute
+		 */
+	    public static double encoderClicksToRpm(double vel) {
 			return vel * ENCODER_UNITS_TO_RPM_CONVERSION;
 		}
 	    
 	    /**
-		 * Convert a velocity to an RPM
-		 * @param vel Velocity In clicks per 100ms
-		 * @return Velocity in rotations/min
+		 * Convert RPM back to raw encoder measurements.
+		 * @param rpm  revolutions per minute
+		 * @return velocity in encoder clicks per 100ms
 		 */
-	    public static double rpmToVelocity(double rpm) {
+	    public static double rpmToEncoderClicks(double rpm) {
 			return rpm / ENCODER_UNITS_TO_RPM_CONVERSION;
 		}
 	    
@@ -128,7 +126,7 @@ public final class Constants {
 	     * @return The inward motor speed.
 	     */
 	    public static double gearboxIn(double out) {
-	    	return out/Out_per_in_GEARBOX;
+	    	return out/GEARBOX_RATIO;
 	    }
 	    
 	    /**
@@ -137,7 +135,7 @@ public final class Constants {
 	     * @return The outward shooter speed.
 	     */
 	    public static double gearboxOut(double in) {
-	    	return in*Out_per_in_GEARBOX;
+	    	return in*GEARBOX_RATIO;
 	    }
 	}
 }

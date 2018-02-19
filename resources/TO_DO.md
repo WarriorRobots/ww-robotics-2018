@@ -22,13 +22,11 @@
 - debug statement for gyro (add a space)
 - auto encoder measurement conversion
 - exponential turning in tank drive
-<<<<<<< HEAD
 - fix up trigger / button clash & make naming convention
 - make subpackages in commands
-=======
 - reverse drive method
 - drive disable method for debugging
->>>>>>> input-reverse-rewrite
+- change pid of shootermotors to use both encoders
 
 ---
 
