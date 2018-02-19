@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2478.robot.commands.JoystickTeleop;
+import frc.team2478.robot.commands.drive.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
 /**
@@ -227,6 +227,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		return drive;
 	}
 	
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickTeleop());
 	}

@@ -2,18 +2,18 @@ package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.commands.autonomous.LefttoLeftScale;
-import frc.team2478.robot.commands.autonomous.LefttoLeftSwitch;
-import frc.team2478.robot.commands.autonomous.LefttoRightScale;
-import frc.team2478.robot.commands.autonomous.LefttoRightSwitch;
-import frc.team2478.robot.commands.autonomous.MidtoLeftScale;
-import frc.team2478.robot.commands.autonomous.MidtoLeftSwitch;
-import frc.team2478.robot.commands.autonomous.MidtoRightScale;
-import frc.team2478.robot.commands.autonomous.MidtoRightSwitch;
-import frc.team2478.robot.commands.autonomous.RighttoLeftScale;
-import frc.team2478.robot.commands.autonomous.RighttoLeftSwitch;
-import frc.team2478.robot.commands.autonomous.RighttoRightScale;
-import frc.team2478.robot.commands.autonomous.RighttoRightSwitch;
+import frc.team2478.robot.commands.autonomous.routines.LefttoLeftScale;
+import frc.team2478.robot.commands.autonomous.routines.LefttoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.routines.LefttoRightScale;
+import frc.team2478.robot.commands.autonomous.routines.LefttoRightSwitch;
+import frc.team2478.robot.commands.autonomous.routines.MidtoLeftScale;
+import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.routines.MidtoRightScale;
+import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
+import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
+import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
+import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 
 public class AutonomoSelector {
 

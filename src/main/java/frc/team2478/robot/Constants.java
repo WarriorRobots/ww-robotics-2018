@@ -12,6 +12,8 @@ package frc.team2478.robot;
  */
 public final class Constants {
 	
+	public static final double LOW_VOLTAGE_WARNING = 7;
+	
 	/**
 	 * Contains PID constants used for closed-loop control.
 	 */
@@ -138,4 +140,5 @@ public final class Constants {
 	    	return in*Out_per_in_GEARBOX;
 	    }
 	}
+
 }

@@ -1,8 +1,8 @@
-package frc.team2478.robot.commands.autonomous;
+package frc.team2478.robot.commands.autonomous.routines;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.team2478.robot.commands.AutonomoDriveStraight;
-import frc.team2478.robot.commands.AutonomoDriveTurn;
+import frc.team2478.robot.commands.autonomous.AutonomoDriveStraight;
+import frc.team2478.robot.commands.autonomous.AutonomoDriveTurn;
 
 public class RighttoLeftSwitch extends CommandGroup{
 	

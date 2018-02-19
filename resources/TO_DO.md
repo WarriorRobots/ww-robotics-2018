@@ -22,6 +22,8 @@
 - debug statement for gyro (add a space)
 - auto encoder measurement conversion
 - exponential turning in tank drive
+- fix up trigger / button clash & make naming convention
+- make subpackages in commands
 
 ---
 

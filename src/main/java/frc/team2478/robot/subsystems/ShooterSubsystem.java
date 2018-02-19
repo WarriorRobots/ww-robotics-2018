@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team2478.robot.interfaces.ShooterInterface;
 
@@ -13,13 +14,18 @@ import frc.team2478.robot.interfaces.ShooterInterface;
  */
 public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 
-	public WPI_TalonSRX masterMotor, slaveMotor;
-	
 	public final int SLAVE_MOTOR = 11; // right
 	public final int MASTER_MOTOR = 12; // left
 	
 	public final int PROCESS_ID = 0;
 	public final int TIMEOUT_MS = 10;
+	
+	private WPI_TalonSRX masterMotor, slaveMotor;
+	
+	private Target currentTarget = Target.MID;
+	private double lowSpeed = 1000;
+	private double midSpeed = 1500;
+	private double highSpeed = 2000;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -36,6 +42,10 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 		masterMotor.setSensorPhase(true);
 	}
 	
+	public enum Target {
+		LOW, MID, HIGH;
+	}
+	
 	/**
 	 * Set velocity of the shooter.
 	 * @param velocity Velocity in clicks/100ms
@@ -43,6 +53,52 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	@Override
 	public void setTargetVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
+	}
+	
+	public void shootForCurrentTarget() {
+		switch (getCurrentTarget()) {
+		case HIGH:
+			setTargetVelocity(highSpeed);
+			break;
+		case MID:
+			setTargetVelocity(midSpeed);
+			break;
+		case LOW:
+			setTargetVelocity(lowSpeed);
+			break;
+		}
+	}
+	
+	public Target getCurrentTarget() {
+		return currentTarget;
+	}
+	
+	public void incrementTarget() {
+		switch (getCurrentTarget()) {
+		case HIGH:
+			DriverStation.reportWarning("Target already at max", false);
+			break;
+		case MID:
+			currentTarget = Target.HIGH;
+			break;
+		case LOW:
+			currentTarget = Target.MID;
+			break;
+		}
+	}
+	
+	public void decrementTarget() {
+		switch (getCurrentTarget()) {
+		case HIGH:
+			currentTarget = Target.MID;
+			break;
+		case MID:
+			currentTarget = Target.LOW;
+			break;
+		case LOW:
+			DriverStation.reportWarning("Target already at min", false);
+			break;
+		}
 	}
 	
 	/**
@@ -92,7 +148,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	public void resetEncoder() {
 		masterMotor.setSelectedSensorPosition(0, PROCESS_ID, TIMEOUT_MS);
 	}
-
+	
 	@Override
 	@Deprecated
 	public boolean isUsingPid() {

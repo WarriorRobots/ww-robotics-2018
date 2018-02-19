@@ -8,13 +8,19 @@
 package frc.team2478.robot.util;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.team2478.robot.commands.InputReverse;
-import frc.team2478.robot.commands.JoystickAlignment;
-import frc.team2478.robot.commands.JoystickTurnLock;
+import frc.team2478.robot.commands.drive.InputReverse;
+import frc.team2478.robot.commands.drive.JoystickAlignment;
+import frc.team2478.robot.commands.drive.JoystickTurnLock;
+import frc.team2478.robot.commands.scoring.DecrementShooterTarget;
+import frc.team2478.robot.commands.scoring.IncrementShooterTarget;
+import frc.team2478.robot.commands.scoring.ShooterFeedHandlerGroup;
+import frc.team2478.robot.util.triggers.DpadTrigger;
+import frc.team2478.robot.util.triggers.RightTrigger;
+import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
 
 /**
  * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
@@ -28,7 +34,9 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private Button rightTriggerButton, rightThumbButton, rightTopThumbButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyTopThumbButton;
+	private RightTrigger rightXboxTrigger;
+	private DpadTrigger xboxUp, xboxDown;
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -38,14 +46,20 @@ public final class ControlHandler {
 		rightJoy = new Joystick(RIGHT_JOY);
 		xbox = new XboxController(XBOX);
 		
-		rightTriggerButton = new JoystickButton(rightJoy, 1);
+		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 //		leftTriggerButton = new JoystickButton(leftJoy, 1);
-		rightThumbButton = new JoystickButton(rightJoy, 2);
-		rightTopThumbButton = new JoystickButton(rightJoy, 3);
+		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
+		rightJoyTopThumbButton = new JoystickButton(rightJoy, 3);
+		rightXboxTrigger = new RightTrigger();
+		xboxUp = new DpadTrigger(Direction.UP);
+		xboxDown = new DpadTrigger(Direction.DOWN);
 		
-		rightTriggerButton.whileHeld(new JoystickTurnLock());
-		rightThumbButton.whileHeld(new JoystickAlignment());
-		rightTopThumbButton.whileHeld(new InputReverse());
+		rightJoyTriggerButton.whileHeld(new JoystickTurnLock());
+		rightJoyThumbButton.whileHeld(new JoystickAlignment());
+		rightJoyTopThumbButton.whileHeld(new InputReverse());
+		rightXboxTrigger.whileHeld(new ShooterFeedHandlerGroup());
+		xboxUp.whenPressed(new IncrementShooterTarget());
+		xboxDown.whenPressed(new DecrementShooterTarget());
 	}
 
 	/**
@@ -83,7 +97,7 @@ public final class ControlHandler {
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
-		return xbox.getY(Hand.kLeft) * scalingFactor;
+		return -xbox.getY(Hand.kLeft) * scalingFactor;
 	}
 
 	/**
@@ -91,7 +105,7 @@ public final class ControlHandler {
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */	
 	public double getXboxRightY(double scalingFactor) {
-		return xbox.getY(Hand.kRight) * scalingFactor;
+		return -xbox.getY(Hand.kRight) * scalingFactor;
 	}
 
 	/**
@@ -109,28 +123,13 @@ public final class ControlHandler {
 		return this.getXboxRightY(1);
 	}
 
-	/**
-	 * Gets Y-value of left joystick multiplied by scalingFactor.
-	 * @param scalingFactor  Decimal value that proportionally alters trigger output.
-	 */	
-	public double getXboxLeftTrigger(double scalingFactor) {
-		return xbox.getTriggerAxis(Hand.kLeft) * scalingFactor;
-	}
 	
 	/**
 	 * Gets Y-value of left Xbox trigger.
 	 * @return Y-value of left Xbox trigger.
 	 */
 	public double getXboxLeftTrigger() {
-		return this.getXboxLeftTrigger(1);
-	}
-	
-	/**
-	 * Gets Y-value of right joystick multiplied by scalingFactor.
-	 * @param scalingFactor  Decimal value that proportionally alters trigger output.
-	 */	
-	public double getXboxRightTrigger(double scalingFactor) {
-		return xbox.getTriggerAxis(Hand.kRight) * scalingFactor;
+		return xbox.getTriggerAxis(Hand.kLeft);
 	}
 	
 	/**
@@ -138,7 +137,16 @@ public final class ControlHandler {
 	 * @return Y-value of right Xbox trigger.
 	 */
 	public double getXboxRightTrigger() {
-		return this.getXboxRightTrigger(1);
+		return xbox.getTriggerAxis(Hand.kRight);
+	}
+	
+	public double getDpadAngle() {
+		return xbox.getPOV();
+	}
+	
+	@Deprecated
+	public void setLeftRumble() {
+		xbox.setRumble(RumbleType.kLeftRumble, 0.5);
 	}
 	
 	/**

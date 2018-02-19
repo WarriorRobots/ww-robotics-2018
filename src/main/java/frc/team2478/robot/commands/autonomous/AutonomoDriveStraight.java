@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands;
+package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -70,6 +70,7 @@ public class AutonomoDriveStraight extends Command {
 		stopsAtSetpoint = stops;
 	}
 
+	@Override
 	protected void initialize() {
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetAngle();
@@ -80,6 +81,7 @@ public class AutonomoDriveStraight extends Command {
 		pidAngle.setSetpoint(0.0);
 	}
 	
+	@Override
 	protected void execute() {
 		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
 		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
@@ -95,6 +97,7 @@ public class AutonomoDriveStraight extends Command {
 		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}
 
+	@Override
 	protected boolean isFinished() {
 		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
@@ -104,6 +107,7 @@ public class AutonomoDriveStraight extends Command {
 		}
 	}
 	
+	@Override
 	protected void end() {
 		System.out.println("STOP!!!");
 		Robot.drivetrain.stopDrive();

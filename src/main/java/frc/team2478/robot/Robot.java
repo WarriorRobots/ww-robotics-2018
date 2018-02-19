@@ -17,8 +17,6 @@ import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
-//import frc.team2478.robot.util.DebugPrintLooper; this isn't being used here, do we need it?
-import frc.team2478.robot.util.ShooterFeedHandler;
 
 public class Robot extends TimedRobot {
 	
@@ -27,11 +25,6 @@ public class Robot extends TimedRobot {
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static ControlHandler oi;
-	/**
-	 * {@link ShooterFeedHandler}
-	 */
-	public static final ShooterFeedHandler bob = new ShooterFeedHandler();
-	
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
 //	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
 	
@@ -53,7 +46,7 @@ public class Robot extends TimedRobot {
 //			DashboardHandler.putAutonomoWidgets();
 //			DashboardHandler.putResetButton();
 //		}
-		if (RobotController.getInputVoltage() < 7) {
+		if (RobotController.getInputVoltage() < Constants.LOW_VOLTAGE_WARNING) {
 			DriverStation.reportError("REPLACE BATTERY!!!! " + Double.toString(RobotController.getInputVoltage()), false);
 		}
 	}
@@ -91,7 +84,6 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.currentToDashboard();
-		bob.periodic();
 	}
 
 	@Override

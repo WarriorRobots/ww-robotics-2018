@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands;
+package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
@@ -14,23 +14,15 @@ public class JoystickAlignment extends Command {
     	requires(Robot.drivetrain);
     }
 
-    protected void initialize() {
-    }
-
-    protected void execute() {
+    @Override
+	protected void execute() {
     	Robot.drivetrain.arcadeDriveSquared(
 			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
 			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
     }
 
-    protected boolean isFinished() {
+    @Override
+	protected boolean isFinished() {
         return false;
-    }
-
-    protected void end() {
-    }
-
-    protected void interrupted() {
-    	this.end();
     }
 }

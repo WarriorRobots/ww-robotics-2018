@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands;
+package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
@@ -16,25 +16,22 @@ public class InputReverse extends Command{
     	requires(Robot.drivetrain);
     }
 
-    protected void initialize() {
+    @Override
+	protected void initialize() {
     	pressed = true;
     }
 
-    protected void execute() {
+    @Override
+	protected void execute() {
     	if(pressed)
     		Robot.drivetrain.REVERSE= !Robot.drivetrain.REVERSE;
     	pressed = false;
     	Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
     }
 
-    protected boolean isFinished() {
+    @Override
+	protected boolean isFinished() {
         return false;
     }
 
-    protected void end() {
-    }
-
-    protected void interrupted() {
-    	this.end();
-    }
 }

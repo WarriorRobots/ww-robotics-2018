@@ -19,6 +19,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 		visionTable = defaultTable.getTable("limelight");
 	}
 	
+	@Override
 	public boolean canSeeObject() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target visible
@@ -26,10 +27,12 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 				? true : false;
 	}
 	
+	@Override
 	public double getObjectX() {
 		return visionTable.getEntry("tx").getDouble(0);
 	}
 	
+	@Override
 	public double getObjectY() {
 		return visionTable.getEntry("ty").getDouble(0);
 	}
