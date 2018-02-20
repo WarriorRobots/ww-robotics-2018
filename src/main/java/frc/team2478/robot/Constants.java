@@ -86,21 +86,21 @@ public final class Constants {
 	
 	/**
 	 * Variables related to the shooter (excluding the PID).
-	 * @author Josh
+	 * @author Josh and only Josh
 	 */
 	public static final class ShooterRig {
 		/**
-		 * Conversion factor equal to 600ms / 4096clicks.
+		 * Conversion factor equal to 600*100ms / 4096clicks.
 		 * Used for converting encoder clicks to revolutions per minute.
 		 * <p>Equivalent to {@value}.
 		 */
-		public static final double ENCODER_UNITS_TO_RPM_CONVERSION = 600.0 / 4096.0; //0.1465
+		public static final double MILS_PER_CLICK_RATIO = 600.0 / 4096.0; //0.1465
 		
 		/**
-		 * Defines the gearbox ratio (out to in).
+		 * Defines the gearbox ratio (outer rotations per inner rotations).
 		 * <p>Equivalent to {@value}.
 		 */
-		public static final double GEARBOX_RATIO = 1.0 / 5.0;
+		public static final double OUT_PER_IN_RATIO = 1.0 / 5.0;
 		
 		/**
 		 * Convert raw encoder measurements to RPM.
@@ -108,7 +108,7 @@ public final class Constants {
 		 * @return velocity in revolutions per minute
 		 */
 	    public static double encoderClicksToRpm(double vel) {
-			return vel * ENCODER_UNITS_TO_RPM_CONVERSION;
+			return vel * MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
@@ -117,7 +117,7 @@ public final class Constants {
 		 * @return velocity in encoder clicks per 100ms
 		 */
 	    public static double rpmToEncoderClicks(double rpm) {
-			return rpm / ENCODER_UNITS_TO_RPM_CONVERSION;
+			return rpm / MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
@@ -126,7 +126,7 @@ public final class Constants {
 	     * @return The inward motor speed.
 	     */
 	    public static double gearboxIn(double out) {
-	    	return out/GEARBOX_RATIO;
+	    	return out/OUT_PER_IN_RATIO;
 	    }
 	    
 	    /**
@@ -135,7 +135,7 @@ public final class Constants {
 	     * @return The outward shooter speed.
 	     */
 	    public static double gearboxOut(double in) {
-	    	return in*GEARBOX_RATIO;
+	    	return in*OUT_PER_IN_RATIO;
 	    }
 	}
 }
