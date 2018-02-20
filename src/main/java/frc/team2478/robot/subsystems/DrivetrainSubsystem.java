@@ -42,8 +42,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	private SpeedControllerGroup leftGroup, rightGroup;
 	private DifferentialDrive differentialDrive;
 	
-	private double[] currentDraw = new double[6];
-	
 	public DrivetrainSubsystem() {
 		leftFront = new WPI_TalonSRX(LEFT_FRONT);
 		leftMiddle = new WPI_TalonSRX(LEFT_MIDDLE);
@@ -207,20 +205,25 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
 	
-	public void updateCurrentDraw() {
-		currentDraw[0] = leftFront.getOutputCurrent();
-		currentDraw[1] = leftMiddle.getOutputCurrent();
-		currentDraw[2] = leftBack.getOutputCurrent();
-		currentDraw[3] = rightFront.getOutputCurrent();
-		currentDraw[4] = rightMiddle.getOutputCurrent();
-		currentDraw[5] = rightBack.getOutputCurrent();
-	}
-	
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");
-		builder.addDoubleArrayProperty("drivetrain-motor-currentdraw", () -> {
+		builder.addDoubleArrayProperty("currentdraw", () -> {
+			double[] currentDraw = new double[6];
+			currentDraw[0] = leftFront.getOutputCurrent();
+			currentDraw[1] = leftMiddle.getOutputCurrent();
+			currentDraw[2] = leftBack.getOutputCurrent();
+			currentDraw[3] = rightFront.getOutputCurrent();
+			currentDraw[4] = rightMiddle.getOutputCurrent();
+			currentDraw[5] = rightBack.getOutputCurrent();
 			return currentDraw;
+		}, null);
+		builder.addBooleanProperty("inverted", () -> getReversed(), null);
+		builder.addDoubleArrayProperty("encoders-ticks", () -> {
+			double[] encoderTicks = new double[2];
+			encoderTicks[0] = getEncoderTicks(Side.LEFT);
+			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
+			return encoderTicks;
 		}, null);
 	}
 	

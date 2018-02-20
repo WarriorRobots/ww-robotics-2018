@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
 		oi = new ControlHandler();
 		oi.init();
 		c.setClosedLoopControl(true);
+		SmartDashboard.putData(drivetrain);
 //		Robot.positionSelect.addObject("left position", Position.LEFT);
 //		Robot.positionSelect.addObject("middle position", Position.MIDDLE);
 //		Robot.positionSelect.addObject("right position", Position.RIGHT);
@@ -91,6 +93,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	@Override
