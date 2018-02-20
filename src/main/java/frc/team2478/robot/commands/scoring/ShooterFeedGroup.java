@@ -9,9 +9,8 @@ public class ShooterFeedGroup extends CommandGroup {
 	
 	@Debug
 	public ShooterFeedGroup() {
-//		addParallel(new RunShooter());	
-		addParallel(new RunShooterWithPercentage(0.5));
-		addSequential(new WaitCommand(1.0));
+		addParallel(new RunShooter());
+		addSequential(new WaitCommand(0.5));
 		addSequential(new RunFeed());
 	}
 
@@ -19,5 +18,10 @@ public class ShooterFeedGroup extends CommandGroup {
 	protected void end() {
 		Robot.shooter.stop();
 		Robot.feed.stop();
+	}
+	
+	@Override
+	protected void interrupted() {
+		this.end();
 	}
 }

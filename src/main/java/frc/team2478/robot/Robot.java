@@ -92,6 +92,8 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.currentToDashboard();
+//		shooter.setTargetPercentage(oi.getXboxRightY());
+//		feed.setTargetPercentage(oi.getXboxLeftY());
 	}
 
 	@Override

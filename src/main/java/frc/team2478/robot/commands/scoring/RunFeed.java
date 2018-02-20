@@ -13,12 +13,13 @@ public class RunFeed extends Command {
 
 	@Override
 	protected void execute() {
-		percentage = Robot.oi.getXboxRightY();
-		if(Math.abs(percentage) > 0.3) {
-			Robot.feed.setTargetPercentage(Robot.oi.getXboxRightY());
-		} else {
-			Robot.feed.stop();
-		}
+//		percentage = Robot.oi.getXboxRightY();
+//		if(Math.abs(percentage) > 0.3) {
+//			Robot.feed.setTargetPercentage(Robot.oi.getXboxRightY());
+//		} else {
+//			Robot.feed.stop();
+//		}
+		Robot.feed.setTargetPercentage(0.3);
 	}
 	
 	@Override
