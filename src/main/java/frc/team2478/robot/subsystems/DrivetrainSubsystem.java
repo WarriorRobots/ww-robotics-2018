@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.commands.drive.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
@@ -41,6 +41,8 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	private WPI_TalonSRX leftFront, leftMiddle, leftBack, rightFront, rightMiddle, rightBack;
 	private SpeedControllerGroup leftGroup, rightGroup;
 	private DifferentialDrive differentialDrive;
+	
+	private double[] currentDraw = new double[6];
 	
 	public DrivetrainSubsystem() {
 		leftFront = new WPI_TalonSRX(LEFT_FRONT);
@@ -205,13 +207,21 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
 	
-	public void currentToDashboard() {
-		SmartDashboard.putNumber("LEFTFRONT", leftFront.getOutputCurrent());
-		SmartDashboard.putNumber("LEFTMIDDLE", leftMiddle.getOutputCurrent());
-		SmartDashboard.putNumber("LEFTBACK", leftBack.getOutputCurrent());
-		SmartDashboard.putNumber("RIGHTFRONT", rightFront.getOutputCurrent());
-		SmartDashboard.putNumber("RIGHTMIDDLE", rightMiddle.getOutputCurrent());
-		SmartDashboard.putNumber("RIGHTBACK", rightBack.getOutputCurrent());
+	public void updateCurrentDraw() {
+		currentDraw[0] = leftFront.getOutputCurrent();
+		currentDraw[1] = leftMiddle.getOutputCurrent();
+		currentDraw[2] = leftBack.getOutputCurrent();
+		currentDraw[3] = rightFront.getOutputCurrent();
+		currentDraw[4] = rightMiddle.getOutputCurrent();
+		currentDraw[5] = rightBack.getOutputCurrent();
+	}
+	
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("subsystem-drivetrain");
+		builder.addDoubleArrayProperty("drivetrain-motor-currentdraw", () -> {
+			return currentDraw;
+		}, null);
 	}
 	
 	/**
