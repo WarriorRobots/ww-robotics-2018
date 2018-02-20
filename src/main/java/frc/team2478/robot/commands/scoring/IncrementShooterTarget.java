@@ -6,7 +6,6 @@ import frc.team2478.robot.Robot;
 public class IncrementShooterTarget extends InstantCommand {
 
 	public IncrementShooterTarget() {
-		requires(Robot.shooter);
 	}
 
 	@Override

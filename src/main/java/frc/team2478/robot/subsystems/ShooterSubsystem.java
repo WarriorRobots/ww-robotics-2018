@@ -54,16 +54,31 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
+//	public void shootForCurrentTarget() {
+//		switch (getCurrentTarget()) {
+//		case HIGH:
+//			setTargetVelocity(highSpeed);
+//			break;
+//		case MID:
+//			setTargetVelocity(midSpeed);
+//			break;
+//		case LOW:
+//			setTargetVelocity(lowSpeed);
+//			break;
+//		}
+//	}
+
+	@Deprecated
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			setTargetVelocity(highSpeed);
+			setTargetPercentage(0.7);
 			break;
 		case MID:
-			setTargetVelocity(midSpeed);
+			setTargetPercentage(0.5);
 			break;
 		case LOW:
-			setTargetVelocity(lowSpeed);
+			setTargetPercentage(0.2);
 			break;
 		}
 	}
