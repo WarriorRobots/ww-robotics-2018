@@ -9,7 +9,7 @@ import frc.team2478.robot.interfaces.PneumaticInterface;
 public class IntakePneumaticSubsystem extends Subsystem implements PneumaticInterface {
 
 	public static final int SOL_CHANNEL_FORWARDS = 6;
-	public static final int SOL_CHANNEL_BACKWARDS = 2;
+	public static final int SOL_CHANNEL_BACKWARDS = 1;
 	
 	private DoubleSolenoid solenoid;
 	
