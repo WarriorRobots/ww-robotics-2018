@@ -12,8 +12,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.commands.autonomous.TestShooterRig;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
+import frc.team2478.robot.subsystems.HoodPneumaticSubsystem;
+import frc.team2478.robot.subsystems.IntakePneumaticSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
@@ -26,6 +30,11 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
+	/**
+	 * {@link HoodPneumaticSubsystem}
+	 */
+	public static final HoodPneumaticSubsystem hood = new HoodPneumaticSubsystem();
+	public static final IntakePneumaticSubsystem intake = new IntakePneumaticSubsystem();
 	public static ControlHandler oi;
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
 //	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
@@ -74,8 +83,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		drivetrain.setReversed(false);
-		AutonomoSelector.selectAutoCase();
-		
+//		AutonomoSelector.selectAutoCase();
+		new TestShooterRig().start();
 	}
 
 	@Override
@@ -92,6 +101,9 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.currentToDashboard();
+		SmartDashboard.putBoolean("Low Pressure?", !c.getPressureSwitchValue());
+		
+		
 //		shooter.setTargetPercentage(oi.getXboxRightY());
 //		feed.setTargetPercentage(oi.getXboxLeftY());
 	}

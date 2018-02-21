@@ -12,6 +12,10 @@ package frc.team2478.robot;
  */
 public final class Constants {
 	
+	
+	/**
+	 * Below this volate the robot triggers.
+	 */
 	public static final double LOW_VOLTAGE_WARNING = 7;
 	
 	/**
@@ -86,7 +90,7 @@ public final class Constants {
 	
 	/**
 	 * Variables related to the shooter (excluding the PID).
-	 * @author Josh and only Josh
+	 * @author Josh
 	 */
 	public static final class ShooterRig {
 		/**
