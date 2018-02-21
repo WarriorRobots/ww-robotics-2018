@@ -2,7 +2,7 @@ package frc.team2478.robot.commands.scoring;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.interfaces.PneumaticInterface.Mode;
+import frc.team2478.robot.util.enums.Mode;
 
 
 public class RetractIntake extends InstantCommand {
@@ -20,6 +20,6 @@ public class RetractIntake extends InstantCommand {
 		 */
 		@Override
 		protected void execute() {
-			Robot.hood.setPistonState(Mode.REVERSE);
+			Robot.hood.setHoodPiston(Mode.REVERSE);
 		}
 }

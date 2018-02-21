@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.commands.autonomous.TestShooterRig;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
-import frc.team2478.robot.subsystems.HoodPneumaticSubsystem;
+import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.IntakePneumaticSubsystem;
 import frc.team2478.robot.subsystems.IntakeSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
@@ -33,9 +33,9 @@ public class Robot extends TimedRobot {
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final IntakeSubsystem asdf = new IntakeSubsystem(); // quickfix
 	/**
-	 * {@link HoodPneumaticSubsystem}
+	 * {@link PneumaticSubsystem}
 	 */
-	public static final HoodPneumaticSubsystem hood = new HoodPneumaticSubsystem();
+	public static final PneumaticSubsystem hood = new PneumaticSubsystem();
 	public static final IntakePneumaticSubsystem intake = new IntakePneumaticSubsystem();
 	public static ControlHandler oi;
 //	public static SendableChooser<Position> positionSelect = new SendableChooser<>();

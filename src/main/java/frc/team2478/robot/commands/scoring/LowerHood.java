@@ -2,7 +2,7 @@ package frc.team2478.robot.commands.scoring;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.interfaces.PneumaticInterface.Mode;
+import frc.team2478.robot.util.enums.Mode;
 
 
 public class LowerHood extends Command {
@@ -27,13 +27,13 @@ public class LowerHood extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.hood.setPistonState(Mode.REVERSE);
+		Robot.hood.setHoodPiston(Mode.REVERSE);
 		count++;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.hood.setPistonState(Mode.OFF);
+		Robot.hood.setHoodPiston(Mode.OFF);
 		this.count=0;
 	}
 

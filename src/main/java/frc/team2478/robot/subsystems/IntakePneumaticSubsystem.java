@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.interfaces.PneumaticInterface;
+import frc.team2478.robot.util.enums.Mode;
 
-public class IntakePneumaticSubsystem extends Subsystem implements PneumaticInterface {
+public class IntakePneumaticSubsystem extends Subsystem {
 
 	public static final int SOL_CHANNEL_FORWARDS = 6;
 	public static final int SOL_CHANNEL_BACKWARDS = 1;
@@ -18,7 +18,6 @@ public class IntakePneumaticSubsystem extends Subsystem implements PneumaticInte
 		//solenoid = new DoubleSolenoid(SOL_CHANNEL_FORWARDS, SOL_CHANNEL_BACKWARDS);
 	}
 	
-	@Override
 	public void setPistonState(Mode mode) {
 		DriverStation.reportError("Change IDs of the solenoids", false);
 		switch(mode) {

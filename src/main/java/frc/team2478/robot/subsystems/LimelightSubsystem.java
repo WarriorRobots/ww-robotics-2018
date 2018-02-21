@@ -3,13 +3,12 @@ package frc.team2478.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.interfaces.CameraInterface;
 
 /**
  * Instantiates Limelight camera and related Network Table keys,
  * and provides methods for accessing their data.
  */
-public class LimelightSubsystem extends Subsystem implements CameraInterface {
+public class LimelightSubsystem extends Subsystem {
 
 	private NetworkTable visionTable;
 	private NetworkTableInstance defaultTable;
@@ -19,7 +18,6 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 		visionTable = defaultTable.getTable("limelight");
 	}
 	
-	@Override
 	public boolean canSeeObject() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target visible
@@ -27,12 +25,10 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 				? true : false;
 	}
 	
-	@Override
 	public double getObjectX() {
 		return visionTable.getEntry("tx").getDouble(0);
 	}
 	
-	@Override
 	public double getObjectY() {
 		return visionTable.getEntry("ty").getDouble(0);
 	}
@@ -53,7 +49,7 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 		return visionTable.getEntry("ts").getDouble(0);
 	}
 	
-	@Override
-    public void initDefaultCommand() {}
+    @Override
+	public void initDefaultCommand() {}
 }
 

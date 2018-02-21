@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
 import frc.team2478.robot.util.SynchronousPIDF;
 import frc.team2478.robot.util.annotations.Debug;
+import frc.team2478.robot.util.enums.Side;
 
 /**
  * When run, the robot will drive straight at the provided distance,

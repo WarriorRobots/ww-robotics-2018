@@ -9,7 +9,7 @@ import frc.team2478.robot.commands.scoring.RunFeed;
 import frc.team2478.robot.commands.scoring.RunShooterWithPercentage;
 import frc.team2478.robot.commands.scoring.StopFeed;
 import frc.team2478.robot.commands.scoring.StopShooter;
-import frc.team2478.robot.interfaces.PneumaticInterface.Mode;
+import frc.team2478.robot.util.enums.Mode;
 
 public class TestShooterRig extends CommandGroup {
 
@@ -33,7 +33,7 @@ public class TestShooterRig extends CommandGroup {
 	protected void end() {
 		Robot.feed.stop();
 		Robot.shooter.stop();
-		Robot.hood.setPistonState(Mode.OFF);
+		Robot.hood.setHoodPiston(Mode.OFF);
 	}
 
 	@Override
