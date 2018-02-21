@@ -11,8 +11,8 @@ import frc.team2478.robot.interfaces.MotorInterface;
  */
 public class IntakeSubsystem extends Subsystem implements MotorInterface {
 
-	private final int MASTER_MOTOR = 9;
-	private final int SLAVE_MOTOR = 10;
+	private final int SLAVE_MOTOR = 7;
+	private final int MASTER_MOTOR = 8;
 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	

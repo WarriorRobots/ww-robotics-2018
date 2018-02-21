@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team2478.robot.commands.drive.JoystickTeleop;
+import frc.team2478.robot.commands.scoring.RunFeedWithJoy;
 import frc.team2478.robot.interfaces.MotorInterface;
 
 /**
@@ -42,5 +44,7 @@ public class FeedSubsystem extends Subsystem implements MotorInterface {
 	}
 	
 	@Override
-	protected void initDefaultCommand() {}
+	protected void initDefaultCommand() {
+		setDefaultCommand(new RunFeedWithJoy());
+	}
 }

@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team2478.robot.commands.drive.JoystickTeleop;
+import frc.team2478.robot.commands.scoring.RunShooterWithJoy;
 import frc.team2478.robot.interfaces.ShooterInterface;
 
 /**
@@ -174,5 +176,7 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	public void setUsingPid(boolean b) {}
 
 	@Override
-	protected void initDefaultCommand() {}
+	protected void initDefaultCommand() {
+		setDefaultCommand(new RunShooterWithJoy());
+	}
 }

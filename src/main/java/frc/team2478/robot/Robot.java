@@ -18,6 +18,7 @@ import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.HoodPneumaticSubsystem;
 import frc.team2478.robot.subsystems.IntakePneumaticSubsystem;
+import frc.team2478.robot.subsystems.IntakeSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem limelight = new LimelightSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
+	public static final IntakeSubsystem asdf = new IntakeSubsystem(); // quickfix
 	/**
 	 * {@link HoodPneumaticSubsystem}
 	 */
@@ -102,6 +104,18 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		drivetrain.currentToDashboard();
 		SmartDashboard.putBoolean("Low Pressure?", !c.getPressureSwitchValue());
+		
+		//NOTE: 
+		// QUICK FIX
+		// DO NOT KEEP
+		
+		if(Math.abs(oi.getXboxLeftTrigger())>0.5) {
+			double pressure=oi.getXboxLeftTrigger();
+			asdf.setTargetPercentage(pressure);
+		}
+		else {
+			asdf.stop();
+		}
 		
 		
 //		shooter.setTargetPercentage(oi.getXboxRightY());

@@ -12,6 +12,12 @@ package frc.team2478.robot;
  */
 public final class Constants {
 	
+	/**
+	 * When true, this disables ALL drivetrain related function.
+	 * <p> Usefull for testing the robot without blocks
+	 * @author Josh
+	 */
+	public static final boolean DISABLED_DRIVE = false;
 	
 	/**
 	 * Below this volate the robot triggers.

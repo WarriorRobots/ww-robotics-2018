@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.drive.JoystickTeleop;
 import frc.team2478.robot.interfaces.DrivetrainInterface;
 
@@ -84,6 +85,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 */
 	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
+		if(Constants.DISABLED_DRIVE) return;
 		leftSpeed = invertIfReversed(leftSpeed);
 		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
@@ -91,6 +93,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	
 	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
+		if(Constants.DISABLED_DRIVE) return;
 		leftSpeed = invertIfReversed(leftSpeed);
 		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
@@ -98,12 +101,14 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	
 	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
+		if(Constants.DISABLED_DRIVE) return;
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
+		if(Constants.DISABLED_DRIVE) return;
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}

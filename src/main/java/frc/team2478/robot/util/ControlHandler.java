@@ -41,6 +41,7 @@ public final class ControlHandler {
 	
 	@SuppressWarnings("unused")
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
+	public static JoystickButton buttonElevenLeft; // quick fix
 	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
@@ -60,6 +61,7 @@ public final class ControlHandler {
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
+		buttonElevenLeft = new JoystickButton(leftJoy, 11);//temp fix
 		
 		rightXboxTrigger = new RightTrigger();
 		xboxUp = new DpadTrigger(Direction.UP);
