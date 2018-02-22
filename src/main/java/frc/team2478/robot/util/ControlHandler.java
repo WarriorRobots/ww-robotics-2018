@@ -12,15 +12,16 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.team2478.robot.commands.drive.InputReverse;
-import frc.team2478.robot.commands.drive.JoystickAlignment;
-import frc.team2478.robot.commands.drive.JoystickTurnLock;
-import frc.team2478.robot.commands.scoring.DecrementShooterTarget;
-import frc.team2478.robot.commands.scoring.IncrementShooterTarget;
-import frc.team2478.robot.commands.scoring.LowerHood;
-import frc.team2478.robot.commands.scoring.RaiseHood;
-import frc.team2478.robot.commands.scoring.RetractIntake;
+import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
+import frc.team2478.robot.commands.drive.ReverseDrive;
+import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
+import frc.team2478.robot.commands.scoring.hood.LowerHood;
+import frc.team2478.robot.commands.scoring.hood.RaiseHood;
+import frc.team2478.robot.commands.scoring.intake.ExtendIntake;
+import frc.team2478.robot.commands.scoring.intake.RetractIntake;
+import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
+import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
@@ -29,6 +30,10 @@ import frc.team2478.robot.util.triggers.RightTrigger;
 /**
  * Contains knwldge for Joysticks, the Xbox controller, and methods for interfacing with them.
  * @author Tony (for the comment at least)
+ */
+/**
+ * @author test
+ *
  */
 public final class ControlHandler {
 
@@ -45,6 +50,7 @@ public final class ControlHandler {
 	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
+	@SuppressWarnings("unused")
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
 
 	/**
@@ -56,6 +62,10 @@ public final class ControlHandler {
 		xbox = new XboxController(XBOX);
 	}
 	
+	/**
+	 * Initializes buttons and triggers and maps them to commands.
+	 * <p> The robot won't function without running this method once.
+	 */
 	public void init() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
@@ -71,18 +81,17 @@ public final class ControlHandler {
 		xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		
-		
-		rightJoyTriggerButton.whileHeld(new JoystickTurnLock());
-		rightJoyThumbButton.whileHeld(new JoystickAlignment());
-		rightJoyButton3.whenPressed(new InputReverse());
+		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
+		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
+		rightJoyButton3.whenPressed(new ReverseDrive());
 		
 		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
 		xboxUp.whenPressed(new IncrementShooterTarget());
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseHood());
-//		xboxA.whenPressed(new RetractIntake());
-//		xboxB.whenPressed(new ExtendIntake());
+		xboxA.whenPressed(new RetractIntake());
+		xboxB.whenPressed(new ExtendIntake());
 	}
 
 	/**

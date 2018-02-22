@@ -1,16 +1,16 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.feed;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-public class RunFeedWithJoy extends Command {
+public class RunFeedWithManualControl extends Command {
 		
 	private double percentage;
 	
 	/**
-	 * Runs the shooter defaultly and off of the xbox right joystick.
+	 * Runs the feed using the right joystick of the xbox controller.
 	 */
-	public RunFeedWithJoy() {
+	public RunFeedWithManualControl() {
 		requires(Robot.feed);
 	}
 	
@@ -22,7 +22,6 @@ public class RunFeedWithJoy extends Command {
 		} else {
 			Robot.feed.stop();
 		}
-//		Robot.feed.setTargetPercentage(0.3);
 	}
 	
 	@Override

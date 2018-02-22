@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.shooter;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;

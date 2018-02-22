@@ -1,20 +1,20 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.feed;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-public class RunShooterWithPercentage extends Command {
+public class RunFeedAtPercentage extends Command {
 
 private double percentage;
 	
-	public RunShooterWithPercentage(double percentage) {
-		requires(Robot.shooter);
+	public RunFeedAtPercentage(double percentage) {
+		requires(Robot.feed);
 		this.percentage = percentage;
 	}
 
 	@Override
 	protected void execute() {
-		Robot.shooter.setTargetPercentage(percentage);
+		Robot.feed.setTargetPercentage(percentage);
 	}
 	
 	@Override

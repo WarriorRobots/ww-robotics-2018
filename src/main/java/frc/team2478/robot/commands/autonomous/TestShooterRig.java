@@ -3,13 +3,13 @@ package frc.team2478.robot.commands.autonomous;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.commands.scoring.LowerHood;
-import frc.team2478.robot.commands.scoring.RaiseHood;
-import frc.team2478.robot.commands.scoring.RunFeed;
-import frc.team2478.robot.commands.scoring.RunShooterWithPercentage;
-import frc.team2478.robot.commands.scoring.StopFeed;
-import frc.team2478.robot.commands.scoring.StopShooter;
-import frc.team2478.robot.interfaces.PneumaticInterface.Mode;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
+import frc.team2478.robot.commands.scoring.feed.StopFeed;
+import frc.team2478.robot.commands.scoring.hood.LowerHood;
+import frc.team2478.robot.commands.scoring.hood.RaiseHood;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
+import frc.team2478.robot.commands.scoring.shooter.StopShooter;
+import frc.team2478.robot.util.enums.Mode;
 
 public class TestShooterRig extends CommandGroup {
 
@@ -20,9 +20,9 @@ public class TestShooterRig extends CommandGroup {
 	public TestShooterRig() {
 		addSequential(new RaiseHood());
 		addSequential(new WaitCommand(1));
-		addParallel(new RunShooterWithPercentage(0.5));
+		addParallel(new RunShooterAtPercentage(0.5));
 		addSequential(new WaitCommand(2));
-		addParallel(new RunFeed());
+		addParallel(new RunFeedAtPercentage(0.5));
 		addSequential(new WaitCommand(2));
 		addParallel(new LowerHood());
 		addParallel(new StopShooter());
@@ -33,7 +33,7 @@ public class TestShooterRig extends CommandGroup {
 	protected void end() {
 		Robot.feed.stop();
 		Robot.shooter.stop();
-		Robot.hood.setPistonState(Mode.OFF);
+		Robot.pneumatics.setHoodPiston(Mode.OFF);
 	}
 
 	@Override

@@ -1,11 +1,12 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-public class RunShooter extends Command {
+@Deprecated
+public class RunShooterAtTargetSpeed extends Command {
 
-	public RunShooter() {
+	public RunShooterAtTargetSpeed() {
 		requires(Robot.shooter);
 	}
 	

@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.drive.JoystickTeleop;
-import frc.team2478.robot.interfaces.DrivetrainInterface;
+import frc.team2478.robot.commands.drive.TankDriveTeleop;
+import frc.team2478.robot.util.enums.Side;
 
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
-public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterface {
+public class DrivetrainSubsystem extends Subsystem {
 
 	public static final int LEFT_FRONT = 4;
 	public static final int LEFT_MIDDLE = 5;
@@ -83,7 +83,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
-	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
 		if(Constants.DISABLED_DRIVE) return;
 		leftSpeed = invertIfReversed(leftSpeed);
@@ -91,7 +90,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
-	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
 		if(Constants.DISABLED_DRIVE) return;
 		leftSpeed = invertIfReversed(leftSpeed);
@@ -99,26 +97,22 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
-	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
 		if(Constants.DISABLED_DRIVE) return;
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
-	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
 		if(Constants.DISABLED_DRIVE) return;
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
-	@Override
 	public void stopDrive() {
 		differentialDrive.stopMotor();
 	}
 	
-	@Override
 	public int getEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
@@ -128,7 +122,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 	}
 
-	@Override
 	public void resetEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT:
@@ -140,7 +133,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 	}
 
-	@Override
 	public void resetEncoders() {
 		this.resetEncoderTicks(Side.LEFT);
 		this.resetEncoderTicks(Side.RIGHT);
@@ -150,53 +142,43 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * {@code println()} the current counts of both encoders.
 	 * <p> Formatted as: {@code LEFT: 00 RIGHT: 00}
 	 */
-	@Override
 	public void printEncoderData() {
 		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
 						  " RIGHT: " + Double.toString(getEncoderTicks(Side.RIGHT)));
 	}
 
-	@Override
 	public double getAccelX() {
 		return navx.getWorldLinearAccelX();
 	}
 
-	@Override
 	public double getAccelY() {
 		return navx.getWorldLinearAccelY();
 	}
 
-	@Override
 	public double getAccelZ() {
 		return navx.getWorldLinearAccelZ();
 	}
 
-	@Override
 	public double getPitch() {
 		return navx.getPitch();
 	}
 
-	@Override
 	public double getRoll() {
 		return navx.getRoll();
 	}
 
-	@Override
 	public double getYaw() {
 		return navx.getYaw();
 	}
 
-	@Override
 	public void resetYaw() {
 		navx.zeroYaw();
 	}
 
-	@Override
 	public double getAngle() {
 		return navx.getAngle();
 	}
 
-	@Override
 	public void resetAngle() {
 		navx.zeroYaw();
 	}
@@ -205,7 +187,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * {@code println()} the current angle of the gyroscope.
 	 * <p> Formatted as: {@code ANGLE: 00}
 	 */
-	@Override
 	public void printAngleData() {
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
@@ -222,7 +203,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	/**
 	 * @param drive  A number to be reversed if the robot is in reverse.
 	 * @return The same number that was input or its opposite.
-	 * @see {@link frc.team2478.robot.commands.drive.InputReverse}
+	 * @see {@link frc.team2478.robot.commands.drive.ReverseDrive}
 	 */
 	public double invertIfReversed(double drive) {
 		return (getReversed() == true) ? -drive : drive;
@@ -238,6 +219,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickTeleop());
+		setDefaultCommand(new TankDriveTeleop());
 	}
 }
