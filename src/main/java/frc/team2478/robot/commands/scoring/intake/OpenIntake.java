@@ -5,13 +5,13 @@ import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
 
 
-public class RetractIntake extends InstantCommand {
+public class OpenIntake extends InstantCommand {
 		
 		/**
-		* Retracts pistons to pull in the intake.
+		* Opens the intake.
 		* @author Josh
 		*/
-		public RetractIntake() {
+		public OpenIntake() {
 			requires(Robot.pneumatics);
 		}
 
@@ -19,5 +19,4 @@ public class RetractIntake extends InstantCommand {
 		protected void execute() {
 			Robot.pneumatics.setHoodPiston(Mode.REVERSE);
 		}
-		
 }

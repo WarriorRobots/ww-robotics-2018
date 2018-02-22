@@ -5,13 +5,13 @@ import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
 
 
-public class ExtendIntake extends InstantCommand {
+public class CloseIntake extends InstantCommand {
 		
 		/**
-		* Extends pistons to push out the intake.
+		* Closes the intake.
 		* @author Josh
 		*/
-		public ExtendIntake() {
+		public CloseIntake() {
 			requires(Robot.pneumatics);
 		}
 
@@ -19,4 +19,5 @@ public class ExtendIntake extends InstantCommand {
 		protected void execute() {
 			Robot.pneumatics.setHoodPiston(Mode.FORWARD);
 		}
+		
 }
