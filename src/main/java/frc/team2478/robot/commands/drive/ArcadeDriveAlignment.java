@@ -11,9 +11,9 @@ import frc.team2478.robot.Robot;
  * push vertically to drive forwards/backwards,
  * and push sideways to turn.
  */
-public class JoystickAlignment extends Command {
+public class ArcadeDriveAlignment extends Command {
 
-    public JoystickAlignment() {
+    public ArcadeDriveAlignment() {
     	requires(Robot.drivetrain);
     }
 

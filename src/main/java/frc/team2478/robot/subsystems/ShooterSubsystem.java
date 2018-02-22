@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.commands.scoring.RunShooterWithJoy;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterWithManualControl;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
@@ -22,9 +22,9 @@ public class ShooterSubsystem extends Subsystem {
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-	private double lowSpeed = 1000;
-	private double midSpeed = 1500;
-	private double highSpeed = 2000;
+//	private double lowSpeed = 1000;
+//	private double midSpeed = 1500;
+//	private double highSpeed = 2000;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -165,6 +165,6 @@ public class ShooterSubsystem extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterWithJoy());
+		setDefaultCommand(new RunShooterWithManualControl());
 	}
 }

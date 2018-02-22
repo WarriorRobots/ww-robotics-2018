@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.drive.JoystickTeleop;
+import frc.team2478.robot.commands.drive.TankDriveTeleop;
 import frc.team2478.robot.util.enums.Side;
 
 /**
@@ -203,7 +203,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	/**
 	 * @param drive  A number to be reversed if the robot is in reverse.
 	 * @return The same number that was input or its opposite.
-	 * @see {@link frc.team2478.robot.commands.drive.InputReverse}
+	 * @see {@link frc.team2478.robot.commands.drive.ReverseDrive}
 	 */
 	public double invertIfReversed(double drive) {
 		return (getReversed() == true) ? -drive : drive;
@@ -219,6 +219,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickTeleop());
+		setDefaultCommand(new TankDriveTeleop());
 	}
 }

@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.hood;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
@@ -10,36 +10,27 @@ public class LowerHood extends Command {
 	private int count = 0;
 
 	/**
-	* Retracts pistons to put hood down.
+	* Retracts pistons to lower hood down.
 	* @author Josh
 	*/
 	public LowerHood() {
-		requires(Robot.hood);
+		requires(Robot.pneumatics);
 	}
 	
-	@Override
-	protected void initialize() {
-		this.count=0;
-	}
-	
-	/**
-	 * Retracts pistons to put hood down.
-	 */
 	@Override
 	protected void execute() {
-		Robot.hood.setHoodPiston(Mode.REVERSE);
+		Robot.pneumatics.setHoodPiston(Mode.REVERSE);
 		count++;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.hood.setHoodPiston(Mode.OFF);
-		this.count=0;
+		Robot.pneumatics.setHoodPiston(Mode.OFF);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (count > 5) ? true : false;
+		return count > 5;
 	}
 	
 	@Override

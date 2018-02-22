@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.intake;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
@@ -8,18 +8,15 @@ import frc.team2478.robot.util.enums.Mode;
 public class ExtendIntake extends InstantCommand {
 		
 		/**
-		* Retracts pistons to push in the intake.
+		* Extends pistons to push out the intake.
 		* @author Josh
 		*/
 		public ExtendIntake() {
-			requires(Robot.intake);
+			requires(Robot.pneumatics);
 		}
 
-		/**
-		 * Retracts pistons to push in the intake.
-		 */
 		@Override
 		protected void execute() {
-			Robot.hood.setHoodPiston(Mode.REVERSE);
+			Robot.pneumatics.setHoodPiston(Mode.FORWARD);
 		}
 }

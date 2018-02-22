@@ -17,19 +17,28 @@ import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 
 public class AutonomoSelector {
 
-	private static String gameData = null;
+	private static AutonomoSelector instance = null;
+	
+	private String gameData = null;
+	private Command autoCommand = null;
 
-	private static boolean atLeftPos, atMiddlePos, atRightPos = false;
-	private static boolean goToScale, goToSwitch = false;
-	private static boolean switchOnLeft, switchOnRight = false;
-	private static boolean scaleOnLeft, scaleOnRight = false;
+	private boolean atLeftPos, atMiddlePos, atRightPos = false;
+	private boolean goToScale, goToSwitch = false;
+	private boolean switchOnLeft, switchOnRight = false;
+	private boolean scaleOnLeft, scaleOnRight = false;
 
+	public static AutonomoSelector getInstance() {
+		if (instance == null) {
+			instance = new AutonomoSelector();
+		}
+		return instance;
+	}
+	
 	/**
 	 * Selects autonomous case and calls {@code start()} on the chosen {@code CommandGroup}.
 	 */
-	public static void selectAutoCase() {
+	public void selectAutoCase() {
 		initData();
-		Command autoCommand = null;
 		
 		if (atMiddlePos) {
 			if (goToSwitch) {
@@ -74,13 +83,13 @@ public class AutonomoSelector {
 				}
 			}
 		}
-
-		autoCommand.start();
-		
-		resetData();
 	}
 	
-	private static void initData() {
+	public void startAuto() {
+		autoCommand.start();
+	}
+	
+	private void initData() {
 		resetData();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
@@ -125,7 +134,7 @@ public class AutonomoSelector {
 	}
 
 
-	private static void resetData() {
+	private void resetData() {
 		gameData = null;
 		atLeftPos = atMiddlePos = atRightPos = false;
 		goToScale = goToSwitch = false;

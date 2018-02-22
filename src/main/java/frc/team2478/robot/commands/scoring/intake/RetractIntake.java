@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.intake;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
@@ -12,14 +12,12 @@ public class RetractIntake extends InstantCommand {
 		* @author Josh
 		*/
 		public RetractIntake() {
-			requires(Robot.intake);
+			requires(Robot.pneumatics);
 		}
 
-		/**
-		 * Retracts pistons to pull in the intake.
-		 */
 		@Override
 		protected void execute() {
-			Robot.hood.setHoodPiston(Mode.REVERSE);
+			Robot.pneumatics.setHoodPiston(Mode.REVERSE);
 		}
+		
 }

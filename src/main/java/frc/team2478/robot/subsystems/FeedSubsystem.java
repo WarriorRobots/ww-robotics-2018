@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2478.robot.commands.scoring.RunFeedWithJoy;
+import frc.team2478.robot.commands.scoring.feed.RunFeedWithManualControl;
 
 /**
  * Instantiates feed motors on the robot, and provides methods for using them.
@@ -41,6 +41,6 @@ public class FeedSubsystem extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunFeedWithJoy());
+		setDefaultCommand(new RunFeedWithManualControl());
 	}
 }

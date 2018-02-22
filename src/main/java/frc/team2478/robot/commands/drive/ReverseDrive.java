@@ -8,9 +8,9 @@ import frc.team2478.robot.Robot;
  * <p>It should be called with {@code whenPressed()} or {@code whenReleased()}, <b>NOT {@code whileHeld()}...
  * otherwise the robot will reverse itself every tick!</b>
  */
-public class InputReverse extends InstantCommand {
+public class ReverseDrive extends InstantCommand {
 	
-    public InputReverse() {
+    public ReverseDrive() {
     	requires(Robot.drivetrain);
     }
 
