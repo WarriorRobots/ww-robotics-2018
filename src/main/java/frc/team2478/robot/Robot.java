@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drivetrain.setReversed(false);
 		AutonomoSelector.getInstance().selectAutoCase();
-		AutonomoSelector.getInstance().startAuto();
+//		AutonomoSelector.getInstance().startAuto();
 	}
 
 	@Override
