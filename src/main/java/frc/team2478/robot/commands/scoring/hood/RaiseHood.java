@@ -19,6 +19,11 @@ public class RaiseHood extends Command {
 	}
 	
 	@Override
+	protected void initialize() {
+		this.count=0;
+	}
+	
+	@Override
 	protected void execute() {
 		System.out.println("raise");
 		Robot.pneumatics.setHoodPiston(Mode.FORWARD);
@@ -40,5 +45,4 @@ public class RaiseHood extends Command {
 		DriverStation.reportWarning("RaiseHood interrupted", false);
 		this.end();
 	}
-	
 }
