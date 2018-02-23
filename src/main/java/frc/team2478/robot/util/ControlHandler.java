@@ -31,10 +31,6 @@ import frc.team2478.robot.util.triggers.RightTrigger;
  * Contains knwldge for Joysticks, the Xbox controller, and methods for interfacing with them.
  * @author Tony (for the comment at least)
  */
-/**
- * @author test
- *
- */
 public final class ControlHandler {
 
 	public static final int LEFT_JOY = 1;
@@ -46,11 +42,9 @@ public final class ControlHandler {
 	
 	@SuppressWarnings("unused")
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
-	public static JoystickButton buttonElevenLeft; // quick fix
 	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
-	@SuppressWarnings("unused")
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
 
 	/**
@@ -71,7 +65,6 @@ public final class ControlHandler {
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
-		buttonElevenLeft = new JoystickButton(leftJoy, 11);//temp fix
 		
 		rightXboxTrigger = new RightTrigger();
 		xboxUp = new DpadTrigger(Direction.UP);
@@ -90,8 +83,8 @@ public final class ControlHandler {
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseHood());
-		xboxA.whenPressed(new CloseIntake());
-		xboxB.whenPressed(new OpenIntake());
+//		xboxA.whenPressed(new CloseIntake());
+//		xboxB.whenPressed(new OpenIntake());
 	}
 
 	/**
@@ -124,12 +117,21 @@ public final class ControlHandler {
 		return this.getRightY(1);
 	}
 	
+//	DEADZONES
+//	LEFT -0.103 TO 0.063
+//	RIGHT -0.048 TO 0.079
+	
 	/**
 	 * Gets Y-value of left Xbox joystick multiplied by scalingFactor.
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
-		return -xbox.getY(Hand.kLeft) * scalingFactor;
+		double value = -xbox.getY(Hand.kLeft);
+		if (value > -0.103 && value < 0.063) {
+			return 0;
+		} else {
+			return value * scalingFactor;
+		}
 	}
 
 	/**
@@ -137,7 +139,12 @@ public final class ControlHandler {
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */	
 	public double getXboxRightY(double scalingFactor) {
-		return -xbox.getY(Hand.kRight) * scalingFactor;
+		double value = -xbox.getY(Hand.kRight);
+		if (value > -0.048 && value < 0.079) {
+			return 0;
+		} else {
+			return value * scalingFactor;
+		}
 	}
 
 	/**

@@ -8,7 +8,7 @@ public class RunShooterWithManualControl extends Command{
 	private double percentage;
 	
 	/**
-	 * Runs the feed using the right joystick of the xbox controller.
+	 * Runs the shooter using the left joystick of the xbox controller.
 	 */
 	public RunShooterWithManualControl() {
 		requires(Robot.shooter);
@@ -16,9 +16,9 @@ public class RunShooterWithManualControl extends Command{
 
 	@Override
 	protected void execute() {
-		percentage = Robot.oi.getXboxRightY();
-		if(Math.abs(percentage) > 0.3) {
-			Robot.shooter.setTargetPercentage(Robot.oi.getXboxRightY());
+		percentage = Robot.oi.getXboxLeftY();
+		if(Math.abs(percentage) > 0.1) {
+			Robot.shooter.setTargetPercentage(Robot.oi.getXboxLeftY());
 		} else {
 			Robot.shooter.stop();
 		}

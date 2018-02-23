@@ -157,11 +157,11 @@ public class ShooterSubsystem extends Subsystem {
 	
 	@Deprecated
 	public boolean isUsingPid() {
-		return true;
+		return false;
 	}
 	
 	@Deprecated
-	public void setUsingPid(boolean b) {}
+	public void setUsingPid(/*boolean b*/) {}
 
 	@Override
 	protected void initDefaultCommand() {

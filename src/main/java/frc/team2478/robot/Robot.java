@@ -56,6 +56,12 @@ public class Robot extends TimedRobot {
 		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
 	}
+	
+	@Override
+	public void disabledPeriodic() {
+		System.out.println("left xbox" + Double.toString(oi.getXboxLeftY()));
+		System.out.println("right xbox" + Double.toString(oi.getXboxRightY()));
+	}
 
 	@Override
 	public void autonomousInit() {

@@ -84,27 +84,27 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		if(Constants.DISABLED_DRIVE) return;
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		leftSpeed = invertIfReversed(leftSpeed);
 		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
-		if(Constants.DISABLED_DRIVE) return;
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		leftSpeed = invertIfReversed(leftSpeed);
 		rightSpeed = invertIfReversed(rightSpeed);
 		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
-		if(Constants.DISABLED_DRIVE) return;
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
-		if(Constants.DISABLED_DRIVE) return;
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
