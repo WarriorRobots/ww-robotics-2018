@@ -45,6 +45,7 @@ public final class ControlHandler {
 	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
+	@SuppressWarnings("unused")
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
 
 	/**
@@ -127,7 +128,7 @@ public final class ControlHandler {
 	 */
 	public double getXboxLeftY(double scalingFactor) {
 		double value = -xbox.getY(Hand.kLeft);
-		if (value > -0.103 && value < 0.063) {
+		if (value > -0.110 && value < 0.063) {
 			return 0;
 		} else {
 			return value * scalingFactor;

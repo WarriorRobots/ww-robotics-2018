@@ -1,5 +1,6 @@
 package frc.team2478.robot.commands.scoring.hood;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
@@ -41,6 +42,7 @@ public class LowerHood extends Command {
 	
 	@Override
 	protected void interrupted() {
+		DriverStation.reportWarning("LowerHood interrupted", false);
 		this.end();
 	}
 }
