@@ -18,6 +18,11 @@ public class LowerHood extends Command {
 	}
 	
 	@Override
+	protected void initialize() {
+		this.count=0;
+	}
+	
+	@Override
 	protected void execute() {
 		System.out.println("lower");
 		Robot.pneumatics.setHoodPiston(Mode.REVERSE);
