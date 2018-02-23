@@ -148,4 +148,17 @@ public final class Constants {
 	    	return in*OUT_PER_IN_RATIO;
 	    }
 	}
+	
+	/**
+	 * Constants affiliated with the intake.
+	 * @author Josh
+	 */
+	public static final class intake {
+		
+		/**
+		 * Percent motor power assigned to the intake.
+		 * @author Josh
+		 */
+		public static final double intakePercent = 1;
+	} 
 }
