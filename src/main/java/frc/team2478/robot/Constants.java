@@ -17,7 +17,7 @@ public final class Constants {
 	 * <p> Usefull for testing the robot without blocks
 	 * @author Josh
 	 */
-	public static final boolean DISABLED_DRIVE = true;
+	public static final boolean DISABLED_DRIVE = false;
 	
 	/**
 	 * Below this volate the robot triggers.
