@@ -26,6 +26,10 @@
 - label talons
 - make subsystems Sendable and give them data
 - add a reset button that does Scheduler.getInstance().removeAll() and sets all motors to 0
+- networking?
+- make all util classes getselected
+- make driving easier (lower gains, cheesy algos?)
+- 
 
 ---
 

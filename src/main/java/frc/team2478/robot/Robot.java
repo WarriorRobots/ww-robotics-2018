@@ -9,6 +9,7 @@ package frc.team2478.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.IntakeSubsystem;
@@ -17,6 +18,7 @@ import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.util.DashboardHandler.AutoTarget;
 import frc.team2478.robot.util.SafetyHandler;
 
 public class Robot extends TimedRobot {
@@ -29,10 +31,15 @@ public class Robot extends TimedRobot {
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static ControlHandler oi;
 	
+	public static SendableChooser<AutoTarget> testChooser;
+	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
+		testChooser = new SendableChooser<>();
+		testChooser.addDefault("SWITCH", AutoTarget.SWITCH);
+		testChooser.addObject("SCALE", AutoTarget.SCALE);
 	}
 	
 	@Override

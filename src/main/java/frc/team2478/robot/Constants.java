@@ -61,17 +61,17 @@ public final class Constants {
 		/**
 		 * P value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_P = 0.02;
+		public static final double DISTANCE_P = 0.005; // 0.02
 		
 		/**
 		 * I value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_I = 0.0001;
+		public static final double DISTANCE_I = 0.0; // 0.0001
 		
 		/**
 		 * D value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_D = 0.06;
+		public static final double DISTANCE_D = 0.0; // 0.06
 	}
 
 	/**
@@ -86,7 +86,7 @@ public final class Constants {
 		/**
 		 * Joystick multiplier of robot while turning in alignment mode.
 		 */
-		public static final double ALIGNMENT_TURNSPEED = 0.5;
+		public static final double ALIGNMENT_TURNSPEED = 0.6;
 		
 		/**
 		 * Percentage difference between joysticks required before lockmode disables.

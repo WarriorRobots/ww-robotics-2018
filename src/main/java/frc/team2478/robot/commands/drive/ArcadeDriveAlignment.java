@@ -19,7 +19,7 @@ public class ArcadeDriveAlignment extends Command {
 
     @Override
 	protected void execute() {
-    	Robot.drivetrain.arcadeDriveSquared(
+    	Robot.drivetrain.arcadeDriveRaw(
 			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
 			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
     }
