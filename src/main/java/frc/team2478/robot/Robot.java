@@ -28,21 +28,11 @@ public class Robot extends TimedRobot {
 	public static final IntakeSubsystem intake = new IntakeSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static ControlHandler oi;
-//	public static SendableChooser<Position> positionSelect = new SendableChooser<>();
-//	public static SendableChooser<AutoTarget> targetSelect = new SendableChooser<>();
 	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
-		
-//		Robot.positionSelect.addObject("left position", Position.LEFT);
-//		Robot.positionSelect.addObject("middle position", Position.MIDDLE);
-//		Robot.positionSelect.addObject("right position", Position.RIGHT);
-//		Robot.targetSelect.addObject("switch", AutoTarget.SWITCH);
-//		Robot.targetSelect.addObject("scale", AutoTarget.SCALE);
-//		SmartDashboard.putData(Robot.positionSelect);
-//		SmartDashboard.putData(Robot.targetSelect);
 	}
 	
 	@Override
@@ -58,16 +48,11 @@ public class Robot extends TimedRobot {
 	}
 	
 	@Override
-	public void disabledPeriodic() {
-		System.out.println("left xbox" + Double.toString(oi.getXboxLeftY()));
-		System.out.println("right xbox" + Double.toString(oi.getXboxRightY()));
-	}
-
-	@Override
 	public void autonomousInit() {
 		drivetrain.setReversed(false);
-		AutonomoSelector.getInstance().selectAutoCase();
-//		AutonomoSelector.getInstance().startAuto();
+//		AutonomoSelector.getInstance().selectAutoCase();
+		AutonomoSelector.getInstance().chooseTest();
+		AutonomoSelector.getInstance().startAuto();
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class AutonomoDriveStraight extends Command {
 	private double angleOutput, distanceOutput;
 	
 	@Debug
-	private boolean stopsAtSetpoint = true;
+	private boolean stopsAtSetpoint = false;
 
 	private SynchronousPIDF pidAngle, pidDistance;
 	private Timer timer;
@@ -94,15 +94,16 @@ public class AutonomoDriveStraight extends Command {
 		angleOutput = pidAngle.calculate(Robot.drivetrain.getAngle(), timer.get());
 		distanceOutput = pidDistance.calculate(avgCount, timer.get());
 		
-		System.out.println(Double.toString(distanceOutput) + " " + Double.toString(angleOutput));
-		System.out.println(Robot.drivetrain.getAngle());
+//		System.out.println(Double.toString(distanceOutput) + " " + Double.toString(angleOutput));
+//		System.out.println(Robot.drivetrain.getAngle());
 		
 		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
+//		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
+		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;

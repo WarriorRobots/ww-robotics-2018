@@ -72,9 +72,9 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 
 		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
-		leftEnc.setReverseDirection(false);
+		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
-		rightEnc.setReverseDirection(true);
+		rightEnc.setReverseDirection(false);
 	}
 	
 	/**
@@ -85,16 +85,23 @@ public class DrivetrainSubsystem extends Subsystem {
 	 */
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
 		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		leftSpeed = invertIfReversed(leftSpeed);
-		rightSpeed = invertIfReversed(rightSpeed);
-		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+		// The reason for the right input being fed into the left output and vice versa is when
+		// the robot sides have to be reversed as well or else the robot turns the opposite direction
+		if (getReversed()) {
+			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
+		} else {
+			differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+		}
 	}
 	
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
 		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		leftSpeed = invertIfReversed(leftSpeed);
-		rightSpeed = invertIfReversed(rightSpeed);
-		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+		// see above
+		if (getReversed()) {
+			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, false);
+		} else {
+			differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+		}
 	}
 	
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {

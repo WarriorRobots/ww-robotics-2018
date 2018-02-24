@@ -25,7 +25,7 @@ public class RaiseHood extends Command {
 	
 	@Override
 	protected void execute() {
-		System.out.println("raise");
+//		System.out.println("raise");
 		Robot.pneumatics.setHoodPiston(Mode.FORWARD);
 		count++;
 	}

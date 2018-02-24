@@ -14,6 +14,9 @@ public class DashboardHandler {
 	private static final String D_GAIN = "D gain";	
 	private static final String F_GAIN = "F gain";
 	
+	private static Position positionTarget = Position.MIDDLE;
+	private static AutoTarget autoTarget = AutoTarget.SWITCH;
+	
 	public static enum Position {
 		LEFT, MIDDLE, RIGHT
 	}
@@ -123,11 +126,19 @@ public class DashboardHandler {
 	
 	public static Position getPosition() {
 //		return Robot.positionSelect.getSelected();
-		return Position.RIGHT;
+		return positionTarget;
 	}
 	
 	public static AutoTarget getAutoTarget() {
 //		return Robot.targetSelect.getSelected();
-		return AutoTarget.SCALE;
+		return autoTarget;
+	}
+	
+	public static void setPositionTarget(Position p) {
+		positionTarget = p;
+	}
+	
+	public static void setAutoTarget(AutoTarget a) {
+		autoTarget = a;
 	}
 }

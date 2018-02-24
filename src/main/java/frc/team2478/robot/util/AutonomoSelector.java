@@ -14,6 +14,7 @@ import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
+import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
 
 public class AutonomoSelector {
 
@@ -32,6 +33,14 @@ public class AutonomoSelector {
 			instance = new AutonomoSelector();
 		}
 		return instance;
+	}
+	
+	public void chooseTest() {
+		autoCommand = new TestAutonomo();
+	}
+	
+	public void stopAuto() {
+		autoCommand.cancel();
 	}
 	
 	/**
