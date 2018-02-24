@@ -5,13 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.team2478.robot.interfaces.MotorInterface;
 
 /**
  * Instantiates the climb subsystem, including motors and any pneumatics,
  * and provides methods for using them.
  */
-public class ClimbSubsystem extends Subsystem implements MotorInterface {
+public class ClimbSubsystem extends Subsystem {
 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	private final int MASTER_MOTOR = 13;
@@ -24,12 +23,10 @@ public class ClimbSubsystem extends Subsystem implements MotorInterface {
 		slaveMotor.follow(masterMotor);
 	}
 	
-	@Override
 	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
-	@Override
 	public void stop() {
 		masterMotor.stopMotor();
 	}

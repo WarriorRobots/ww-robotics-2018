@@ -5,15 +5,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.team2478.robot.interfaces.MotorInterface;
 
 /**
  * Instantiates intake motors, and provides methods for using them.
  */
-public class IntakeSubsystem extends Subsystem implements MotorInterface {
+public class IntakeSubsystem extends Subsystem {
 
-	private final int MASTER_MOTOR = 9;
-	private final int SLAVE_MOTOR = 10;
+	private final int SLAVE_MOTOR = 7;
+	private final int MASTER_MOTOR = 8;
 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
@@ -25,12 +24,10 @@ public class IntakeSubsystem extends Subsystem implements MotorInterface {
 		slaveMotor.follow(masterMotor);
 	}
 	
-	@Override
 	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
-	@Override
 	public void stop() {
 		masterMotor.stopMotor();
 	}

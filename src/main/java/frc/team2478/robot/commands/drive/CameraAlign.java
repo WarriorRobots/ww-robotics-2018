@@ -15,15 +15,15 @@ public class CameraAlign extends Command {
 
 	public CameraAlign() {
 		requires(Robot.drivetrain);
-		requires(Robot.limelight);
+		requires(Robot.vision);
 	}
 	
 	@Override
 	protected void execute() {
-		if (Robot.limelight.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+		if (Robot.vision.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			Robot.drivetrain.arcadeDriveRaw(
 				Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
-				Robot.limelight.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
+				Robot.vision.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			Robot.drivetrain.arcadeDriveSquared(
     			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),

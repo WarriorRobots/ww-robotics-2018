@@ -12,19 +12,21 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.team2478.robot.commands.drive.InputReverse;
-import frc.team2478.robot.commands.drive.JoystickAlignment;
-import frc.team2478.robot.commands.drive.JoystickTurnLock;
-import frc.team2478.robot.commands.scoring.DecrementShooterTarget;
-import frc.team2478.robot.commands.scoring.IncrementShooterTarget;
-import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
+import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
+import frc.team2478.robot.commands.drive.ReverseDrive;
+import frc.team2478.robot.commands.drive.TankDriveTurnLock;
+import frc.team2478.robot.commands.scoring.hood.LowerHood;
+import frc.team2478.robot.commands.scoring.hood.RaiseHood;
+import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
+import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
 import frc.team2478.robot.util.triggers.RightTrigger;
 
 /**
- * Contains logic for Joysticks, the Xbox controller, and methods for interfacing with them.
+ * Contains knwldge for Joysticks, the Xbox controller, and methods for interfacing with them.
+ * @author Tony (for the comment at least)
  */
 public final class ControlHandler {
 
@@ -40,6 +42,8 @@ public final class ControlHandler {
 	
 	private RightTrigger rightXboxTrigger;
 	private DpadTrigger xboxUp, xboxDown;
+	@SuppressWarnings("unused")
+	private JoystickButton xboxX, xboxY, xboxA, xboxB;
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -50,21 +54,35 @@ public final class ControlHandler {
 		xbox = new XboxController(XBOX);
 	}
 	
+	/**
+	 * Initializes buttons and triggers and maps them to commands.
+	 * <p> The robot won't function without running this method once.
+	 */
 	public void init() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
+		
 		rightXboxTrigger = new RightTrigger();
 		xboxUp = new DpadTrigger(Direction.UP);
 		xboxDown = new DpadTrigger(Direction.DOWN);
+		xboxX = new JoystickButton(xbox, 3);
+		xboxY = new JoystickButton(xbox, 4);
+		xboxA = new JoystickButton(xbox, 1);
+		xboxB = new JoystickButton(xbox, 2);
 		
-		rightJoyTriggerButton.whileHeld(new JoystickTurnLock());
-		rightJoyThumbButton.whileHeld(new JoystickAlignment());
-		rightJoyButton3.whenPressed(new InputReverse());
-		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
+		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
+		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
+		rightJoyButton3.whenPressed(new ReverseDrive());
+		
+//		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
 		xboxUp.whenPressed(new IncrementShooterTarget());
 		xboxDown.whenPressed(new DecrementShooterTarget());
+		xboxX.whenPressed(new LowerHood());
+		xboxY.whenPressed(new RaiseHood());
+//		xboxA.whenPressed(new CloseIntake());
+//		xboxB.whenPressed(new OpenIntake());
 	}
 
 	/**
@@ -97,12 +115,21 @@ public final class ControlHandler {
 		return this.getRightY(1);
 	}
 	
+//	DEADZONES
+//	LEFT -0.103 TO 0.063
+//	RIGHT -0.048 TO 0.079
+	
 	/**
 	 * Gets Y-value of left Xbox joystick multiplied by scalingFactor.
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
-		return -xbox.getY(Hand.kLeft) * scalingFactor;
+		double value = -xbox.getY(Hand.kLeft);
+		if (value > -0.110 && value < 0.063) {
+			return 0;
+		} else {
+			return value * scalingFactor;
+		}
 	}
 
 	/**
@@ -110,7 +137,12 @@ public final class ControlHandler {
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */	
 	public double getXboxRightY(double scalingFactor) {
-		return -xbox.getY(Hand.kRight) * scalingFactor;
+		double value = -xbox.getY(Hand.kRight);
+		if (value > -0.048 && value < 0.079) {
+			return 0;
+		} else {
+			return value * scalingFactor;
+		}
 	}
 
 	/**

@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.team2478.robot.commands.drive.JoystickTeleop;
-import frc.team2478.robot.interfaces.DrivetrainInterface;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.commands.drive.TankDriveTeleop;
+import frc.team2478.robot.util.enums.Side;
 
 /**
  * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
  */
-public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterface {
+public class DrivetrainSubsystem extends Subsystem {
 
 	public static final int LEFT_FRONT = 4;
 	public static final int LEFT_MIDDLE = 5;
@@ -71,9 +72,9 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 
 		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
-		leftEnc.setReverseDirection(false);
+		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
-		rightEnc.setReverseDirection(true);
+		rightEnc.setReverseDirection(false);
 	}
 	
 	/**
@@ -82,38 +83,43 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
-	@Override
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		leftSpeed = invertIfReversed(leftSpeed);
-		rightSpeed = invertIfReversed(rightSpeed);
-		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
+		// The reason for the right input being fed into the left output and vice versa is when
+		// the robot sides have to be reversed as well or else the robot turns the opposite direction
+		if (getReversed()) {
+			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
+		} else {
+			differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+		}
 	}
 	
-	@Override
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
-		leftSpeed = invertIfReversed(leftSpeed);
-		rightSpeed = invertIfReversed(rightSpeed);
-		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
+		// see above
+		if (getReversed()) {
+			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, false);
+		} else {
+			differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
+		}
 	}
 	
-	@Override
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
 	}
 	
-	@Override
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
+		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		forwardSpeed = invertIfReversed(forwardSpeed);
 		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
 	}
 	
-	@Override
 	public void stopDrive() {
 		differentialDrive.stopMotor();
 	}
 	
-	@Override
 	public int getEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
@@ -123,7 +129,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 	}
 
-	@Override
 	public void resetEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT:
@@ -135,7 +140,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		}
 	}
 
-	@Override
 	public void resetEncoders() {
 		this.resetEncoderTicks(Side.LEFT);
 		this.resetEncoderTicks(Side.RIGHT);
@@ -145,53 +149,31 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * {@code println()} the current counts of both encoders.
 	 * <p> Formatted as: {@code LEFT: 00 RIGHT: 00}
 	 */
-	@Override
 	public void printEncoderData() {
 		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
 						  " RIGHT: " + Double.toString(getEncoderTicks(Side.RIGHT)));
 	}
 
-	@Override
-	public double getAccelX() {
-		return navx.getWorldLinearAccelX();
-	}
-
-	@Override
-	public double getAccelY() {
-		return navx.getWorldLinearAccelY();
-	}
-
-	@Override
-	public double getAccelZ() {
-		return navx.getWorldLinearAccelZ();
-	}
-
-	@Override
 	public double getPitch() {
 		return navx.getPitch();
 	}
 
-	@Override
 	public double getRoll() {
 		return navx.getRoll();
 	}
 
-	@Override
 	public double getYaw() {
 		return navx.getYaw();
 	}
 
-	@Override
 	public void resetYaw() {
 		navx.zeroYaw();
 	}
 
-	@Override
 	public double getAngle() {
 		return navx.getAngle();
 	}
 
-	@Override
 	public void resetAngle() {
 		navx.zeroYaw();
 	}
@@ -200,7 +182,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	 * {@code println()} the current angle of the gyroscope.
 	 * <p> Formatted as: {@code ANGLE: 00}
 	 */
-	@Override
 	public void printAngleData() {
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
@@ -236,7 +217,7 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	/**
 	 * @param drive  A number to be reversed if the robot is in reverse.
 	 * @return The same number that was input or its opposite.
-	 * @see {@link frc.team2478.robot.commands.drive.InputReverse}
+	 * @see {@link frc.team2478.robot.commands.drive.ReverseDrive}
 	 */
 	public double invertIfReversed(double drive) {
 		return (getReversed() == true) ? -drive : drive;
@@ -252,6 +233,6 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 	
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickTeleop());
+		setDefaultCommand(new TankDriveTeleop());
 	}
 }

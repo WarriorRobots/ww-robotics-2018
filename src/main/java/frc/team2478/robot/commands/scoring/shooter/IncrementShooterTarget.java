@@ -1,16 +1,12 @@
-package frc.team2478.robot.commands.scoring;
+package frc.team2478.robot.commands.scoring.shooter;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
 
 public class IncrementShooterTarget extends InstantCommand {
 
-	public IncrementShooterTarget() {
-	}
-
 	@Override
 	protected void execute() {
 		Robot.shooter.incrementTarget();
 	}
-
 }

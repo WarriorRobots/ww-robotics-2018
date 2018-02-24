@@ -5,12 +5,12 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
 /**
- * When called, robot will drive identically to {@link JoystickTeleop} unless the sticks are very close in position:
+ * When called, robot will drive identically to {@link TankDriveTeleop} unless the sticks are very close in position:
  * then the robot will drive straight and disregard tiny differences that would otherwise cause turning.
  */
-public class JoystickTurnLock extends Command {
+public class TankDriveTurnLock extends Command {
     
-	public JoystickTurnLock() {
+	public TankDriveTurnLock() {
 		requires(Robot.drivetrain);
     }
 

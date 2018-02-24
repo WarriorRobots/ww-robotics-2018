@@ -12,6 +12,16 @@ package frc.team2478.robot;
  */
 public final class Constants {
 	
+	/**
+	 * When true, this disables ALL drivetrain related function.
+	 * <p> Usefull for testing the robot without blocks
+	 * @author Josh
+	 */
+	public static final boolean DISABLED_DRIVE = false;
+	
+	/**
+	 * Below this volate the robot triggers.
+	 */
 	public static final double LOW_VOLTAGE_WARNING = 7;
 	
 	/**
@@ -51,17 +61,17 @@ public final class Constants {
 		/**
 		 * P value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_P = 0.02;
+		public static final double DISTANCE_P = 0.005; // 0.02
 		
 		/**
 		 * I value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_I = 0.0001;
+		public static final double DISTANCE_I = 0.0; // 0.0001
 		
 		/**
 		 * D value for the loop used while driving forwards.
 		 */
-		public static final double DISTANCE_D = 0.06;
+		public static final double DISTANCE_D = 0.0; // 0.06
 	}
 
 	/**
@@ -76,7 +86,7 @@ public final class Constants {
 		/**
 		 * Joystick multiplier of robot while turning in alignment mode.
 		 */
-		public static final double ALIGNMENT_TURNSPEED = 0.5;
+		public static final double ALIGNMENT_TURNSPEED = 0.6;
 		
 		/**
 		 * Percentage difference between joysticks required before lockmode disables.
@@ -90,17 +100,17 @@ public final class Constants {
 	 */
 	public static final class ShooterRig {
 		/**
-		 * Conversion factor equal to 600ms / 4096clicks.
+		 * Conversion factor equal to 600*100ms / 4096clicks.
 		 * Used for converting encoder clicks to revolutions per minute.
 		 * <p>Equivalent to {@value}.
 		 */
-		public static final double ENCODER_UNITS_TO_RPM_CONVERSION = 600.0 / 4096.0; //0.1465
+		public static final double MILS_PER_CLICK_RATIO = 600.0 / 4096.0; //0.1465
 		
 		/**
-		 * Defines the gearbox ratio (out to in).
+		 * Defines the gearbox ratio (outer rotations per inner rotations).
 		 * <p>Equivalent to {@value}.
 		 */
-		public static final double GEARBOX_RATIO = 1.0 / 5.0;
+		public static final double OUT_PER_IN_RATIO = 1.0 / 5.0;
 		
 		/**
 		 * Convert raw encoder measurements to RPM.
@@ -108,7 +118,7 @@ public final class Constants {
 		 * @return velocity in revolutions per minute
 		 */
 	    public static double encoderClicksToRpm(double vel) {
-			return vel * ENCODER_UNITS_TO_RPM_CONVERSION;
+			return vel * MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
@@ -117,7 +127,7 @@ public final class Constants {
 		 * @return velocity in encoder clicks per 100ms
 		 */
 	    public static double rpmToEncoderClicks(double rpm) {
-			return rpm / ENCODER_UNITS_TO_RPM_CONVERSION;
+			return rpm / MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
@@ -126,7 +136,7 @@ public final class Constants {
 	     * @return The inward motor speed.
 	     */
 	    public static double gearboxIn(double out) {
-	    	return out/GEARBOX_RATIO;
+	    	return out/OUT_PER_IN_RATIO;
 	    }
 	    
 	    /**
@@ -135,7 +145,20 @@ public final class Constants {
 	     * @return The outward shooter speed.
 	     */
 	    public static double gearboxOut(double in) {
-	    	return in*GEARBOX_RATIO;
+	    	return in*OUT_PER_IN_RATIO;
 	    }
 	}
+	
+	/**
+	 * Constants affiliated with the intake.
+	 * @author Josh
+	 */
+	public static final class intake {
+		
+		/**
+		 * Percent motor power assigned to the intake.
+		 * @author Josh
+		 */
+		public static final double intakePercent = 1;
+	} 
 }

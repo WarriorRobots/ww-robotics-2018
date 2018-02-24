@@ -6,9 +6,9 @@ import frc.team2478.robot.Robot;
 /**
  * When called, robot will drive in Tank Drive using the Y-axes of both joysticks.
  */
-public class JoystickTeleop extends Command {
+public class TankDriveTeleop extends Command {
 	
-    public JoystickTeleop() {
+    public TankDriveTeleop() {
     	requires(Robot.drivetrain);
     }
 
