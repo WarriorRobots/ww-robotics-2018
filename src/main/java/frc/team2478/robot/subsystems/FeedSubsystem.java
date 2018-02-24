@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.interfaces.MotorInterface;
 
 /**
@@ -39,6 +40,21 @@ public class FeedSubsystem extends Subsystem implements MotorInterface {
 	@Override
 	public void stop() {
 		masterMotor.stopMotor();
+	}
+	
+	/**
+	 * Dashboard setup for feed.
+	 * @author Josh (borrowed from Alex)
+	 */
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("subsystem-feed");
+		builder.addDoubleArrayProperty("currentdraw", () -> {
+			double[] currentDraw = new double[2];
+			currentDraw[0] = masterMotor.getOutputCurrent();
+			currentDraw[1] = slaveMotor.getOutputCurrent();
+			return currentDraw;
+		}, null);
 	}
 	
 	@Override

@@ -205,6 +205,10 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 		System.out.println("ANGLE: " + Double.toString(getAngle()));
 	}
 	
+	/**
+	 * Dashboard setup for drive train.
+	 * @author Alex
+	 */
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");

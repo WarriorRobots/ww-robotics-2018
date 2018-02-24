@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.interfaces.ShooterInterface;
+import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
@@ -161,6 +163,27 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	@Override
 	public void resetEncoder() {
 		masterMotor.setSelectedSensorPosition(0, PROCESS_ID, TIMEOUT_MS);
+	}
+	
+	/**
+	 * Dashboard setup for shooter.
+	 * @author Josh (borrowed from Alex)
+	 */
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("subsystem-shooter");
+		builder.addDoubleArrayProperty("currentdraw", () -> {
+			double[] currentDraw = new double[2];
+			currentDraw[0] = masterMotor.getOutputCurrent();
+			currentDraw[1] = slaveMotor.getOutputCurrent();
+			return currentDraw;
+		}, null);
+		builder.addDoubleArrayProperty("velocity", () -> {
+			double[] encoderTicks = new double[1];
+			encoderTicks[0] = getVelocity();
+//			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
+			return encoderTicks;
+		}, null);
 	}
 	
 	@Override
