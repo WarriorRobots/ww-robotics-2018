@@ -229,6 +229,8 @@ public class DrivetrainSubsystem extends Subsystem implements DrivetrainInterfac
 			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
 			return encoderTicks;
 		}, null);
+		builder.addDoubleProperty("angle", () -> getAngle(), null);
+		builder.addDoubleProperty("robot-pitch", () -> getPitch(), null);
 	}
 	
 	/**

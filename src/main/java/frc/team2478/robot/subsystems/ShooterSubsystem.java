@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.interfaces.ShooterInterface;
-import frc.team2478.robot.interfaces.DriveEncoderInterface.Side;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
@@ -24,9 +23,9 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-	private double lowSpeed = 1000;
-	private double midSpeed = 1500;
-	private double highSpeed = 2000;
+//	private double lowSpeed = 1000;
+//	private double midSpeed = 1500;
+//	private double highSpeed = 2000;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -178,12 +177,13 @@ public class ShooterSubsystem extends Subsystem implements ShooterInterface {
 			currentDraw[1] = slaveMotor.getOutputCurrent();
 			return currentDraw;
 		}, null);
-		builder.addDoubleArrayProperty("velocity", () -> {
-			double[] encoderTicks = new double[1];
-			encoderTicks[0] = getVelocity();
-//			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
-			return encoderTicks;
-		}, null);
+//		builder.addDoubleArrayProperty("velocity", () -> {
+//			double[] encoderTicks = new double[1];
+//			encoderTicks[0] = getVelocity();
+////			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
+//			return encoderTicks;
+//		}, null);
+		builder.addDoubleProperty("velocity", () -> getVelocity(), null);
 	}
 	
 	@Override

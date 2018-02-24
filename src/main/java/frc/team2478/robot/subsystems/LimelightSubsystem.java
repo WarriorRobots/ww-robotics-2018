@@ -3,6 +3,7 @@ package frc.team2478.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.interfaces.CameraInterface;
 
 /**
@@ -55,5 +56,17 @@ public class LimelightSubsystem extends Subsystem implements CameraInterface {
 	
 	@Override
     public void initDefaultCommand() {}
+	
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("subsystem-camera");
+		builder.addBooleanProperty("object-exists", () -> canSeeObject(), null);
+		builder.addDoubleArrayProperty("object-coords", () -> {
+			double[] coords = new double[2];
+			coords[0] = getObjectX();
+			coords[1] = getObjectY();
+			return coords;
+		}, null);
+	}
 }
 

@@ -18,7 +18,7 @@ public class HoodPneumaticSubsystem extends Subsystem implements PneumaticInterf
 	 * True when hood is lifted.
 	 * @author Josh
 	 */
-	public static boolean LIFTED = false;
+	public static boolean solenoidExtended = false;
 	
 	private DoubleSolenoid leftSol, rightSol;
 	
@@ -34,12 +34,12 @@ public class HoodPneumaticSubsystem extends Subsystem implements PneumaticInterf
 		case FORWARD:
 			leftSol.set(Value.kForward);
 			rightSol.set(Value.kForward);
-			LIFTED = true;
+			solenoidExtended = true;
 			break;
 		case REVERSE:
 			leftSol.set(Value.kReverse);
 			rightSol.set(Value.kReverse);
-			LIFTED = false;
+			solenoidExtended = false;
 			break;
 		case OFF:
 			leftSol.set(Value.kOff);
@@ -53,7 +53,7 @@ public class HoodPneumaticSubsystem extends Subsystem implements PneumaticInterf
 	 * @return True when hood is lifted (according to code, not physically).
 	 */
 	public boolean getStasis() {
-		return LIFTED;
+		return solenoidExtended;
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class HoodPneumaticSubsystem extends Subsystem implements PneumaticInterf
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-hood");
-		builder.addBooleanProperty("Is up?", () -> getStasis(), null);
+		builder.addBooleanProperty("solenoid-extended", () -> getStasis(), null);
 	}
 
 	@Override
