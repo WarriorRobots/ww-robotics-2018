@@ -77,7 +77,7 @@ public final class ControlHandler {
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
 		rightJoyButton3.whenPressed(new ReverseDrive());
 		
-//		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
+		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
 		xboxUp.whenPressed(new IncrementShooterTarget());
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
