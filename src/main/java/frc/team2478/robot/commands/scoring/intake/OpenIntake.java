@@ -17,6 +17,6 @@ public class OpenIntake extends InstantCommand {
 
 		@Override
 		protected void execute() {
-			Robot.pneumatics.setHoodPiston(Mode.REVERSE);
+			Robot.pneumatics.setIntakePiston(Mode.REVERSE);
 		}
 }

@@ -18,6 +18,8 @@ import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
 import frc.team2478.robot.commands.scoring.hood.LowerHood;
 import frc.team2478.robot.commands.scoring.hood.RaiseHood;
+import frc.team2478.robot.commands.scoring.intake.CloseIntake;
+import frc.team2478.robot.commands.scoring.intake.OpenIntake;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
@@ -82,8 +84,8 @@ public final class ControlHandler {
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseHood());
-//		xboxA.whenPressed(new CloseIntake());
-//		xboxB.whenPressed(new OpenIntake());
+		xboxA.whenPressed(new CloseIntake());
+		xboxB.whenPressed(new OpenIntake());
 	}
 
 	/**
