@@ -22,6 +22,7 @@ public class IntakeSubsystem extends Subsystem {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		
+		masterMotor.setInverted(true);
 		//slaveMotor.setInverted(true);
 		slaveMotor.follow(masterMotor);
 		infaredSensor = new DigitalInput(9);
