@@ -23,7 +23,7 @@ public class IntakeSubsystem extends Subsystem {
 		
 		//slaveMotor.setInverted(true);
 		slaveMotor.follow(masterMotor);
-		infaredSensor = new DigitalInput(0);
+		infaredSensor = new DigitalInput(9);
 	}
 	
 	public void setTargetPercentage(double percent) {
