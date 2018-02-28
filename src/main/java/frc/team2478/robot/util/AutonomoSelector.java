@@ -15,6 +15,7 @@ import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
+import frc.team2478.robot.commands.scoring.hood.LowerHood;
 
 public class AutonomoSelector {
 
@@ -95,6 +96,7 @@ public class AutonomoSelector {
 	}
 	
 	public void startAuto() {
+		new LowerHood().start(); // shooter must be lowered in order to drive safely
 		autoCommand.start();
 	}
 	

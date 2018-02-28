@@ -17,7 +17,7 @@ public class CloseIntake extends InstantCommand {
 
 		@Override
 		protected void execute() {
-			Robot.pneumatics.setHoodPiston(Mode.FORWARD);
+			Robot.pneumatics.setIntakePiston(Mode.FORWARD);
 		}
 		
 }

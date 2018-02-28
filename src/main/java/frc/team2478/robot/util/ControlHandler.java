@@ -17,6 +17,10 @@ import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.scoring.hood.LowerHood;
 import frc.team2478.robot.commands.scoring.hood.RaiseHood;
+import frc.team2478.robot.commands.scoring.intake.CloseIntake;
+import frc.team2478.robot.commands.scoring.intake.OpenIntake;
+import frc.team2478.robot.commands.scoring.intake.ReverseIntake;
+import frc.team2478.robot.commands.scoring.intake.RunIntake;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
@@ -41,6 +45,7 @@ public final class ControlHandler {
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
 	
 	private RightTrigger rightXboxTrigger;
+	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private DpadTrigger xboxUp, xboxDown;
 	@SuppressWarnings("unused")
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
@@ -65,6 +70,8 @@ public final class ControlHandler {
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		
 		rightXboxTrigger = new RightTrigger();
+		leftXboxBumper = new JoystickButton(xbox, 6);
+		rightXboxBumper = new JoystickButton(xbox, 7);
 		xboxUp = new DpadTrigger(Direction.UP);
 		xboxDown = new DpadTrigger(Direction.DOWN);
 		xboxX = new JoystickButton(xbox, 3);
@@ -76,13 +83,15 @@ public final class ControlHandler {
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
 		rightJoyButton3.whenPressed(new ReverseDrive());
 		
-//		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
+		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
+		leftXboxBumper.whileHeld(new ReverseIntake());
+		rightXboxBumper.whileHeld(new RunIntake());
 		xboxUp.whenPressed(new IncrementShooterTarget());
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseHood());
-//		xboxA.whenPressed(new CloseIntake());
-//		xboxB.whenPressed(new OpenIntake());
+		xboxA.whenPressed(new CloseIntake());
+		xboxB.whenPressed(new OpenIntake());
 	}
 
 	/**
