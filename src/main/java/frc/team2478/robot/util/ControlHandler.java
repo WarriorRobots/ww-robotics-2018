@@ -71,8 +71,8 @@ public final class ControlHandler {
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		
 		rightXboxTrigger = new RightTrigger();
-		leftXboxBumper = new JoystickButton(xbox, 6);
-		rightXboxBumper = new JoystickButton(xbox, 7);
+		leftXboxBumper = new JoystickButton(xbox, 5);
+		rightXboxBumper = new JoystickButton(xbox, 6);
 		xboxUp = new DpadTrigger(Direction.UP);
 		xboxDown = new DpadTrigger(Direction.DOWN);
 		xboxX = new JoystickButton(xbox, 3);

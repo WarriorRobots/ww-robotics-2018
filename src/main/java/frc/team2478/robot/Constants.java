@@ -159,6 +159,6 @@ public final class Constants {
 		 * Percent motor power assigned to the intake.
 		 * @author Josh
 		 */
-		public static final double intakePercent = 1;
+		public static final double intakePercent = 0.5;
 	} 
 }

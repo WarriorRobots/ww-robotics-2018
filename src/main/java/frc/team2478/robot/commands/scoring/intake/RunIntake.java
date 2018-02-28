@@ -16,7 +16,7 @@ public class RunIntake extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.intake.setTargetPercentage(Constants.intake.intakePercent);
+		Robot.intake.setTargetPercentage(-Constants.intake.intakePercent);
 	}
 	
 	@Override
