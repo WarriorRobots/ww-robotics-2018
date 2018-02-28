@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
+import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
 import frc.team2478.robot.commands.scoring.hood.LowerHood;
 import frc.team2478.robot.commands.scoring.hood.RaiseHood;
 import frc.team2478.robot.commands.scoring.intake.CloseIntake;

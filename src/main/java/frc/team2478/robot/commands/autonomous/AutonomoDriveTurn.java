@@ -2,6 +2,7 @@ package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -64,12 +65,22 @@ public class AutonomoDriveTurn extends Command {
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
+		
+		SmartDashboard.putNumber("p-angle", SmartDashboard.getNumber("p-angle", 0));
+		SmartDashboard.putNumber("i-angle", SmartDashboard.getNumber("i-angle", 0));
+		SmartDashboard.putNumber("d-angle", SmartDashboard.getNumber("d-angle", 0));
 	}
 	
 	@Override
 	protected void execute() {
-		System.out.println(Robot.drivetrain.getAngle());
+		SmartDashboard.putNumber("angle", Robot.drivetrain.getAngle());
+		
+		setPID(SmartDashboard.getNumber("p-angle", 0), 
+				SmartDashboard.getNumber("i-angle", 0), 
+				SmartDashboard.getNumber("d-angle", 0));
+		
 		output = pidLoop.calculate(Robot.drivetrain.getAngle(), timer.get());
+		SmartDashboard.putNumber("output-angle", output);
 		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 

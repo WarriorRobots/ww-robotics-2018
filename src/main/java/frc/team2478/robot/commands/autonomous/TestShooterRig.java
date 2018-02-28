@@ -20,7 +20,7 @@ public class TestShooterRig extends CommandGroup {
 	public TestShooterRig() {
 		addSequential(new RaiseHood());
 		addSequential(new WaitCommand(1));
-		addParallel(new RunShooterAtPercentage(0.5));
+		addParallel(new RunShooterAtPercentage(0.3));
 		addSequential(new WaitCommand(2));
 		addParallel(new RunFeedAtPercentage(0.5));
 		addSequential(new WaitCommand(2));

@@ -35,11 +35,11 @@ public class Robot extends TimedRobot {
 		oi = new ControlHandler();
 		oi.init();
 		SmartDashboard.putData(drivetrain);
-		SmartDashboard.putData(vision);
-		SmartDashboard.putData(shooter);
-		SmartDashboard.putData(feed);
-		SmartDashboard.putData(intake);
 		SmartDashboard.putData(pneumatics);
+//		SmartDashboard.putData(vision);
+//		SmartDashboard.putData(shooter);
+//		SmartDashboard.putData(feed);
+//		SmartDashboard.putData(intake);
 	}
 	
 	@Override

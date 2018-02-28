@@ -51,7 +51,7 @@ public final class Constants {
 		/**
 		 * Tolerance of the PID loop used while turning.
 		 */
-		public static final double TURNING_TOLERANCE = 0.25;
+		public static final double TURNING_TOLERANCE = .5;
 		
 		/**
 		 * Tolerance of the PID loop used for measuring distance driven.

@@ -19,7 +19,7 @@ public class AutonomoDriveStraight extends Command {
 	private double angleOutput, distanceOutput;
 	
 	@Debug
-	private boolean stopsAtSetpoint = false;
+	private boolean stopsAtSetpoint = true;
 
 	private SynchronousPIDF pidAngle, pidDistance;
 	private Timer timer;
@@ -114,8 +114,8 @@ public class AutonomoDriveStraight extends Command {
 
 	@Override
 	protected boolean isFinished() {
-//		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
-		if (stopsAtSetpoint) {
+		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
+//		if (stopsAtSetpoint) {
 			return true;
 		} else {
 			return false;

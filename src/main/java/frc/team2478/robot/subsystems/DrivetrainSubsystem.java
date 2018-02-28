@@ -211,7 +211,6 @@ public class DrivetrainSubsystem extends Subsystem {
 			return encoderTicks;
 		}, null);
 		builder.addDoubleProperty("angle", () -> getAngle(), null);
-		builder.addDoubleProperty("robot-pitch", () -> getPitch(), null);
 	}
 	
 	/**

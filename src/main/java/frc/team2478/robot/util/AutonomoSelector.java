@@ -96,7 +96,7 @@ public class AutonomoSelector {
 	}
 	
 	public void startAuto() {
-		new LowerHood().start(); // shooter must be lowered in order to drive safely
+//		new LowerHood().start(); // shooter must be lowered in order to drive safely
 		autoCommand.start();
 	}
 	
