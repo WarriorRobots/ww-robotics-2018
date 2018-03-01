@@ -6,11 +6,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
  * Components that take the cube from the ground and load it into the robot.
  */
-public class PickupSubsystem extends Subsystem {
+public class PickupSubsystem extends Subsystem implements TandemMotorInterface {
 
 	private static final int SLAVE_MOTOR = 7;
 	private static final int MASTER_MOTOR = 8;
@@ -25,10 +26,12 @@ public class PickupSubsystem extends Subsystem {
 		slaveMotor.follow(masterMotor);
 	}
 	
+	@Override
 	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	@Override
 	public void stop() {
 		masterMotor.stopMotor();
 	}

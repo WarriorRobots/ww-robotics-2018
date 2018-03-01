@@ -7,11 +7,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
  * Components that receive the cube from the pickup mechanism and feed it into the shooter, and related sensors.
  */
-public class FeedSubsystem extends Subsystem {
+public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 
 	private static final int SLAVE_MOTOR = 9; // right
 	private static final int MASTER_MOTOR = 10; // left
@@ -29,17 +30,12 @@ public class FeedSubsystem extends Subsystem {
 		infaredSensor = new DigitalInput(INFARED_SENSOR_ID);
 	}
 
-	/**
-	 * Sets the feed motors to a percentage of their maximum power.
-	 * @param percent  Percentage in decimal format, -1 to 1.
-	 */
+	@Override
 	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
-	
-	/**
-	 * Shuts off the feed motors and feeds the watchdog.
-	 */
+
+	@Override
 	public void stop() {
 		masterMotor.stopMotor();
 		slaveMotor.stopMotor();

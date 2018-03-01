@@ -8,12 +8,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.Target;
 
 /**
  * Components that involve sending the cube airborne, out of the robot.
  */
-public class ShooterSubsystem extends Subsystem {
+public class ShooterSubsystem extends Subsystem implements TandemMotorInterface {
 
 	private static final int SLAVE_MOTOR = 11; // right
 	private static final int MASTER_MOTOR = 12; // left
@@ -52,6 +53,9 @@ public class ShooterSubsystem extends Subsystem {
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
+//	/**
+//	 * Sets the shooter motors to a predetermined velocity based on the Target currently chosen.
+//	 */
 //	public void shootForCurrentTarget() {
 //		switch (getCurrentTarget()) {
 //		case HIGH:
@@ -81,6 +85,10 @@ public class ShooterSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Checks the currently-selected target.
+	 * @return  Enum {@code Target}, with values LOW, MID, or HIGH
+	 */
 	public Target getCurrentTarget() {
 		return currentTarget;
 	}
@@ -127,10 +135,12 @@ public class ShooterSubsystem extends Subsystem {
 		return masterMotor.getSelectedSensorVelocity(PROCESS_ID);
 	}
 	
+	@Override
 	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	@Override
 	public void stop() {
 		masterMotor.stopMotor();
 	}
@@ -173,14 +183,6 @@ public class ShooterSubsystem extends Subsystem {
 		}, null);
 		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
-	
-	@Deprecated
-	public boolean isUsingPid() {
-		return false;
-	}
-	
-	@Deprecated
-	public void setUsingPid(/*boolean b*/) {}
 
 	@Deprecated
 	@Override
