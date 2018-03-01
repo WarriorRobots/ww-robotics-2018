@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.Target;
 
@@ -184,9 +185,8 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
 
-	@Deprecated
 	@Override
 	protected void initDefaultCommand() {
-//		setDefaultCommand(new RunShooterWithManualControl());
+		setDefaultCommand(new RunShooterAtPercentage(0));
 	}
 }

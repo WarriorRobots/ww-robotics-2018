@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
@@ -62,5 +63,7 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 	}
 	
 	@Override
-	protected void initDefaultCommand() {}
+	protected void initDefaultCommand() {
+		setDefaultCommand(new RunFeedAtPercentage(0));
+	}
 }
