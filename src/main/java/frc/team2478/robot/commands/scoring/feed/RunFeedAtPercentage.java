@@ -14,7 +14,7 @@ private double percentage;
 
 	@Override
 	protected void execute() {
-		Robot.feed.runMotorAtPercentage(percentage);
+		Robot.feed.runAtPercentage(percentage);
 	}
 	
 	@Override

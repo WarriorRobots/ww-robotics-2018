@@ -15,13 +15,13 @@ public class RackCubeToFire extends Command {
 	@Deprecated
 	@Override
 	protected void execute() {
-		Robot.shooter.setTargetPercentage(-0.3);
-		Robot.feed.runMotorAtPercentage(-0.3);
+		Robot.shooter.runAtPercentage(-0.3);
+		Robot.feed.runAtPercentage(-0.3);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.isCubeLoaded();
+		return Robot.feed.isCubeLoaded();
 	}
 	
 	@Override

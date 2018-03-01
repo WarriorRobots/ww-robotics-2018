@@ -6,40 +6,56 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 /**
- * Instantiates Limelight camera and related Network Table keys,
- * and provides methods for accessing their data.
+ * Components that interface with the robot's color-sensing Limelight camera.
  */
 public class LimelightSubsystem extends Subsystem {
 
+	private static final String LIMELIGHT_NETWORK_TABLE = "limelight";
+	private static final String TARGET_EXISTS = "tv";
+	private static final String TARGET_X = "tx";
+	private static final String TARGET_Y = "ty";
+	private static final String TARGET_AREA = "ta";
+	private static final String TARGET_SKEW = "ts";
+	
 	private NetworkTable visionTable;
-	private NetworkTableInstance defaultTable;
 	
 	public LimelightSubsystem() {
-		defaultTable = NetworkTableInstance.getDefault();
-		visionTable = defaultTable.getTable("limelight");
+		visionTable = NetworkTableInstance.getDefault().getTable(LIMELIGHT_NETWORK_TABLE);
 	}
 	
+	/**
+	 * Checks if there is an object in the camera's view.
+	 * @return  True if present, false otherwise
+	 */
 	public boolean canSeeObject() {
 		// if network table returns 1, vision target exists
 		// else (should be 0) there is no target visible
-		return (visionTable.getEntry("tv").getDouble(0) == 1)
+		return (visionTable.getEntry(TARGET_EXISTS).getDouble(0) == 1)
 				? true : false;
 	}
 	
+	/**
+	 * Gets x-coordinate of current object on screen.
+	 * @return X position of object in pixels
+	 */
 	public double getObjectX() {
-		return visionTable.getEntry("tx").getDouble(0);
+		return visionTable.getEntry(TARGET_X).getDouble(0);
 	}
 	
+	/**
+	 * Gets y-coordinate of current object on screen.
+	 * @return Y position of object in pixels
+	 */
 	public double getObjectY() {
-		return visionTable.getEntry("ty").getDouble(0);
+		return visionTable.getEntry(TARGET_Y).getDouble(0);
 	}
 	
 	/**
 	 * Gets the percentage area of the currently-seen object relative to the image size. 
-	 * @return Decimal representing percentage of image taken up by object, -1 to 1.
+	 * @return Decimal representing percentage of image taken up by object, 0 to 1.
 	 */
 	public double getObjectArea() {
-		return visionTable.getEntry("ta").getDouble(0);
+		return visionTable.getEntry(TARGET_AREA).getDouble(0);
 	}
 	
 	/**
@@ -47,7 +63,7 @@ public class LimelightSubsystem extends Subsystem {
 	 * @return -90 degrees to 90 degrees
 	 */
 	public double getObjectRotationAngle() {
-		return visionTable.getEntry("ts").getDouble(0);
+		return visionTable.getEntry(TARGET_SKEW).getDouble(0);
 	}
 	
 	@Override

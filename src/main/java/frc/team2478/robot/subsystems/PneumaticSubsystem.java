@@ -7,13 +7,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.util.enums.Mode;
 
+/**
+ * Components that use the pneumatics on the robot.
+ */
 public class PneumaticSubsystem extends Subsystem {
 
-	public static final int HOOD_FORWARDS_CHANNEL = 7;
-	public static final int HOOD_BACKWARDS_CHANNEL = 0;
+	private static final int HOOD_FORWARDS_CHANNEL = 7;
+	private static final int HOOD_BACKWARDS_CHANNEL = 0;
 	
-	public static final int INTAKE_FORWARDS_CHANNEL = 6;
-	public static final int INTAKE_BACKWARDS_CHANNEL = 1;
+	private static final int INTAKE_FORWARDS_CHANNEL = 6;
+	private static final int INTAKE_BACKWARDS_CHANNEL = 1;
 	
 	private DoubleSolenoid hoodSolenoid, intakeSolenoid;
 	private Compressor compressor;
@@ -21,13 +24,16 @@ public class PneumaticSubsystem extends Subsystem {
 	private boolean hoodLifted, intakeExtended;
 	
 	public PneumaticSubsystem() {
-//		DriverStation.reportError("Change IDs of the solenoids", false);
 		hoodSolenoid = new DoubleSolenoid(HOOD_FORWARDS_CHANNEL, HOOD_BACKWARDS_CHANNEL);
 		intakeSolenoid = new DoubleSolenoid(INTAKE_FORWARDS_CHANNEL, INTAKE_BACKWARDS_CHANNEL);
 		compressor = new Compressor();
-		compressor.setClosedLoopControl(true);
+		compressor.start();
 	}
 	
+	/**
+	 * Extends, retracts, or disables the hood pistons.
+	 * @param mode  Mode.FORWARD, Mode.REVERSE, or Mode.OFF
+	 */
 	public void setHoodPiston(Mode mode) {
 		switch(mode) {
 		case FORWARD:
@@ -44,6 +50,10 @@ public class PneumaticSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Extends, retracts, or disables the intake pistons.
+	 * @param mode  Mode.FORWARD, Mode.REVERSE, or Mode.OFF
+	 */
 	public void setIntakePiston(Mode mode) {
 		switch(mode) {
 		case FORWARD:
@@ -60,21 +70,31 @@ public class PneumaticSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Checks if the robot low pressure switch is enabled (typically below 95 psi).
+	 * @return True if pressure is low, false otherwise
+	 */
 	public boolean isLowPressure() {
 		return compressor.getPressureSwitchValue();
 	}
 	
-	public void setClosedLoop(boolean isClosedLoop) {
-		compressor.setClosedLoopControl(isClosedLoop);
+	/**
+	 * Allows the compressor to run IF AND ONLY IF pressure is low. DOES NOT FORCIBLY TURN THE COMPRESSOR ON.
+	 */
+	public void startCompressor() {
+		compressor.start();
+	}
+	
+	/**
+	 * Stops the compressor from running in any circumstances.
+	 */
+	public void stopCompressor() {
+		compressor.stop();
 	}
 
 	@Override
 	protected void initDefaultCommand() {}
 	
-	/**
-	 * Dashboard setup for hood.
-	 * @author Josh
-	 */
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-pneumatics");

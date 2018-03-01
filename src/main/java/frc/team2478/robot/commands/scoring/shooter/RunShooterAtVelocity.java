@@ -15,7 +15,7 @@ public class RunShooterAtVelocity extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.shooter.setTargetVelocity(rpmTarget);
+		Robot.shooter.runAtNativeUnitVelocity(rpmTarget);
 	}
 	
 	@Override

@@ -161,4 +161,16 @@ public final class Constants {
 		 */
 		public static final double intakePercent = 0.5 * -1; // inversion needed for motors
 	} 
+	
+	public static final class Inversions {
+		public static final boolean LEFT_ENCODER_REVERSED = true;
+		public static final boolean RIGHT_ENCODER_REVERSED = false;
+		public static final boolean CLIMB_MOTOR_REVERSED = false;
+		public static final boolean FEED_MASTER_REVERSED = false;
+		public static final boolean FEED_SLAVE_REVERSED = true;
+		public static final boolean PICKUP_MASTER_REVERSED = true;
+		public static final boolean PICKUP_SLAVE_REVERSED = false;
+		public static final boolean SHOOTER_MASTER_REVERSED = true;
+		public static final boolean SHOOTER_SLAVE_REVERSED = true;
+	}
 }

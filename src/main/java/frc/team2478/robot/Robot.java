@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
-import frc.team2478.robot.subsystems.IntakeSubsystem;
+import frc.team2478.robot.subsystems.PickupSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
 import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem vision = new LimelightSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
-	public static final IntakeSubsystem intake = new IntakeSubsystem();
+	public static final PickupSubsystem intake = new PickupSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static ControlHandler oi;
 	

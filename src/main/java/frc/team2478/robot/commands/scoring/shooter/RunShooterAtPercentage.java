@@ -14,7 +14,7 @@ private double percentage;
 
 	@Override
 	protected void execute() {
-		Robot.shooter.setTargetPercentage(percentage);
+		Robot.shooter.runAtPercentage(percentage);
 	}
 	
 	@Override

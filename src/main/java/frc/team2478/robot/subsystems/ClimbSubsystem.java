@@ -5,43 +5,43 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import frc.team2478.robot.Constants;
 
 /**
- * Instantiates the climb subsystem, including motors and any pneumatics,
- * and provides methods for using them.
+ * Components that lift the robot onto a climbing bar during the last 15 seconds of the match.
  */
 public class ClimbSubsystem extends Subsystem {
 
-	private WPI_TalonSRX masterMotor, slaveMotor;
-	private final int MASTER_MOTOR = 13;
-	private final int SLAVE_MOTOR = 14; // may need to be removed
+	private static final int MASTER_MOTOR = 13;
+
+	private WPI_TalonSRX masterMotor;
 	
 	public ClimbSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
-		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
-		
-		slaveMotor.follow(masterMotor);
+		masterMotor.setInverted(Constants.Inversions.CLIMB_MOTOR_REVERSED);
 	}
 	
-	public void runMotorAtPercentage(double percent) {
+	/**
+	 * Sets the climb motor to a percentage of its maximum power.
+	 * @param percent  Percentage in decimal format, -1 to 1.
+	 */
+	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	/**
+	 * Shuts off the motor and feeds the watchdog.
+	 */
 	public void stop() {
 		masterMotor.stopMotor();
 	}
 	
 	@Override
-	protected void initDefaultCommand() {}
-	
-	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-climb");
-		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[2];
-			currentDraw[0] = masterMotor.getOutputCurrent();
-			currentDraw[1] = slaveMotor.getOutputCurrent();
-			return currentDraw;
-		}, null);
+		builder.addDoubleProperty("currentdraw", () -> masterMotor.getOutputCurrent(), null);
 	}
+	
+	@Override
+	protected void initDefaultCommand() {}
 }

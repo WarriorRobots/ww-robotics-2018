@@ -7,18 +7,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import frc.team2478.robot.Constants;
+import frc.team2478.robot.util.enums.Target;
 
 /**
- * Instantiates shooter motors and sets up Talon PIDs,
- * and provides methods for using or altering them.
+ * Components that involve sending the cube airborne, out of the robot.
  */
 public class ShooterSubsystem extends Subsystem {
 
-	public final int SLAVE_MOTOR = 11; // right
-	public final int MASTER_MOTOR = 12; // left
+	private static final int SLAVE_MOTOR = 11; // right
+	private static final int MASTER_MOTOR = 12; // left
 	
-	public final int PROCESS_ID = 0;
-	public final int TIMEOUT_MS = 10;
+	private static final int PROCESS_ID = 0;
+	private static final int TIMEOUT_MS = 10;
 	
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
@@ -28,13 +29,13 @@ public class ShooterSubsystem extends Subsystem {
 //	private double highSpeed = 2000;
 	
 	public ShooterSubsystem() {
-		DriverStation.reportError("FIX ENCODER ASSIGNMENT", false);
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
 		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
-		masterMotor.setInverted(true);
-		slaveMotor.setInverted(true);
+		masterMotor.setInverted(Constants.Inversions.SHOOTER_MASTER_REVERSED);
+		slaveMotor.setInverted(Constants.Inversions.SHOOTER_SLAVE_REVERSED);
 		slaveMotor.follow(masterMotor);
 		
+		DriverStation.reportError("FIX ENCODER ASSIGNMENT", false);
 		masterMotor.configSelectedFeedbackSensor(
 				FeedbackDevice.QuadEncoder,
 				PROCESS_ID,
@@ -43,15 +44,11 @@ public class ShooterSubsystem extends Subsystem {
 		masterMotor.setSensorPhase(true);
 	}
 	
-	public enum Target {
-		LOW, MID, HIGH;
-	}
-	
 	/**
-	 * Set velocity of the shooter.
-	 * @param velocity  Velocity in clicks/100ms
+	 * Runs the shooter at a velocity value in native units per 100ms.
+	 * @param velocity  Double value: native units per 100ms
 	 */
-	public void setTargetVelocity(double velocity) {
+	public void runAtNativeUnitVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
@@ -73,13 +70,13 @@ public class ShooterSubsystem extends Subsystem {
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			setTargetPercentage(0.7);
+			runAtPercentage(0.7);
 			break;
 		case MID:
-			setTargetPercentage(0.5);
+			runAtPercentage(0.5);
 			break;
 		case LOW:
-			setTargetPercentage(0.2);
+			runAtPercentage(0.2);
 			break;
 		}
 	}
@@ -88,6 +85,9 @@ public class ShooterSubsystem extends Subsystem {
 		return currentTarget;
 	}
 	
+	/**
+	 * Increases the current shooter speed setting by one level.
+	 */
 	public void incrementTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
@@ -102,6 +102,9 @@ public class ShooterSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Decreases the current shooter speed setting by one level.
+	 */
 	public void decrementTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
@@ -117,51 +120,48 @@ public class ShooterSubsystem extends Subsystem {
 	}
 	
 	/**
-	 * Get velocity of the shooter.
-	 * @return Velocity in clicks/100ms
+	 * Gets the velocity of the shooter wheels in native units / 100ms.
+	 * @return Double value representing velocity of shooter wheels.
 	 */
-	public double getVelocity() {
+	public double getNativeUnitVelocity() {
 		return masterMotor.getSelectedSensorVelocity(PROCESS_ID);
 	}
 	
-	public double getPosition() {
-		return masterMotor.getSelectedSensorPosition(PROCESS_ID);
-	}
-	
-	/**
-	 * Set the percent motor speed.
-	 * @param percent -1 to 1
-	 */
-	@Deprecated
-	public void setTargetPercentage(double percent) {
+	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
-	/**
-	 * Stop the shooter.
-	 */
 	public void stop() {
 		masterMotor.stopMotor();
 	}
 	
+	/**
+	 * Sets the PID loop of the shooter motors to new values.
+	 * @param p  Proportional value (measures current error)
+	 * @param i  Integral value (measures error over time)
+	 * @param d  Derivative value (measures rate of error change)
+	 */
 	public void setPID(double p, double i, double d) {
 		masterMotor.config_kP(PROCESS_ID, p, TIMEOUT_MS);
 		masterMotor.config_kI(PROCESS_ID, i, TIMEOUT_MS);
 		masterMotor.config_kD(PROCESS_ID, d, TIMEOUT_MS);
 	}
 	
+	/**
+	 * Sets the feed-forward value of the shooter PID loop.
+	 * @param f  Feed-forwards value (defines base speed without PID interference)
+	 */
 	public void setFeedForward(double f) {
 		masterMotor.config_kF(PROCESS_ID, f, TIMEOUT_MS);		
 	}
 
-	public void resetEncoder() {
+	/**
+	 * Resets the shooter encoder to 0 ticks.
+	 */
+	public void resetEncoders() {
 		masterMotor.setSelectedSensorPosition(0, PROCESS_ID, TIMEOUT_MS);
 	}
 	
-	/**
-	 * Dashboard setup for shooter.
-	 * @author Josh (borrowed from Alex)
-	 */
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-shooter");
@@ -171,13 +171,7 @@ public class ShooterSubsystem extends Subsystem {
 			currentDraw[1] = slaveMotor.getOutputCurrent();
 			return currentDraw;
 		}, null);
-//		builder.addDoubleArrayProperty("velocity", () -> {
-//			double[] encoderTicks = new double[1];
-//			encoderTicks[0] = getVelocity();
-////			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
-//			return encoderTicks;
-//		}, null);
-		builder.addDoubleProperty("velocity", () -> getVelocity(), null);
+		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
 	
 	@Deprecated

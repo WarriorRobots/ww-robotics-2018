@@ -73,8 +73,6 @@ public class AutonomoDriveTurn extends Command {
 	
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("angle", Robot.drivetrain.getAngle());
-		
 		setPID(SmartDashboard.getNumber("p-angle", 0), 
 				SmartDashboard.getNumber("i-angle", 0), 
 				SmartDashboard.getNumber("d-angle", 0));

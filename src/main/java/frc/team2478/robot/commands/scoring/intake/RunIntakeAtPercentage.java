@@ -18,7 +18,7 @@ public class RunIntakeAtPercentage extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.intake.runMotorAtPercentage(percentage);
+		Robot.intake.runAtPercentage(percentage);
 	}
 	
 	@Override

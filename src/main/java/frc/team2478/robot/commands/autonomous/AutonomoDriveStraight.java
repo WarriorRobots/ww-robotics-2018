@@ -94,10 +94,6 @@ public class AutonomoDriveStraight extends Command {
 	protected void execute() {
 		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
 		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
-		Robot.drivetrain.printEncoderData();
-		SmartDashboard.putNumber("enc-left", leftCount);
-		SmartDashboard.putNumber("enc-right", rightCount);
-		SmartDashboard.putNumber("angle", Robot.drivetrain.getAngle());
 		
 		setDistancePid(SmartDashboard.getNumber("p-dist", 0), 
 				SmartDashboard.getNumber("i-dist", 0), 

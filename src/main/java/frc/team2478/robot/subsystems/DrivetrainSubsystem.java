@@ -15,24 +15,24 @@ import frc.team2478.robot.commands.drive.TankDriveTeleop;
 import frc.team2478.robot.util.enums.Side;
 
 /**
- * Instantiates drivetrain motors and provides methods for running WPILib drive functions.
+ * Components that move the robot wheels or sense its position.
  */
 public class DrivetrainSubsystem extends Subsystem {
 
-	public static final int LEFT_FRONT = 4;
-	public static final int LEFT_MIDDLE = 5;
-	public static final int LEFT_BACK = 6;
-	public static final int RIGHT_FRONT = 1;
-	public static final int RIGHT_MIDDLE = 2;
-	public static final int RIGHT_BACK = 3;
+	private static final int LEFT_FRONT = 4;
+	private static final int LEFT_MIDDLE = 5;
+	private static final int LEFT_BACK = 6;
+	private static final int RIGHT_FRONT = 1;
+	private static final int RIGHT_MIDDLE = 2;
+	private static final int RIGHT_BACK = 3;
 	
-	public static final int LEFT_ENCODER_PORTA = 2;
-	public static final int LEFT_ENCODER_PORTB = 3;
-	public static final int RIGHT_ENCODER_PORTA = 0;
-	public static final int RIGHT_ENCODER_PORTB = 1;
+	private static final int LEFT_ENCODER_PORTA = 2;
+	private static final int LEFT_ENCODER_PORTB = 3;
+	private static final int RIGHT_ENCODER_PORTA = 0;
+	private static final int RIGHT_ENCODER_PORTB = 1;
 	
-	public static final double RAMPRATE_SECONDS = 0.15;
-	public static final int TIMEOUT_MS = 10;
+	private static final double RAMPRATE_SECONDS = 0.15;
+	private static final int TIMEOUT_MS = 10;
 	
 	private boolean isReversed = false;
 	
@@ -65,6 +65,7 @@ public class DrivetrainSubsystem extends Subsystem {
 
 		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
 		
+		// if NavX is missing, this code will handle errors and prevent a crash
 		try {
 			navx = new AHRS(I2C.Port.kMXP);
 		} catch (Exception ex) {
@@ -72,14 +73,14 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 
 		leftEnc = new Encoder(LEFT_ENCODER_PORTA, LEFT_ENCODER_PORTB);
-		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(RIGHT_ENCODER_PORTA, RIGHT_ENCODER_PORTB);
-		rightEnc.setReverseDirection(false);
+		leftEnc.setReverseDirection(Constants.Inversions.LEFT_ENCODER_REVERSED);
+		rightEnc.setReverseDirection(Constants.Inversions.RIGHT_ENCODER_REVERSED);
 	}
 	
 	/**
-	 * Drives the left and right sides separately, with inputs squared for ease of driver use.
-	 * <p> DO NOT USE WITH PID.
+	 * Drives the left and right sides of the robot independently. DO NOT USE WITH PID.
+	 * <p> The arguments provided are squared to create a more intuitive control sensitivity.
 	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
@@ -94,6 +95,12 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Drives the left and right sides of the robot independently. USE WITH PID ONLY.
+	 * <p> The arguments provided are not squared to prevent PID overcompensation.
+	 * @param leftSpeed  Percentage speed of left side, from -1 to 1.
+	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
+	 */
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
 		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		// see above
@@ -104,22 +111,51 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * Sets the forward and turning speeds of the robot independently. DO NOT USE WITH PID.
+	 * <p> The arguments provided are squared to create a more intuitive control sensitivity.
+	 * @param forwardSpeed  Percentage speed for driving forwards or backwards, from -1 to 1.
+	 * @param turnSpeed  Percentage speed for turning, from -1 (left) to 1 (right).
+	 */
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
+		turnSpeed = -turnSpeed; // turning is inverted on the robot
 		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		forwardSpeed = invertIfReversed(forwardSpeed);
-		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, true);
+		if (getReversed()) {
+			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, true);
+		} else {
+			differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
+		}
 	}
 	
+	/**
+	 * Sets the forward and turning speeds of the robot independently. USE WITH PID ONLY.
+	 * <p> The arguments provided are not squared to prevent PID overcompensation.
+	 * @param forwardSpeed  Percentage speed for driving forwards or backwards, from -1 to 1.
+	 * @param turnSpeed  Percentage speed for turning, from -1 (left) to 1 (right).
+	 */
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
+		turnSpeed = -turnSpeed; // turning is inverted on the robot
 		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		forwardSpeed = invertIfReversed(forwardSpeed);
-		differentialDrive.arcadeDrive(forwardSpeed, -turnSpeed, false);
+		if (getReversed()) {
+			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, false);
+		} else {
+			differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
+		}
 	}
 	
+	/**
+	 * Shuts off all drive motors and feeds watchdog timer.
+	 */
 	public void stopDrive() {
 		differentialDrive.stopMotor();
 	}
 	
+	/**
+	 * Returns the current encoder value in ticks (128 per rotation).
+	 * <p> Providing an invalid argument will raise an IllegalArgumentException().
+	 * @param side  Side.LEFT or Side.RIGHT
+	 * @return Current encoder count as an integer value
+	 */
 	public int getEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
@@ -129,6 +165,10 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 	}
 
+	/**
+	 * Resets the encoder specified to 0 ticks.
+	 * @param side  Side.LEFT or Side.RIGHT
+	 */
 	public void resetEncoderTicks(Side side) {
 		switch(side) {
 		case LEFT:
@@ -140,56 +180,48 @@ public class DrivetrainSubsystem extends Subsystem {
 		}
 	}
 
+	/**
+	 * Resets all drive encoders to 0 ticks.
+	 * <p> Shorthand for {@code resetEncoderTicks(Side.LEFT)} and {@code resetEncoderTicks(Side.RIGHT)}.
+	 */
 	public void resetEncoders() {
 		this.resetEncoderTicks(Side.LEFT);
 		this.resetEncoderTicks(Side.RIGHT);
 	}
-	
+
 	/**
-	 * {@code println()} the current counts of both encoders.
-	 * <p> Formatted as: {@code LEFT: 00 RIGHT: 00}
+	 * Gets current angle (yaw) that the robot is facing.
+	 * @return  Double value representing angle in degrees, can fall outside the set [0,360].
 	 */
-	public void printEncoderData() {
-		System.out.println("LEFT: " + Double.toString(getEncoderTicks(Side.LEFT)) + 
-						  " RIGHT: " + Double.toString(getEncoderTicks(Side.RIGHT)));
-	}
-
-	public double getPitch() {
-		return navx.getPitch();
-	}
-
-	public double getRoll() {
-		return navx.getRoll();
-	}
-
-	public double getYaw() {
-		return navx.getYaw();
-	}
-
-	public void resetYaw() {
-		navx.zeroYaw();
-	}
-
 	public double getAngle() {
 		return navx.getAngle();
 	}
 
+	/**
+	 * Sets current robot angle to 0 degrees.
+	 */
 	public void resetAngle() {
 		navx.zeroYaw();
 	}
 	
 	/**
-	 * {@code println()} the current angle of the gyroscope.
-	 * <p> Formatted as: {@code ANGLE: 00}
+	 * Check if the robot drivetrain is reversed.
+	 * <p> While in reverse, the robot will behave as if the back end is the front.
+	 * @return  Boolean value; true if reversed, false if not
 	 */
-	public void printAngleData() {
-		System.out.println("ANGLE: " + Double.toString(getAngle()));
+	public boolean getReversed() {
+		return isReversed;
 	}
 	
 	/**
-	 * Dashboard setup for drive train.
-	 * @author Alex
+	 * Set the robot drivetrain into either forwards or reversed mode.
+	 * <p> While in reverse, the robot will behave as if the back end is the front.
+	 * @param isReversed  True to reverse, false to reset
 	 */
+	public void setReversed(boolean isReversed) {
+		this.isReversed = isReversed;
+	}
+
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");
@@ -204,30 +236,13 @@ public class DrivetrainSubsystem extends Subsystem {
 			return currentDraw;
 		}, null);
 		builder.addBooleanProperty("inverted", () -> getReversed(), null);
-		builder.addDoubleArrayProperty("encoders-ticks", () -> {
+		builder.addDoubleArrayProperty("encoder-ticks", () -> {
 			double[] encoderTicks = new double[2];
 			encoderTicks[0] = getEncoderTicks(Side.LEFT);
 			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
 			return encoderTicks;
 		}, null);
 		builder.addDoubleProperty("angle", () -> getAngle(), null);
-	}
-	
-	/**
-	 * @param drive  A number to be reversed if the robot is in reverse.
-	 * @return The same number that was input or its opposite.
-	 * @see {@link frc.team2478.robot.commands.drive.ReverseDrive}
-	 */
-	public double invertIfReversed(double drive) {
-		return (getReversed() == true) ? -drive : drive;
-	}
-	
-	public boolean getReversed() {
-		return isReversed;
-	}
-	
-	public void setReversed(boolean isReversed) {
-		this.isReversed = isReversed;
 	}
 	
 	@Override

@@ -20,7 +20,6 @@ import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenIntake;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
-import frc.team2478.robot.commands.scoring.intake.RunIntakeAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
@@ -45,9 +44,9 @@ public final class ControlHandler {
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
 	
 	private RightTrigger rightXboxTrigger;
+	@SuppressWarnings("unused")
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private DpadTrigger xboxUp, xboxDown;
-	@SuppressWarnings("unused")
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
 
 	/**
