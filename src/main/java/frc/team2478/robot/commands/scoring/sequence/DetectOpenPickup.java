@@ -13,6 +13,6 @@ public class DetectOpenPickup extends ConditionalCommand {
 	@Override
 	protected boolean condition() {
 		return !Robot.pneumatics.isPickupOut();
-	}	
+	}
 	
 }
