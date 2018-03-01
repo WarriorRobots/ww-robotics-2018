@@ -7,9 +7,9 @@ import frc.team2478.robot.commands.scoring.sequence.LoadCubeToFire;
 import frc.team2478.robot.commands.scoring.sequence.PullCubeIntoRobot;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
 
-public class PickupCube extends CommandGroup {
+public class PickupCubeFromGround extends CommandGroup {
 
-	public PickupCube() {
+	public PickupCubeFromGround() {
 		addSequential(new DetectOpenPickup(new PullCubeIntoRobot())); // from ground to pickup if and only if pickup is opened
 		addSequential(new ClosePickup()); // close pickup to lock cube in
 		addSequential(new LoadCubeToFire()); // from pickup to top half of robot

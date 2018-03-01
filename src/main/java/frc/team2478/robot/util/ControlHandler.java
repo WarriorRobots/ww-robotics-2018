@@ -20,7 +20,7 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
-import frc.team2478.robot.commands.scoring.PickupCube;
+import frc.team2478.robot.commands.scoring.PickupCubeFromGround;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
 import frc.team2478.robot.commands.scoring.sequence.RevAndShootCube;
@@ -44,7 +44,7 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	@SuppressWarnings("unused")
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftJoyTriggerButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftJoyTriggerButton, leftJoyButton4, leftJoyButton3;
 	
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
@@ -69,6 +69,8 @@ public final class ControlHandler {
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
+		leftJoyButton4 = new JoystickButton(leftJoy, 4);
+		leftJoyButton3 = new JoystickButton(leftJoy, 3);
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
@@ -80,11 +82,11 @@ public final class ControlHandler {
 		xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		
+		
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
-		rightJoyButton3.whenPressed(new ReverseDrive()); // press button 3 to reverse front and back of robot
-		
-		leftXboxTrigger.whileHeld(new PickupCube()); // hold left xbox trigger to pickup and load cube autonomously
+		rightJoyButton3.whenPressed(new ReverseDrive()); // press button 3(R) to reverse front and back of robot		
+		leftXboxTrigger.whileHeld(new PickupCubeFromGround()); // hold left xbox trigger to pickup and load cube autonomously
 		rightXboxTrigger.whileHeld(new RevAndShootCube()); // hold right xbox trigger to rev shooter and launch cube 1s later
 		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
 		rightXboxBumper.whenPressed(new ClosePickup()); // press right xbox bumper to close pickup, locking in cube
@@ -94,7 +96,8 @@ public final class ControlHandler {
 		xboxX.whenPressed(new LowerHood()); 	// blue X
 		xboxY.whenPressed(new RaiseHood());    // yellow Y
 		xboxA.whenPressed(new ClosePickup()); // green A
-		xboxB.whenPressed(new OpenPickup()); // red B
+		leftJoyButton3.whenPressed(new ClosePickup()); // press button 3(L) to close pickup
+		leftJoyButton4.whenPressed(new OpenPickup()); // press button 4(L) to open pickup
 	}
 
 	/**
