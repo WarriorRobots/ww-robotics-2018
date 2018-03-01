@@ -114,6 +114,7 @@ public final class Constants {
 	    
 	    public static final double PICKUP_PERCENT_SPEED = 0.5;
 	    public static final double FEED_PERCENT_SPEED = 0.5;
+	    public static final double SHOOTER_PERCENT_SPEED = 0.5;
 	}
 	
 	/**

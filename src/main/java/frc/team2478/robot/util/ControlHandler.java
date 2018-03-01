@@ -20,12 +20,15 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
+import frc.team2478.robot.commands.scoring.PickupCube;
+import frc.team2478.robot.commands.scoring.sequence.EjectCube;
+import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
-import frc.team2478.robot.util.triggers.RightTrigger;
+import frc.team2478.robot.util.triggers.ThresholdTrigger;
 
 /**
  * Contains methods for receiving data from Joysticks and the Xbox controller.
@@ -40,10 +43,9 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	@SuppressWarnings("unused")
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftTriggerButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftJoyTriggerButton;
 	
-	private RightTrigger rightXboxTrigger;
-	@SuppressWarnings("unused")
+	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private DpadTrigger xboxUp, xboxDown;
 	private JoystickButton xboxX, xboxY, xboxA, xboxB;
@@ -63,11 +65,11 @@ public final class ControlHandler {
 	 */
 	public void init() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
-		leftTriggerButton = new JoystickButton(leftJoy, 1);
+		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
-		
-		rightXboxTrigger = new RightTrigger();
+		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
+		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
 		rightXboxBumper = new JoystickButton(xbox, 6);
 		xboxUp = new DpadTrigger(Direction.UP);
@@ -77,19 +79,21 @@ public final class ControlHandler {
 		xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		
-		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
-		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
-		rightJoyButton3.whenPressed(new ReverseDrive());
+		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
+		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
+		rightJoyButton3.whenPressed(new ReverseDrive()); // press button 3 to reverse front and back of robot
 		
-//		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
-//		leftXboxBumper.whileHeld(new ReverseIntake());
-//		rightXboxBumper.whileHeld(new RunIntakeAtPercentage());
-		xboxUp.whenPressed(new IncrementShooterTarget());
-		xboxDown.whenPressed(new DecrementShooterTarget());
-		xboxX.whenPressed(new LowerHood());
-		xboxY.whenPressed(new RaiseHood());
-		xboxA.whenPressed(new ClosePickup());
-		xboxB.whenPressed(new OpenPickup());
+		leftXboxTrigger.whileHeld(new PickupCube()); // hold left xbox trigger to pickup and load cube autonomously
+		rightXboxTrigger.whileHeld(new RevAndShootCube()); // hold right xbox trigger to rev shooter and launch cube 1s later
+		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
+		rightXboxBumper.whenPressed(new ClosePickup()); // press right xbox bumper to close pickup, locking in cube
+		rightXboxBumper.whileHeld(new RackCubeToFire()); // hold right xbox bumper to back up cube for firing preparation
+		xboxUp.whenPressed(new IncrementShooterTarget()); // press up to increase shooter speed to next preset
+		xboxDown.whenPressed(new DecrementShooterTarget()); // press down to decrease shooter speed to next preset
+		xboxX.whenPressed(new LowerHood()); 	// blue X
+		xboxY.whenPressed(new RaiseHood());    // yellow Y
+		xboxA.whenPressed(new ClosePickup()); // green A
+		xboxB.whenPressed(new OpenPickup()); // red B
 	}
 
 	/**

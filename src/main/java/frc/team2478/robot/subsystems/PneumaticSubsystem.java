@@ -15,17 +15,17 @@ public class PneumaticSubsystem extends Subsystem {
 	private static final int HOOD_FORWARDS_CHANNEL = 7;
 	private static final int HOOD_BACKWARDS_CHANNEL = 0;
 	
-	private static final int INTAKE_FORWARDS_CHANNEL = 6;
-	private static final int INTAKE_BACKWARDS_CHANNEL = 1;
+	private static final int PICKUP_FORWARDS_CHANNEL = 6;
+	private static final int PICKUP_BACKWARDS_CHANNEL = 1;
 	
-	private DoubleSolenoid hoodSolenoid, intakeSolenoid;
+	private DoubleSolenoid hoodSolenoid, pickupSolenoid;
 	private Compressor compressor;
 	
-	private boolean hoodLifted, intakeExtended;
+	private boolean hoodLifted, pickupOut;
 	
 	public PneumaticSubsystem() {
 		hoodSolenoid = new DoubleSolenoid(HOOD_FORWARDS_CHANNEL, HOOD_BACKWARDS_CHANNEL);
-		intakeSolenoid = new DoubleSolenoid(INTAKE_FORWARDS_CHANNEL, INTAKE_BACKWARDS_CHANNEL);
+		pickupSolenoid = new DoubleSolenoid(PICKUP_FORWARDS_CHANNEL, PICKUP_BACKWARDS_CHANNEL);
 		compressor = new Compressor();
 		compressor.start();
 	}
@@ -57,15 +57,15 @@ public class PneumaticSubsystem extends Subsystem {
 	public void setIntakePiston(Mode mode) {
 		switch(mode) {
 		case FORWARD:
-			intakeSolenoid.set(Value.kForward);
-			intakeExtended = false;
+			pickupSolenoid.set(Value.kForward);
+			pickupOut = false;
 			break;
 		case REVERSE:
-			intakeSolenoid.set(Value.kReverse);
-			intakeExtended = true;
+			pickupSolenoid.set(Value.kReverse);
+			pickupOut = true;
 			break;
 		case OFF:
-			intakeSolenoid.set(Value.kOff);
+			pickupSolenoid.set(Value.kOff);
 			break;
 		}
 	}
@@ -91,19 +91,31 @@ public class PneumaticSubsystem extends Subsystem {
 	public void stopCompressor() {
 		compressor.stop();
 	}
-
+	
+	/**
+	 * Checks whether the shooter hood is lifted.
+	 * @return True if lifted, false otherwise
+	 */
+	public boolean isHoodLifted() {
+		return hoodLifted;
+	}
+	
+	/**
+	 * Checks whether the pickup arms are extended outwards.
+	 * @return True if out, false otherwise
+	 */
+	public boolean isPickupOut() {
+		return pickupOut;
+	}
+	
 	@Override
 	protected void initDefaultCommand() {}
 	
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-pneumatics");
-		builder.addBooleanProperty("hood-up", () -> {
-			return hoodLifted;
-		}, null);
-		builder.addBooleanProperty("intake-out", () -> {
-			return intakeExtended;
-		}, null);
+		builder.addBooleanProperty("hood-up", () -> isHoodLifted(), null);
+		builder.addBooleanProperty("pickup-out", () -> isPickupOut(), null);
 	}
 
 }
