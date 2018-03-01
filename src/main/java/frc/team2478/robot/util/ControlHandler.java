@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -28,8 +29,7 @@ import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
 import frc.team2478.robot.util.triggers.RightTrigger;
 
 /**
- * Contains knwldge for Joysticks, the Xbox controller, and methods for interfacing with them.
- * @author Tony (for the comment at least)
+ * Contains methods for receiving data from Joysticks and the Xbox controller.
  */
 public final class ControlHandler {
 
@@ -123,17 +123,13 @@ public final class ControlHandler {
 		return this.getRightY(1);
 	}
 	
-//	DEADZONES
-//	LEFT -0.103 TO 0.063
-//	RIGHT -0.048 TO 0.079
-	
 	/**
 	 * Gets Y-value of left Xbox joystick multiplied by scalingFactor.
 	 * @param scalingFactor  Decimal value that proportionally alters Xbox joystick output.
 	 */
 	public double getXboxLeftY(double scalingFactor) {
 		double value = -xbox.getY(Hand.kLeft);
-		if (value > -0.110 && value < 0.063) {
+		if (value > Constants.JoystickThresholds.LEFT_XBOX_MIN && value < Constants.JoystickThresholds.LEFT_XBOX_MAX) {
 			return 0;
 		} else {
 			return value * scalingFactor;
@@ -146,7 +142,7 @@ public final class ControlHandler {
 	 */	
 	public double getXboxRightY(double scalingFactor) {
 		double value = -xbox.getY(Hand.kRight);
-		if (value > -0.048 && value < 0.079) {
+		if (value > Constants.JoystickThresholds.RIGHT_XBOX_MIN && value < Constants.JoystickThresholds.RIGHT_XBOX_MAX) {
 			return 0;
 		} else {
 			return value * scalingFactor;

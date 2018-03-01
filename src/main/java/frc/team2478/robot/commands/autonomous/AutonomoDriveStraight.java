@@ -32,13 +32,13 @@ public class AutonomoDriveStraight extends Command {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals
-			Constants.ClosedLoop.TURNING_P,
-			Constants.ClosedLoop.COURSECORRECTION_I,
-			Constants.ClosedLoop.TURNING_D);
+			Constants.AutonomoDrive.COURSECORRECTION_P,
+			Constants.AutonomoDrive.COURSECORRECTION_I,
+			Constants.AutonomoDrive.COURSECORRECTION_D);
 		pidDistance = new SynchronousPIDF(
-			Constants.ClosedLoop.DISTANCE_P,
-			Constants.ClosedLoop.DISTANCE_I,
-			Constants.ClosedLoop.DISTANCE_D);
+			Constants.AutonomoDrive.DISTANCE_P,
+			Constants.AutonomoDrive.DISTANCE_I,
+			Constants.AutonomoDrive.DISTANCE_D);
 
 		this.distanceTarget = distanceTarget;
 		timer = new Timer();
@@ -110,7 +110,7 @@ public class AutonomoDriveStraight extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		if (pidDistance.onTarget(Constants.ClosedLoop.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
+		if (pidDistance.onTarget(Constants.AutonomoDrive.DISTANCE_TOLERANCE) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
 			return true;
 		} else {

@@ -6,12 +6,12 @@ import frc.team2478.robot.Robot;
 public class StopIntake extends InstantCommand {
 
 	public StopIntake() {
-		requires(Robot.intake);
+		requires(Robot.pickup);
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.intake.stop();
+		Robot.pickup.stop();
 	}
 
 }

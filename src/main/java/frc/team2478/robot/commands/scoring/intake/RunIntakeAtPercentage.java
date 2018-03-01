@@ -12,13 +12,13 @@ public class RunIntakeAtPercentage extends Command {
 	 * @author Josh
 	 */
 	public RunIntakeAtPercentage(double percentage) {
-		requires(Robot.intake);
+		requires(Robot.pickup);
 		this.percentage = percentage;
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.intake.runAtPercentage(percentage);
+		Robot.pickup.runAtPercentage(percentage);
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class RunIntakeAtPercentage extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.intake.stop();
+		Robot.pickup.stop();
 	}
 	
 	@Override

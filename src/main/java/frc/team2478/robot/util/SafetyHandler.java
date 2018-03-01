@@ -16,7 +16,7 @@ public class SafetyHandler {
 	}
 	
 	public void checkBatteryVoltage() {
-		if (RobotController.getInputVoltage() < Constants.LOW_VOLTAGE_WARNING) {
+		if (RobotController.getInputVoltage() < Constants.LOW_VOLTAGE_WARNING_THRESHOLD) {
 			DriverStation.reportError("REPLACE BATTERY!" + Double.toString(RobotController.getInputVoltage()), false);
 		}
 	}

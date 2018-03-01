@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem vision = new LimelightSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
-	public static final PickupSubsystem intake = new PickupSubsystem();
+	public static final PickupSubsystem pickup = new PickupSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static ControlHandler oi;
 	
@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 //		SmartDashboard.putData(vision);
 //		SmartDashboard.putData(shooter);
 //		SmartDashboard.putData(feed);
-//		SmartDashboard.putData(intake);
+//		SmartDashboard.putData(pickup);
 	}
 	
 	@Override

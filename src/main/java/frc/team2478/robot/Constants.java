@@ -13,155 +13,111 @@ package frc.team2478.robot;
 public final class Constants {
 	
 	/**
-	 * When true, this disables ALL drivetrain related function.
-	 * <p> Usefull for testing the robot without blocks
-	 * @author Josh
+	 * Set to true to stop the robot from moving its wheels.
+	 * This is for testing only; ALWAYS SET TO FALSE DURING A COMPETITION.
 	 */
 	public static final boolean DISABLED_DRIVE = false;
 	
-	/**
-	 * Below this volate the robot triggers.
-	 */
-	public static final double LOW_VOLTAGE_WARNING = 7;
+	public static final double LOW_VOLTAGE_WARNING_THRESHOLD = 7;
+
+	public static final class JoystickThresholds {
+		public static final double LEFT_XBOX_MIN = -0.103;
+		public static final double LEFT_XBOX_MAX = 0.063;
+		public static final double RIGHT_XBOX_MIN = -0.048;
+		public static final double RIGHT_XBOX_MAX = 0.079;
+	}
 	
 	/**
-	 * Contains PID constants used for closed-loop control.
+	 * Contains PID constants used for autonomous closed-loop control.
 	 */
-	public static final class ClosedLoop {
-		/**
-		 * P value for the loop used while turning.
-		 */
-		public static final double TURNING_P = 0.017;
-		
-		/**
-		 * I value for the loop used while turning.
-		 */
-		public static final double TURNING_I = 0.0015;
-		
-		/**
-		 * D value for the loop used while turning.
-		 */
-		public static final double TURNING_D = 0.02225;
-		
-		/**
-		 * I value for the loop used while driving straight.
-		 */
-		public static final double COURSECORRECTION_I = 0.000;
-		
-		/**
-		 * Tolerance of the PID loop used while turning.
-		 */
-		public static final double TURNING_TOLERANCE = .5;
-		
-		/**
-		 * Tolerance of the PID loop used for measuring distance driven.
-		 */
-		public static final double DISTANCE_TOLERANCE = 5;
-		
-		/**
-		 * P value for the loop used while driving forwards.
-		 */
+	public static final class AutonomoDrive {
+		// autonomous driving forwards		
 		public static final double DISTANCE_P = 0.005; // 0.02
-		
-		/**
-		 * I value for the loop used while driving forwards.
-		 */
 		public static final double DISTANCE_I = 0.0; // 0.0001
-		
-		/**
-		 * D value for the loop used while driving forwards.
-		 */
 		public static final double DISTANCE_D = 0.0; // 0.06
+		public static final double DISTANCE_TOLERANCE = 5;
+		// autonomous turning in place
+		public static final double TURNING_P = 0.017;
+		public static final double TURNING_I = 0.0015;
+		public static final double TURNING_D = 0.02225;
+		public static final double TURNING_TOLERANCE = .5;
+		// autonomous preventing drift during driving
+		public static final double COURSECORRECTION_P = TURNING_P;
+		public static final double COURSECORRECTION_I = 0.000;
+		public static final double COURSECORRECTION_D = TURNING_D;
 	}
 
 	/**
-	 * Contains scaling factors for drive methods.
+	 * Contains values that are multiplied by joystick input to slow the robot.
 	 */
 	public static final class DriveScalars {
-		/**
-		 * Joystick multiplier of robot while driving forwards in alignment mode.
-		 */
+		// see ArcadeDriveAlignment
 		public static final double ALIGNMENT_FORWARDSPEED = 0.5;
-		
-		/**
-		 * Joystick multiplier of robot while turning in alignment mode.
-		 */
 		public static final double ALIGNMENT_TURNSPEED = 0.6;
-		
-		/**
-		 * Percentage difference between joysticks required before lockmode disables.
-		 */
+		// see TankDriveTurnLock
 		public static final double LOCKMODE_TOLERANCE = 0.2;
+
 	}
 	
 	/**
-	 * Variables related to the shooter (excluding the PID).
-	 * @author Josh
+	 * Contains values and methods related to the shooter mechanism.
 	 */
 	public static final class ShooterRig {
 		/**
 		 * Conversion factor equal to 600*100ms / 4096clicks.
 		 * Used for converting encoder clicks to revolutions per minute.
-		 * <p>Equivalent to {@value}.
+		 * <p> Equivalent to {@value}.
 		 */
 		public static final double MILS_PER_CLICK_RATIO = 600.0 / 4096.0; //0.1465
 		
 		/**
 		 * Defines the gearbox ratio (outer rotations per inner rotations).
-		 * <p>Equivalent to {@value}.
+		 * <p> Equivalent to {@value}.
 		 */
 		public static final double OUT_PER_IN_RATIO = 1.0 / 5.0;
 		
 		/**
 		 * Convert raw encoder measurements to RPM.
-		 * @param vel  velocity in clicks per 100ms
+		 * @param clicksPer100ms  velocity in clicks per 100ms
 		 * @return velocity in revolutions per minute
 		 */
-	    public static double encoderClicksToRpm(double vel) {
-			return vel * MILS_PER_CLICK_RATIO;
+	    public static double encoderClicksToRpm(double clicksPer100ms) {
+			return clicksPer100ms * MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
 		 * Convert RPM back to raw encoder measurements.
-		 * @param rpm  revolutions per minute
+		 * @param revolutionsPerMinute  revolutions per minute
 		 * @return velocity in encoder clicks per 100ms
 		 */
-	    public static double rpmToEncoderClicks(double rpm) {
-			return rpm / MILS_PER_CLICK_RATIO;
+	    public static double rpmToEncoderClicks(double revolutionsPerMinute) {
+			return revolutionsPerMinute / MILS_PER_CLICK_RATIO;
 		}
 	    
 	    /**
 	     * Convert the rotation of the shooter into the rotations of the motor
-	     * @param out The outward shooter speed.
+	     * @param revolutions The outward shooter speed.
 	     * @return The inward motor speed.
 	     */
-	    public static double gearboxIn(double out) {
-	    	return out/OUT_PER_IN_RATIO;
+	    public static double gearboxShooterToMotor(double revolutions) {
+	    	return revolutions / OUT_PER_IN_RATIO;
 	    }
 	    
 	    /**
 	     * Convert the rotation of the motor into the rotations of the shooter
-	     * @param in The inward motor speed.
+	     * @param revolutions The inward motor speed.
 	     * @return The outward shooter speed.
 	     */
-	    public static double gearboxOut(double in) {
-	    	return in*OUT_PER_IN_RATIO;
+	    public static double gearboxMotorToShooter(double revolutions) {
+	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
+	    
+	    public static final double intakePercent = 0.5 * -1; // inversion needed for motors
 	}
 	
 	/**
-	 * Constants affiliated with the intake.
-	 * @author Josh
+	 * Contains booleans that define whether certain motor or encoder polarities are reversed.
 	 */
-	public static final class intake {
-		
-		/**
-		 * Percent motor power assigned to the intake.
-		 * @author Josh
-		 */
-		public static final double intakePercent = 0.5 * -1; // inversion needed for motors
-	} 
-	
 	public static final class Inversions {
 		public static final boolean LEFT_ENCODER_REVERSED = true;
 		public static final boolean RIGHT_ENCODER_REVERSED = false;

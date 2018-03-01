@@ -32,9 +32,9 @@ public class AutonomoDriveTurn extends Command {
 		angleTarget = angle;
 		
 		pidLoop = new SynchronousPIDF(
-			Constants.ClosedLoop.TURNING_P,
-			Constants.ClosedLoop.TURNING_I,
-			Constants.ClosedLoop.TURNING_D);
+			Constants.AutonomoDrive.TURNING_P,
+			Constants.AutonomoDrive.TURNING_I,
+			Constants.AutonomoDrive.TURNING_D);
 		
 		timer = new Timer();
 		System.out.println("angleTarget " + Double.toString(this.angleTarget));
@@ -84,7 +84,7 @@ public class AutonomoDriveTurn extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		if (pidLoop.onTarget(Constants.ClosedLoop.TURNING_TOLERANCE) && stopsAtSetpoint) {
+		if (pidLoop.onTarget(Constants.AutonomoDrive.TURNING_TOLERANCE) && stopsAtSetpoint) {
 //		if (stopsAtSetpoint) {
 			return true;
 		} else {

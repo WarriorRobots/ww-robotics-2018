@@ -10,13 +10,13 @@ public class LoadCubeToFire extends Command {
 	
 	public LoadCubeToFire() {
 		requires(Robot.feed);
-		requires(Robot.intake);
+		requires(Robot.pickup);
 	}
 	
 	@Override
 	protected void execute() {
 		Robot.feed.runAtPercentage(0.3);
-		Robot.intake.runAtPercentage(0.3);
+		Robot.pickup.runAtPercentage(0.3);
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class LoadCubeToFire extends Command {
 	@Override
 	protected void end() {
 		Robot.feed.stop();
-		Robot.intake.stop();
+		Robot.pickup.stop();
 		new CloseIntake().start();
 	}
 	
