@@ -27,4 +27,9 @@ public class PullCubeIntoRobot extends CommandGroup {
 		Robot.feed.stop();
 	}
 	
+	@Override
+	protected void interrupted() {
+		this.end();
+	}
+	
 }

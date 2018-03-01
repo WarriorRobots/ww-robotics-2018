@@ -64,16 +64,6 @@ public class AutonomoDriveStraight extends Command {
 		pidDistance.setPID(p, i, d);
 	}
 	
-	/**
-	 * Sets whether Command ends itself after reaching the setpoint.
-	 * <p>Used for debugging, if you want to tune a PID loop.
-	 * @param stops  True if you want command to end; false if not
-	 */
-	@Debug
-	public void willStopAtSetpoint(boolean stops) {
-		stopsAtSetpoint = stops;
-	}
-
 	@Override
 	protected void initialize() {
 		Robot.drivetrain.resetEncoders();

@@ -29,4 +29,9 @@ public class LoadCubeToFire extends CommandGroup {
 		Robot.feed.stop();
 	}
 	
+	@Override
+	protected void interrupted() {
+		this.end();
+	}
+	
 }

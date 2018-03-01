@@ -1,6 +1,5 @@
 package frc.team2478.robot.commands.pneumatics;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
@@ -37,9 +36,4 @@ public class RaiseHood extends Command {
 		return count > 5;
 	}
 	
-	@Override
-	protected void interrupted() {
-		DriverStation.reportWarning("RaiseHood interrupted", false);
-		this.end();
-	}
 }

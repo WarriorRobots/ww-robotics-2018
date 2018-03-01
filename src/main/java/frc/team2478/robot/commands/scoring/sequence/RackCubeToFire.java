@@ -29,5 +29,10 @@ public class RackCubeToFire extends CommandGroup {
 		Robot.pickup.stop();
 		Robot.feed.stop();
 	}
+	
+	@Override
+	protected void interrupted() {
+		this.end();
+	}
 
 }

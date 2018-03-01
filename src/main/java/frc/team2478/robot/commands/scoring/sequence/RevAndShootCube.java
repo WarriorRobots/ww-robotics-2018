@@ -1,4 +1,4 @@
-package frc.team2478.robot.util;
+package frc.team2478.robot.commands.scoring.sequence;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

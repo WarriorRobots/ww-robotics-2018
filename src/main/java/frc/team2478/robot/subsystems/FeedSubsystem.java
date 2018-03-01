@@ -61,9 +61,6 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 		}, null);
 	}
 	
-	@Deprecated
 	@Override
-	protected void initDefaultCommand() {
-		
-	}
+	protected void initDefaultCommand() {}
 }

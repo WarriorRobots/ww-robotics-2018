@@ -1,10 +1,8 @@
 package frc.team2478.robot.commands.pneumatics;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
-
 
 public class OpenPickup extends InstantCommand {
 	
@@ -17,7 +15,7 @@ public class OpenPickup extends InstantCommand {
 	
 	@Override
 	protected void execute() {
-		Robot.pneumatics.setIntakePiston(Mode.REVERSE); // when solenoid retracts, pistons extend
+		Robot.pneumatics.setPickupPiston(Mode.REVERSE); // when solenoid retracts, pistons extend
 		count++;
 	}
 	
@@ -30,10 +28,5 @@ public class OpenPickup extends InstantCommand {
 	protected boolean isFinished() {
 		return count > 5;
 	}
-	
-	@Override
-	protected void interrupted() {
-		DriverStation.reportWarning("OpenIntake interrupted", false);
-		this.end();
-	}
+
 }

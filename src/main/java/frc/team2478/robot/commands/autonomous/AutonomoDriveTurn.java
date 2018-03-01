@@ -49,14 +49,6 @@ public class AutonomoDriveTurn extends Command {
 	public void setPID(double p, double i, double d) {
 		pidLoop.setPID(p, i, d);
 	}
-	
-	/**
-	 * Sets whether Command ends itself after reaching the setpoint
-	 * @param stops  True if you want command to end; false if not
-	 */
-	public void willStopAtSetpoint(boolean stops) {
-		stopsAtSetpoint = stops;
-	}
 
 	@Override
 	protected void initialize() {

@@ -26,9 +26,4 @@ public class RunPickupAtPercentage extends Command {
 	protected void end() {
 		Robot.pickup.stop();
 	}
-	
-	@Override
-	protected void interrupted() {
-		this.end();
-	}
 }

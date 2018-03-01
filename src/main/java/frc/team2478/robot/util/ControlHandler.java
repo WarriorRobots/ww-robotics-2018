@@ -23,11 +23,12 @@ import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.PickupCube;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
+import frc.team2478.robot.commands.scoring.sequence.RevAndShootCube;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
+import frc.team2478.robot.util.enums.Direction;
 import frc.team2478.robot.util.triggers.DpadTrigger;
-import frc.team2478.robot.util.triggers.DpadTrigger.Direction;
 import frc.team2478.robot.util.triggers.ThresholdTrigger;
 
 /**

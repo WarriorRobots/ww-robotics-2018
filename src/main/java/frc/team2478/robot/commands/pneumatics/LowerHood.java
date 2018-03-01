@@ -1,10 +1,8 @@
 package frc.team2478.robot.commands.pneumatics;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
-
 
 public class LowerHood extends Command {
 	
@@ -30,10 +28,5 @@ public class LowerHood extends Command {
 	protected boolean isFinished() {
 		return count > 5;
 	}
-	
-	@Override
-	protected void interrupted() {
-		DriverStation.reportWarning("LowerHood interrupted", false);
-		this.end();
-	}
+
 }

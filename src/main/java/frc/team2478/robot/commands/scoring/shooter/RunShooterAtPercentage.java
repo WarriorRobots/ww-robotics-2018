@@ -26,9 +26,4 @@ private double percentage;
 	protected void end() {
 		Robot.pickup.stop();
 	}
-	
-	@Override
-	protected void interrupted() {
-		this.end();
-	}
 }

@@ -51,10 +51,10 @@ public class PneumaticSubsystem extends Subsystem {
 	}
 	
 	/**
-	 * Extends, retracts, or disables the intake pistons.
+	 * Extends, retracts, or disables the pickup pistons.
 	 * @param mode  Mode.FORWARD, Mode.REVERSE, or Mode.OFF
 	 */
-	public void setIntakePiston(Mode mode) {
+	public void setPickupPiston(Mode mode) {
 		switch(mode) {
 		case FORWARD:
 			pickupSolenoid.set(Value.kForward);
