@@ -45,8 +45,6 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 	 * Detects if a cube is loaded into the lower half of the robot.
 	 * @return True if a cube is present, false otherwise.
 	 */
-	@Deprecated
-//	give this an inversion
 	public boolean isCubeLoaded() {
 		// the infared sensor returns whether the cube is not present
 		return !infaredSensor.get();

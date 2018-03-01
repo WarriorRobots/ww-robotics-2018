@@ -112,7 +112,8 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double intakePercent = 0.5 * -1; // inversion needed for motors
+	    public static final double PICKUP_PERCENT_SPEED = 0.5;
+	    public static final double FEED_PERCENT_SPEED = 0.5;
 	}
 	
 	/**
@@ -124,8 +125,8 @@ public final class Constants {
 		public static final boolean CLIMB_MOTOR_REVERSED = false;
 		public static final boolean FEED_MASTER_REVERSED = false;
 		public static final boolean FEED_SLAVE_REVERSED = true;
-		public static final boolean PICKUP_MASTER_REVERSED = true;
-		public static final boolean PICKUP_SLAVE_REVERSED = false;
+		public static final boolean PICKUP_MASTER_REVERSED = false;
+		public static final boolean PICKUP_SLAVE_REVERSED = true;
 		public static final boolean SHOOTER_MASTER_REVERSED = true;
 		public static final boolean SHOOTER_SLAVE_REVERSED = true;
 	}

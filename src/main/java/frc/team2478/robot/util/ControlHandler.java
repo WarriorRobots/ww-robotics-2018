@@ -16,9 +16,9 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
-import frc.team2478.robot.commands.pneumatics.CloseIntake;
+import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
-import frc.team2478.robot.commands.pneumatics.OpenIntake;
+import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
@@ -89,8 +89,8 @@ public final class ControlHandler {
 		xboxDown.whenPressed(new DecrementShooterTarget());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseHood());
-		xboxA.whenPressed(new CloseIntake());
-		xboxB.whenPressed(new OpenIntake());
+		xboxA.whenPressed(new ClosePickup());
+		xboxB.whenPressed(new OpenPickup());
 	}
 
 	/**

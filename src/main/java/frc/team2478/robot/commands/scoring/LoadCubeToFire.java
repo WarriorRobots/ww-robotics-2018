@@ -1,34 +1,27 @@
 package frc.team2478.robot.commands.scoring;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.commands.pneumatics.CloseIntake;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
+import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
 
-public class LoadCubeToFire extends Command {
+public class LoadCubeToFire extends CommandGroup {
 
-	private int FIXTHIS;
-	
 	public LoadCubeToFire() {
-		requires(Robot.feed);
-		requires(Robot.pickup);
-	}
-	
-	@Override
-	protected void execute() {
-		Robot.feed.runAtPercentage(0.3);
-		Robot.pickup.runAtPercentage(0.3);
+		addParallel(new RunPickupAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED));
+		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
 	}
 	
 	@Override
 	protected boolean isFinished() {
 		return !Robot.feed.isCubeLoaded();
 	}
-
+	
 	@Override
 	protected void end() {
+		Robot.shooter.stop();
 		Robot.feed.stop();
-		Robot.pickup.stop();
-		new CloseIntake().start();
 	}
 	
 }

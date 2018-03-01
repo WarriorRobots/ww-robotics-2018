@@ -5,7 +5,7 @@ import frc.team2478.robot.Robot;
 
 public class RunFeedAtPercentage extends Command {
 
-private double percentage;
+	private double percentage;
 	
 	public RunFeedAtPercentage(double percentage) {
 		requires(Robot.feed);
@@ -20,5 +20,15 @@ private double percentage;
 	@Override
 	protected boolean isFinished() {
 		return false;
+	}
+	
+	@Override
+	protected void end() {
+		Robot.pickup.stop();
+	}
+	
+	@Override
+	protected void interrupted() {
+		this.end();
 	}
 }

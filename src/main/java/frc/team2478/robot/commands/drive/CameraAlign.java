@@ -22,7 +22,7 @@ public class CameraAlign extends Command {
 	protected void execute() {
 		if (Robot.vision.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			Robot.drivetrain.arcadeDriveRaw(
-				Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
+				Math.pow(Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED), 2),
 				Robot.vision.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			Robot.drivetrain.arcadeDriveSquared(
@@ -35,5 +35,4 @@ public class CameraAlign extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
 }

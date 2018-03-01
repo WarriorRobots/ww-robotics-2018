@@ -1,29 +1,23 @@
 package frc.team2478.robot.commands.pneumatics;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
 
 
-public class RaiseHood extends Command {
+public class OpenPickup extends InstantCommand {
 	
 	private int count;
-	
-	public RaiseHood() {
+
+	public OpenPickup() {
 		requires(Robot.pneumatics);
 		count = 0;
 	}
 	
 	@Override
-	protected void initialize() {
-		this.count=0;
-	}
-	
-	@Override
 	protected void execute() {
-//		System.out.println("raise");
-		Robot.pneumatics.setHoodPiston(Mode.FORWARD);
+		Robot.pneumatics.setIntakePiston(Mode.REVERSE); // when solenoid retracts, pistons extend
 		count++;
 	}
 	
@@ -39,7 +33,7 @@ public class RaiseHood extends Command {
 	
 	@Override
 	protected void interrupted() {
-		DriverStation.reportWarning("RaiseHood interrupted", false);
+		DriverStation.reportWarning("OpenIntake interrupted", false);
 		this.end();
 	}
 }

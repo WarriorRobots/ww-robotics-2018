@@ -9,13 +9,11 @@ import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 import frc.team2478.robot.commands.scoring.feed.StopFeed;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.StopShooter;
-import frc.team2478.robot.util.enums.Mode;
 
 public class TestShooterRig extends CommandGroup {
 
 	/**
 	 * Raise hood, run shooter + feed, and lower hood.
-	 * @author Alex
 	 */
 	public TestShooterRig() {
 		addSequential(new RaiseHood());
@@ -33,7 +31,6 @@ public class TestShooterRig extends CommandGroup {
 	protected void end() {
 		Robot.feed.stop();
 		Robot.shooter.stop();
-		Robot.pneumatics.setHoodPiston(Mode.OFF);
 	}
 
 	@Override

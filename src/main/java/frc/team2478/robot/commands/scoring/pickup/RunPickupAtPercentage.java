@@ -1,17 +1,13 @@
-package frc.team2478.robot.commands.scoring.intake;
+package frc.team2478.robot.commands.scoring.pickup;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-public class RunIntakeAtPercentage extends Command {
+public class RunPickupAtPercentage extends Command {
 	
 	private double percentage;
 	
-	/**
-	 * Runs the intake backwards at a constant speed.
-	 * @author Josh
-	 */
-	public RunIntakeAtPercentage(double percentage) {
+	public RunPickupAtPercentage(double percentage) {
 		requires(Robot.pickup);
 		this.percentage = percentage;
 	}
