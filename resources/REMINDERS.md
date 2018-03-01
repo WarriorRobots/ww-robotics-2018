@@ -17,6 +17,7 @@
 - final classes *cannot* be subclassed
 - favor arcadeDriveAutonomous() instead of Tank Drive
 - you can't use methods of a class inside its own constructor
+- Command interrupted() calls end(), but CommandGroup interrupted() DOES NOT CALL end()
 
 ### Inches per Click
 
