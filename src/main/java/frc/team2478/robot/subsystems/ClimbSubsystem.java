@@ -23,7 +23,7 @@ public class ClimbSubsystem extends Subsystem {
 		slaveMotor.follow(masterMotor);
 	}
 	
-	public void setTargetPercentage(double percent) {
+	public void runMotorAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	

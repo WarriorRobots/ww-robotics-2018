@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.team2478.robot.commands.scoring.shooter.RunShooterWithManualControl;
 
 /**
  * Instantiates shooter motors and sets up Talon PIDs,
@@ -133,6 +132,7 @@ public class ShooterSubsystem extends Subsystem {
 	 * Set the percent motor speed.
 	 * @param percent -1 to 1
 	 */
+	@Deprecated
 	public void setTargetPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
@@ -188,8 +188,9 @@ public class ShooterSubsystem extends Subsystem {
 	@Deprecated
 	public void setUsingPid(/*boolean b*/) {}
 
+	@Deprecated
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterWithManualControl());
+//		setDefaultCommand(new RunShooterWithManualControl());
 	}
 }

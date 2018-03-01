@@ -1,22 +1,23 @@
-package frc.team2478.robot.commands.scoring.intake;
+package frc.team2478.robot.commands.pneumatics;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
 
 
-public class OpenIntake extends InstantCommand {
+public class CloseIntake extends InstantCommand {
 		
 		/**
-		* Opens the intake.
+		* Closes the intake.
 		* @author Josh
 		*/
-		public OpenIntake() {
+		public CloseIntake() {
 			requires(Robot.pneumatics);
 		}
 
 		@Override
 		protected void execute() {
-			Robot.pneumatics.setIntakePiston(Mode.REVERSE);
+			Robot.pneumatics.setIntakePiston(Mode.FORWARD);
 		}
+		
 }

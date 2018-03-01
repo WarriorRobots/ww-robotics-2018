@@ -28,7 +28,7 @@ public class IntakeSubsystem extends Subsystem {
 		infaredSensor = new DigitalInput(9);
 	}
 	
-	public void setTargetPercentage(double percent) {
+	public void runMotorAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
@@ -39,6 +39,8 @@ public class IntakeSubsystem extends Subsystem {
 	/**
 	 * @return Whether the cube is loaded within the feed.
 	 */
+	@Deprecated
+	// choose what subsystem this goes in
 	public boolean isCubeLoaded() {
 		// the infared sensor returns whether the cube is not present
 		return !infaredSensor.get();

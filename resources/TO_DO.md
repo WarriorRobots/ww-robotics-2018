@@ -29,7 +29,8 @@
 - networking?
 - make all util classes getselected
 - make driving easier (lower gains, cheesy algos?)
-- 
+- deadzone joysticks in constants.java
+- pid on shooter
 
 ---
 
@@ -44,6 +45,7 @@
 - robot lags behind during low voltage turn
 - robot using average of two encoders will drive at double distance
 - navx failure on practice bots 2/12 5pm
+- talon ids are changing (2/27)
 
 ### HOW TO DEBUG THE ROBOT
 

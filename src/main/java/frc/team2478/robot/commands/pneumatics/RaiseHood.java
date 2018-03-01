@@ -1,4 +1,4 @@
-package frc.team2478.robot.commands.scoring.hood;
+package frc.team2478.robot.commands.pneumatics;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;

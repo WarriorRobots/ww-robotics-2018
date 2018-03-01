@@ -1,22 +1,24 @@
 package frc.team2478.robot.commands.scoring.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
-public class RunIntake extends Command {
+public class RunIntakeAtPercentage extends Command {
+	
+	private double percentage;
 	
 	/**
 	 * Runs the intake backwards at a constant speed.
 	 * @author Josh
 	 */
-	public RunIntake() {
+	public RunIntakeAtPercentage(double percentage) {
 		requires(Robot.intake);
+		this.percentage = percentage;
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.intake.setTargetPercentage(-Constants.intake.intakePercent);
+		Robot.intake.runMotorAtPercentage(percentage);
 	}
 	
 	@Override

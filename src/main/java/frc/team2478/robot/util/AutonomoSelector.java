@@ -15,7 +15,7 @@ import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
-import frc.team2478.robot.commands.scoring.hood.LowerHood;
+import frc.team2478.robot.commands.pneumatics.LowerHood;
 
 public class AutonomoSelector {
 
