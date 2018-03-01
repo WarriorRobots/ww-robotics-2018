@@ -20,7 +20,6 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
-import frc.team2478.robot.commands.scoring.ShooterFeedGroup;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
@@ -82,7 +81,7 @@ public final class ControlHandler {
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
 		rightJoyButton3.whenPressed(new ReverseDrive());
 		
-		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
+//		rightXboxTrigger.whileHeld(new ShooterFeedGroup());
 //		leftXboxBumper.whileHeld(new ReverseIntake());
 //		rightXboxBumper.whileHeld(new RunIntakeAtPercentage());
 		xboxUp.whenPressed(new IncrementShooterTarget());

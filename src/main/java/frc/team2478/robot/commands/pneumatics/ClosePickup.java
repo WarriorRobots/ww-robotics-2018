@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.Mode;
 
-
 public class ClosePickup extends InstantCommand {
 		
 	private int count;
