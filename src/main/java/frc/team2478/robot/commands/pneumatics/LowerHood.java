@@ -10,6 +10,10 @@ public class LowerHood extends Command {
 
 	public LowerHood() {
 		requires(Robot.pneumatics);
+	}
+	
+	@Override
+	protected void initialize() {
 		count = 0;
 	}
 	
@@ -27,6 +31,11 @@ public class LowerHood extends Command {
 	@Override
 	protected boolean isFinished() {
 		return count > 5;
+	}
+	
+	@Override
+	protected void interrupted() {
+		this.end();
 	}
 
 }

@@ -24,7 +24,7 @@ public final class Constants {
 		public static final double LEFT_XBOX_MIN = -0.103;
 		public static final double LEFT_XBOX_MAX = 0.063;
 		public static final double RIGHT_XBOX_MIN = -0.048;
-		public static final double RIGHT_XBOX_MAX = 0.079;
+		public static final double RIGHT_XBOX_MAX = 0.1;
 	}
 	
 	/**
@@ -112,9 +112,9 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double PICKUP_PERCENT_SPEED = 0.6;
+	    public static final double PICKUP_PERCENT_SPEED = 0.8;
 	    public static final double FEED_PERCENT_SPEED = 0.3;
-	    public static final double SHOOTER_PERCENT_SPEED = 0.5;
+	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
 	}
 	
 	/**

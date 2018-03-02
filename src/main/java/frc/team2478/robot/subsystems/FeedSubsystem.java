@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
+import frc.team2478.robot.commands.scoring.feed.RunFeedWithJoystick;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
@@ -27,21 +27,21 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		masterMotor.setInverted(Constants.Inversions.FEED_MASTER_REVERSED);
 		slaveMotor.setInverted(Constants.Inversions.FEED_SLAVE_REVERSED);
-		slaveMotor.follow(masterMotor);
+//		slaveMotor.follow(masterMotor); //**
 		infaredSensor = new DigitalInput(INFARED_SENSOR_ID);
 	}
 
 	@Override
 	public void runAtPercentage(double percent) {
 		masterMotor.set(ControlMode.PercentOutput, percent);
+		slaveMotor.set(ControlMode.PercentOutput, -percent);
 	}
 
 	@Override
 	public void stop() {
 		masterMotor.stopMotor();
-		slaveMotor.stopMotor();
 	}
-	
+		
 	/**
 	 * Detects if a cube is loaded into the lower half of the robot.
 	 * @return True if a cube is present, false otherwise.
@@ -64,6 +64,6 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunFeedAtPercentage(0));
+		setDefaultCommand(new RunFeedWithJoystick());
 	}
 }

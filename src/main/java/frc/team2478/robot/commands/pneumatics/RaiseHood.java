@@ -11,17 +11,15 @@ public class RaiseHood extends Command {
 	
 	public RaiseHood() {
 		requires(Robot.pneumatics);
-		count = 0;
 	}
 	
 	@Override
 	protected void initialize() {
-		this.count=0;
+		count = 0;
 	}
 	
 	@Override
 	protected void execute() {
-//		System.out.println("raise");
 		Robot.pneumatics.setHoodPiston(Mode.FORWARD);
 		count++;
 	}
@@ -34,6 +32,11 @@ public class RaiseHood extends Command {
 	@Override
 	protected boolean isFinished() {
 		return count > 5;
+	}
+	
+	@Override
+	protected void interrupted() {
+		this.end();
 	}
 	
 }

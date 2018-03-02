@@ -35,7 +35,7 @@ public class AutonomoSelector {
 		return instance;
 	}
 	
-	public void chooseTest() {
+	public void selectTestCase() {
 		autoCommand = new TestAutonomo();
 	}
 	

@@ -95,7 +95,7 @@ public final class ControlHandler {
 		xboxDown.whenPressed(new DecrementShooterTarget()); // press down to decrease shooter speed to next preset
 		xboxX.whenPressed(new LowerHood()); 	// blue X
 		xboxY.whenPressed(new RaiseHood());    // yellow Y
-		xboxA.whenPressed(new ClosePickup()); // green A
+		xboxB.whenPressed(new ClosePickup()); // green A
 		leftJoyButton3.whenPressed(new ClosePickup()); // press button 3(L) to close pickup
 		leftJoyButton4.whenPressed(new OpenPickup()); // press button 4(L) to open pickup
 	}

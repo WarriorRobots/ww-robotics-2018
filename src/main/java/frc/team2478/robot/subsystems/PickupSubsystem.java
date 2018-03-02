@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
+import frc.team2478.robot.commands.scoring.pickup.RunPickupWithJoystick;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
@@ -50,6 +50,6 @@ public class PickupSubsystem extends Subsystem implements TandemMotorInterface {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunPickupAtPercentage(0));
+		setDefaultCommand(new RunPickupWithJoystick());
 	}
 }

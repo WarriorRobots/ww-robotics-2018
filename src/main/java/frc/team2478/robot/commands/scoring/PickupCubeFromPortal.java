@@ -1,7 +1,7 @@
 package frc.team2478.robot.commands.scoring;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.team2478.robot.Robot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
 
@@ -14,9 +14,7 @@ public class PickupCubeFromPortal extends CommandGroup {
 	
 	@Override
 	protected void end() {
-		Robot.shooter.stop();
-		Robot.pickup.stop();
-		Robot.feed.stop();
+		Scheduler.getInstance().add(new StopAllMotors());
 	}
 	
 	@Override

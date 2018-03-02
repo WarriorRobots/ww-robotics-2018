@@ -6,7 +6,6 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.commands.scoring.StopAllMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
-import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 
 /**
@@ -15,7 +14,9 @@ import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 public class RackCubeToFire extends CommandGroup {
 
 	public RackCubeToFire() {
-		addParallel(new RunShooterAtPercentage(-Constants.ShooterRig.SHOOTER_PERCENT_SPEED));
+//		addParallel(new RunShooterAtPercentage(-Constants.ShooterRig.SHOOTER_PERCENT_SPEED));
+		addParallel(new DetectCube(new RunShooterAtPercentage(-Constants.ShooterRig.SHOOTER_PERCENT_SPEED),
+					new RunShooterAtPercentage(-Constants.ShooterRig.SHOOTER_PERCENT_SPEED*0.5)));
 		addParallel(new RunFeedAtPercentage(-Constants.ShooterRig.FEED_PERCENT_SPEED));
 	}
 	

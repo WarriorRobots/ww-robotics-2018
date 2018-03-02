@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
-import frc.team2478.robot.subsystems.PickupSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
+import frc.team2478.robot.subsystems.PickupSubsystem;
 import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
@@ -30,12 +30,15 @@ public class Robot extends TimedRobot {
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static ControlHandler oi;
 	
+//	public static SendableChooser<V>
+	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
+		SmartDashboard.putData(Scheduler.getInstance());
 //		SmartDashboard.putData(vision);
 //		SmartDashboard.putData(shooter);
 //		SmartDashboard.putData(feed);
@@ -59,7 +62,7 @@ public class Robot extends TimedRobot {
 		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
 //		AutonomoSelector.getInstance().selectAutoCase();
-		AutonomoSelector.getInstance().chooseTest();
+		AutonomoSelector.getInstance().selectTestCase();
 		AutonomoSelector.getInstance().startAuto();
 	}
 
