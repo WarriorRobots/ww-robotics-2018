@@ -49,7 +49,7 @@ public final class ControlHandler {
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private DpadTrigger xboxUp, xboxDown;
-	private JoystickButton xboxX, xboxY, xboxA, xboxB;
+	private JoystickButton xboxX, xboxY, xboxB; //xboxA
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -79,7 +79,7 @@ public final class ControlHandler {
 		xboxDown = new DpadTrigger(Direction.DOWN);
 		xboxX = new JoystickButton(xbox, 3);
 		xboxY = new JoystickButton(xbox, 4);
-		xboxA = new JoystickButton(xbox, 1);
+		//xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		
 		
