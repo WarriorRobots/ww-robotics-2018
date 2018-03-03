@@ -189,11 +189,25 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-shooter");
-		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[2];
-			currentDraw[0] = masterMotor.getOutputCurrent();
-			currentDraw[1] = slaveMotor.getOutputCurrent();
-			return currentDraw;
+//		builder.addDoubleArrayProperty("currentdraw", () -> {
+//			double[] currentDraw = new double[2];
+//			currentDraw[0] = masterMotor.getOutputCurrent();
+//			currentDraw[1] = slaveMotor.getOutputCurrent();
+//			return currentDraw;
+//		}, null);
+		builder.addStringProperty("target-selected", () -> {
+			switch (getCurrentTarget()) {
+			case HIGH:
+				return "HIGH";
+			case LOW:
+				return "MID";
+			case MID:
+				return "LOW";
+			case SWITCH:
+				return "SWITCH";
+			default:
+				return "!!!ERROR!!!";
+			}
 		}, null);
 		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
