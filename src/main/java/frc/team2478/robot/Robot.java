@@ -7,6 +7,7 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +32,8 @@ public class Robot extends TimedRobot {
 	
 //	public static SendableChooser<V>
 	
+	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
+	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
@@ -42,6 +45,12 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(shooter);
 //		SmartDashboard.putData(feed);
 //		SmartDashboard.putData(pickup);
+		
+		pdp.resetTotalEnergy();
+		
+		for (int i = 0; i < 14; i++) {
+			System.out.println(Integer.toString(i) + Double.toString(pdp.getCurrent(i)));
+		}
 	}
 	
 	@Override
