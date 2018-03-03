@@ -25,10 +25,10 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-	private double switchSpeed = 5000;
-	private double lowSpeed = 12380;
-	private double midSpeed = 13635;
-	private double highSpeed = 14880;
+	public final double switchSpeed = 4500;
+	public final double lowSpeed = 12380;
+	public final double midSpeed = 13635;
+	public final double highSpeed = 14880;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);

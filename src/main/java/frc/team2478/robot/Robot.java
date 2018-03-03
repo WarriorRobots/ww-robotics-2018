@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
-//		SmartDashboard.putData(drivetrain);
+		SmartDashboard.putData(drivetrain);
 //		SmartDashboard.putData(pneumatics);
 		SmartDashboard.putData(Scheduler.getInstance());
 //		SmartDashboard.putData(vision);

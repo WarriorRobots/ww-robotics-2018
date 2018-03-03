@@ -74,10 +74,6 @@ public class AutonomoDriveStraight extends Command {
 		pidDistance.setOutputRange(-0.75, 0.75);
 		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);
-		
-		SmartDashboard.putNumber("p-dist", SmartDashboard.getNumber("p-dist", 0));
-		SmartDashboard.putNumber("i-dist", SmartDashboard.getNumber("i-dist", 0));
-		SmartDashboard.putNumber("d-dist", SmartDashboard.getNumber("d-dist", 0));
 	}
 	
 	@Override
@@ -85,15 +81,9 @@ public class AutonomoDriveStraight extends Command {
 		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
 		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
 		
-		setDistancePid(SmartDashboard.getNumber("p-dist", 0), 
-				SmartDashboard.getNumber("i-dist", 0), 
-				SmartDashboard.getNumber("d-dist", 0));
-		
 		avgCount = (int) ((leftCount + rightCount) / 2);
 		angleOutput = pidAngle.calculate(Robot.drivetrain.getAngle(), timer.get());
 		distanceOutput = pidDistance.calculate(avgCount, timer.get());
-		SmartDashboard.putNumber("output-dist", distanceOutput);
-		SmartDashboard.putNumber("output-angle", angleOutput);
 		
 		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}

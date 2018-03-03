@@ -7,6 +7,8 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**
  * Contains all constants that are used in the program, grouped into subclasses.
  */
@@ -32,9 +34,9 @@ public final class Constants {
 	 */
 	public static final class AutonomoDrive {
 		// autonomous driving forwards		
-		public static final double DISTANCE_P = 0.005; // 0.02
+		public static final double DISTANCE_P = 0.0075; // 0.02
 		public static final double DISTANCE_I = 0.0; // 0.0001
-		public static final double DISTANCE_D = 0.0; // 0.06
+		public static final double DISTANCE_D = 0.05; // 0.06
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
 		public static final double TURNING_P = 0.017;
@@ -45,6 +47,19 @@ public final class Constants {
 		public static final double COURSECORRECTION_P = TURNING_P;
 		public static final double COURSECORRECTION_I = 0.000;
 		public static final double COURSECORRECTION_D = TURNING_D;
+		
+		/**
+		 * {@value}
+		 */
+		public static final double INCHES_PER_CLICK = (5.0 * Math.PI) / 128.0;
+		
+		public static double ClicksToInches(int clicks) {
+			return ((double) clicks) * INCHES_PER_CLICK;
+		}
+		
+		public static int InchesToClicks(double inches) {
+			return (int) (inches / INCHES_PER_CLICK);
+		}
 	}
 
 	/**

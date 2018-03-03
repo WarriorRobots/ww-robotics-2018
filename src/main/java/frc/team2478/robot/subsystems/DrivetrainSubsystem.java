@@ -236,11 +236,10 @@ public class DrivetrainSubsystem extends Subsystem {
 			return currentDraw;
 		}, null);
 		builder.addBooleanProperty("inverted", () -> getReversed(), null);
-		builder.addDoubleArrayProperty("encoder-ticks", () -> {
-			double[] encoderTicks = new double[2];
-			encoderTicks[0] = getEncoderTicks(Side.LEFT);
-			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
-			return encoderTicks;
+		builder.addStringProperty("encoder-ticks", () -> {
+			return (Integer.toString(getEncoderTicks(Side.LEFT))
+					+ " " 
+					+ Integer.toString(getEncoderTicks(Side.RIGHT)));
 		}, null);
 		builder.addDoubleProperty("angle", () -> getAngle(), null);
 	}

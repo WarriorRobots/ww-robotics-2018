@@ -65,8 +65,8 @@ public final class ControlHandler {
 	 * <p> The robot won't function without running this method once.
 	 */
 	public void init() {
-		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
+		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton5 = new JoystickButton(rightJoy, 5);
 		leftJoyButton4 = new JoystickButton(leftJoy, 4);
