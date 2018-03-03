@@ -12,7 +12,7 @@ public class RevAndShootCube extends CommandGroup {
 
 	public RevAndShootCube() {
 		addParallel(new RunShooterAtTargetSpeed());
-		addSequential(new WaitCommand(0.6)); // needs to be short to preserve points (time-based game)
+		addSequential(new WaitCommand(1.0)); // needs to be short to preserve points (time-based game)
 		addSequential(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
 	}
 	
