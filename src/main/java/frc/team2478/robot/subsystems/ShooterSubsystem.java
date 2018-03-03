@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
+import frc.team2478.robot.commands.scoring.shooter.StopShooterPeriodic;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.Target;
 
@@ -20,15 +21,15 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private static final int MASTER_MOTOR = 12; // left
 	
 	private static final int PROCESS_ID = 0;
-	private static final int TIMEOUT_MS = 10;
+	private static final int TIMEOUT_MS = 15;
 	
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
 	public final double switchSpeed = 4500;
-	public final double lowSpeed = 12380;
-	public final double midSpeed = 13635;
-	public final double highSpeed = 14880;
+	public final double lowSpeed = 14880;
+	public final double midSpeed = 16000;
+	public final double highSpeed = 17200;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -200,6 +201,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterAtVelocity(0));
+		setDefaultCommand(new StopShooterPeriodic());
 	}
 }

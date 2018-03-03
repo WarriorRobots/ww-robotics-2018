@@ -35,7 +35,7 @@ public final class Constants {
 	public static final class AutonomoDrive {
 		// autonomous driving forwards		
 		public static final double DISTANCE_P = 0.0075; // 0.02
-		public static final double DISTANCE_I = 0.0; // 0.0001
+		public static final double DISTANCE_I = 0.0001; // 0.0001
 		public static final double DISTANCE_D = 0.05; // 0.06
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
