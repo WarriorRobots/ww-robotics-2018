@@ -6,7 +6,7 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.autonomous.AutonomoDriveStraight;
 import frc.team2478.robot.commands.autonomous.AutonomoDriveTurn;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
-import frc.team2478.robot.commands.scoring.StopAllMotors;
+import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 
 public class TestAutonomo extends CommandGroup {
@@ -30,7 +30,7 @@ public class TestAutonomo extends CommandGroup {
 		
 		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
 		addSequential(new WaitCommand(2));
-		addSequential(new StopAllMotors());
+		addSequential(new StopAllScoringMotors());
 	}
 	
 }

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.commands.scoring.StopAllMotors;
+import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 
@@ -27,7 +27,7 @@ public class RackCubeToFire extends CommandGroup {
 	
 	@Override
 	protected void end() {
-		Scheduler.getInstance().add(new StopAllMotors());
+		Scheduler.getInstance().add(new StopAllScoringMotors());
 	}
 	
 	@Override
