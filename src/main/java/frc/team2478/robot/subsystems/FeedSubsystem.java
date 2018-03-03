@@ -54,12 +54,12 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-feed");
-		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[2];
-			currentDraw[0] = masterMotor.getOutputCurrent();
-			currentDraw[1] = slaveMotor.getOutputCurrent();
-			return currentDraw;
-		}, null);
+//		builder.addDoubleArrayProperty("currentdraw", () -> {
+//			double[] currentDraw = new double[2];
+//			currentDraw[0] = masterMotor.getOutputCurrent();
+//			currentDraw[1] = slaveMotor.getOutputCurrent();
+//			return currentDraw;
+//		}, null);
 	}
 	
 	@Override
