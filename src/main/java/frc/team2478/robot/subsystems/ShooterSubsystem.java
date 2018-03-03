@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 import frc.team2478.robot.commands.scoring.shooter.StopShooterPeriodic;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.Target;
@@ -26,10 +25,10 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-	public final double switchSpeed = 4500;
-	public final double lowSpeed = 14880;
-	public final double midSpeed = 16000;
-	public final double highSpeed = 17200;
+	public static final double SWITCH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(660);
+	public static final double LOW_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2180);
+	public static final double MID_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2345);
+	public static final double HIGH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2520);
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -64,16 +63,16 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			runAtNativeUnitVelocity(highSpeed);
+			runAtNativeUnitVelocity(HIGH_SPEED);
 			break;
 		case MID:
-			runAtNativeUnitVelocity(midSpeed);
+			runAtNativeUnitVelocity(MID_SPEED);
 			break;
 		case LOW:
-			runAtNativeUnitVelocity(lowSpeed);
+			runAtNativeUnitVelocity(LOW_SPEED);
 			break;
 		case SWITCH:
-			runAtNativeUnitVelocity(switchSpeed);
+			runAtNativeUnitVelocity(SWITCH_SPEED);
 			break;
 		}
 	}

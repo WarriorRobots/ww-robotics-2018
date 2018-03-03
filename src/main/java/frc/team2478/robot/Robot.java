@@ -18,7 +18,6 @@ import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
-import frc.team2478.robot.util.SafetyHandler;
 
 public class Robot extends TimedRobot {
 	

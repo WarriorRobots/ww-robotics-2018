@@ -7,8 +7,6 @@
 
 package frc.team2478.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 /**
  * Contains all constants that are used in the program, grouped into subclasses.
  */
