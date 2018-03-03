@@ -36,18 +36,22 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
-		SmartDashboard.putData(drivetrain);
-		SmartDashboard.putData(pneumatics);
+//		SmartDashboard.putData(drivetrain);
+//		SmartDashboard.putData(pneumatics);
 		SmartDashboard.putData(Scheduler.getInstance());
 //		SmartDashboard.putData(vision);
-//		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(shooter);
 //		SmartDashboard.putData(feed);
 //		SmartDashboard.putData(pickup);
+		
+		shooter.setPID(0, 0, 0);
+		SmartDashboard.putNumber("ff",SmartDashboard.getNumber("ff", 0));
 	}
 	
 	@Override
 	public void robotPeriodic() {
 		SafetyHandler.getInstance().checkBatteryVoltage();
+		shooter.setFeedForward(SmartDashboard.getNumber("ff", 0));
 	}
 			
 
@@ -74,6 +78,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		System.out.println(shooter.getNativeUnitVelocity());
 	}
 
 }

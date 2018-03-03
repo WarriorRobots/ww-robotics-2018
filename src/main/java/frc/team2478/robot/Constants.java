@@ -71,7 +71,7 @@ public final class Constants {
 		public static final double MILS_PER_CLICK_RATIO = 600.0 / 4096.0; //0.1465
 		
 		/**
-		 * Defines the gearbox ratio (outer rotations per inner rotations).
+		 * Defines the gear box ratio (outer rotations per inner rotations).
 		 * <p> Equivalent to {@value}.
 		 */
 		public static final double OUT_PER_IN_RATIO = 1.0 / 5.0;
@@ -112,7 +112,7 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double PICKUP_PERCENT_SPEED = 0.8;
+	    public static final double PICKUP_PERCENT_SPEED = 0.7;
 	    public static final double FEED_PERCENT_SPEED = 0.3;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
 	}
@@ -130,5 +130,6 @@ public final class Constants {
 		public static final boolean PICKUP_SLAVE_REVERSED = true;
 		public static final boolean SHOOTER_MASTER_REVERSED = true;
 		public static final boolean SHOOTER_SLAVE_REVERSED = true;
+		public static final boolean SHOOTER_ENCODER_REVERSED = false;
 	}
 }

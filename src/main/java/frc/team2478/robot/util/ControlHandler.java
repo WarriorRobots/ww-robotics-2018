@@ -44,7 +44,7 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	@SuppressWarnings("unused")
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton3, leftJoyTriggerButton, leftJoyButton4, leftJoyButton3;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton5, leftJoyTriggerButton, leftJoyButton4, rightJoyButton3;
 	
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
@@ -68,9 +68,9 @@ public final class ControlHandler {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
-		rightJoyButton3 = new JoystickButton(rightJoy, 3);
+		rightJoyButton5 = new JoystickButton(rightJoy, 5);
 		leftJoyButton4 = new JoystickButton(leftJoy, 4);
-		leftJoyButton3 = new JoystickButton(leftJoy, 3);
+		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
@@ -85,7 +85,7 @@ public final class ControlHandler {
 		
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
-		rightJoyButton3.whenPressed(new ReverseDrive()); // press button 3(R) to reverse front and back of robot		
+		rightJoyButton5.whenPressed(new ReverseDrive()); // press button 5(R) to reverse front and back of robot		
 		leftXboxTrigger.whileHeld(new PickupCubeFromGround()); // hold left xbox trigger to pickup and load cube autonomously
 		rightXboxTrigger.whileHeld(new RevAndShootCube()); // hold right xbox trigger to rev shooter and launch cube 1s later
 		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
@@ -96,8 +96,8 @@ public final class ControlHandler {
 		xboxX.whenPressed(new LowerHood()); 	// blue X
 		xboxY.whenPressed(new RaiseHood());    // yellow Y
 		xboxB.whenPressed(new ClosePickup()); // green A
-		leftJoyButton3.whenPressed(new ClosePickup()); // press button 3(L) to close pickup
-		leftJoyButton4.whenPressed(new OpenPickup()); // press button 4(L) to open pickup
+		rightJoyButton3.whenPressed(new OpenPickup()); // press button 3(L) to close pickup
+		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
 	}
 
 	/**

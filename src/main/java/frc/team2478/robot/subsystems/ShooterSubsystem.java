@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.Target;
 
@@ -43,7 +43,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				PROCESS_ID,
 				TIMEOUT_MS);
 		
-		masterMotor.setSensorPhase(true);
+		masterMotor.setSensorPhase(Constants.Inversions.SHOOTER_ENCODER_REVERSED);
 	}
 	
 	/**
@@ -187,6 +187,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterAtPercentage(0));
+		setDefaultCommand(new RunShooterAtVelocity(5000));
 	}
 }
