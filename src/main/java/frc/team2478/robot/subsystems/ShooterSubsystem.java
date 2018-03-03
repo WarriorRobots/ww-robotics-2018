@@ -199,9 +199,9 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 			switch (getCurrentTarget()) {
 			case HIGH:
 				return "HIGH";
-			case LOW:
-				return "MID";
 			case MID:
+				return "MID";
+			case LOW:
 				return "LOW";
 			case SWITCH:
 				return "SWITCH";
