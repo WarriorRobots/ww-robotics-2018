@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
@@ -26,9 +25,10 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-//	private double lowSpeed = 1000;
-//	private double midSpeed = 1500;
-//	private double highSpeed = 2000;
+	private double switchSpeed = 5000;
+	private double lowSpeed = 12380;
+	private double midSpeed = 13635;
+	private double highSpeed = 14880;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -37,13 +37,16 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		slaveMotor.setInverted(Constants.Inversions.SHOOTER_SLAVE_REVERSED);
 		slaveMotor.follow(masterMotor);
 		
-		DriverStation.reportError("FIX ENCODER ASSIGNMENT", false);
 		masterMotor.configSelectedFeedbackSensor(
 				FeedbackDevice.QuadEncoder,
 				PROCESS_ID,
 				TIMEOUT_MS);
 		
 		masterMotor.setSensorPhase(Constants.Inversions.SHOOTER_ENCODER_REVERSED);
+		masterMotor.config_kP(PROCESS_ID, 0.1, TIMEOUT_MS);
+		masterMotor.config_kI(PROCESS_ID, 0.0, TIMEOUT_MS);
+		masterMotor.config_kD(PROCESS_ID, 1.0, TIMEOUT_MS); // put this in constants
+		masterMotor.config_kF(PROCESS_ID, 0.042, TIMEOUT_MS);
 	}
 	
 	/**
@@ -54,37 +57,41 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		masterMotor.set(ControlMode.Velocity, velocity);
 	}
 	
-//	/**
-//	 * Sets the shooter motors to a predetermined velocity based on the Target currently chosen.
-//	 */
-//	public void shootForCurrentTarget() {
-//		switch (getCurrentTarget()) {
-//		case HIGH:
-//			setTargetVelocity(highSpeed);
-//			break;
-//		case MID:
-//			setTargetVelocity(midSpeed);
-//			break;
-//		case LOW:
-//			setTargetVelocity(lowSpeed);
-//			break;
-//		}
-//	}
-
-	@Deprecated
+	/**
+	 * Sets the shooter motors to a predetermined velocity based on the Target currently chosen.
+	 */
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			runAtPercentage(0.7);
+			runAtNativeUnitVelocity(highSpeed);
 			break;
 		case MID:
-			runAtPercentage(0.5);
+			runAtNativeUnitVelocity(midSpeed);
 			break;
 		case LOW:
-			runAtPercentage(0.2);
+			runAtNativeUnitVelocity(lowSpeed);
+			break;
+		case SWITCH:
+			runAtNativeUnitVelocity(switchSpeed);
 			break;
 		}
 	}
+
+	// MAKE INTO A NEW METHOD
+//	@Deprecated
+//	public void shootForCurrentTarget() {
+//		switch (getCurrentTarget()) {
+//		case HIGH:
+//			runAtPercentage(0.6);
+//			break;
+//		case MID:
+//			runAtPercentage(0.55);
+//			break;
+//		case LOW:
+//			runAtPercentage(0.5);
+//			break;
+//		}
+//	}
 	
 	/**
 	 * Checks the currently-selected target.
@@ -108,6 +115,9 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		case LOW:
 			currentTarget = Target.MID;
 			break;
+		case SWITCH:
+			currentTarget = Target.LOW;
+			break;
 		}
 	}
 	
@@ -123,6 +133,9 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 			currentTarget = Target.LOW;
 			break;
 		case LOW:
+			currentTarget = Target.SWITCH;
+			break;
+		case SWITCH:
 			System.out.println("Target already at min");
 			break;
 		}
@@ -187,6 +200,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterAtVelocity(5000));
+		setDefaultCommand(new RunShooterAtVelocity(0));
 	}
 }

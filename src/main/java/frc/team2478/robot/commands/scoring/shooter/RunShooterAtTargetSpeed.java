@@ -3,7 +3,6 @@ package frc.team2478.robot.commands.scoring.shooter;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-@Deprecated
 public class RunShooterAtTargetSpeed extends Command {
 
 	public RunShooterAtTargetSpeed() {
