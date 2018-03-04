@@ -12,12 +12,12 @@ import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 public class MidtoRightSwitch extends CommandGroup{
 	
 	public MidtoRightSwitch() {
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(48)));
+		addSequential(new AutonomoDriveStraight(48));
 		addSequential(new AutonomoDriveTurn(-45));
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(24)));
+		addSequential(new AutonomoDriveStraight(24));
 		addSequential(new AutonomoDriveTurn(45));
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.MID_SPEED));
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(60)));
+		addSequential(new AutonomoDriveStraight(60));
 		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.SWITCH_SPEED));
 		addSequential(new WaitCommand(2));
 		addSequential(new StopAllScoringMotors());

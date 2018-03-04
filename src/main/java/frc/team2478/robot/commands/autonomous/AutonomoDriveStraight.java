@@ -14,7 +14,7 @@ import frc.team2478.robot.util.enums.Side;
  */
 public class AutonomoDriveStraight extends Command {
 	
-	private int distanceTarget, leftCount, rightCount, avgCount;
+	private int distanceTargetClicks, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
 	
 	@Debug
@@ -25,9 +25,9 @@ public class AutonomoDriveStraight extends Command {
 	
 	/**
 	 * Create a new instance of {@link AutonomoDriveStraight}.
-	 * @param distanceTarget How many encoder clicks to travel.
+	 * @param inches  How many inches to travel.
 	 */
-	public AutonomoDriveStraight(int distanceTarget) {
+	public AutonomoDriveStraight(int inches) {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals
@@ -39,7 +39,7 @@ public class AutonomoDriveStraight extends Command {
 			Constants.AutonomoDrive.DISTANCE_I,
 			Constants.AutonomoDrive.DISTANCE_D);
 
-		this.distanceTarget = distanceTarget;
+		this.distanceTargetClicks = Constants.AutonomoDrive.InchesToClicks(inches);
 		timer = new Timer();
 	}
 	
@@ -69,7 +69,7 @@ public class AutonomoDriveStraight extends Command {
 		Robot.drivetrain.resetAngle();
 		pidAngle.reset();
 		timer.start();
-		pidDistance.setSetpoint(distanceTarget);
+		pidDistance.setSetpoint(distanceTargetClicks);
 		pidDistance.setOutputRange(-0.75, 0.75);
 		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);

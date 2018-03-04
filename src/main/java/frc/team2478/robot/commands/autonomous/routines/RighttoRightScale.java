@@ -15,11 +15,11 @@ public class RighttoRightScale extends CommandGroup{
 	
 	public RighttoRightScale() {
 		addParallel(new LowerHood());
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(300)));
+		addSequential(new AutonomoDriveStraight(300));
 		addSequential(new AutonomoDriveTurn(-90));
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.MID_SPEED));
 		addParallel(new RaiseHood());
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(-24)));
+		addSequential(new AutonomoDriveStraight(-24));
 		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
 		addSequential(new WaitCommand(2));
 		addSequential(new StopAllScoringMotors());
