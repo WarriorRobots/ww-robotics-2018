@@ -8,7 +8,7 @@ import frc.team2478.robot.commands.autonomous.AutonomoDriveTurn;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
-import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 
 public class LefttoLeftScale extends CommandGroup {
@@ -17,10 +17,10 @@ public class LefttoLeftScale extends CommandGroup {
 		addParallel(new LowerHood());
 		addSequential(new AutonomoDriveStraight(300));
 		addSequential(new AutonomoDriveTurn(90));
-		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.MID_SPEED));
+		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED));
 		addParallel(new RaiseHood());
 		addSequential(new AutonomoDriveStraight(-24));
-		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
+		addParallel(new RunFeedAtDefault());
 		addSequential(new WaitCommand(2));
 		addSequential(new StopAllScoringMotors());
 	}

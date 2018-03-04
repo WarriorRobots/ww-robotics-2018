@@ -24,6 +24,6 @@ private double percentage;
 	
 	@Override
 	protected void end() {
-		Robot.pickup.stop();
+		Robot.shooter.stop();
 	}
 }

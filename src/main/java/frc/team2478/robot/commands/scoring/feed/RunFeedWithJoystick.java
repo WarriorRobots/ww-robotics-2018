@@ -21,6 +21,6 @@ public class RunFeedWithJoystick extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.pickup.stop();
+		Robot.feed.stop();
 	}
 }

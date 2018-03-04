@@ -18,5 +18,10 @@ public class RunShooterAtTargetSpeed extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
+	
+	@Override
+	protected void end() {
+		Robot.shooter.stop();
+	}
 
 }

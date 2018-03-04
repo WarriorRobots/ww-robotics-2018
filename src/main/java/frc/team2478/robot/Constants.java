@@ -131,6 +131,7 @@ public final class Constants {
 	    public static final double SWITCH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(660);
 		public static final double LOW_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2180);
 		public static final double MID_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2450);
+		public static final double AUTO_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2550);
 		public static final double HIGH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2700);
 	}
 	
