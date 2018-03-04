@@ -15,14 +15,17 @@ public class LefttoLeftScale extends CommandGroup {
 	
 	public LefttoLeftScale() {
 		addParallel(new LowerHood());
-		addSequential(new AutonomoDriveStraight(300));
+		addSequential(new AutonomoDriveStraight(287.5));
 		addSequential(new AutonomoDriveTurn(90));
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED));
 		addParallel(new RaiseHood());
-		addSequential(new AutonomoDriveStraight(-24));
+		addSequential(new AutonomoDriveStraight(-12));
 		addParallel(new RunFeedAtDefault());
-		addSequential(new WaitCommand(2));
+		addSequential(new WaitCommand(1.5));
+		addParallel(new LowerHood());
 		addSequential(new StopAllScoringMotors());
+		addSequential(new AutonomoDriveTurn(-110));
+		addSequential(new AutonomoDriveStraight(-80));
 	}
 
 }

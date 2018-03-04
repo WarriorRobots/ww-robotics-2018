@@ -20,7 +20,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private static final int MASTER_MOTOR = 12; // left
 	
 	private static final int PROCESS_ID = 0;
-	private static final int TIMEOUT_MS = 15;
+	private static final int TIMEOUT_MS = 10;
 	
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
@@ -205,7 +205,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				return "!!!ERROR!!!";
 			}
 		}, null);
-		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
 
 	@Override

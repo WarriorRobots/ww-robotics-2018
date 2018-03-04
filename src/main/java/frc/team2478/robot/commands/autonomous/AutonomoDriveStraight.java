@@ -27,7 +27,7 @@ public class AutonomoDriveStraight extends Command {
 	 * Create a new instance of {@link AutonomoDriveStraight}.
 	 * @param inches  How many inches to travel.
 	 */
-	public AutonomoDriveStraight(int inches) {
+	public AutonomoDriveStraight(double inches) {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals

@@ -227,14 +227,20 @@ public class DrivetrainSubsystem extends Subsystem {
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");
 		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[6];
-			currentDraw[0] = leftFront.getOutputCurrent();
-			currentDraw[1] = leftMiddle.getOutputCurrent();
-			currentDraw[2] = leftBack.getOutputCurrent();
-			currentDraw[3] = rightFront.getOutputCurrent();
-			currentDraw[4] = rightMiddle.getOutputCurrent();
-			currentDraw[5] = rightBack.getOutputCurrent();
-			return currentDraw;
+			if (DriverStation.getInstance().isEnabled()) {
+				double[] currentDraw = new double[6];
+				currentDraw[0] = leftFront.getOutputCurrent();
+				currentDraw[1] = leftMiddle.getOutputCurrent();
+				currentDraw[2] = leftBack.getOutputCurrent();
+				currentDraw[3] = rightFront.getOutputCurrent();
+				currentDraw[4] = rightMiddle.getOutputCurrent();
+				currentDraw[5] = rightBack.getOutputCurrent();
+				return currentDraw;
+			} else {
+				double[] temp = new double[1];
+				temp[0] = 0;
+				return temp;
+			}
 		}, null);
 		builder.addBooleanProperty("inverted", () -> getReversed(), null);
 		builder.addStringProperty("encoder-ticks", () -> {

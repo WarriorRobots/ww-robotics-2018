@@ -10,6 +10,7 @@ package frc.team2478.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
@@ -18,6 +19,9 @@ import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.ControlHandler;
+import frc.team2478.robot.util.DashboardHandler;
+import frc.team2478.robot.util.enums.AutoTarget;
+import frc.team2478.robot.util.enums.StartingPosition;
 
 public class Robot extends TimedRobot {
 	
@@ -58,11 +62,16 @@ public class Robot extends TimedRobot {
 	}
 	
 	@Override
+	public void teleopInit() {
+	}
+	
+	@Override
 	public void autonomousInit() {
 		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
-//		AutonomoSelector.getInstance().selectAutoCase();
-		AutonomoSelector.getInstance().selectTestCase();
+		DashboardHandler.getInstance().setPositionTarget(StartingPosition.MIDDLE);
+		DashboardHandler.getInstance().setAutoTarget(AutoTarget.SWITCH);
+		AutonomoSelector.getInstance().selectAutoCase();
 		AutonomoSelector.getInstance().startAuto();
 	}
 
