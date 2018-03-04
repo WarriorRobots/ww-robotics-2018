@@ -25,10 +25,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
 	private Target currentTarget = Target.MID;
-	public static final double SWITCH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(660);
-	public static final double LOW_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2180);
-	public static final double MID_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2450);
-	public static final double HIGH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2700);
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -63,16 +59,16 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			runAtNativeUnitVelocity(HIGH_SPEED);
+			runAtNativeUnitVelocity(Constants.ShooterRig.HIGH_SPEED);
 			break;
 		case MID:
-			runAtNativeUnitVelocity(MID_SPEED);
+			runAtNativeUnitVelocity(Constants.ShooterRig.MID_SPEED);
 			break;
 		case LOW:
-			runAtNativeUnitVelocity(LOW_SPEED);
+			runAtNativeUnitVelocity(Constants.ShooterRig.LOW_SPEED);
 			break;
 		case SWITCH:
-			runAtNativeUnitVelocity(SWITCH_SPEED);
+			runAtNativeUnitVelocity(Constants.ShooterRig.SWITCH_SPEED);
 			break;
 		}
 	}

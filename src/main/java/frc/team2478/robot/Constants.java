@@ -128,6 +128,10 @@ public final class Constants {
 	    public static final double PICKUP_PERCENT_SPEED = 0.7;
 	    public static final double FEED_PERCENT_SPEED = 0.3;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
+	    public static final double SWITCH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(660);
+		public static final double LOW_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2180);
+		public static final double MID_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2450);
+		public static final double HIGH_SPEED = Constants.ShooterRig.rpmToEncoderClicks(2700);
 	}
 	
 	/**
