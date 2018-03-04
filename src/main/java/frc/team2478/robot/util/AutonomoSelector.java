@@ -3,17 +3,11 @@ package frc.team2478.robot.util;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.commands.autonomous.routines.LefttoLeftScale;
-import frc.team2478.robot.commands.autonomous.routines.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.LefttoRightScale;
-import frc.team2478.robot.commands.autonomous.routines.LefttoRightSwitch;
-import frc.team2478.robot.commands.autonomous.routines.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitch;
-import frc.team2478.robot.commands.autonomous.routines.MidtoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
-import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
-import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
 
 public class AutonomoSelector {
@@ -58,17 +52,17 @@ public class AutonomoSelector {
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
-					autoCommand = new MidtoLeftScale();
+//					autoCommand = new MidtoLeftScale();
 				} else if (scaleOnRight) {
-					autoCommand = new MidtoRightScale();
+//					autoCommand = new MidtoRightScale();
 				}
 			}
 		} else if (atLeftPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					autoCommand = new LefttoLeftSwitch();
+//					autoCommand = new LefttoLeftSwitch();
 				} else if (switchOnRight) {
-					autoCommand = new LefttoRightSwitch();
+//					autoCommand = new LefttoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
@@ -80,9 +74,9 @@ public class AutonomoSelector {
 		} else if (atRightPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					autoCommand = new RighttoLeftSwitch();
+//					autoCommand = new RighttoLeftSwitch();
 				} else if (switchOnRight) {
-					autoCommand = new RighttoRightSwitch();
+//					autoCommand = new RighttoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
