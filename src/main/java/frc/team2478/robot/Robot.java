@@ -7,6 +7,7 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -23,34 +24,27 @@ import frc.team2478.robot.util.ControlHandler;
 public class Robot extends TimedRobot {
 	
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
-	public static final LimelightSubsystem vision = new LimelightSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
-	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final PickupSubsystem pickup = new PickupSubsystem();
+	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
+	public static final LimelightSubsystem vision = new LimelightSubsystem();
 	public static ControlHandler oi;
 	
 //	public static SendableChooser<V>
 	
-	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	@Override
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
 		SmartDashboard.putData(drivetrain);
-//		SmartDashboard.putData(pneumatics);
+		SmartDashboard.putData(pneumatics);
 		SmartDashboard.putData(Scheduler.getInstance());
 //		SmartDashboard.putData(vision);
 		SmartDashboard.putData(shooter);
 //		SmartDashboard.putData(feed);
 //		SmartDashboard.putData(pickup);
-		
-		pdp.resetTotalEnergy();
-		
-		for (int i = 0; i < 14; i++) {
-			System.out.println(Integer.toString(i) + Double.toString(pdp.getCurrent(i)));
-		}
 	}
 	
 	@Override
