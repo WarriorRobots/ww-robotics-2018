@@ -96,7 +96,7 @@ public class AutonomoSelector {
 		resetData();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-		switch (DashboardHandler.getPosition()) {
+		switch (DashboardHandler.getInstance().getPosition()) {
 		case MIDDLE:
 			atMiddlePos = true;
 			break;
@@ -108,7 +108,7 @@ public class AutonomoSelector {
 			break;
 		}
 
-		switch (DashboardHandler.getAutoTarget()) {
+		switch (DashboardHandler.getInstance().getAutoTarget()) {
 		case SWITCH:
 			goToSwitch = true;
 			break;

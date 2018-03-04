@@ -6,7 +6,7 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
 import frc.team2478.robot.util.annotations.Debug;
-import frc.team2478.robot.util.enums.Side;
+import frc.team2478.robot.util.enums.RobotSide;
 
 /**
  * When run, the robot will drive straight at the provided distance,
@@ -77,8 +77,8 @@ public class AutonomoDriveStraight extends Command {
 	
 	@Override
 	protected void execute() {
-		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
-		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
+		leftCount = Robot.drivetrain.getEncoderTicks(RobotSide.LEFT);
+		rightCount = Robot.drivetrain.getEncoderTicks(RobotSide.RIGHT);
 		
 		avgCount = (int) ((leftCount + rightCount) / 2);
 		angleOutput = pidAngle.calculate(Robot.drivetrain.getAngle(), timer.get());

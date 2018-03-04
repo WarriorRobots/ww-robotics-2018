@@ -2,7 +2,7 @@ package frc.team2478.robot.commands.pneumatics;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.util.enums.Mode;
+import frc.team2478.robot.util.enums.SolenoidMode;
 
 public class ClosePickup extends Command {
 		
@@ -19,13 +19,13 @@ public class ClosePickup extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.pneumatics.setPickupPiston(Mode.REVERSE); // when solenoid extends, pistons retract
+		Robot.pneumatics.setPickupPiston(SolenoidMode.REVERSE); // when solenoid extends, pistons retract
 		count++;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.pneumatics.setPickupPiston(Mode.OFF);
+		Robot.pneumatics.setPickupPiston(SolenoidMode.OFF);
 	}
 
 	@Override

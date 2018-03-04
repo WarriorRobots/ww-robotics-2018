@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.scoring.shooter.StopShooterPeriodic;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
-import frc.team2478.robot.util.enums.Target;
+import frc.team2478.robot.util.enums.ShotHeight;
 
 /**
  * Components that involve sending the cube airborne, out of the robot.
@@ -24,7 +24,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
-	private Target currentTarget = Target.MID;
+	private ShotHeight currentTarget = ShotHeight.MID;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -93,7 +93,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	 * Checks the currently-selected target.
 	 * @return  Enum {@code Target}, with values LOW, MID, or HIGH
 	 */
-	public Target getCurrentTarget() {
+	public ShotHeight getCurrentTarget() {
 		return currentTarget;
 	}
 	
@@ -106,13 +106,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 			System.out.println("Target already at max");
 			break;
 		case MID:
-			currentTarget = Target.HIGH;
+			currentTarget = ShotHeight.HIGH;
 			break;
 		case LOW:
-			currentTarget = Target.MID;
+			currentTarget = ShotHeight.MID;
 			break;
 		case SWITCH:
-			currentTarget = Target.LOW;
+			currentTarget = ShotHeight.LOW;
 			break;
 		}
 	}
@@ -123,13 +123,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	public void decrementTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			currentTarget = Target.MID;
+			currentTarget = ShotHeight.MID;
 			break;
 		case MID:
-			currentTarget = Target.LOW;
+			currentTarget = ShotHeight.LOW;
 			break;
 		case LOW:
-			currentTarget = Target.SWITCH;
+			currentTarget = ShotHeight.SWITCH;
 			break;
 		case SWITCH:
 			System.out.println("Target already at min");

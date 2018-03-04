@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.drive.TankDriveTeleop;
-import frc.team2478.robot.util.enums.Side;
+import frc.team2478.robot.util.enums.RobotSide;
 
 /**
  * Components that move the robot wheels or sense its position.
@@ -157,7 +157,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param side  Side.LEFT or Side.RIGHT
 	 * @return Current encoder count as an integer value
 	 */
-	public int getEncoderTicks(Side side) {
+	public int getEncoderTicks(RobotSide side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
 		case RIGHT: return rightEnc.get();
@@ -170,7 +170,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * Resets the encoder specified to 0 ticks.
 	 * @param side  Side.LEFT or Side.RIGHT
 	 */
-	public void resetEncoderTicks(Side side) {
+	public void resetEncoderTicks(RobotSide side) {
 		switch(side) {
 		case LEFT:
 			leftEnc.reset();
@@ -186,8 +186,8 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * <p> Shorthand for {@code resetEncoderTicks(Side.LEFT)} and {@code resetEncoderTicks(Side.RIGHT)}.
 	 */
 	public void resetEncoders() {
-		this.resetEncoderTicks(Side.LEFT);
-		this.resetEncoderTicks(Side.RIGHT);
+		this.resetEncoderTicks(RobotSide.LEFT);
+		this.resetEncoderTicks(RobotSide.RIGHT);
 	}
 
 	/**
@@ -238,9 +238,9 @@ public class DrivetrainSubsystem extends Subsystem {
 		}, null);
 		builder.addBooleanProperty("inverted", () -> getReversed(), null);
 		builder.addStringProperty("encoder-ticks", () -> {
-			return (Integer.toString(getEncoderTicks(Side.LEFT))
+			return (Integer.toString(getEncoderTicks(RobotSide.LEFT))
 					+ " " 
-					+ Integer.toString(getEncoderTicks(Side.RIGHT)));
+					+ Integer.toString(getEncoderTicks(RobotSide.RIGHT)));
 		}, null);
 		builder.addDoubleProperty("angle", () -> getAngle(), null);
 	}

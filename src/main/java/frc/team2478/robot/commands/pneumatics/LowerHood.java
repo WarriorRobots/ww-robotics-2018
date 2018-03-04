@@ -2,7 +2,7 @@ package frc.team2478.robot.commands.pneumatics;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.util.enums.Mode;
+import frc.team2478.robot.util.enums.SolenoidMode;
 
 public class LowerHood extends Command {
 	
@@ -19,13 +19,13 @@ public class LowerHood extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.pneumatics.setHoodPiston(Mode.REVERSE);
+		Robot.pneumatics.setHoodPiston(SolenoidMode.REVERSE);
 		count++;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.pneumatics.setHoodPiston(Mode.OFF);
+		Robot.pneumatics.setHoodPiston(SolenoidMode.OFF);
 	}
 
 	@Override

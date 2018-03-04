@@ -28,7 +28,7 @@ import frc.team2478.robot.commands.scoring.sequence.RevAndShootCube;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
-import frc.team2478.robot.util.enums.Direction;
+import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.ThresholdTrigger;
 
@@ -79,8 +79,8 @@ public final class ControlHandler {
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
 		rightXboxBumper = new JoystickButton(xbox, 6);
-		xboxUp = new DpadTrigger(Direction.UP);
-		xboxDown = new DpadTrigger(Direction.DOWN);
+		xboxUp = new DpadTrigger(DpadDirection.UP);
+		xboxDown = new DpadTrigger(DpadDirection.DOWN);
 		xboxX = new JoystickButton(xbox, 3);
 		xboxY = new JoystickButton(xbox, 4);
 		//xboxA = new JoystickButton(xbox, 1);
