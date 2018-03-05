@@ -11,7 +11,7 @@ import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
-import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
+import frc.team2478.robot.commands.autonomous.routines.TestCase;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.LefttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoRightScale;
@@ -37,7 +37,7 @@ public class AutonomoSelector {
 	}
 	
 	public void selectTestCase() {
-		autoCommand = new TestAutonomo();
+		autoCommand = new TestCase();
 	}
 	
 	public void stopAuto() {

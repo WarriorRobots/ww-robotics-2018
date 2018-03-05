@@ -11,7 +11,7 @@ public class CrossLine extends CommandGroup {
 
 	public CrossLine() {
 		addParallel(new LowerHood());
-		addSequential(new DriveAuto(130)); // check to make sure this works
+		addSequential(new DriveAuto(93)); // check to make sure this works (130 - length of robot)
 	}
 	
 }

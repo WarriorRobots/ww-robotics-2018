@@ -9,9 +9,9 @@ import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 
-public class TestAutonomo extends CommandGroup {
+public class TestCase extends CommandGroup {
 
-	public TestAutonomo() {
+	public TestCase() {
 		addParallel(new RaiseHood());
 //		addParallel(new RunShooterAtVelocity(19000));
 //		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(105.5))); // switch
