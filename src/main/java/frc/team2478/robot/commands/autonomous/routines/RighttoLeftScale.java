@@ -3,8 +3,8 @@ package frc.team2478.robot.commands.autonomous.routines;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.autonomous.AutonomoDriveStraight;
-import frc.team2478.robot.commands.autonomous.AutonomoDriveTurn;
+import frc.team2478.robot.commands.autonomous.DriveAuto;
+import frc.team2478.robot.commands.autonomous.TurnAuto;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
@@ -18,16 +18,16 @@ public class RighttoLeftScale extends CommandGroup {
 	
 	public RighttoLeftScale() {
 		addParallel(new LowerHood()); // hood starts raised, lower for safety
-		addSequential(new AutonomoDriveStraight(216.75)); // drive forward, adjacent to alley between switch and scale
-		addSequential(new AutonomoDriveTurn(-90)); // turn left, face down alley
-		addSequential(new AutonomoDriveStraight(242.25)); // drive through alley, ending up on leftmost side of field
-		addSequential(new AutonomoDriveTurn(90)); // turn right, face forwards
-		addSequential(new AutonomoDriveStraight(88.5)); // drive into nullzone
+		addSequential(new DriveAuto(216.75)); // drive forward, adjacent to alley between switch and scale
+		addSequential(new TurnAuto(-90)); // turn left, face down alley
+		addSequential(new DriveAuto(242.25)); // drive through alley, ending up on leftmost side of field
+		addSequential(new TurnAuto(90)); // turn right, face forwards
+		addSequential(new DriveAuto(88.5)); // drive into nullzone
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED)); // rev shooter to save time
 		
 		// if the robot shakes while turning, raiseHood needs to go after AutonomoDriveTurn
 		addParallel(new RaiseHood()); // raise hood to save time
-		addSequential(new AutonomoDriveTurn(90)); // turn right, face the scale
+		addSequential(new TurnAuto(90)); // turn right, face the scale
 		addParallel(new RunFeedAtDefault()); // rev feed and launch cube
 		addSequential(new WaitCommand(1.5)); // wait for cube to fire
 		addSequential(new StopAllScoringMotors()); // kill motors to save power
