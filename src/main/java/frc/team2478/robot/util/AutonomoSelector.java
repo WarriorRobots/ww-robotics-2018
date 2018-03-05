@@ -3,11 +3,13 @@ package frc.team2478.robot.util;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.commands.autonomous.routines.LefttoLeftScale;
+import frc.team2478.robot.commands.autonomous.routines.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.LefttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
+import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.TestAutonomo;
 
 public class AutonomoSelector {
@@ -60,7 +62,7 @@ public class AutonomoSelector {
 		} else if (atLeftPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-//					autoCommand = new LefttoLeftSwitch();
+					autoCommand = new LefttoLeftSwitch();
 				} else if (switchOnRight) {
 //					autoCommand = new LefttoRightSwitch();
 				}
@@ -76,7 +78,7 @@ public class AutonomoSelector {
 				if (switchOnLeft) {
 //					autoCommand = new RighttoLeftSwitch();
 				} else if (switchOnRight) {
-//					autoCommand = new RighttoRightSwitch();
+					autoCommand = new RighttoRightSwitch();
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
@@ -89,7 +91,11 @@ public class AutonomoSelector {
 	}
 	
 	public void startAuto() {
-		autoCommand.start();
+		try {
+			autoCommand.start();
+		} catch (Exception e) {
+			DriverStation.reportError(e.getMessage(), false);
+		}
 	}
 	
 	private void initData() {

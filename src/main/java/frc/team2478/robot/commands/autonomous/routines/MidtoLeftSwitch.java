@@ -10,19 +10,22 @@ import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 
+/**
+ * Robot will start with left bumper touching the center line.
+ */
 public class MidtoLeftSwitch extends CommandGroup {
 	
 	public MidtoLeftSwitch() {
-		addParallel(new LowerHood());
-		addSequential(new AutonomoDriveStraight(48));
-		addSequential(new AutonomoDriveTurn(-45));
-		addSequential(new AutonomoDriveStraight(24));
-		addSequential(new AutonomoDriveTurn(45));
-		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED));
-		addSequential(new AutonomoDriveStraight(60));
-		addParallel(new RunFeedAtDefault());
-		addSequential(new WaitCommand(2));
-		addSequential(new StopAllScoringMotors());
+		addParallel(new LowerHood()); // lower hood for switch shot
+		addSequential(new AutonomoDriveStraight(45)); // drive forward to center of starting zone
+		addSequential(new AutonomoDriveTurn(-90)); // turn left
+		addSequential(new AutonomoDriveStraight(61));
+		addSequential(new AutonomoDriveTurn(90)); // turn right, facing left switch plate
+		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early
+		addSequential(new AutonomoDriveStraight(57)); // drive until bumper hits wall
+		addParallel(new RunFeedAtDefault()); // launch cube
+		addSequential(new WaitCommand(1.5));
+		addSequential(new StopAllScoringMotors()); // stop motors to conserve power
 	}
 
 }

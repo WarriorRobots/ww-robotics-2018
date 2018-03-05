@@ -11,21 +11,26 @@ import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 
+/**
+ * Robot will start touching the 45-degree corner on the right.
+ */
 public class RighttoLeftScale extends CommandGroup {
 	
 	public RighttoLeftScale() {
-		addParallel(new LowerHood());
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(200)));
-		addSequential(new AutonomoDriveTurn(-90));
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(265)));
-		addSequential(new AutonomoDriveTurn(90));
-		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(70)));
-		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED));
-		addParallel(new RaiseHood());
-		addSequential(new AutonomoDriveTurn(90));
-		addParallel(new RunFeedAtDefault());
-		addSequential(new WaitCommand(2));
-		addSequential(new StopAllScoringMotors());
+		addParallel(new LowerHood()); // hood starts raised, lower for safety
+		addSequential(new AutonomoDriveStraight(216.75)); // drive forward, adjacent to alley between switch and scale
+		addSequential(new AutonomoDriveTurn(-90)); // turn left, face down alley
+		addSequential(new AutonomoDriveStraight(242.25)); // drive through alley, ending up on leftmost side of field
+		addSequential(new AutonomoDriveTurn(90)); // turn right, face forwards
+		addSequential(new AutonomoDriveStraight(88.5)); // drive into nullzone
+		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED)); // rev shooter to save time
+		
+		// if the robot shakes while turning, raiseHood needs to go after AutonomoDriveTurn
+		addParallel(new RaiseHood()); // raise hood to save time
+		addSequential(new AutonomoDriveTurn(90)); // turn right, face the scale
+		addParallel(new RunFeedAtDefault()); // rev feed and launch cube
+		addSequential(new WaitCommand(1.5)); // wait for cube to fire
+		addSequential(new StopAllScoringMotors()); // kill motors to save power
 	}
 
 }
