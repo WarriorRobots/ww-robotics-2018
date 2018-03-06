@@ -60,12 +60,15 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		switch (getCurrentTarget()) {
 		case HIGH:
 			runAtNativeUnitVelocity(Constants.ShooterRig.HIGH_SPEED);
+			System.out.print(Constants.ShooterRig.HIGH_SPEED);
 			break;
 		case MID:
 			runAtNativeUnitVelocity(Constants.ShooterRig.MID_SPEED);
+			System.out.println(Constants.ShooterRig.MID_SPEED);
 			break;
 		case LOW:
 			runAtNativeUnitVelocity(Constants.ShooterRig.LOW_SPEED);
+			System.out.println(Constants.ShooterRig.LOW_SPEED);
 			break;
 		case SWITCH:
 			runAtNativeUnitVelocity(Constants.ShooterRig.SWITCH_SPEED);
