@@ -125,7 +125,7 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double PICKUP_PERCENT_SPEED = 0.7;
+	    public static final double PICKUP_PERCENT_SPEED = 0.8;
 	    public static final double FEED_PERCENT_SPEED = 0.3;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
 	    public static final double SWITCH_SPEED = rpmToEncoderClicks(660);
