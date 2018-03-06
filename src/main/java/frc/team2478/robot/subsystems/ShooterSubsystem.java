@@ -51,6 +51,8 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	 */
 	public void runAtNativeUnitVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
+		slaveMotor.set(ControlMode.Follower, 12); // We set this because we weren't sure why there would be a Follower case if it didn't need to be explicitly stated.
+		//System.out.println(Double.toString(velocity) + ":velocity ControlModeVel: ");
 	}
 	
 	/**
@@ -60,15 +62,15 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		switch (getCurrentTarget()) {
 		case HIGH:
 			runAtNativeUnitVelocity(Constants.ShooterRig.HIGH_SPEED);
-			System.out.print(Constants.ShooterRig.HIGH_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.HIGH_SPEED) + ":HIGH");
 			break;
 		case MID:
 			runAtNativeUnitVelocity(Constants.ShooterRig.MID_SPEED);
-			System.out.println(Constants.ShooterRig.MID_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.MID_SPEED) + ":MID");
 			break;
 		case LOW:
 			runAtNativeUnitVelocity(Constants.ShooterRig.LOW_SPEED);
-			System.out.println(Constants.ShooterRig.LOW_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.LOW_SPEED) + ":LOW");
 			break;
 		case SWITCH:
 			runAtNativeUnitVelocity(Constants.ShooterRig.SWITCH_SPEED);
