@@ -52,46 +52,59 @@ public class AutonomoSelector {
 		
 		if (goToLine) {
 				autoCommand = new CrossLine();
+				DriverStation.reportWarning("CrossLine, I choose you!", false);
 		} else if (atMiddlePos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
 					autoCommand = new MidtoLeftSwitch();
+					DriverStation.reportWarning("MidtoLeftSwitch, I choose you!", false);
 				} else if (switchOnRight) {
 					autoCommand = new MidtoRightSwitch();
+					DriverStation.reportWarning("MidtoRightSwitch, I choose you!", false);
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
 					autoCommand = new MidtoLeftScale();
+					DriverStation.reportWarning("MidtoLeftScale, I choose you!", false);
 				} else if (scaleOnRight) {
 					autoCommand = new MidtoRightScale();
+					DriverStation.reportWarning("MidtoRightScale, I choose you!", false);
 				}
 			}
 		} else if (atLeftPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
 					autoCommand = new LefttoLeftSwitch();
+					DriverStation.reportWarning("LefttoLeftSwitch, I choose you!", false);
 				} else if (switchOnRight) {
 					autoCommand = new LefttoRightSwitch();
+					DriverStation.reportWarning("LefttoRightSwitch, I choose you!", false);
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
 					autoCommand = new LefttoLeftScale();
+					DriverStation.reportWarning("LefttoLeftScale, I choose you!", false);
 				} else if (scaleOnRight) {
 					autoCommand = new LefttoRightScale();
+					DriverStation.reportWarning("LefttoRightScale, I choose you!", false);
 				}
 			}
 		} else if (atRightPos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
 					autoCommand = new RighttoLeftSwitch();
+					DriverStation.reportWarning("RighttoLeftSwitch, I choose you!", false);
 				} else if (switchOnRight) {
 					autoCommand = new RighttoRightSwitch();
+					DriverStation.reportWarning("RighttoRightSwitch, I choose you!", false);
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
 					autoCommand = new RighttoLeftScale();
+					DriverStation.reportWarning("RighttoLeftScale, I choose you!", false);
 				} else if (scaleOnRight) {
 					autoCommand = new RighttoRightScale();
+					DriverStation.reportWarning("RighttoRightScale, I choose you!", false);
 				}
 			}
 		}

@@ -7,6 +7,7 @@
 
 package frc.team2478.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,6 +54,13 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().removeAll();
 		AutonomoSelector.getInstance().selectAutoCase();
 		AutonomoSelector.getInstance().startAuto();
+		// If something doesn't work, uncomment these lines!
+		
+//				DriverStation.reportWarning(
+//				"Robot starts at " + DashboardHandler.getInstance().getStartingPosition().toString()
+//				+ ", robot will go to " + DashboardHandler.getInstance().getAutoTarget().toString()
+//				+ ", current game data is " + DriverStation.getInstance().getGameSpecificMessage()
+//				, false);
 	}
 
 	@Override
