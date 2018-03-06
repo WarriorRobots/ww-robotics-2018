@@ -1,5 +1,6 @@
 package frc.team2478.robot.util;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.util.enums.AutoTarget;
 import frc.team2478.robot.util.enums.StartingPosition;
@@ -13,30 +14,45 @@ public class DashboardHandler {
 	private static StartingPosition positionTarget = StartingPosition.MIDDLE;
 	private static AutoTarget autoTarget = AutoTarget.SWITCH;
 	
+	private static SendableChooser<StartingPosition> positionDropdown;
+	private static SendableChooser<AutoTarget> targetDropdown;
+	
+	private DashboardHandler() {
+		positionDropdown = new SendableChooser<>();
+		positionDropdown.addDefault("MIDDLE", StartingPosition.MIDDLE);
+		positionDropdown.addObject("LEFT", StartingPosition.LEFT);
+		positionDropdown.addObject("RIGHT", StartingPosition.RIGHT);
+		targetDropdown = new SendableChooser<>();
+		targetDropdown.addDefault("CROSS LINE", AutoTarget.LINE);
+		targetDropdown.addObject("SWITCH", AutoTarget.SWITCH);
+		targetDropdown.addObject("SCALE", AutoTarget.SCALE);
+	}
+	
+	public void init() {
+		SmartDashboard.putData(positionDropdown);
+		SmartDashboard.putData(targetDropdown);
+	}
+	
 	public static DashboardHandler getInstance() {
 		if (instance == null) {
 			instance = new DashboardHandler();
 		} return instance;
 	}
-	
-	private DashboardHandler() {
-		// init selectors
-	}
 
-	public StartingPosition getPosition() {
-//		return Robot.positionSelect.getSelected();
-		return positionTarget;
+	public StartingPosition getStartingPosition() {
+		return positionDropdown.getSelected();
 	}
 	
 	public AutoTarget getAutoTarget() {
-//		return Robot.targetSelect.getSelected();
-		return autoTarget;
+		return targetDropdown.getSelected();
 	}
 	
-	public void setPositionTarget(StartingPosition p) {
+	@Deprecated
+	public void setStartingPosition(StartingPosition p) {
 		positionTarget = p;
 	}
 	
+	@Deprecated
 	public void setAutoTarget(AutoTarget a) {
 		autoTarget = a;
 	}

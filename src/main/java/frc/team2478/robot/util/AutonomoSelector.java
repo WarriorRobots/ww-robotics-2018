@@ -28,6 +28,7 @@ public class AutonomoSelector {
 	private boolean goToScale, goToSwitch, goToLine = false;
 	private boolean switchOnLeft, switchOnRight = false;
 	private boolean scaleOnLeft, scaleOnRight = false;
+	
 	public static AutonomoSelector getInstance() {
 		if (instance == null) {
 			instance = new AutonomoSelector();
@@ -108,7 +109,7 @@ public class AutonomoSelector {
 		resetData();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-		switch (DashboardHandler.getInstance().getPosition()) {
+		switch (DashboardHandler.getInstance().getStartingPosition()) {
 		case MIDDLE:
 			atMiddlePos = true;
 			break;
