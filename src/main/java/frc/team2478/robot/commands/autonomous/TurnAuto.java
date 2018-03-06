@@ -2,7 +2,6 @@ package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -12,7 +11,7 @@ import frc.team2478.robot.util.annotations.Debug;
  * When run, the robot will turn to the provided angle,
  * using a PID loop to maintain accuracy and control.
  */
-public class AutonomoDriveTurn extends Command {
+public class TurnAuto extends Command {
 	
 	private double angleTarget, output;
 	
@@ -23,10 +22,10 @@ public class AutonomoDriveTurn extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveTurn}.
+	 * Create a new instance of {@link TurnAuto}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
-	public AutonomoDriveTurn(double angle) {
+	public TurnAuto(double angle) {
 		requires(Robot.drivetrain);
 
 		angleTarget = angle;

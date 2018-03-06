@@ -12,7 +12,7 @@ import frc.team2478.robot.util.enums.RobotSide;
  * When run, the robot will drive straight at the provided distance,
  * using a PID loop to stay on-course.
  */
-public class AutonomoDriveStraight extends Command {
+public class DriveAuto extends Command {
 	
 	private int distanceTargetClicks, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
@@ -24,10 +24,10 @@ public class AutonomoDriveStraight extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveStraight}.
+	 * Create a new instance of {@link DriveAuto}.
 	 * @param inches  How many inches to travel.
 	 */
-	public AutonomoDriveStraight(double inches) {
+	public DriveAuto(double inches) {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals
