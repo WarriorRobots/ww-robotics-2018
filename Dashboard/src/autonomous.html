@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC Dashboard</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	
+	<div class="main-content" style="width:100%; height:100%;">
+
+		<div class="Left three" id="left-content-auto">
+		
+		<label for="auto_select" class="wh">AutoSelect</label>
+
+		<form id="auto_select">
+		<p class="auto-label"><input type="radio" name="auto-type" checked="true">Left to LeftScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Left to LeftSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Left to RightScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Left to RightSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Mid to LeftScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Mid to LeftSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Mid to RightScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Mid to RightSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Right to LeftScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Right to LeftSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Right to RightScale</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Right to RightSwitch</p>
+		
+		<p class="auto-label"><input type="radio" name="auto-type">Test Autonomo</p>
+	</form>
+	</div>
+
+
+	<div class="Left six" id="mid-content-auto">
+		<h1>Autonomouses! ;)</h1>
+		<form>	
+		//ADD distances and angles to auto
+	</form>
+	</div>
+
+
+        <div>
+            <nav>
+                <a href="index.html" class="navigation"><p class="nav-text">STATS</p></a>                
+                <a href="#" class="navigation"><p class="nav-text">AUTO</p></a>
+                <a href="#" class="navigation"><p class="nav-text">SHTR/DRIV</p></a>
+            </nav>
+        </div>
+
+
+	</div>
+
+	
+
+    <script src="networktables/networktables.js"></script>
+    <script src="connection.js"></script>
+    <script src="ui-auto.js"></script>
+</body>
+
+</html>
