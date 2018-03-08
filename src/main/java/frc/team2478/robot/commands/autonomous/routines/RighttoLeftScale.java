@@ -22,12 +22,12 @@ public class RighttoLeftScale extends CommandGroup {
 		addSequential(new TurnAuto(-90)); // turn left, face down alley
 		addSequential(new DriveAuto(242.25)); // drive through alley, ending up on leftmost side of field
 		addSequential(new TurnAuto(90)); // turn right, face forwards
-		addSequential(new DriveAuto(88.5)); // drive into nullzone
+		addSequential(new DriveAuto(59)); // drive into nullzone
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED)); // rev shooter to save time
 		
 		// if the robot shakes while turning, raiseHood needs to go after AutonomoDriveTurn
 		addParallel(new RaiseHood()); // raise hood to save time
-		addSequential(new TurnAuto(90)); // turn right, face the scale
+		addSequential(new TurnAuto(67.5)); // turn right, face the scale
 		addParallel(new RunFeedAtDefault()); // rev feed and launch cube
 		addSequential(new WaitCommand(1.5)); // wait for cube to fire
 		addSequential(new StopAllScoringMotors()); // kill motors to save power

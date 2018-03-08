@@ -7,7 +7,6 @@
 
 package frc.team2478.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +35,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new ControlHandler();
 		oi.init();
-		DashboardHandler.getInstance().init();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
 		SmartDashboard.putData(shooter);
@@ -45,6 +43,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.setReversed(false);
+		DashboardHandler.getInstance().init();
 		Scheduler.getInstance().removeAll();
 	}
 	
