@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
@@ -39,10 +40,10 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				TIMEOUT_MS);
 		
 		masterMotor.setSensorPhase(Constants.Inversions.SHOOTER_ENCODER_REVERSED);
-		masterMotor.config_kP(PROCESS_ID, 0.1, TIMEOUT_MS);
-		masterMotor.config_kI(PROCESS_ID, 0.0, TIMEOUT_MS);
-		masterMotor.config_kD(PROCESS_ID, 1.0, TIMEOUT_MS); // put this in constants
-		masterMotor.config_kF(PROCESS_ID, 0.042, TIMEOUT_MS);
+		masterMotor.config_kP(PROCESS_ID, 0.1, TIMEOUT_MS); // 0.1prac
+		masterMotor.config_kI(PROCESS_ID, 0.0, TIMEOUT_MS); // 0.0prac
+		masterMotor.config_kD(PROCESS_ID, 1.0, TIMEOUT_MS); // 1.0prac
+		masterMotor.config_kF(PROCESS_ID, 0.042, TIMEOUT_MS); // 0.042prac
 	}
 	
 	/**
@@ -208,6 +209,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				return "SWITCH";
 			default:
 				return "!!!ERROR!!!";
+			}
+		}, null);
+		builder.addDoubleProperty("encoder-rpm", () -> {
+			if (DriverStation.getInstance().isEnabled()) {
+				return Constants.ShooterRig.encoderClicksToRpm(getNativeUnitVelocity());
+			} else {
+				return 0;
 			}
 		}, null);
 	}
