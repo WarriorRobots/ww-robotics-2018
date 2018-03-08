@@ -1,4 +1,6 @@
 // Define UI elements
+
+
 let ui = {
     timer: document.getElementById('timer'),
     robotState: document.getElementById('robot-state').firstChild,
@@ -17,7 +19,10 @@ let ui = {
         button: document.getElementById('example-button'),
         readout: document.getElementById('example-readout').firstChild
     },
-    autoSelect: document.getElementById('auto-select'),
+    auto:{
+        auto_display: document.getElementById('auto_display'),
+        button: document.getElementById('auto_button')
+    },
     shooter:{
         speedtxt: document.getElementById('sht_spd_txt')
     }
@@ -43,24 +48,6 @@ let getInfared = (key, value) =>}{
     console.log(value);
 }
 
-// NetworkTables.addKeyListner('/subsystems')
-
-// // The following case is an example, for a robot with an arm at the front.
-// NetworkTables.addKeyListener('/SmartDashboard/angle', (key, value) => {
-//     // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
-//     if (value > 1140) {
-//         value = 1140;
-//     }
-//     else if (value < 0) {
-//         value = 0;
-//     }
-//     // Calculate visual rotation of arm
-//     var armAngle = value * 3 / 20 - 45;
-//     // Rotate the arm in diagram to match real arm
-//     ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
-// });
-
-
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
     // We assume here that value is an integer representing the number of seconds left.
@@ -71,31 +58,24 @@ NetworkTables.addKeyListener('/SmartDashboard/speed', (key, value)=>{
         ui.shooter.speedtxt.innherhtml = value + "ft/s";
 });
 
-// Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomos', (key, value) => {
-    // Clear previous list
-    while (ui.autoSelect.firstChild) {
-        ui.autoSelect.removeChild(ui.autoSelect.firstChild);
-    }
-    // Make an option for each autonomous mode and put it in the selector
-    for (let i = 0; i < value.length; i++) {
-        var option = document.createElement('option');
-        option.appendChild(document.createTextNode(value[i]));
-        ui.autoSelect.appendChild(option);
-    }
-    // Set value to the already-selected mode. If there is none, nothing will happen.
-    ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
-});
-
-// Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
-    ui.autoSelect.value = value;
-});
-
-// The rest of the doc is listeners for UI elements being clicked on
-ui.example.button.onclick = function() {
+ui.auto.button.onclick = function() {
     // Set NetworkTables values to the opposite of whether button has active class.
-    NetworkTables.putValue('/SmartDashboard/example_variable', this.className != 'active');
+    var chosenAuto;
+var radios = document.getElementsByName('auto-type');
+
+for (var i = 0, length = radios.length; i < length; i++)
+{
+ if (radios[i].checked)
+ {
+  // do whatever you want with the checked radio
+  chosenAuto = radios[i].value;
+
+  // only one radio can be logically checked, don't check the rest
+  break;
+ }
+}
+    auto.auto_display.innherhtml = chosenAuto;
+    NetworkTables.putValue('/SmartDashboard/auto_selected', chosenAuto);
 };
 
 // Reset gyro value to 0 on click
@@ -103,12 +83,9 @@ ui.gyro.container.onclick = function() {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
+    updateGyro('/SmartDashboard/angle', ui.gyro.val);
 };
-// Update NetworkTables when autonomous selector is changed
-ui.autoSelect.onchange = function() {
-    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
-};
+
 addEventListener('error',(ev)=>{
     ipc.send('windowError',{mesg:ev.message,file:ev.filename,lineNumber:ev.lineno})
 })
