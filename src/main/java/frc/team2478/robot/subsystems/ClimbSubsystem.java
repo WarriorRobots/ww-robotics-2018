@@ -35,7 +35,7 @@ public class ClimbSubsystem extends Subsystem implements TandemMotorInterface {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-climb");
-		builder.addDoubleProperty("currentdraw", () -> masterMotor.getOutputCurrent(), null);
+//		builder.addDoubleProperty("currentdraw", () -> masterMotor.getOutputCurrent(), null);
 	}
 	
 	@Override

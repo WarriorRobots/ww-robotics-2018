@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.team2478.robot.util.enums.Mode;
+import frc.team2478.robot.util.enums.SolenoidMode;
 
 /**
  * Components that use the pneumatics on the robot.
@@ -34,7 +34,7 @@ public class PneumaticSubsystem extends Subsystem {
 	 * Extends, retracts, or disables the hood pistons.
 	 * @param mode  Mode.FORWARD, Mode.REVERSE, or Mode.OFF
 	 */
-	public void setHoodPiston(Mode mode) {
+	public void setHoodPiston(SolenoidMode mode) {
 		switch(mode) {
 		case FORWARD:
 			hoodSolenoid.set(Value.kForward);
@@ -54,7 +54,7 @@ public class PneumaticSubsystem extends Subsystem {
 	 * Extends, retracts, or disables the pickup pistons.
 	 * @param mode  Mode.FORWARD, Mode.REVERSE, or Mode.OFF
 	 */
-	public void setPickupPiston(Mode mode) {
+	public void setPickupPiston(SolenoidMode mode) {
 		switch(mode) {
 		case FORWARD:
 			pickupSolenoid.set(Value.kForward);
@@ -115,7 +115,7 @@ public class PneumaticSubsystem extends Subsystem {
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-pneumatics");
 		builder.addBooleanProperty("hood-up", () -> isHoodLifted(), null);
-		builder.addBooleanProperty("pickup-out", () -> isPickupOut(), null);
+		builder.addBooleanProperty("pickup-out", () -> !isPickupOut(), null);
 	}
 
 }

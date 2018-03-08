@@ -2,20 +2,19 @@ package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
 import frc.team2478.robot.util.annotations.Debug;
-import frc.team2478.robot.util.enums.Side;
+import frc.team2478.robot.util.enums.RobotSide;
 
 /**
  * When run, the robot will drive straight at the provided distance,
  * using a PID loop to stay on-course.
  */
-public class AutonomoDriveStraight extends Command {
+public class DriveAuto extends Command {
 	
-	private int distanceTarget, leftCount, rightCount, avgCount;
+	private int distanceTargetClicks, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
 	
 	@Debug
@@ -25,10 +24,10 @@ public class AutonomoDriveStraight extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveStraight}.
-	 * @param distanceTarget How many encoder clicks to travel.
+	 * Create a new instance of {@link DriveAuto}.
+	 * @param inches  How many inches to travel.
 	 */
-	public AutonomoDriveStraight(int distanceTarget) {
+	public DriveAuto(double inches) {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals
@@ -40,7 +39,7 @@ public class AutonomoDriveStraight extends Command {
 			Constants.AutonomoDrive.DISTANCE_I,
 			Constants.AutonomoDrive.DISTANCE_D);
 
-		this.distanceTarget = distanceTarget;
+		this.distanceTargetClicks = Constants.AutonomoDrive.InchesToClicks(inches);
 		timer = new Timer();
 	}
 	
@@ -70,30 +69,20 @@ public class AutonomoDriveStraight extends Command {
 		Robot.drivetrain.resetAngle();
 		pidAngle.reset();
 		timer.start();
-		pidDistance.setSetpoint(distanceTarget);
+		pidDistance.setSetpoint(distanceTargetClicks);
 		pidDistance.setOutputRange(-0.75, 0.75);
 		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);
-		
-		SmartDashboard.putNumber("p-dist", SmartDashboard.getNumber("p-dist", 0));
-		SmartDashboard.putNumber("i-dist", SmartDashboard.getNumber("i-dist", 0));
-		SmartDashboard.putNumber("d-dist", SmartDashboard.getNumber("d-dist", 0));
 	}
 	
 	@Override
 	protected void execute() {
-		leftCount = Robot.drivetrain.getEncoderTicks(Side.LEFT);
-		rightCount = Robot.drivetrain.getEncoderTicks(Side.RIGHT);
-		
-		setDistancePid(SmartDashboard.getNumber("p-dist", 0), 
-				SmartDashboard.getNumber("i-dist", 0), 
-				SmartDashboard.getNumber("d-dist", 0));
+		leftCount = Robot.drivetrain.getEncoderTicks(RobotSide.LEFT);
+		rightCount = Robot.drivetrain.getEncoderTicks(RobotSide.RIGHT);
 		
 		avgCount = (int) ((leftCount + rightCount) / 2);
 		angleOutput = pidAngle.calculate(Robot.drivetrain.getAngle(), timer.get());
 		distanceOutput = pidDistance.calculate(avgCount, timer.get());
-		SmartDashboard.putNumber("output-dist", distanceOutput);
-		SmartDashboard.putNumber("output-angle", angleOutput);
 		
 		Robot.drivetrain.arcadeDriveRaw(-distanceOutput, angleOutput);
 	}

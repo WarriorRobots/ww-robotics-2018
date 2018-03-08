@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.drive.TankDriveTeleop;
-import frc.team2478.robot.util.enums.Side;
+import frc.team2478.robot.util.enums.RobotSide;
 
 /**
  * Components that move the robot wheels or sense its position.
@@ -64,6 +64,7 @@ public class DrivetrainSubsystem extends Subsystem {
 		rightGroup.setInverted(true);
 
 		differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
+		differentialDrive.setSafetyEnabled(false);
 		
 		// if NavX is missing, this code will handle errors and prevent a crash
 		try {
@@ -156,7 +157,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param side  Side.LEFT or Side.RIGHT
 	 * @return Current encoder count as an integer value
 	 */
-	public int getEncoderTicks(Side side) {
+	public int getEncoderTicks(RobotSide side) {
 		switch(side) {
 		case LEFT: return leftEnc.get();
 		case RIGHT: return rightEnc.get();
@@ -169,7 +170,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * Resets the encoder specified to 0 ticks.
 	 * @param side  Side.LEFT or Side.RIGHT
 	 */
-	public void resetEncoderTicks(Side side) {
+	public void resetEncoderTicks(RobotSide side) {
 		switch(side) {
 		case LEFT:
 			leftEnc.reset();
@@ -185,8 +186,8 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * <p> Shorthand for {@code resetEncoderTicks(Side.LEFT)} and {@code resetEncoderTicks(Side.RIGHT)}.
 	 */
 	public void resetEncoders() {
-		this.resetEncoderTicks(Side.LEFT);
-		this.resetEncoderTicks(Side.RIGHT);
+		this.resetEncoderTicks(RobotSide.LEFT);
+		this.resetEncoderTicks(RobotSide.RIGHT);
 	}
 
 	/**
@@ -226,21 +227,26 @@ public class DrivetrainSubsystem extends Subsystem {
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");
 		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[6];
-			currentDraw[0] = leftFront.getOutputCurrent();
-			currentDraw[1] = leftMiddle.getOutputCurrent();
-			currentDraw[2] = leftBack.getOutputCurrent();
-			currentDraw[3] = rightFront.getOutputCurrent();
-			currentDraw[4] = rightMiddle.getOutputCurrent();
-			currentDraw[5] = rightBack.getOutputCurrent();
-			return currentDraw;
+			if (DriverStation.getInstance().isEnabled()) {
+				double[] currentDraw = new double[6];
+				currentDraw[0] = leftFront.getOutputCurrent();
+				currentDraw[1] = leftMiddle.getOutputCurrent();
+				currentDraw[2] = leftBack.getOutputCurrent();
+				currentDraw[3] = rightFront.getOutputCurrent();
+				currentDraw[4] = rightMiddle.getOutputCurrent();
+				currentDraw[5] = rightBack.getOutputCurrent();
+				return currentDraw;
+			} else {
+				double[] temp = new double[1];
+				temp[0] = 0;
+				return temp;
+			}
 		}, null);
 		builder.addBooleanProperty("inverted", () -> getReversed(), null);
-		builder.addDoubleArrayProperty("encoder-ticks", () -> {
-			double[] encoderTicks = new double[2];
-			encoderTicks[0] = getEncoderTicks(Side.LEFT);
-			encoderTicks[1] = getEncoderTicks(Side.RIGHT);
-			return encoderTicks;
+		builder.addStringProperty("encoder-ticks", () -> {
+			return (Integer.toString(getEncoderTicks(RobotSide.LEFT))
+					+ " " 
+					+ Integer.toString(getEncoderTicks(RobotSide.RIGHT)));
 		}, null);
 		builder.addDoubleProperty("angle", () -> getAngle(), null);
 	}

@@ -2,7 +2,6 @@ package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -12,7 +11,7 @@ import frc.team2478.robot.util.annotations.Debug;
  * When run, the robot will turn to the provided angle,
  * using a PID loop to maintain accuracy and control.
  */
-public class AutonomoDriveTurn extends Command {
+public class TurnAuto extends Command {
 	
 	private double angleTarget, output;
 	
@@ -23,10 +22,10 @@ public class AutonomoDriveTurn extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link AutonomoDriveTurn}.
+	 * Create a new instance of {@link TurnAuto}.
 	 * @param angle  What angle in degrees to turn towards.
 	 */
-	public AutonomoDriveTurn(double angle) {
+	public TurnAuto(double angle) {
 		requires(Robot.drivetrain);
 
 		angleTarget = angle;
@@ -57,20 +56,11 @@ public class AutonomoDriveTurn extends Command {
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
-		
-		SmartDashboard.putNumber("p-angle", SmartDashboard.getNumber("p-angle", 0));
-		SmartDashboard.putNumber("i-angle", SmartDashboard.getNumber("i-angle", 0));
-		SmartDashboard.putNumber("d-angle", SmartDashboard.getNumber("d-angle", 0));
 	}
 	
 	@Override
 	protected void execute() {
-		setPID(SmartDashboard.getNumber("p-angle", 0), 
-				SmartDashboard.getNumber("i-angle", 0), 
-				SmartDashboard.getNumber("d-angle", 0));
-		
 		output = pidLoop.calculate(Robot.drivetrain.getAngle(), timer.get());
-		SmartDashboard.putNumber("output-angle", output);
 		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 

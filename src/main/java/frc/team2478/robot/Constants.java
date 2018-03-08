@@ -32,9 +32,9 @@ public final class Constants {
 	 */
 	public static final class AutonomoDrive {
 		// autonomous driving forwards		
-		public static final double DISTANCE_P = 0.005; // 0.02
-		public static final double DISTANCE_I = 0.0; // 0.0001
-		public static final double DISTANCE_D = 0.0; // 0.06
+		public static final double DISTANCE_P = 0.0075; // 0.02
+		public static final double DISTANCE_I = 0.0001; // 0.0001
+		public static final double DISTANCE_D = 0.05; // 0.06
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
 		public static final double TURNING_P = 0.017;
@@ -45,6 +45,19 @@ public final class Constants {
 		public static final double COURSECORRECTION_P = TURNING_P;
 		public static final double COURSECORRECTION_I = 0.000;
 		public static final double COURSECORRECTION_D = TURNING_D;
+		
+		/**
+		 * {@value}
+		 */
+		public static final double INCHES_PER_CLICK = (5.0 * Math.PI) / 128.0;
+		
+		public static double ClicksToInches(int clicks) {
+			return ((double) clicks) * INCHES_PER_CLICK;
+		}
+		
+		public static int InchesToClicks(double inches) {
+			return (int) (inches / INCHES_PER_CLICK);
+		}
 	}
 
 	/**
@@ -112,9 +125,14 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double PICKUP_PERCENT_SPEED = 0.7;
+	    public static final double PICKUP_PERCENT_SPEED = 0.8;
 	    public static final double FEED_PERCENT_SPEED = 0.3;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
+	    public static final double SWITCH_SPEED = rpmToEncoderClicks(660);
+		public static final double LOW_SPEED = rpmToEncoderClicks(2180);
+		public static final double MID_SPEED = rpmToEncoderClicks(2550);
+		public static final double AUTO_SPEED = rpmToEncoderClicks(2700);
+		public static final double HIGH_SPEED = rpmToEncoderClicks(2850);
 	}
 	
 	/**

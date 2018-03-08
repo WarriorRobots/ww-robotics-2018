@@ -7,9 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
+import frc.team2478.robot.commands.scoring.shooter.StopShooterPeriodic;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
-import frc.team2478.robot.util.enums.Target;
+import frc.team2478.robot.util.enums.ShotHeight;
 
 /**
  * Components that involve sending the cube airborne, out of the robot.
@@ -24,11 +24,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	
 	private WPI_TalonSRX masterMotor, slaveMotor;
 	
-	private Target currentTarget = Target.MID;
-	private double switchSpeed = 5000;
-	private double lowSpeed = 12380;
-	private double midSpeed = 13635;
-	private double highSpeed = 14880;
+	private ShotHeight currentTarget = ShotHeight.MID;
 	
 	public ShooterSubsystem() {
 		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
@@ -55,6 +51,8 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	 */
 	public void runAtNativeUnitVelocity(double velocity) {
 		masterMotor.set(ControlMode.Velocity, velocity);
+		slaveMotor.set(ControlMode.Follower, 12); // We set this because we weren't sure why there would be a Follower case if it didn't need to be explicitly stated.
+		//System.out.println(Double.toString(velocity) + ":velocity ControlModeVel: ");
 	}
 	
 	/**
@@ -63,16 +61,19 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	public void shootForCurrentTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			runAtNativeUnitVelocity(highSpeed);
+			runAtNativeUnitVelocity(Constants.ShooterRig.HIGH_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.HIGH_SPEED) + ":HIGH");
 			break;
 		case MID:
-			runAtNativeUnitVelocity(midSpeed);
+			runAtNativeUnitVelocity(Constants.ShooterRig.MID_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.MID_SPEED) + ":MID");
 			break;
 		case LOW:
-			runAtNativeUnitVelocity(lowSpeed);
+			runAtNativeUnitVelocity(Constants.ShooterRig.LOW_SPEED);
+			//System.out.println(Double.toString(Constants.ShooterRig.LOW_SPEED) + ":LOW");
 			break;
 		case SWITCH:
-			runAtNativeUnitVelocity(switchSpeed);
+			runAtNativeUnitVelocity(Constants.ShooterRig.SWITCH_SPEED);
 			break;
 		}
 	}
@@ -97,7 +98,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	 * Checks the currently-selected target.
 	 * @return  Enum {@code Target}, with values LOW, MID, or HIGH
 	 */
-	public Target getCurrentTarget() {
+	public ShotHeight getCurrentTarget() {
 		return currentTarget;
 	}
 	
@@ -110,13 +111,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 			System.out.println("Target already at max");
 			break;
 		case MID:
-			currentTarget = Target.HIGH;
+			currentTarget = ShotHeight.HIGH;
 			break;
 		case LOW:
-			currentTarget = Target.MID;
+			currentTarget = ShotHeight.MID;
 			break;
 		case SWITCH:
-			currentTarget = Target.LOW;
+			currentTarget = ShotHeight.LOW;
 			break;
 		}
 	}
@@ -127,13 +128,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	public void decrementTarget() {
 		switch (getCurrentTarget()) {
 		case HIGH:
-			currentTarget = Target.MID;
+			currentTarget = ShotHeight.MID;
 			break;
 		case MID:
-			currentTarget = Target.LOW;
+			currentTarget = ShotHeight.LOW;
 			break;
 		case LOW:
-			currentTarget = Target.SWITCH;
+			currentTarget = ShotHeight.SWITCH;
 			break;
 		case SWITCH:
 			System.out.println("Target already at min");
@@ -189,17 +190,30 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-shooter");
-		builder.addDoubleArrayProperty("currentdraw", () -> {
-			double[] currentDraw = new double[2];
-			currentDraw[0] = masterMotor.getOutputCurrent();
-			currentDraw[1] = slaveMotor.getOutputCurrent();
-			return currentDraw;
+//		builder.addDoubleArrayProperty("currentdraw", () -> {
+//			double[] currentDraw = new double[2];
+//			currentDraw[0] = masterMotor.getOutputCurrent();
+//			currentDraw[1] = slaveMotor.getOutputCurrent();
+//			return currentDraw;
+//		}, null);
+		builder.addStringProperty("target-selected", () -> {
+			switch (getCurrentTarget()) {
+			case HIGH:
+				return "HIGH";
+			case MID:
+				return "MID";
+			case LOW:
+				return "LOW";
+			case SWITCH:
+				return "SWITCH";
+			default:
+				return "!!!ERROR!!!";
+			}
 		}, null);
-		builder.addDoubleProperty("velocity-nativeunits", () -> getNativeUnitVelocity(), null);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RunShooterAtVelocity(0));
+		setDefaultCommand(new StopShooterPeriodic());
 	}
 }

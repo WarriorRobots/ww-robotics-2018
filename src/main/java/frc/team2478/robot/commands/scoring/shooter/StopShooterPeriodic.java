@@ -3,25 +3,20 @@ package frc.team2478.robot.commands.scoring.shooter;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
-public class RunShooterAtTargetSpeed extends Command {
+public class StopShooterPeriodic extends Command {
 
-	public RunShooterAtTargetSpeed() {
+	public StopShooterPeriodic() {
 		requires(Robot.shooter);
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.shooter.shootForCurrentTarget();
+		Robot.shooter.stop();
 	}
-	
+
 	@Override
 	protected boolean isFinished() {
 		return false;
-	}
-	
-	@Override
-	protected void end() {
-		Robot.shooter.stop();
 	}
 
 }

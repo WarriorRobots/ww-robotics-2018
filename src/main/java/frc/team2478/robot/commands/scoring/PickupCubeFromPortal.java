@@ -14,7 +14,7 @@ public class PickupCubeFromPortal extends CommandGroup {
 	
 	@Override
 	protected void end() {
-		Scheduler.getInstance().add(new StopAllMotors());
+		Scheduler.getInstance().add(new StopAllScoringMotors());
 	}
 	
 	@Override

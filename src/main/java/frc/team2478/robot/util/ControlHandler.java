@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.commands.EmergencyResetAll;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -27,7 +28,7 @@ import frc.team2478.robot.commands.scoring.sequence.RevAndShootCube;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
 import frc.team2478.robot.util.annotations.Debug;
-import frc.team2478.robot.util.enums.Direction;
+import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.ThresholdTrigger;
 
@@ -44,7 +45,9 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	@SuppressWarnings("unused")
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, rightJoyButton5, leftJoyTriggerButton, leftJoyButton4, rightJoyButton3;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, 
+		rightJoyButton5, leftJoyTriggerButton, leftJoyButton4, rightJoyButton3, 
+		rightJoyButton7;
 	
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
@@ -65,18 +68,19 @@ public final class ControlHandler {
 	 * <p> The robot won't function without running this method once.
 	 */
 	public void init() {
-		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
+		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton5 = new JoystickButton(rightJoy, 5);
 		leftJoyButton4 = new JoystickButton(leftJoy, 4);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
+		rightJoyButton7 = new JoystickButton(rightJoy, 7);
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
 		rightXboxBumper = new JoystickButton(xbox, 6);
-		xboxUp = new DpadTrigger(Direction.UP);
-		xboxDown = new DpadTrigger(Direction.DOWN);
+		xboxUp = new DpadTrigger(DpadDirection.UP);
+		xboxDown = new DpadTrigger(DpadDirection.DOWN);
 		xboxX = new JoystickButton(xbox, 3);
 		xboxY = new JoystickButton(xbox, 4);
 		//xboxA = new JoystickButton(xbox, 1);
@@ -98,6 +102,7 @@ public final class ControlHandler {
 		xboxB.whenPressed(new ClosePickup()); // green A
 		rightJoyButton3.whenPressed(new OpenPickup()); // press button 3(L) to close pickup
 		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
+		rightJoyButton7.whenPressed(new EmergencyResetAll());
 	}
 
 	/**

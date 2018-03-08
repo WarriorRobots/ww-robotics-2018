@@ -3,13 +3,13 @@ package frc.team2478.robot.util.triggers;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.buttons.Button;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.util.enums.Direction;
+import frc.team2478.robot.util.enums.DpadDirection;
 
 public class DpadTrigger extends Button {
 
-	Direction direction;
+	DpadDirection direction;
 	
-	public DpadTrigger(Direction direction) {
+	public DpadTrigger(DpadDirection direction) {
 		this.direction = direction;
 	}
 	
