@@ -29,8 +29,8 @@ public class DashboardHandler {
 	}
 	
 	public void init() {
-		SmartDashboard.putData(positionDropdown);
-		SmartDashboard.putData(targetDropdown);
+		SmartDashboard.putData("Position Selector", positionDropdown);
+		SmartDashboard.putData("Target Selector", targetDropdown);
 	}
 	
 	public static DashboardHandler getInstance() {
