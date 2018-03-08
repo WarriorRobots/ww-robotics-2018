@@ -30,33 +30,38 @@
             <rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
             <text id="gyro-number" x="90" y="115">0º</text>
         </svg>
+
+
         <h3>Shooter Speed Reading: <container class="wh" id="sht_spd_txt">unknown</container></h3>
           
         <h3>Drive Motor Speed Reading: <container class="wh" id="drv_spd_txt">unknown</container></h3>
 
+        <div style="display: inline-block;"><h3>FMS: <container class="wh" id="fms_display">N/A</h3></container></div>
+
+
+        <div class="pid">
+            <br>
+            <h3>
+                P: <container class="wh" id="Ptxt">N/A</container> <wrapper class="bl">|</wrapper> I: <container class="wh" id="Itxt">N/A</container> <wrapper class="bl">|</wrapper> D: <container class="wh" id="Dtxt">N/A</container>
+            </h3>
+        </div>
     </article>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
     <aside>
-        <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-        <div id="example-section" style="hidden">
-            <button id="example-button">Change example value</button>
-            <p id="example-readout">Value is undefined</p>
-        </div>
+
         <!-- Autonomous selector -->
-        <div class="select-container">
-            <select id="auto-select">
-                <option>No auto modes found</option>
-                <!-- This gets populated by JS -->
-            </select>
+        <div>
+            <div id="auto_display">
+                <h3 class="wh">Selected Auto Mode:</h3> <p >No auto modes found</p>
+            </div>
         </div>
 
         <div>
-            <p>Adjust arm height</p>
+            <h3 class="wh">Desired Shooter Speed</h3>
             <input id="arm-position" type="range" min="0" max="1200" value="770">
         </div>
         <div>
-            <nav>
+            <nav class="nav">
                 <a href="#" class="navigation"><p class="nav-text">STATS</p></a>                
                 <a href="autonomous.html" class="navigation"><p class="nav-text">AUTO</p></a>
                 <a href="#" class="navigation"><p class="nav-text">SHTR/DRIV</p></a>
