@@ -15,6 +15,7 @@ public class RighttoRightSwitch extends CommandGroup {
 	public boolean onEdge = true;
 	public RighttoRightSwitch() {
 		addParallel(new LowerHood());
+		addSequential(new WaitCommand(4));
 		addSequential(new DriveAuto(142.25)); //was 142.25 //was also 102 for straight
 		addSequential(new TurnAuto(-90));
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early, to reduce wasted time
