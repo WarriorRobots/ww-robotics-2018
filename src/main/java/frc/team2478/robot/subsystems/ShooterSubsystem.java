@@ -211,13 +211,13 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				return "!!!ERROR!!!";
 			}
 		}, null);
-		builder.addDoubleProperty("encoder-rpm", () -> {
-			if (DriverStation.getInstance().isEnabled()) {
-				return Constants.ShooterRig.encoderClicksToRpm(getNativeUnitVelocity());
-			} else {
-				return 0;
-			}
-		}, null);
+		//builder.addDoubleProperty("encoder-rpm", () -> {
+			//if (DriverStation.getInstance().isEnabled()) {
+				//return Constants.ShooterRig.encoderClicksToRpm(getNativeUnitVelocity());
+			//} else {
+				//return 0;
+			//}
+		//}, null);
 	}
 
 	@Override
