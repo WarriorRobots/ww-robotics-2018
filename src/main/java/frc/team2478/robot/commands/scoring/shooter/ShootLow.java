@@ -14,8 +14,12 @@ public class ShootLow extends Command {
 	}
 	
 	@Override
+	protected void initialize() {
+		Robot.shooter.setCurrentTarget(ShotHeight.LOW);
+	}
+	
+	@Override
 	protected void execute() {
-		Robot.shooter.setCurrentTarget(ShotHeight.MID);
 		Robot.shooter.shootForCurrentTarget();
 	}
 	
