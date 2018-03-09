@@ -14,11 +14,11 @@ public class LefttoLeftSwitch extends CommandGroup {
 
 	public LefttoLeftSwitch() {
 		addParallel(new LowerHood());
-		addSequential(new WaitCommand(4));
+		addSequential(new WaitCommand(5));
 		addSequential(new DriveAuto(149.25));
 		addSequential(new TurnAuto(90));
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early, to reduce wasted time
-		addSequential(new DriveAuto(20.75));
+		addSequential(new DriveAuto(30.75), 2);
 		addParallel(new RunFeedAtDefault());
 		addSequential(new WaitCommand(1.5));
 		addSequential(new StopAllScoringMotors());
