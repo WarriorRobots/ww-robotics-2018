@@ -22,11 +22,12 @@ import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.PickupCubeFromGround;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
-import frc.team2478.robot.commands.scoring.sequence.RevAndShootCube;
 import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
 import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterAtTargetSpeed;
 import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
@@ -51,7 +52,7 @@ public final class ControlHandler {
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private DpadTrigger xboxUp, xboxDown;
-	private JoystickButton xboxX, xboxY, xboxB; //xboxA
+	private JoystickButton xboxX, xboxY, xboxB, xboxA;
 
 	/**
 	 * Instantiates a new OI.java object, and maps Commands to buttons.
@@ -82,7 +83,7 @@ public final class ControlHandler {
 		xboxDown = new DpadTrigger(DpadDirection.DOWN);
 		xboxX = new JoystickButton(xbox, 3);
 		xboxY = new JoystickButton(xbox, 4);
-		//xboxA = new JoystickButton(xbox, 1);
+		xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		
 		
@@ -90,7 +91,7 @@ public final class ControlHandler {
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
 		rightJoyButton5.whenPressed(new ReverseDrive()); // press button 5(R) to reverse front and back of robot		
 		leftXboxTrigger.whileHeld(new PickupCubeFromGround()); // hold left xbox trigger to pickup and load cube autonomously
-		rightXboxTrigger.whileHeld(new RevAndShootCube()); // hold right xbox trigger to rev shooter and launch cube 1s later
+		rightXboxTrigger.whileHeld(new RunShooterAtTargetSpeed()); // hold right xbox trigger to rev shooter and launch cube 1s later
 		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
 		rightXboxBumper.whenPressed(new ClosePickup()); // press right xbox bumper to close pickup, locking in cube
 		rightXboxBumper.whileHeld(new RackCubeToFire()); // hold right xbox bumper to back up cube for firing preparation
@@ -99,6 +100,7 @@ public final class ControlHandler {
 		xboxX.whenPressed(new LowerHood()); 	// blue X
 		xboxY.whenPressed(new RaiseHood());    // yellow Y
 		xboxB.whenPressed(new ClosePickup()); // green A
+		xboxA.whileHeld(new RunFeedAtDefault());
 		rightJoyButton3.whenPressed(new OpenPickup()); // press button 3(L) to close pickup
 		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
 		rightJoyButton7.whenPressed(new EmergencyResetAll());

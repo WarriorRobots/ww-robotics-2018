@@ -11,7 +11,7 @@ public class RunFeedWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.feed.runAtPercentage(Robot.oi.getXboxLeftY(0.35));
+		Robot.feed.runAtPercentage(Robot.oi.getXboxLeftY(0.5));
 	}
 	
 	@Override
