@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.ShotHeight;
 
+/**
+ * Set target to MID and rev the shooter.
+ */
 public class ShootMid extends Command {
 
 	public ShootMid() {
@@ -12,7 +15,7 @@ public class ShootMid extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.shooter.setCurrrentTarget(ShotHeight.LOW);
+		Robot.shooter.setCurrentTarget(ShotHeight.LOW);
 		Robot.shooter.shootForCurrentTarget();
 	}
 	

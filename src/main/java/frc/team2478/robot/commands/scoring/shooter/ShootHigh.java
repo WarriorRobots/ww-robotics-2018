@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.enums.ShotHeight;
 
+/**
+ * Set target to HIGH and rev the shooter.
+ */
 public class ShootHigh extends Command {
 
 	public ShootHigh() {
@@ -12,7 +15,7 @@ public class ShootHigh extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.shooter.setCurrrentTarget(ShotHeight.HIGH);
+		Robot.shooter.setCurrentTarget(ShotHeight.HIGH);
 	}
 	
 	@Override

@@ -103,7 +103,7 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 		return currentTarget;
 	}
 	
-	public void setCurrrentTarget(ShotHeight s) {
+	public void setCurrentTarget(ShotHeight s) {
 		currentTarget = s;
 	}
 	
