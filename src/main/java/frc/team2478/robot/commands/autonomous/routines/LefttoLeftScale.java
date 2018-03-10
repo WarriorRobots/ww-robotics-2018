@@ -18,7 +18,7 @@ public class LefttoLeftScale extends CommandGroup {
 	
 	public LefttoLeftScale() {
 		addParallel(new LowerHood()); // hood starts raised, lower for safety
-		addSequential(new DriveAuto(275.5)); // drive inside the nullzone
+		addSequential(new DriveAuto(260.5)); // drive inside the nullzone
 		addSequential(new TurnAuto(67.5)); // turn right, face the scale
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED)); // rev shooter early, to reduce wasted time
 		addParallel(new RaiseHood()); // raise hood (safe to do so because of low speeds)
