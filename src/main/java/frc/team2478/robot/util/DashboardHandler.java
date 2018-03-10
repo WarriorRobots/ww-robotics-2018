@@ -11,7 +11,9 @@ public class DashboardHandler {
 	
 	private static final String RESET = "RESET";
 	
+	@SuppressWarnings("unused")
 	private static StartingPosition positionTarget = StartingPosition.MIDDLE;
+	@SuppressWarnings("unused")
 	private static AutoTarget autoTarget = AutoTarget.SWITCH;
 	
 	private static SendableChooser<StartingPosition> positionDropdown;
@@ -23,9 +25,10 @@ public class DashboardHandler {
 		positionDropdown.addObject("LEFT", StartingPosition.LEFT);
 		positionDropdown.addObject("RIGHT", StartingPosition.RIGHT);
 		targetDropdown = new SendableChooser<>();
-		targetDropdown.addDefault("CROSS LINE", AutoTarget.LINE);
+		targetDropdown.addDefault("SMART SELECT", AutoTarget.SMARTSELECT);
 		targetDropdown.addObject("SWITCH", AutoTarget.SWITCH);
 		targetDropdown.addObject("SCALE", AutoTarget.SCALE);
+		targetDropdown.addObject("CROSS LINE", AutoTarget.LINE);
 	}
 	
 	public void init() {

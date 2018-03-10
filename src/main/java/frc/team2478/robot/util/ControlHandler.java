@@ -46,12 +46,14 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
+	@SuppressWarnings("unused")
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, 
 		rightJoyButton5, leftJoyTriggerButton, leftJoyButton4, rightJoyButton3, 
 		rightJoyButton7;
 	
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
+	@SuppressWarnings("unused")
 	private DpadTrigger xboxUp, xboxDown, xboxLeft, xboxRight;
 	private JoystickButton xboxX, xboxY, xboxB, xboxA;
 

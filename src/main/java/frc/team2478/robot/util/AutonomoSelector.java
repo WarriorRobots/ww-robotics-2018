@@ -25,7 +25,7 @@ public class AutonomoSelector {
 	private Command autoCommand = null;
 
 	private boolean atLeftPos, atMiddlePos, atRightPos = false;
-	private boolean goToScale, goToSwitch, goToLine = false;
+	private boolean goToScale, goToSwitch, goToLine, goToClosest = false;
 	private boolean switchOnLeft, switchOnRight = false;
 	private boolean scaleOnLeft, scaleOnRight = false;
 	
@@ -50,7 +50,39 @@ public class AutonomoSelector {
 	public void selectAutoCase() {
 		initData();
 		
-		if (goToLine) {
+		if (goToClosest) {
+			if (atMiddlePos) {
+				if (switchOnLeft) {
+					autoCommand = new MidtoLeftSwitch();
+					DriverStation.reportWarning("MidtoLeftSwitch, I choose you!", false);
+				} else if (switchOnRight) {
+					autoCommand = new MidtoRightSwitch();
+					DriverStation.reportWarning("MidtoRightSwitch, I choose you!", false);
+				}
+			} else if (atLeftPos) {
+				if (scaleOnLeft) {
+					autoCommand = new LefttoLeftScale();
+					DriverStation.reportWarning("LeftToLeftScale, I choose you!", false);
+				} else if (switchOnLeft) {
+					autoCommand = new LefttoLeftSwitch();
+					DriverStation.reportWarning("LefttoLeftSwitch, I choose you!", false);
+				} else {
+					autoCommand = new CrossLine();
+					DriverStation.reportWarning("CrossLine, I choose you!", false);
+				}
+			} else if (atRightPos) {
+				if (scaleOnRight) {
+					autoCommand = new RighttoRightScale();
+					DriverStation.reportWarning("RighttoRightScale, I choose you!", false);
+				} else if (switchOnRight) {
+					autoCommand = new RighttoRightSwitch();
+					DriverStation.reportWarning("RighttoRightSwitch, I choose you!", false);
+				} else {
+					autoCommand = new CrossLine();
+					DriverStation.reportWarning("CrossLine, I choose you!", false);
+				}
+			}
+		} else if (goToLine) {
 				autoCommand = new CrossLine();
 				DriverStation.reportWarning("CrossLine, I choose you!", false);
 		} else if (atMiddlePos) {
@@ -144,6 +176,8 @@ public class AutonomoSelector {
 		case LINE:
 			goToLine = true;
 			break;
+		case SMARTSELECT:
+			goToClosest = true;
 		}
 
 		switch (gameData.charAt(0)) {
