@@ -20,14 +20,15 @@ import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
+import frc.team2478.robot.commands.pneumatics.RaiseAndClose;
 import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.PickupCubeFromGround;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
-import frc.team2478.robot.commands.scoring.shooter.DecrementShooterTarget;
-import frc.team2478.robot.commands.scoring.shooter.IncrementShooterTarget;
-import frc.team2478.robot.commands.scoring.shooter.RunShooterAtTargetSpeed;
+import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
+import frc.team2478.robot.commands.scoring.shooter.ShootMid;
+import frc.team2478.robot.commands.scoring.shooter.ShootSwitch;
 import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
@@ -91,14 +92,14 @@ public final class ControlHandler {
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
 		rightJoyButton5.whenPressed(new ReverseDrive()); // press button 5(R) to reverse front and back of robot		
 		leftXboxTrigger.whileHeld(new PickupCubeFromGround()); // hold left xbox trigger to pickup and load cube autonomously
-		rightXboxTrigger.whileHeld(new RunShooterAtTargetSpeed()); // hold right xbox trigger to rev shooter and launch cube 1s later
+		rightXboxTrigger.whileHeld(new ShootSwitch()); // hold right xbox trigger to rev shooter and launch cube 1s later
 		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
 		rightXboxBumper.whenPressed(new ClosePickup()); // press right xbox bumper to close pickup, locking in cube
 		rightXboxBumper.whileHeld(new RackCubeToFire()); // hold right xbox bumper to back up cube for firing preparation
-		xboxUp.whenPressed(new IncrementShooterTarget()); // press up to increase shooter speed to next preset
-		xboxDown.whenPressed(new DecrementShooterTarget()); // press down to decrease shooter speed to next preset
+		xboxUp.whileHeld(new ShootHigh()); // press up to increase shooter speed to next preset
+		xboxDown.whileHeld(new ShootMid()); // press down to decrease shooter speed to next preset
 		xboxX.whenPressed(new LowerHood()); 	// blue X
-		xboxY.whenPressed(new RaiseHood());    // yellow Y
+		xboxY.whenPressed(new RaiseAndClose());    // yellow Y
 		xboxB.whenPressed(new ClosePickup()); // green A
 		xboxA.whileHeld(new RunFeedAtDefault());
 		rightJoyButton3.whenPressed(new OpenPickup()); // press button 3(L) to close pickup
