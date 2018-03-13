@@ -115,7 +115,7 @@ public class PneumaticSubsystem extends Subsystem {
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-pneumatics");
 		builder.addBooleanProperty("hood-up", () -> isHoodLifted(), null);
-		builder.addBooleanProperty("pickup-out", () -> !isPickupOut(), null);
+		builder.addBooleanProperty("pickup-out", () -> isPickupOut(), null);
 	}
 
 }
