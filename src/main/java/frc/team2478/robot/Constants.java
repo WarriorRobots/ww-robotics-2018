@@ -19,13 +19,6 @@ public final class Constants {
 	public static final boolean DISABLED_DRIVE = false;
 	
 	public static final double LOW_VOLTAGE_WARNING_THRESHOLD = 7;
-
-	public static final class JoystickThresholds {
-		public static final double LEFT_XBOX_MIN = -0.103;
-		public static final double LEFT_XBOX_MAX = 0.063;
-		public static final double RIGHT_XBOX_MIN = -0.048;
-		public static final double RIGHT_XBOX_MAX = 0.1;
-	}
 	
 	/**
 	 * Contains PID constants used for autonomous closed-loop control.

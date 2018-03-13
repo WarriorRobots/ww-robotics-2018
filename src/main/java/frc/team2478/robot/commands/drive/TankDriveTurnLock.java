@@ -2,6 +2,7 @@ package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 /**
@@ -17,13 +18,13 @@ public class TankDriveTurnLock extends Command {
     @Override
 	protected void execute() {
     	// how far apart are the joystick Y-axes?
-		double difference = Math.abs(Robot.oi.getLeftY() - Robot.oi.getRightY());
-		double average = (Robot.oi.getLeftY() + Robot.oi.getRightY()) / 2;
+		double difference = Math.abs(ControlHandler.getInstance().getLeftY() - ControlHandler.getInstance().getRightY());
+		double average = (ControlHandler.getInstance().getLeftY() + ControlHandler.getInstance().getRightY()) / 2;
 		
     	if (difference < Constants.DriveScalars.LOCKMODE_TOLERANCE) {
     		Robot.drivetrain.tankDriveSquared(average, average);
     	} else {
-    		Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
+    		Robot.drivetrain.tankDriveSquared(ControlHandler.getInstance().getLeftY(), ControlHandler.getInstance().getRightY());
     	}	
     }
 

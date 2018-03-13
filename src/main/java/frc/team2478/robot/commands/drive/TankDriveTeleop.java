@@ -1,6 +1,7 @@
 package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 /**
@@ -14,7 +15,7 @@ public class TankDriveTeleop extends Command {
 
     @Override
 	protected void execute() {
-    	Robot.drivetrain.tankDriveSquared(Robot.oi.getLeftY(), Robot.oi.getRightY());
+    	Robot.drivetrain.tankDriveSquared(ControlHandler.getInstance().getLeftY(), ControlHandler.getInstance().getRightY());
     }
 
     @Override
