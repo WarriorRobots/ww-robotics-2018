@@ -20,9 +20,9 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseAndClose;
-import frc.team2478.robot.commands.scoring.PickupCubeFromGround;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
+import frc.team2478.robot.commands.scoring.sequence.PullCubeIntoRobot;
 import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
 import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
 import frc.team2478.robot.commands.scoring.shooter.ShootLow;
@@ -90,7 +90,7 @@ public final class ControlHandler {
 		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
 
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
-		leftXboxTrigger.whileHeld(new PickupCubeFromGround()); // hold left xbox trigger to pickup and load cube autonomously
+		leftXboxTrigger.whileHeld(new PullCubeIntoRobot()); // hold left xbox trigger to pickup and load cube autonomously
 		
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		rightXboxTrigger.whileHeld(new ShootSwitch()); // hold right xbox trigger to rev shooter and launch cube 1s later
