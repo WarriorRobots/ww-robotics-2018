@@ -137,7 +137,7 @@ public final class Constants {
 		public static final boolean LEFT_ENCODER_REVERSED = true;
 		public static final boolean RIGHT_ENCODER_REVERSED = false;
 		public static final boolean HOOK_MOTOR_REVERSED = false;
-		public static final boolean WINCH_MOTOR_REVERSED = false;
+		public static final boolean WINCH_MOTOR_REVERSED = true;
 		public static final boolean FEED_MASTER_REVERSED = false;
 		public static final boolean FEED_SLAVE_REVERSED = true;
 		public static final boolean PICKUP_MASTER_REVERSED = false;
