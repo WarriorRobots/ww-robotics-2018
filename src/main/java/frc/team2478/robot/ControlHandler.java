@@ -16,6 +16,7 @@ import frc.team2478.robot.commands.EmergencyResetAll;
 import frc.team2478.robot.commands.Climb.HookBackwards;
 import frc.team2478.robot.commands.Climb.HookForwards;
 import frc.team2478.robot.commands.Climb.WinchInwards;
+import frc.team2478.robot.commands.Climb.WinchOutwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -51,7 +52,7 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
-	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7;
+	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, rightJoyButton11, rightJoyButton12;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
@@ -134,6 +135,11 @@ public final class ControlHandler {
 		
 		xboxSTART = new JoystickButton(xbox, 8);
 		xboxSTART.whileHeld(new HookForwards());
+		
+		rightJoyButton11 = new JoystickButton(rightJoy, 11);
+		rightJoyButton11.whileHeld(new WinchInwards());
+		rightJoyButton12 = new JoystickButton(rightJoy, 12);
+		rightJoyButton12.whileHeld(new WinchOutwards());
 	}
 
 	/**
