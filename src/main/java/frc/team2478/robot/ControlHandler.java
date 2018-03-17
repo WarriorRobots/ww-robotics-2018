@@ -51,7 +51,7 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton;
 	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, rightJoyButton11, rightJoyButton12;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
@@ -77,9 +77,6 @@ public final class ControlHandler {
 	public void initButtons() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
-
-		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
-		leftJoyTriggerButton.whileHeld(new WinchInwards());
 		
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
@@ -137,9 +134,9 @@ public final class ControlHandler {
 		xboxSTART.whileHeld(new HookForwards());
 		
 		rightJoyButton11 = new JoystickButton(rightJoy, 11);
-		rightJoyButton11.whileHeld(new WinchInwards());
+		rightJoyButton11.whileHeld(new WinchOutwards());
 		rightJoyButton12 = new JoystickButton(rightJoy, 12);
-		rightJoyButton12.whileHeld(new WinchOutwards());
+		rightJoyButton12.whileHeld(new WinchInwards());
 	}
 
 	/**
