@@ -25,19 +25,19 @@ public final class Constants {
 	 */
 	public static final class AutonomoDrive {
 		// autonomous driving forwards		
-		public static final double DISTANCE_P = 0.0075; // 0.02
+		public static final double DISTANCE_P = 0.02; // 0.02
 		public static final double DISTANCE_I = 0.0001; // 0.0001
-		public static final double DISTANCE_D = 0.04; // 0.06
+		public static final double DISTANCE_D = 0.1; // 0.1
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
-		public static final double TURNING_P = 0.01725; //.017
+		public static final double TURNING_P = 0.017; //.017
 		public static final double TURNING_I = 0.0015; //.0015
-		public static final double TURNING_D = 0.01575; //.02225
+		public static final double TURNING_D = 0.0075; //.0075
 		public static final double TURNING_TOLERANCE = .5;
 		// autonomous preventing drift during driving
 		public static final double COURSECORRECTION_P = TURNING_P;
 		public static final double COURSECORRECTION_I = 0.0001;
-		public static final double COURSECORRECTION_D = TURNING_D;
+		public static final double COURSECORRECTION_D = .1;
 		
 		/**
 		 * {@value}
