@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team2478.robot.commands.EmergencyResetAll;
+import frc.team2478.robot.commands.Climb.HookBackwards;
+import frc.team2478.robot.commands.Climb.HookForwards;
+import frc.team2478.robot.commands.Climb.WinchInwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -47,11 +50,11 @@ public final class ControlHandler {
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
 	
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
 	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
-	private JoystickButton xboxX, xboxY, xboxB, xboxA;
+	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
 	private DpadTrigger xboxUp, xboxDown, xboxRight;
 
 	public static ControlHandler getInstance() {
@@ -74,6 +77,9 @@ public final class ControlHandler {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
 
+		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
+		leftJoyTriggerButton.whileHeld(new WinchInwards());
+		
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
 
@@ -122,6 +128,12 @@ public final class ControlHandler {
 		
 		xboxY = new JoystickButton(xbox, 4);
 		xboxY.whenPressed(new RaiseAndClose());
+		
+		xboxBACK = new JoystickButton(xbox, 7);
+		xboxBACK.whileHeld(new HookBackwards());
+		
+		xboxSTART = new JoystickButton(xbox, 8);
+		xboxSTART.whileHeld(new HookForwards());
 	}
 
 	/**

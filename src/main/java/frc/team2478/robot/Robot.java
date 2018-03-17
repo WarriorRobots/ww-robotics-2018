@@ -10,6 +10,7 @@ package frc.team2478.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2478.robot.subsystems.ClimbSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
 import frc.team2478.robot.subsystems.LimelightSubsystem;
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static final LimelightSubsystem vision = new LimelightSubsystem();
+	public static final ClimbSubsystem climb = new ClimbSubsystem();
 	
 	
 	@Override

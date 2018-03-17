@@ -6,32 +6,35 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
  * Components that lift the robot onto a climbing bar during the last 15 seconds of the match.
  */
-public class ClimbSubsystem extends Subsystem implements TandemMotorInterface {
+public class ClimbSubsystem extends Subsystem{
 
-	private static final int MASTER_MOTOR = 13;
+	private static final int WINCH_MOTOR = 13;
+	private static final int HOOK_MOTOR = 14;
 
-	private WPI_TalonSRX masterMotor;
+	private WPI_TalonSRX winchMotor, hookMotor;
 	
 	public ClimbSubsystem() {
-		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
-		masterMotor.setInverted(Constants.Inversions.CLIMB_MOTOR_REVERSED);
+		winchMotor = new WPI_TalonSRX(WINCH_MOTOR);
+		winchMotor.setInverted(Constants.Inversions.WINCH_MOTOR_REVERSED);
+		hookMotor = new WPI_TalonSRX(HOOK_MOTOR);
+		hookMotor.setInverted(Constants.Inversions.HOOK_MOTOR_REVERSED);
 	}
-	
-	@Override
-	public void runAtPercentage(double percent) {
-		masterMotor.set(ControlMode.PercentOutput, percent);
+	public void runWinchAtPercentage(double percent) {
+		winchMotor.set(ControlMode.PercentOutput, percent);
 	}
-	
-	@Override
-	public void stop() {
-		masterMotor.stopMotor();
+	public void runHookAtPercentage(double percent) {
+		hookMotor.set(ControlMode.PercentOutput, percent);
 	}
-	
+	public void winchstop() {
+		winchMotor.stopMotor();
+	}
+	public void hookstop() {
+		hookMotor.stopMotor();
+	}
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-climb");
