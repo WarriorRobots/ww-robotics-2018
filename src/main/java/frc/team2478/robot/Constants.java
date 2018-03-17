@@ -122,7 +122,7 @@ public final class Constants {
 	    public static final double FEED_PERCENT_SPEED = 0.45;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
 	    public static final double HOOK_PERCENT_SPEED = .5;
-	    public static final double WINCH_PERCENT_SPEED = .5;
+	    public static final double WINCH_PERCENT_SPEED = 1;
 	    public static final double SWITCH_SPEED = rpmToEncoderClicks(660);
 		public static final double LOW_SPEED = rpmToEncoderClicks(1870);
 		public static final double MID_SPEED = rpmToEncoderClicks(2130);
@@ -137,7 +137,7 @@ public final class Constants {
 		public static final boolean LEFT_ENCODER_REVERSED = true;
 		public static final boolean RIGHT_ENCODER_REVERSED = false;
 		public static final boolean HOOK_MOTOR_REVERSED = false;
-		public static final boolean WINCH_MOTOR_REVERSED = false;
+		public static final boolean WINCH_MOTOR_REVERSED = true;
 		public static final boolean FEED_MASTER_REVERSED = false;
 		public static final boolean FEED_SLAVE_REVERSED = true;
 		public static final boolean PICKUP_MASTER_REVERSED = false;
