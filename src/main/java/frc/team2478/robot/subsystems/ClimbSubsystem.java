@@ -25,18 +25,28 @@ public class ClimbSubsystem extends Subsystem{
 		hookMotor = new WPI_TalonSRX(HOOK_MOTOR);
 		hookMotor.setInverted(Constants.Inversions.HOOK_MOTOR_REVERSED);
 	}
+	
 	public void runWinchAtPercentage(double percent) {
 		winchMotor.set(ControlMode.PercentOutput, percent);
 	}
+	
 	public void runHookAtPercentage(double percent) {
 		hookMotor.set(ControlMode.PercentOutput, percent);
 	}
-	public void winchstop() {
+	
+	public void stopWinch() {
 		winchMotor.stopMotor();
 	}
-	public void hookstop() {
+	
+	public void stopHook() {
 		hookMotor.stopMotor();
 	}
+	
+	public void stopAll() {
+		stopWinch();
+		stopHook();
+	}
+	
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-climb");
