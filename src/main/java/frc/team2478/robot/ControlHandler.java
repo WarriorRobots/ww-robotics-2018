@@ -52,7 +52,7 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton;
-	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, rightJoyButton11, rightJoyButton12;
+	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, leftJoyButton5, rightJoyButton6;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
@@ -133,10 +133,10 @@ public final class ControlHandler {
 		xboxSTART = new JoystickButton(xbox, 8);
 		xboxSTART.whileHeld(new HookForwards());
 		
-		rightJoyButton11 = new JoystickButton(rightJoy, 11);
-		rightJoyButton11.whileHeld(new WinchOutwards());
-		rightJoyButton12 = new JoystickButton(rightJoy, 12);
-		rightJoyButton12.whileHeld(new WinchInwards());
+		leftJoyButton5 = new JoystickButton(leftJoy, 5);
+		leftJoyButton5.whileHeld(new WinchOutwards());
+		rightJoyButton6 = new JoystickButton(rightJoy, 6);
+		rightJoyButton6.whileHeld(new WinchInwards());
 	}
 
 	/**
