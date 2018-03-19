@@ -1,6 +1,7 @@
 package frc.team2478.robot.commands.scoring.pickup;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 public class RunPickupWithJoystick extends Command {
@@ -11,7 +12,7 @@ public class RunPickupWithJoystick extends Command {
 		
 	@Override
 	protected void execute() {
-		Robot.pickup.runAtPercentage(Robot.oi.getXboxRightY(0.8));
+		Robot.pickup.runAtPercentage(ControlHandler.getInstance().getXboxRightY(0.8));
 	}
 	
 	@Override

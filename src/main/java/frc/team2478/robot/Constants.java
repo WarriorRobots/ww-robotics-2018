@@ -19,32 +19,25 @@ public final class Constants {
 	public static final boolean DISABLED_DRIVE = false;
 	
 	public static final double LOW_VOLTAGE_WARNING_THRESHOLD = 7;
-
-	public static final class JoystickThresholds {
-		public static final double LEFT_XBOX_MIN = -0.103;
-		public static final double LEFT_XBOX_MAX = 0.063;
-		public static final double RIGHT_XBOX_MIN = -0.048;
-		public static final double RIGHT_XBOX_MAX = 0.1;
-	}
 	
 	/**
 	 * Contains PID constants used for autonomous closed-loop control.
 	 */
 	public static final class AutonomoDrive {
 		// autonomous driving forwards		
-		public static final double DISTANCE_P = 0.0075; // 0.02
+		public static final double DISTANCE_P = 0.02; // 0.02
 		public static final double DISTANCE_I = 0.0001; // 0.0001
-		public static final double DISTANCE_D = 0.05; // 0.06
+		public static final double DISTANCE_D = 0.1; // 0.1
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
-		public static final double TURNING_P = 0.017;
-		public static final double TURNING_I = 0.0015;
-		public static final double TURNING_D = 0.02225;
+		public static final double TURNING_P = 0.017; //.017
+		public static final double TURNING_I = 0.0015; //.0015
+		public static final double TURNING_D = 0.0075; //.0075
 		public static final double TURNING_TOLERANCE = .5;
 		// autonomous preventing drift during driving
 		public static final double COURSECORRECTION_P = TURNING_P;
-		public static final double COURSECORRECTION_I = 0.000;
-		public static final double COURSECORRECTION_D = TURNING_D;
+		public static final double COURSECORRECTION_I = 0.0001;
+		public static final double COURSECORRECTION_D = .1;
 		
 		/**
 		 * {@value}
@@ -125,9 +118,11 @@ public final class Constants {
 	    	return revolutions * OUT_PER_IN_RATIO;
 	    }
 	    
-	    public static final double PICKUP_PERCENT_SPEED = 1.0;
+	    public static final double PICKUP_PERCENT_SPEED = .9;
 	    public static final double FEED_PERCENT_SPEED = 0.45;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
+	    public static final double HOOK_PERCENT_SPEED = .5;
+	    public static final double WINCH_PERCENT_SPEED = 1;
 	    public static final double SWITCH_SPEED = rpmToEncoderClicks(660);
 		public static final double LOW_SPEED = rpmToEncoderClicks(1870);
 		public static final double MID_SPEED = rpmToEncoderClicks(2130);
@@ -141,7 +136,8 @@ public final class Constants {
 	public static final class Inversions {
 		public static final boolean LEFT_ENCODER_REVERSED = true;
 		public static final boolean RIGHT_ENCODER_REVERSED = false;
-		public static final boolean CLIMB_MOTOR_REVERSED = false;
+		public static final boolean HOOK_MOTOR_REVERSED = false;
+		public static final boolean WINCH_MOTOR_REVERSED = true;
 		public static final boolean FEED_MASTER_REVERSED = false;
 		public static final boolean FEED_SLAVE_REVERSED = true;
 		public static final boolean PICKUP_MASTER_REVERSED = false;

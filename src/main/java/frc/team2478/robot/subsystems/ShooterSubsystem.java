@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
@@ -195,12 +194,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-shooter");
-//		builder.addDoubleArrayProperty("currentdraw", () -> {
-//			double[] currentDraw = new double[2];
-//			currentDraw[0] = masterMotor.getOutputCurrent();
-//			currentDraw[1] = slaveMotor.getOutputCurrent();
-//			return currentDraw;
-//		}, null);
 		builder.addStringProperty("target-selected", () -> {
 			switch (getCurrentTarget()) {
 			case HIGH:
@@ -215,13 +208,6 @@ public class ShooterSubsystem extends Subsystem implements TandemMotorInterface 
 				return "!!!ERROR!!!";
 			}
 		}, null);
-		//builder.addDoubleProperty("encoder-rpm", () -> {
-			//if (DriverStation.getInstance().isEnabled()) {
-				//return Constants.ShooterRig.encoderClicksToRpm(getNativeUnitVelocity());
-			//} else {
-				//return 0;
-			//}
-		//}, null);
 	}
 
 	@Override

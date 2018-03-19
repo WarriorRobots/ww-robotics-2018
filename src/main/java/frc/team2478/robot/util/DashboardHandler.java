@@ -11,7 +11,9 @@ public class DashboardHandler {
 	
 	private static final String RESET = "RESET";
 	
+	@SuppressWarnings("unused")
 	private static StartingPosition positionTarget = StartingPosition.MIDDLE;
+	@SuppressWarnings("unused")
 	private static AutoTarget autoTarget = AutoTarget.SWITCH;
 	
 	private static SendableChooser<StartingPosition> positionDropdown;
