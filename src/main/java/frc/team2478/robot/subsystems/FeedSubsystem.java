@@ -60,6 +60,7 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 //			currentDraw[1] = slaveMotor.getOutputCurrent();
 //			return currentDraw;
 //		}, null);
+		builder.addBooleanProperty("cube-loaded", () -> isCubeLoaded(), null);
 	}
 	
 	@Override

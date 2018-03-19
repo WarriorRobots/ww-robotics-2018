@@ -2,6 +2,7 @@ package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
+import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 /**
@@ -20,14 +21,14 @@ public class CameraAlign extends Command {
 	
 	@Override
 	protected void execute() {
-		if (Robot.vision.canSeeObject() && Math.abs(Robot.oi.getRightX()) < TURN_JOYSTICK_THRESHOLD) {
+		if (Robot.vision.canSeeObject() && Math.abs(ControlHandler.getInstance().getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			Robot.drivetrain.arcadeDriveRaw(
-				Math.pow(Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED), 2),
+				Math.pow(ControlHandler.getInstance().getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED), 2),
 				Robot.vision.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			Robot.drivetrain.arcadeDriveSquared(
-    			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
-    			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
+    			ControlHandler.getInstance().getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
+    			ControlHandler.getInstance().getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
 		}
 	}
 
