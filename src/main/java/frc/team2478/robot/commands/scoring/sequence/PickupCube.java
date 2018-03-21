@@ -16,7 +16,7 @@ public class PickupCube extends CommandGroup {
 	public PickupCube() {
 		addParallel(new RunPickupAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED));
 		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
-		addParallel(new RunShooterAtPercentage(-0.2));
+		addParallel(new RunShooterAtPercentage(-0.1));
 	}
 	
 	@Override
