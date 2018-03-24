@@ -12,7 +12,7 @@ import frc.team2478.robot.Constants;
  * Features 2 components, the winch and the hook.
  * The hook is what grabs onto the bar, the winch pulls the robot upwards.
  */
-public class ClimbSubsystem extends Subsystem{
+public class ClimbSubsystem extends Subsystem {
 
 	private static final int WINCH_MOTOR = 13;
 	private static final int HOOK_MOTOR = 14;
