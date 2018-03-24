@@ -11,7 +11,7 @@ import frc.team2478.robot.Robot;
  */
 public class CameraAlign extends Command {
 	
-	private static final double SCALING_FACTOR = 0.02;
+	private static final double SCALING_FACTOR = 0.04;
 	private static final double TURN_JOYSTICK_THRESHOLD = 0.75;
 
 	public CameraAlign() {
@@ -23,12 +23,14 @@ public class CameraAlign extends Command {
 	protected void execute() {
 		if (Robot.vision.canSeeObject() && Math.abs(ControlHandler.getInstance().getRightX()) < TURN_JOYSTICK_THRESHOLD) {
 			Robot.drivetrain.arcadeDriveRaw(
-				Math.pow(ControlHandler.getInstance().getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED), 2),
+				(ControlHandler.getInstance().getRightY() > 0)
+						? Math.pow(ControlHandler.getInstance().getRightY(), 2)
+						: -Math.pow(ControlHandler.getInstance().getRightY(), 2),
 				Robot.vision.getObjectX() * SCALING_FACTOR); // spins to line up camera with cube
 		} else {
 			Robot.drivetrain.arcadeDriveSquared(
-    			ControlHandler.getInstance().getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
-    			ControlHandler.getInstance().getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
+    			ControlHandler.getInstance().getRightY(),
+    			ControlHandler.getInstance().getRightX());
 		}
 	}
 

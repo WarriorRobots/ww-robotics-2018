@@ -1,6 +1,7 @@
 package frc.team2478.robot.commands.autonomous.routines;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.TurnAuto;
 
 public class TestCase extends CommandGroup {
@@ -15,10 +16,14 @@ public class TestCase extends CommandGroup {
 //		addParallel(new StopAllScoringMotors());
 //		addSequential(new LefttoLeftSwitch());
 		
+		addSequential(new DriveAuto(60));
 		addSequential(new TurnAuto(90));
-		addSequential(new TurnAuto(-90));
-		addSequential(new TurnAuto(-180));
-		addSequential(new TurnAuto(270));
+		addSequential(new DriveAuto(60));
+		addSequential(new TurnAuto(90));
+		addSequential(new DriveAuto(60));
+		addSequential(new TurnAuto(90));
+		addSequential(new DriveAuto(60));
+		addSequential(new TurnAuto(90));
 	}
 	
 	@Override

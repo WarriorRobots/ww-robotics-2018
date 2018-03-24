@@ -18,6 +18,7 @@ import frc.team2478.robot.commands.climb.HookForwards;
 import frc.team2478.robot.commands.climb.WinchInwards;
 import frc.team2478.robot.commands.climb.WinchOutwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
+import frc.team2478.robot.commands.drive.CameraAlign;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
@@ -52,7 +53,7 @@ public final class ControlHandler {
 	private XboxController xbox;
 	
 
-	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton;
+	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
 	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, leftJoyButton5, rightJoyButton6;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
@@ -78,6 +79,9 @@ public final class ControlHandler {
 	public void initButtons() {
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
+		
+		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
+		leftJoyTriggerButton.whileHeld(new CameraAlign());
 		
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
