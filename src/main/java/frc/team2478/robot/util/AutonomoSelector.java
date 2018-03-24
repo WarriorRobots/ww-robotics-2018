@@ -139,6 +139,8 @@ public class AutonomoSelector {
 					DriverStation.reportWarning("RighttoRightScale, I choose you!", false);
 				}
 			}
+		} else {
+			DriverStation.reportError("FAILURE TO CHOOSE AUTO", false);
 		}
 	}
 	
