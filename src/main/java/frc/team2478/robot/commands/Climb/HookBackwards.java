@@ -11,7 +11,7 @@ public class HookBackwards extends Command{
 	}
 	@Override
 	public void execute() {
-		Robot.climb.runHookAtPercentage(Constants.ShooterRig.HOOK_PERCENT_SPEED);
+		Robot.climb.runHookAtPercentage(.3);
 	}
 	@Override
 	protected boolean isFinished() {
