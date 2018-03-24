@@ -5,10 +5,6 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
 public class WinchOutwards extends Command {
-
-	public WinchOutwards(){
-		requires(Robot.climb);
-	}
 	
 	@Override
 	public void execute() {

@@ -15,30 +15,31 @@ import frc.team2478.robot.interfaces.TandemMotorInterface;
  */
 public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 
-	private static final int SLAVE_MOTOR = 9; // right
-	private static final int MASTER_MOTOR = 10; // left
+	private static final int RIGHT_MOTOR = 9; // right
+	private static final int LEFT_MOTOR = 10; // left
 	private static final int INFARED_SENSOR_ID = 9;
 	
-	private WPI_TalonSRX masterMotor, slaveMotor;
+	private WPI_TalonSRX leftMotor, rightMotor;
 	private DigitalInput infaredSensor;
 	
-	public FeedSubsystem() {
-		masterMotor = new WPI_TalonSRX(MASTER_MOTOR);
-		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
-		masterMotor.setInverted(Constants.Inversions.FEED_MASTER_REVERSED);
-		slaveMotor.setInverted(Constants.Inversions.FEED_SLAVE_REVERSED);
+	public FeedSubsystem() { // there's not supposed to be a follow command
+		leftMotor = new WPI_TalonSRX(LEFT_MOTOR);
+		rightMotor = new WPI_TalonSRX(RIGHT_MOTOR);
+		leftMotor.setInverted(Constants.Inversions.FEED_LEFT_REVERSED);
+		rightMotor.setInverted(Constants.Inversions.FEED_RIGHT_REVERSED);
 		infaredSensor = new DigitalInput(INFARED_SENSOR_ID);
 	}
 
 	@Override
 	public void runAtPercentage(double percent) {
-		masterMotor.set(ControlMode.PercentOutput, percent);
-		slaveMotor.set(ControlMode.PercentOutput, -percent);
+		leftMotor.set(ControlMode.PercentOutput, percent);
+		rightMotor.set(ControlMode.PercentOutput, -percent);
 	}
 
 	@Override
 	public void stop() {
-		masterMotor.stopMotor();
+		leftMotor.stopMotor();
+		rightMotor.stopMotor();
 	}
 		
 	/**

@@ -6,10 +6,6 @@ import frc.team2478.robot.Robot;
 
 public class WinchInwards extends Command {
 
-	public WinchInwards(){
-		requires(Robot.climb);
-	}
-	
 	@Override
 	public void execute() {
 		Robot.climb.runWinchAtPercentage(Constants.ShooterRig.WINCH_PERCENT_SPEED);

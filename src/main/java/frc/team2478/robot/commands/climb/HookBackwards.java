@@ -6,10 +6,6 @@ import frc.team2478.robot.Robot;
 
 public class HookBackwards extends Command {
 
-	public HookBackwards() {
-		requires(Robot.climb);
-	}
-	
 	@Override
 	public void execute() {
 		Robot.climb.runHookAtPercentage(Constants.ShooterRig.HOOK_PERCENT_SPEED_BACKWARD);

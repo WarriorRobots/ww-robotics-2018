@@ -16,7 +16,7 @@ public class TopLoadCube extends CommandGroup {
 		addParallel(new RunShooterAtPercentage(-Constants.ShooterRig.SHOOTER_PERCENT_SPEED));
 		addParallel(new RunFeedAtPercentage(-Constants.ShooterRig.FEED_PERCENT_SPEED));
 	}
-	
+
 	@Override
 	protected boolean isFinished() {
 		return false;

@@ -1,36 +1,38 @@
 package frc.team2478.robot.commands.autonomous.routines;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.team2478.robot.Constants;
-import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.TurnAuto;
-import frc.team2478.robot.commands.pneumatics.RaiseHood;
-import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
-import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 
 public class TestCase extends CommandGroup {
 
 	public TestCase() {
-		addParallel(new RaiseHood());
-//		addParallel(new RunShooterAtVelocity(19000));
-//		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(105.5))); // switch
-//		addSequential(new AutonomoDriveStraight(Constants.AutonomoDrive.InchesToClicks(262.9))); // scale
-//		addSequential(new AutonomoDriveTurn(45));
+//		addSequential(new OpenPickup());
+//		addSequential(new LowerHood());
+//		addSequential(new PickupAuto());
+//		addParallel(new ClosePickup());
+//		addSequential(new WaitCommand(1.5));
+//		addSequential(new RackCubeAuto());
+//		addParallel(new StopAllScoringMotors());
+//		addSequential(new LefttoLeftSwitch());
 		
-		addSequential(new DriveAuto(400));
 		addSequential(new TurnAuto(90));
-		addSequential(new DriveAuto(400));
-		addSequential(new TurnAuto(90));
-		addSequential(new DriveAuto(400));
-		addSequential(new TurnAuto(90));
-		addSequential(new DriveAuto(400));
-		addSequential(new TurnAuto(90));
-		
-		
-		addParallel(new RunFeedAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED));
-		addSequential(new WaitCommand(2));
-		addSequential(new StopAllScoringMotors());
+		addSequential(new TurnAuto(-90));
+		addSequential(new TurnAuto(-180));
+		addSequential(new TurnAuto(270));
+	}
+	
+	@Override
+	protected void execute() {
+		System.out.println("looping");
+		System.out.println("loping");
+		System.out.println("ooping");
+		System.out.println("ping");
+		System.out.println("ng");
+		System.out.println("looping");
+		System.out.println("ing");
+		System.out.println("g");
+		System.out.println("ping");
+		System.out.println("lllping");
 	}
 	
 }
