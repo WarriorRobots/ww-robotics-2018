@@ -27,7 +27,6 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 		slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR);
 		masterMotor.setInverted(Constants.Inversions.FEED_MASTER_REVERSED);
 		slaveMotor.setInverted(Constants.Inversions.FEED_SLAVE_REVERSED);
-//		slaveMotor.follow(masterMotor); //**
 		infaredSensor = new DigitalInput(INFARED_SENSOR_ID);
 	}
 
@@ -47,19 +46,13 @@ public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 	 * @return True if a cube is present, false otherwise.
 	 */
 	public boolean isCubeLoaded() {
-		// the infared sensor returns whether the cube is not present
+		// the infared sensor returns whether the cube is *not* present
 		return !infaredSensor.get();
 	}
 	
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-feed");
-//		builder.addDoubleArrayProperty("currentdraw", () -> {
-//			double[] currentDraw = new double[2];
-//			currentDraw[0] = masterMotor.getOutputCurrent();
-//			currentDraw[1] = slaveMotor.getOutputCurrent();
-//			return currentDraw;
-//		}, null);
 		builder.addBooleanProperty("cube-loaded", () -> isCubeLoaded(), null);
 	}
 	

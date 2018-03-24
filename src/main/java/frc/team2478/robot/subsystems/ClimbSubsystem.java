@@ -12,7 +12,7 @@ import frc.team2478.robot.Constants;
  * Features 2 components, the winch and the hook.
  * The hook is what grabs onto the bar, the winch pulls the robot upwards.
  */
-public class ClimbSubsystem extends Subsystem{
+public class ClimbSubsystem extends Subsystem {
 
 	private static final int WINCH_MOTOR = 13;
 	private static final int HOOK_MOTOR = 14;
@@ -25,18 +25,28 @@ public class ClimbSubsystem extends Subsystem{
 		hookMotor = new WPI_TalonSRX(HOOK_MOTOR);
 		hookMotor.setInverted(Constants.Inversions.HOOK_MOTOR_REVERSED);
 	}
+	
 	public void runWinchAtPercentage(double percent) {
 		winchMotor.set(ControlMode.PercentOutput, percent);
 	}
+	
 	public void runHookAtPercentage(double percent) {
 		hookMotor.set(ControlMode.PercentOutput, percent);
 	}
-	public void winchstop() {
+	
+	public void stopWinch() {
 		winchMotor.stopMotor();
 	}
-	public void hookstop() {
+	
+	public void stopHook() {
 		hookMotor.stopMotor();
 	}
+	
+	public void stopAll() {
+		stopWinch();
+		stopHook();
+	}
+	
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-climb");

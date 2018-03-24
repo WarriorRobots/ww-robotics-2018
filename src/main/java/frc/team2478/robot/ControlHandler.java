@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team2478.robot.commands.EmergencyResetAll;
-import frc.team2478.robot.commands.Climb.HookBackwards;
-import frc.team2478.robot.commands.Climb.HookForwards;
-import frc.team2478.robot.commands.Climb.WinchInwards;
-import frc.team2478.robot.commands.Climb.WinchOutwards;
+import frc.team2478.robot.commands.climb.HookBackwards;
+import frc.team2478.robot.commands.climb.HookForwards;
+import frc.team2478.robot.commands.climb.WinchInwards;
+import frc.team2478.robot.commands.climb.WinchOutwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -24,10 +24,10 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseAndClose;
+import frc.team2478.robot.commands.scoring.PickupCubeFromPortal;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
-import frc.team2478.robot.commands.scoring.sequence.PullCubeIntoRobot;
-import frc.team2478.robot.commands.scoring.sequence.RackCubeToFire;
+import frc.team2478.robot.commands.scoring.sequence.PickupCube;
 import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
 import frc.team2478.robot.commands.scoring.shooter.ShootLow;
 import frc.team2478.robot.commands.scoring.shooter.ShootMid;
@@ -95,7 +95,7 @@ public final class ControlHandler {
 		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
 
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
-		leftXboxTrigger.whileHeld(new PullCubeIntoRobot()); // hold left xbox trigger to pickup and load cube autonomously
+		leftXboxTrigger.whileHeld(new PickupCube()); // hold left xbox trigger to pickup and load cube autonomously
 		
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
 		rightXboxTrigger.whileHeld(new ShootSwitch()); // hold right xbox trigger to rev shooter and launch cube 1s later
@@ -104,8 +104,7 @@ public final class ControlHandler {
 		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
 
 		rightXboxBumper = new JoystickButton(xbox, 6);
-		rightXboxBumper.whenPressed(new ClosePickup()); // press right xbox bumper to close pickup, locking in cube
-		rightXboxBumper.whileHeld(new RackCubeToFire()); // hold right xbox bumper to back up cube for firing preparation
+		rightXboxBumper.whileHeld(new PickupCubeFromPortal()); // hold right xbox bumper to back up cube for firing preparation
 		
 		xboxUp = new DpadTrigger(DpadDirection.UP);
 		xboxUp.whileHeld(new ShootHigh());
