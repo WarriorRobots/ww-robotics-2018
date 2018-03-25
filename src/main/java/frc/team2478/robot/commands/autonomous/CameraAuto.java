@@ -1,7 +1,6 @@
 package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
 public class CameraAuto extends Command {
@@ -18,7 +17,7 @@ public class CameraAuto extends Command {
 	@Override
 	protected void execute() {
 		if (Robot.vision.canSeeObject()) {
-			Robot.drivetrain.arcadeDriveRaw(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED, Robot.vision.getObjectX() * 0.03);
+			Robot.drivetrain.arcadeDriveRaw(.3, Robot.vision.getObjectX() * 0.04);
 		}
 	}
 	
