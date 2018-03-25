@@ -6,6 +6,8 @@ import frc.team2478.robot.Robot;
 
 public class PickupAuto extends Command {
 
+	private int count = 0;
+	
 	public PickupAuto() {
 		requires(Robot.pickup);
 		requires(Robot.feed);
@@ -14,7 +16,12 @@ public class PickupAuto extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.pickup.runAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED);
+		count++;
+		if (count % 25 == 0) {
+			Robot.pickup.runAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED);
+		} else {
+			Robot.pickup.runAtPercentage(0);
+		}
 		Robot.feed.runAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED);
 		Robot.shooter.runAtPercentage(-0.1);
 	}
