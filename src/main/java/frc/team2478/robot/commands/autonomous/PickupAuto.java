@@ -18,14 +18,18 @@ public class PickupAuto extends Command {
 	@Override
 	protected void execute() {
 		count++;
-		if (count % 10 == 0) {
-			toggle = !toggle;
-		}
-		if (toggle) {
+//		if (count % 10 == 0) {
+//			toggle = !toggle;
+//		}
+//		if (count % 10 == 0) {
+//		} else if (count % 25 == 0) {
+//			Robot.pickup.runAtPercentage(-Constants.ShooterRig.PICKUP_PERCENT_SPEED);
+//		} else {
+//			Robot.pickup.stop();
+//		}
+		
 			Robot.pickup.runAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED);
-		} else {
-			Robot.pickup.runAtPercentage(0);
-		}
+		
 		Robot.feed.runAtPercentage(Constants.ShooterRig.FEED_PERCENT_SPEED);
 		Robot.shooter.runAtPercentage(-0.1);
 	}

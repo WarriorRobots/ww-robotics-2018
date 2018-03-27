@@ -17,7 +17,7 @@ public class CameraAuto extends Command {
 	@Override
 	protected void execute() {
 		if (Robot.vision.canSeeObject()) {
-			Robot.drivetrain.arcadeDriveRaw(.3, Robot.vision.getObjectX() * 0.04);
+			Robot.drivetrain.arcadeDriveRaw(.25, Robot.vision.getObjectX() * 0.04);
 		}
 	}
 	
