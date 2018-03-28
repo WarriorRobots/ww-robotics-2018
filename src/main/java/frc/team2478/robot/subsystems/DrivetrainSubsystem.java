@@ -222,6 +222,10 @@ public class DrivetrainSubsystem extends Subsystem {
 	public void setReversed(boolean isReversed) {
 		this.isReversed = isReversed;
 	}
+	
+	public double getCompassHeading() {
+		return navx.getCompassHeading();
+	}
 
 	@Override
 	public void initSendable(SendableBuilder builder) {

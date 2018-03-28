@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.autonomous.CameraAuto;
-import frc.team2478.robot.commands.autonomous.CheckCubeDistance;
 import frc.team2478.robot.commands.autonomous.CheckPickupCurrentDraw;
 import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.PickupAuto;
 import frc.team2478.robot.commands.autonomous.RackCubeAuto;
+import frc.team2478.robot.commands.autonomous.TurnAutoNoReset;
+import frc.team2478.robot.commands.drive.StopDrive;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
@@ -26,10 +27,13 @@ public class TestCase extends CommandGroup {
 		addParallel(new CameraAuto());
 		addSequential(new CheckPickupCurrentDraw());
 		addParallel(new ClosePickup());
+		addParallel(new StopDrive());
 		addSequential(new CheckIfCubeLoaded());
 		addSequential(new WaitCommand(0.5));
 		addSequential(new RackCubeAuto());
 		addParallel(new StopAllScoringMotors());
+		addSequential(new TurnAutoNoReset(0));
+		addSequential(new DriveAuto(60));
 		
 //		addSequential(new LefttoLeftSwitch());
 		

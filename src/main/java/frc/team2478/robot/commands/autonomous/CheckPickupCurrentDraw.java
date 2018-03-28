@@ -6,11 +6,12 @@ import frc.team2478.robot.Robot;
 
 public class CheckPickupCurrentDraw extends Command {
 
-	private static final double AMPS_THRESHOLD = 10;
+	private static final double AMPS_THRESHOLD = 5;
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.pickup.getMotorMasterCurrent() > AMPS_THRESHOLD || Robot.pickup.getMotorSlaveCurrent() > AMPS_THRESHOLD;
+		return Robot.pickup.getMotorMasterCurrent() > AMPS_THRESHOLD || Robot.pickup.getMotorSlaveCurrent() > AMPS_THRESHOLD
+				|| !Robot.vision.canSeeObject();
 	}
 	
 	@Override
