@@ -70,7 +70,7 @@ public class DriveAuto extends Command {
 		pidAngle.reset();
 		timer.start();
 		pidDistance.setSetpoint(distanceTargetClicks);
-		pidDistance.setOutputRange(-1, 1);
+		pidDistance.setOutputRange(-0.8, 0.8);
 		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);
 	}
