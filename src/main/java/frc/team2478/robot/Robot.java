@@ -37,9 +37,15 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
 		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(pickup);
 		SmartDashboard.putData("command-current", Scheduler.getInstance());
 	}		
 
+	@Override
+	public void robotPeriodic() {
+		
+	}
+	
 	@Override
 	public void disabledInit() {
 		drivetrain.setReversed(false);

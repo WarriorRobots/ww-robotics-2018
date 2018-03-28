@@ -32,6 +32,14 @@ public class PickupSubsystem extends Subsystem implements TandemMotorInterface {
 		masterMotor.set(ControlMode.PercentOutput, percent);
 	}
 	
+	public double getMotorSlaveCurrent() {
+		return slaveMotor.getOutputCurrent();
+	}
+	
+	public double getMotorMasterCurrent() {
+		return masterMotor.getOutputCurrent();
+	}
+	
 	@Override
 	public void stop() {
 		masterMotor.stopMotor();
@@ -40,6 +48,8 @@ public class PickupSubsystem extends Subsystem implements TandemMotorInterface {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-pickup");
+		builder.addDoubleProperty("current-right", () -> getMotorSlaveCurrent(), null);
+		builder.addDoubleProperty("current-left", () -> getMotorMasterCurrent(), null);
 	}
 	
 	@Override

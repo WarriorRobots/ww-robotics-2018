@@ -2,8 +2,10 @@ package frc.team2478.robot.commands.autonomous.routines;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.team2478.robot.Constants;
 import frc.team2478.robot.commands.autonomous.CameraAuto;
 import frc.team2478.robot.commands.autonomous.CheckCubeDistance;
+import frc.team2478.robot.commands.autonomous.CheckPickupCurrentDraw;
 import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.PickupAuto;
 import frc.team2478.robot.commands.autonomous.RackCubeAuto;
@@ -11,20 +13,24 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
+import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
 
 public class TestCase extends CommandGroup {
 
 	public TestCase() {
+		addParallel(new RunPickupAtPercentage(Constants.ShooterRig.PICKUP_PERCENT_SPEED));
 		addSequential(new OpenPickup());
 		addSequential(new LowerHood());
-//		addSequential(new DriveAuto(-100));
+		addSequential(new WaitCommand(0.5));
 		addParallel(new PickupAuto());
 		addParallel(new CameraAuto());
-		addSequential(new CheckCubeDistance(26));
+		addSequential(new CheckPickupCurrentDraw());
 		addParallel(new ClosePickup());
-		addSequential(new DriveAuto(-15));
+		addSequential(new CheckIfCubeLoaded());
+		addSequential(new WaitCommand(0.5));
 		addSequential(new RackCubeAuto());
 		addParallel(new StopAllScoringMotors());
+		
 //		addSequential(new LefttoLeftSwitch());
 		
 //		addSequential(new DriveAuto(60));
