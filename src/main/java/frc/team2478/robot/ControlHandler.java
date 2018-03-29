@@ -25,6 +25,7 @@ import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.pneumatics.RaiseAndClose;
+import frc.team2478.robot.commands.pneumatics.RaiseHood;
 import frc.team2478.robot.commands.scoring.PickupCubeFromPortal;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
@@ -136,6 +137,7 @@ public final class ControlHandler {
 		
 		xboxSTART = new JoystickButton(xbox, 8);
 		xboxSTART.whileHeld(new HookForwards());
+		xboxSTART.whenPressed(new RaiseHood());
 		
 		leftJoyButton5 = new JoystickButton(leftJoy, 5);
 		leftJoyButton5.whileHeld(new WinchOutwards());
