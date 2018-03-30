@@ -8,8 +8,8 @@ import frc.team2478.robot.util.SynchronousPIDF;
 import frc.team2478.robot.util.annotations.Debug;
 
 /**
- * When run, the robot will turn to the provided angle,
- * using a PID loop to maintain accuracy and control.
+ * Identical to {@link TurnAuto}, but the gyroscope is not reset before running.
+ * This allows returning to a previously-measured angle.
  */
 public class TurnAutoNoReset extends Command {
 	

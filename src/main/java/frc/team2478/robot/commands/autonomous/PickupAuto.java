@@ -4,6 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
+/**
+ * Run the pickup wheels, terminating when the cube light sensor is triggered.
+ * @author westwood
+ *
+ */
 public class PickupAuto extends Command {
 
 //	private int count = 0;

@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
+/**
+ * Pull the cube away from the shooter wheels, terminating when the cube light sensor is no longer triggered.
+ */
 public class RackCubeAuto extends Command {
 
 	public RackCubeAuto() {

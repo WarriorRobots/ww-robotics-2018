@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
+/**
+ * Line up to a cube in the camera vision and drive towards it.
+ */
 public class CameraAuto extends Command {
 
 	private double currentAngle = 0;
