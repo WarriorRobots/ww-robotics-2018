@@ -12,7 +12,7 @@ import frc.team2478.robot.interfaces.TandemMotorInterface;
 import frc.team2478.robot.util.enums.ShotHeight;
 
 /**
- * Components that involve sending the cube airborne, out of the robot.
+ * Contains the wheels that launch cubes out of the robot at scoring targets.
  */
 public class ShooterSubsystem extends Subsystem implements TandemMotorInterface {
 

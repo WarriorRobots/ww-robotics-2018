@@ -5,6 +5,9 @@ import frc.team2478.robot.commands.scoring.feed.StopFeed;
 import frc.team2478.robot.commands.scoring.pickup.StopPickup;
 import frc.team2478.robot.commands.scoring.shooter.StopShooter;
 
+/**
+ * Set all motors to 0 (use in CommandGroup).
+ */
 public class StopAllScoringMotors extends CommandGroup {
 
 	public StopAllScoringMotors() {

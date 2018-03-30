@@ -10,7 +10,7 @@ import frc.team2478.robot.commands.scoring.pickup.RunPickupWithJoystick;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
- * Components that take the cube from the ground and load it into the robot.
+ * Contains the wheels on the pickup arms that pull in cubes sitting on the ground.
  */
 public class PickupSubsystem extends Subsystem implements TandemMotorInterface {
 

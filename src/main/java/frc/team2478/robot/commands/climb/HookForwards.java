@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
+/**
+ * Raises hook upwards, towards the bar.
+ */
 public class HookForwards extends Command {
 
 	@Override

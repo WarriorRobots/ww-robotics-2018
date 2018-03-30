@@ -20,6 +20,9 @@ import frc.team2478.robot.subsystems.ShooterSubsystem;
 import frc.team2478.robot.util.AutonomoSelector;
 import frc.team2478.robot.util.DashboardHandler;
 
+/**
+ * Main class of the Robot.
+ */
 public class Robot extends TimedRobot {
 	
 	public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();

@@ -9,7 +9,7 @@ import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 
 /**
- * Step 1 of preparing to fire a cube
+ * Pickup the cube from ground, and prevent it from flying out the top by accident.
  */
 public class PickupCube extends CommandGroup {
 

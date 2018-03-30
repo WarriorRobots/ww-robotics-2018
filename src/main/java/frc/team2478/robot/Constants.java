@@ -18,8 +18,6 @@ public final class Constants {
 	 */
 	public static final boolean DISABLED_DRIVE = false;
 	
-	public static final double LOW_VOLTAGE_WARNING_THRESHOLD = 7;
-	
 	/**
 	 * Contains PID constants used for autonomous closed-loop control.
 	 */

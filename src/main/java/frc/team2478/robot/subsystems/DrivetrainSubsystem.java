@@ -15,7 +15,7 @@ import frc.team2478.robot.commands.drive.TankDriveTeleop;
 import frc.team2478.robot.util.enums.RobotSide;
 
 /**
- * Components that move the robot wheels or sense its position.
+ * Contains the drivetrain, the encoders for the left and right wheels, and the NavX gyroscope.
  */
 public class DrivetrainSubsystem extends Subsystem {
 

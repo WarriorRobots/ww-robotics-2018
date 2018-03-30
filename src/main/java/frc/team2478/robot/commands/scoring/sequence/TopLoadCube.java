@@ -8,7 +8,7 @@ import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 
 /**
- * Step 3 of preparing to fire a cube
+ * Push cube downwards, away from shooter wheels.
  */
 public class TopLoadCube extends CommandGroup {
 

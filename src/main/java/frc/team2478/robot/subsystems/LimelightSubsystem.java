@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 /**
- * Components that interface with the robot's color-sensing Limelight camera.
+ * Contains methods to receive data from the Limelight vision camera, which is tuned to detect cubes.
  */
 public class LimelightSubsystem extends Subsystem {
 

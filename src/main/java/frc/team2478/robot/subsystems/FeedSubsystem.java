@@ -11,7 +11,7 @@ import frc.team2478.robot.commands.scoring.feed.RunFeedWithJoystick;
 import frc.team2478.robot.interfaces.TandemMotorInterface;
 
 /**
- * Components that receive the cube from the pickup mechanism and feed it into the shooter, and related sensors.
+ * Contains the wheels/belts that push the cube into shooter wheels.
  */
 public class FeedSubsystem extends Subsystem implements TandemMotorInterface {
 

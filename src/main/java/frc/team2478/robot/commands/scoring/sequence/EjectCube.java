@@ -8,6 +8,9 @@ import frc.team2478.robot.commands.scoring.feed.RunFeedAtPercentage;
 import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
 import frc.team2478.robot.commands.scoring.shooter.RunShooterAtPercentage;
 
+/**
+ * Send cube backwards, out of the pickup wheels and onto the ground.
+ */
 public class EjectCube extends CommandGroup {
 	
 	public EjectCube() {

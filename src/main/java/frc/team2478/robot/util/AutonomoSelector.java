@@ -17,6 +17,10 @@ import frc.team2478.robot.commands.autonomous.routines.TestCase;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoRightScale;
 
+/**
+ * Contains methods that select the Autonomous case of the robot.
+ * Place these methods inside autonomousInit() of Robot.java
+ */
 public class AutonomoSelector {
 
 	private static AutonomoSelector instance = null;

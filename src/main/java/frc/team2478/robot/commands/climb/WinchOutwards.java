@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
+/**
+ * Releases the rope, lowering the robot to the ground.
+ */
 public class WinchOutwards extends Command {
 	
 	@Override

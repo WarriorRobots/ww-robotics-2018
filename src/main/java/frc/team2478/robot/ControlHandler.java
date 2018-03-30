@@ -8,7 +8,6 @@
 package frc.team2478.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -34,7 +33,6 @@ import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
 import frc.team2478.robot.commands.scoring.shooter.ShootLow;
 import frc.team2478.robot.commands.scoring.shooter.ShootMid;
 import frc.team2478.robot.commands.scoring.shooter.ShootSwitch;
-import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.ThresholdTrigger;
@@ -226,11 +224,6 @@ public final class ControlHandler {
 	
 	public double getDpadAngle() {
 		return xbox.getPOV();
-	}
-	
-	@Debug
-	public void setLeftRumble() {
-		xbox.setRumble(RumbleType.kLeftRumble, 0.5);
 	}
 	
 	/**

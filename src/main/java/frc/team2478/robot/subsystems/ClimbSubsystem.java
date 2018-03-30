@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.Constants;
 
 /**
- * Components that lift the robot onto a climbing bar during the last 30 seconds of the match.
+ * Contains components that lift the robot onto a climbing bar during the last 30 seconds of the match.
  * Features 2 components, the winch and the hook.
  * The hook is what grabs onto the bar, the winch pulls the robot upwards.
  */

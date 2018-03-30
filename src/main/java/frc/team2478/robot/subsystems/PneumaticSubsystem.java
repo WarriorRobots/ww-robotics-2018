@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.team2478.robot.util.enums.SolenoidMode;
 
 /**
- * Components that use the pneumatics on the robot.
+ * Contains all pneumatics on the robot: the hood-raising pistons, and the arm-extenders for the pickup.
  */
 public class PneumaticSubsystem extends Subsystem {
 

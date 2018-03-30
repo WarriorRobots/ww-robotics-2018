@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.scoring.sequence.TopLoadCube;
 
+/**
+ * Take cube from top of shooter down into the feed.
+ */
 public class PickupCubeFromPortal extends CommandGroup {
 
 	public PickupCubeFromPortal() {

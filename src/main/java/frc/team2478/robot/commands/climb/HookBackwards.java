@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
+/**
+ * Lowers hook back down towards the robot using the window motor.
+ * Speed will be slower and more gentle than HookForwards.
+ */
 public class HookBackwards extends Command {
 
 	@Override

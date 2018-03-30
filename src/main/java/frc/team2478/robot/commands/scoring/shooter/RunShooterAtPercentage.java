@@ -5,7 +5,7 @@ import frc.team2478.robot.Robot;
 
 public class RunShooterAtPercentage extends Command {
 
-private double percentage;
+	private double percentage;
 	
 	public RunShooterAtPercentage(double percentage) {
 		requires(Robot.shooter);
