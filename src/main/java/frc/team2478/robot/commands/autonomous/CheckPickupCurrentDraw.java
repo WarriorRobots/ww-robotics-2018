@@ -14,8 +14,7 @@ public class CheckPickupCurrentDraw extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.pickup.getMotorMasterCurrent() > AMPS_THRESHOLD || Robot.pickup.getMotorSlaveCurrent() > AMPS_THRESHOLD
-				|| !Robot.vision.canSeeObject();
+		return Robot.pickup.getMotorMasterCurrent() > AMPS_THRESHOLD || Robot.pickup.getMotorSlaveCurrent() > AMPS_THRESHOLD;
 	}
 	
 	@Override

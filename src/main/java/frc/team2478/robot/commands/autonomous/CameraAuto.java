@@ -1,6 +1,5 @@
 package frc.team2478.robot.commands.autonomous;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Robot;
 
@@ -9,8 +8,6 @@ import frc.team2478.robot.Robot;
  */
 public class CameraAuto extends Command {
 
-	private double currentAngle = 0;
-	
 	public CameraAuto() {
 		requires(Robot.drivetrain);
 		requires(Robot.vision);
@@ -25,14 +22,14 @@ public class CameraAuto extends Command {
 	protected void execute() {
 		if (Robot.vision.canSeeObject()) {
 			Robot.drivetrain.arcadeDriveRaw(.25, Robot.vision.getObjectX() * 0.04);
+		} else {
+			Robot.drivetrain.arcadeDriveRaw(0, 0.5);
 		}
-		currentAngle = Robot.drivetrain.getAngle();
 	}
 	
 	@Override
 	protected void end() {
 		Robot.drivetrain.stopDrive();
-		DriverStation.reportWarning(Double.toString(currentAngle), false);
 	}
 	
 	@Override
