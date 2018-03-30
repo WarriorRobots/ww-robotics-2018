@@ -25,8 +25,7 @@ public class DashboardHandler {
 		positionDropdown.addObject("LEFT", StartingPosition.LEFT);
 		positionDropdown.addObject("RIGHT", StartingPosition.RIGHT);
 		targetDropdown = new SendableChooser<>();
-		targetDropdown.addDefault("SMART SELECT", AutoTarget.SMARTSELECT);
-		targetDropdown.addObject("SWITCH", AutoTarget.SWITCH);
+		targetDropdown.addDefault("SWITCH", AutoTarget.SWITCH);
 		targetDropdown.addObject("SCALE", AutoTarget.SCALE);
 		targetDropdown.addObject("CROSS LINE", AutoTarget.LINE);
 	}
