@@ -6,8 +6,8 @@ import frc.team2478.robot.Robot;
 
 public class PickupAuto extends Command {
 
-	private int count = 0;
-	private boolean toggle = false;
+//	private int count = 0;
+//	private boolean toggle = false;
 	
 	public PickupAuto() {
 		requires(Robot.pickup);
@@ -17,7 +17,7 @@ public class PickupAuto extends Command {
 	
 	@Override
 	protected void execute() {
-		count++;
+//		count++;
 //		if (count % 10 == 0) {
 //			toggle = !toggle;
 //		}

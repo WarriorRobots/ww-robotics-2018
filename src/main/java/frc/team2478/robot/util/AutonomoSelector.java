@@ -6,16 +6,16 @@ import frc.team2478.robot.commands.autonomous.routines.CrossLine;
 import frc.team2478.robot.commands.autonomous.routines.LefttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.LefttoRightScale;
+import frc.team2478.robot.commands.autonomous.routines.LefttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
+import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.TestCase;
-import frc.team2478.robot.commands.autonomous.routines.unfinished.LefttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoRightScale;
-import frc.team2478.robot.commands.autonomous.routines.unfinished.RighttoLeftSwitch;
 
 public class AutonomoSelector {
 
