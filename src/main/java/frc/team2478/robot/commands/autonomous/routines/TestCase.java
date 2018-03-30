@@ -6,14 +6,17 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.commands.autonomous.CameraAuto;
 import frc.team2478.robot.commands.autonomous.CheckPickupCurrentDraw;
+import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.PickupAuto;
 import frc.team2478.robot.commands.autonomous.RackCubeAuto;
-import frc.team2478.robot.commands.autonomous.TurnAutoNoReset;
+import frc.team2478.robot.commands.autonomous.TurnAuto;
 import frc.team2478.robot.commands.drive.StopDrive;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.OpenPickup;
 import frc.team2478.robot.commands.scoring.StopAllScoringMotors;
+import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.pickup.RunPickupAtPercentage;
+import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 
 public class TestCase extends CommandGroup {
 
@@ -51,7 +54,16 @@ public class TestCase extends CommandGroup {
 		addSequential(new WaitCommand(0.5));
 		addSequential(new RackCubeAuto());
 		addParallel(new StopAllScoringMotors());
-		addSequential(new TurnAutoNoReset(0));
+//		addSequential(new TurnAuto(10));
+		addSequential(new DriveAuto(30));
+		addSequential(new TurnAuto(180));
+		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early, to reduce wasted time
+		addSequential(new DriveAuto(30.75), 2);
+		addParallel(new RunFeedAtDefault());
+		addSequential(new WaitCommand(1));
+		addSequential(new StopAllScoringMotors());
+		
+//		addSequential(new TurnAutoNoReset(0));
 		
 //		addSequential(new LowerHood());
 //		addSequential(new ClosePickup());

@@ -39,16 +39,8 @@ public class Robot extends TimedRobot {
 		ControlHandler.getInstance().initButtons();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
-		SmartDashboard.putData(shooter);
-		SmartDashboard.putData(pickup);
-		SmartDashboard.putData("command-current", Scheduler.getInstance());
 	}		
 
-	@Override
-	public void robotPeriodic() {
-		SmartDashboard.putNumber("heading", drivetrain.getCompassHeading());
-	}
-	
 	@Override
 	public void disabledInit() {
 		drivetrain.setReversed(false);
@@ -60,8 +52,8 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
-		AutonomoSelector.getInstance().selectAutoCase();
-//		AutonomoSelector.getInstance().selectTestCase();
+//		AutonomoSelector.getInstance().selectAutoCase();
+		AutonomoSelector.getInstance().selectTestCase();
 		AutonomoSelector.getInstance().startAuto();
 	}
 

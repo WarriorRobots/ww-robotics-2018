@@ -11,7 +11,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "2,0": {
+          "6,2": {
             "size": [
               1,
               1
@@ -20,11 +20,11 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/inverted",
               "_title": "Inverted?",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
+              "colorWhenTrue": "#00FF00FF",
+              "colorWhenFalse": "#E72626FF"
             }
           },
-          "1,0": {
+          "6,1": {
             "size": [
               1,
               1
@@ -35,7 +35,7 @@
               "_title": "Encoder Ticks"
             }
           },
-          "3,0": {
+          "5,1": {
             "size": [
               1,
               1
@@ -49,7 +49,7 @@
               "valueVisible": true
             }
           },
-          "4,0": {
+          "5,0": {
             "size": [
               1,
               1
@@ -58,11 +58,11 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/PneumaticSubsystem/hood-up",
               "_title": "Hood Up?",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
+              "colorWhenTrue": "#00FF00FF",
+              "colorWhenFalse": "#E72626FF"
             }
           },
-          "5,0": {
+          "6,0": {
             "size": [
               1,
               1
@@ -71,22 +71,11 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/PneumaticSubsystem/pickup-out",
               "_title": "Pickup Out?",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
+              "colorWhenTrue": "#E72626FF",
+              "colorWhenFalse": "#00FF00FF"
             }
           },
-          "0,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/ShooterSubsystem/target-selected",
-              "_title": "Shooter Height"
-            }
-          },
-          "0,1": {
+          "3,0": {
             "size": [
               2,
               2
@@ -106,6 +95,17 @@
                   "_title": "Target Selector"
                 }
               ]
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight"
             }
           }
         }
