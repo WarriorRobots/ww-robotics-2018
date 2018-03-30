@@ -31,16 +31,16 @@ public final class Constants {
 		 */
 		
 		// autonomous driving forwards		
-		public static final double DISTANCE_P = 0.024; // 0.02
+		public static final double DISTANCE_P = 0.0075; // 0.02
 		public static final double DISTANCE_I = 0.0001; // 0.0001
 //		public static final double DISTANCE_D = 0.2; // 0.1
-		public static final double DISTANCE_D = 0.02; // 0.1
+		public static final double DISTANCE_D = 0.05; // 0.1
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
-		public static final double TURNING_P = 0.03; //.017
+		public static final double TURNING_P = 0.017; //.017
 		public static final double TURNING_I = 0.0015; //.0015
 //		public static final double TURNING_D = 0.125; //.0075
-		public static final double TURNING_D = 0.015;
+		public static final double TURNING_D = 0.02225;
 		public static final double TURNING_TOLERANCE = .25; //0.5
 		// autonomous preventing drift during driving
 		public static final double COURSECORRECTION_P = 0.017;

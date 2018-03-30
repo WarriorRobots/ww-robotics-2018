@@ -12,7 +12,6 @@ import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 
 public class RighttoRightSwitch extends CommandGroup {
 	
-	public boolean onEdge = true;
 	public RighttoRightSwitch() {
 		addParallel(new LowerHood());
 		addSequential(new WaitCommand(5));
