@@ -21,7 +21,7 @@ public class PneumaticSubsystem extends Subsystem {
 	private DoubleSolenoid hoodSolenoid, pickupSolenoid;
 	private Compressor compressor;
 	
-	private boolean hoodLifted, pickupOut;
+	private boolean hoodLifted, pickupOut = false;
 	
 	public PneumaticSubsystem() {
 		hoodSolenoid = new DoubleSolenoid(HOOD_FORWARDS_CHANNEL, HOOD_BACKWARDS_CHANNEL);
