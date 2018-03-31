@@ -125,7 +125,7 @@ public final class Constants {
 	    public static final double PICKUP_PERCENT_SPEED = 0.9;
 	    public static final double FEED_PERCENT_SPEED = 0.45;
 	    public static final double SHOOTER_PERCENT_SPEED = 0.35;
-	    public static final double HOOK_PERCENT_SPEED_FORWARD = 0.6;
+	    public static final double HOOK_PERCENT_SPEED_FORWARD = 1.0;
 	    public static final double HOOK_PERCENT_SPEED_BACKWARD = -0.3;
 	    public static final double WINCH_PERCENT_SPEED = 1.0;
 	    public static final double SWITCH_SPEED = rpmToEncoderClicks(660);

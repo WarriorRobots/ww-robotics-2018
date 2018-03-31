@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.commands.autonomous.CameraAuto;
+import frc.team2478.robot.commands.autonomous.CheckIfCubeLoaded;
 import frc.team2478.robot.commands.autonomous.CheckPickupCurrentDraw;
 import frc.team2478.robot.commands.autonomous.DriveAuto;
 import frc.team2478.robot.commands.autonomous.PickupAuto;
