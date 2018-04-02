@@ -21,13 +21,16 @@ public class PneumaticSubsystem extends Subsystem {
 	private DoubleSolenoid hoodSolenoid, pickupSolenoid;
 	private Compressor compressor;
 	
-	private boolean hoodLifted, pickupOut = false;
+	private boolean hoodLifted;
+	private boolean pickupOut;
 	
 	public PneumaticSubsystem() {
 		hoodSolenoid = new DoubleSolenoid(HOOD_FORWARDS_CHANNEL, HOOD_BACKWARDS_CHANNEL);
 		pickupSolenoid = new DoubleSolenoid(PICKUP_FORWARDS_CHANNEL, PICKUP_BACKWARDS_CHANNEL);
 		compressor = new Compressor();
 		compressor.start();
+		hoodLifted = false;
+		pickupOut = false;
 	}
 	
 	/**
