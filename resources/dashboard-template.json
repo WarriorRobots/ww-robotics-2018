@@ -11,30 +11,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "3,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/inverted",
-              "_title": "Inverted?",
-              "colorWhenTrue": "#00FF00FF",
-              "colorWhenFalse": "#E72626FF"
-            }
-          },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/encoder-ticks",
-              "_title": "Encoder Ticks"
-            }
-          },
           "5,1": {
             "size": [
               1,
@@ -49,17 +25,15 @@
               "valueVisible": true
             }
           },
-          "5,0": {
+          "6,1": {
             "size": [
               1,
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/PneumaticSubsystem/hood-up",
-              "_title": "Hood Up?",
-              "colorWhenTrue": "#00FF00FF",
-              "colorWhenFalse": "#E72626FF"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/encoder-ticks",
+              "_title": "Encoder Ticks"
             }
           },
           "6,0": {
@@ -71,30 +45,34 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/PneumaticSubsystem/pickup-out",
               "_title": "Pickup Out?",
-              "colorWhenTrue": "#E72626FF",
-              "colorWhenFalse": "#00FF00FF"
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
             }
           },
-          "3,0": {
+          "5,0": {
             "size": [
-              2,
-              2
+              1,
+              1
             ],
             "content": {
-              "_type": "List Layout",
-              "_title": "AUTONOMOUS",
-              "_children": [
-                {
-                  "_type": "ComboBox Chooser",
-                  "_source0": "network_table:///SmartDashboard/Position Selector",
-                  "_title": "Position Selector"
-                },
-                {
-                  "_type": "ComboBox Chooser",
-                  "_source0": "network_table:///SmartDashboard/Target Selector",
-                  "_title": "Target Selector"
-                }
-              ]
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/PneumaticSubsystem/hood-up",
+              "_title": "Hood up?",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/inverted",
+              "_title": "Inverted?",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
             }
           },
           "0,0": {
@@ -106,6 +84,28 @@
               "_type": "Camera Stream",
               "_source0": "camera_server://limelight",
               "_title": "limelight"
+            }
+          },
+          "3,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List",
+              "_children": [
+                {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/Position Selector",
+                  "_title": "SmartDashboard/Position Selector"
+                },
+                {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/Target Selector",
+                  "_title": "SmartDashboard/Target Selector"
+                }
+              ]
             }
           }
         }

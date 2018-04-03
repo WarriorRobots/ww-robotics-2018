@@ -61,11 +61,11 @@ public class PneumaticSubsystem extends Subsystem {
 		switch(mode) {
 		case FORWARD:
 			pickupSolenoid.set(Value.kForward);
-			pickupOut = false;
+			pickupOut = true;
 			break;
 		case REVERSE:
 			pickupSolenoid.set(Value.kReverse);
-			pickupOut = true;
+			pickupOut = false;
 			break;
 		case OFF:
 			pickupSolenoid.set(Value.kOff);
