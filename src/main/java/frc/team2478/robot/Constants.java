@@ -132,7 +132,7 @@ public final class Constants {
 		public static final double LOW_SPEED = rpmToEncoderClicks(1870);
 		public static final double MID_SPEED = rpmToEncoderClicks(2130);
 		public static final double HIGH_SPEED = rpmToEncoderClicks(2275);
-		public static final double AUTO_SPEED = rpmToEncoderClicks(2130); // +50
+		public static final double AUTO_SPEED = rpmToEncoderClicks(2180); // +50 +50
 	}
 	
 	/**
