@@ -86,9 +86,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		// The reason for the right input being fed into the left output and vice versa is when
-		// the robot sides have to be reversed as well or else the robot turns the opposite direction
 		if (getReversed()) {
 			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
 		} else {
@@ -103,8 +100,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
-		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
-		// see above
 		if (getReversed()) {
 			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, false);
 		} else {
@@ -120,7 +115,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	 */
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
 		turnSpeed = -turnSpeed; // turning is inverted on the robot
-		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		if (getReversed()) {
 			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, true);
 		} else {
@@ -136,7 +130,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	 */
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
 		turnSpeed = -turnSpeed; // turning is inverted on the robot
-		if(Constants.DISABLED_DRIVE) {this.stopDrive(); return;}
 		if (getReversed()) {
 			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, false);
 		} else {

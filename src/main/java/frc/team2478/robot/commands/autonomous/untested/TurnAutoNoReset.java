@@ -6,7 +6,6 @@ import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.commands.autonomous.TurnAuto;
 import frc.team2478.robot.util.SynchronousPIDF;
-import frc.team2478.robot.util.annotations.Debug;
 
 /**
  * Identical to {@link TurnAuto}, but the gyroscope is not reset before running.
@@ -16,7 +15,6 @@ public class TurnAutoNoReset extends Command {
 	
 	private double angleTarget, output;
 	
-	@Debug
 	private boolean stopsAtSetpoint = true;
 	
 	private SynchronousPIDF pidLoop;

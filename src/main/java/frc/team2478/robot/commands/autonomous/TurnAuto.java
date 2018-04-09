@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
-import frc.team2478.robot.util.annotations.Debug;
 
 /**
  * When run, the robot will turn to the provided angle,
@@ -15,7 +14,6 @@ public class TurnAuto extends Command {
 	
 	private double angleTarget, output;
 	
-	@Debug
 	private boolean stopsAtSetpoint = true;
 	
 	private SynchronousPIDF pidLoop;

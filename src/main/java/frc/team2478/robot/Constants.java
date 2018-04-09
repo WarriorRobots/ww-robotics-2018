@@ -13,25 +13,13 @@ package frc.team2478.robot;
 public final class Constants {
 	
 	/**
-	 * Set to true to stop the robot from moving its wheels.
-	 * This is for testing only; ALWAYS SET TO FALSE DURING A COMPETITION.
-	 */
-	public static final boolean DISABLED_DRIVE = false;
-	
-	/**
 	 * Contains PID constants used for autonomous closed-loop control.
 	 */
 	public static final class AutonomoDrive {
-		/*
-		 * The only 2 changes made were the 2 d values:
-		 * distance: 0 -> 0.02
-		 * turning : 0 -> 0.015
-		 */
-		
 		// autonomous driving forwards		
 		public static final double DISTANCE_P = 0.0075;
 		public static final double DISTANCE_I = 0.0001;
-		public static final double DISTANCE_D = 0.02; // 0.05
+		public static final double DISTANCE_D = 0.02;
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
 		public static final double TURNING_P = 0.019;
@@ -132,7 +120,7 @@ public final class Constants {
 		public static final double LOW_SPEED = rpmToEncoderClicks(1870);
 		public static final double MID_SPEED = rpmToEncoderClicks(2130);
 		public static final double HIGH_SPEED = rpmToEncoderClicks(2275);
-		public static final double AUTO_SPEED = rpmToEncoderClicks(2180); // +50 +50
+		public static final double AUTO_SPEED = rpmToEncoderClicks(2180);
 	}
 	
 	/**

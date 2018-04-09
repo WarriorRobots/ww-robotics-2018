@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
-import frc.team2478.robot.util.annotations.Debug;
 import frc.team2478.robot.util.enums.RobotSide;
 
 /**
@@ -17,7 +16,6 @@ public class DriveAuto extends Command {
 	private int distanceTargetClicks, leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
 	
-	@Debug
 	private boolean stopsAtSetpoint = true;
 
 	private SynchronousPIDF pidAngle, pidDistance;
