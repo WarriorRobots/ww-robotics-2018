@@ -18,7 +18,6 @@ import frc.team2478.robot.commands.climb.WinchInwards;
 import frc.team2478.robot.commands.climb.WinchOutwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.CameraAlign;
-import frc.team2478.robot.commands.drive.ReverseDrive;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
 import frc.team2478.robot.commands.pneumatics.ClosePickup;
 import frc.team2478.robot.commands.pneumatics.LowerHood;
@@ -29,6 +28,7 @@ import frc.team2478.robot.commands.scoring.PickupCubeFromPortal;
 import frc.team2478.robot.commands.scoring.feed.RunFeedAtDefault;
 import frc.team2478.robot.commands.scoring.sequence.EjectCube;
 import frc.team2478.robot.commands.scoring.sequence.PickupCube;
+import frc.team2478.robot.commands.scoring.sequence.TopLoadCube;
 import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
 import frc.team2478.robot.commands.scoring.shooter.ShootLow;
 import frc.team2478.robot.commands.scoring.shooter.ShootMid;
@@ -42,8 +42,6 @@ import frc.team2478.robot.util.triggers.ThresholdTrigger;
  */
 public final class ControlHandler {
 
-	private static ControlHandler instance = null;
-	
 	public static final int LEFT_JOY = 1;
 	public static final int RIGHT_JOY = 0;
 	public static final int XBOX = 2;
@@ -52,95 +50,73 @@ public final class ControlHandler {
 	private XboxController xbox;
 
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
-	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, leftJoyButton5, rightJoyButton6;
+	private JoystickButton leftJoyButton3, leftJoyButton4, leftJoyButton5, leftJoyButton6;
+	private JoystickButton rightJoyButton3, rightJoyButton4, rightJoyButton5, rightJoyButton6, rightJoyButton7;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
 	private DpadTrigger xboxUp, xboxDown, xboxRight;
-
-	public static ControlHandler getInstance() {
-		if (instance == null) {
-			instance = new ControlHandler();
-		} return instance;
-	}
 	
-	private ControlHandler() {
+	public ControlHandler() {
 		leftJoy = new Joystick(LEFT_JOY);
 		rightJoy = new Joystick(RIGHT_JOY);
 		xbox = new XboxController(XBOX);
-	}
-	
-	/**
-	 * Initializes buttons and triggers and maps them to commands.
-	 * <p> The robot won't function without running this method once.
-	 */
-	public void initButtons() {
-		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
-		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock()); // hold right trigger to reduce amount of turning
 		
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
-		leftJoyTriggerButton.whileHeld(new CameraAlign());
-		
+		leftJoyButton3 = new JoystickButton(leftJoy, 3);
+		leftJoyButton4 = new JoystickButton(leftJoy, 4);
+		leftJoyButton5 = new JoystickButton(leftJoy, 5);
+		leftJoyButton6 = new JoystickButton(leftJoy, 6);
+		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
-		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment()); // hold thumb button to slow robot & use one joystick
-
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
-		rightJoyButton3.whenPressed(new OpenPickup()); // press button 3(L) to close pickup
-		
+		rightJoyButton4 = new JoystickButton(rightJoy, 4);
 		rightJoyButton5 = new JoystickButton(rightJoy, 5);
-		rightJoyButton5.whenPressed(new ReverseDrive()); // press button 5(R) to reverse front and back of robot
-
+		rightJoyButton6 = new JoystickButton(rightJoy, 6);
 		rightJoyButton7 = new JoystickButton(rightJoy, 7);
+		
+		leftJoyTriggerButton.whileHeld(new CameraAlign());
+		leftJoyButton3.whileHeld(new TopLoadCube());
+		leftJoyButton4.whenPressed(new ClosePickup());
+		leftJoyButton5.whileHeld(new WinchOutwards());
+		leftJoyButton6.whenPressed(new LowerHood());
+		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
+		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
+		rightJoyButton3.whenPressed(new OpenPickup());
+		rightJoyButton4.whileHeld(new ShootSwitch());
+		rightJoyButton4.whileHeld(new RunFeedAtDefault());
+		rightJoyButton5.whenPressed(new RaiseHood());
+		rightJoyButton6.whileHeld(new WinchInwards());
 		rightJoyButton7.whenPressed(new EmergencyResetAll());
 
-		leftJoyButton4 = new JoystickButton(leftJoy, 4);
-		leftJoyButton4.whenPressed(new ClosePickup()); // press button 4(L) to open pickup
-
 		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
-		leftXboxTrigger.whileHeld(new PickupCube()); // hold left xbox trigger to pickup and load cube autonomously
-		
 		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
-		rightXboxTrigger.whileHeld(new ShootSwitch()); // hold right xbox trigger to rev shooter and launch cube 1s later
-
 		leftXboxBumper = new JoystickButton(xbox, 5);
-		leftXboxBumper.whileHeld(new EjectCube()); // hold left xbox bumper to spit out cube
-
 		rightXboxBumper = new JoystickButton(xbox, 6);
-		rightXboxBumper.whileHeld(new PickupCubeFromPortal()); // hold right xbox bumper to back up cube for firing preparation
-		
 		xboxUp = new DpadTrigger(DpadDirection.UP);
-		xboxUp.whileHeld(new ShootHigh());
-		
 		xboxDown = new DpadTrigger(DpadDirection.DOWN);
-		xboxDown.whileHeld(new ShootLow());
-		
 		xboxRight = new DpadTrigger(DpadDirection.RIGHT);
-		xboxRight.whileHeld(new ShootMid());
-		
 		xboxA = new JoystickButton(xbox, 1);
-		xboxA.whileHeld(new RunFeedAtDefault());
-
 		xboxB = new JoystickButton(xbox, 2);
-		xboxB.whenPressed(new ClosePickup());
-		
 		xboxX = new JoystickButton(xbox, 3);
-		xboxX.whenPressed(new LowerHood());
-		
 		xboxY = new JoystickButton(xbox, 4);
-		xboxY.whenPressed(new RaiseAndClose());
-		
 		xboxBACK = new JoystickButton(xbox, 7);
-		xboxBACK.whileHeld(new HookBackwards());
-		
 		xboxSTART = new JoystickButton(xbox, 8);
+
+		leftXboxTrigger.whileHeld(new PickupCube());
+		rightXboxTrigger.whileHeld(new ShootSwitch());
+		leftXboxBumper.whileHeld(new EjectCube());
+		rightXboxBumper.whileHeld(new PickupCubeFromPortal());
+		xboxUp.whileHeld(new ShootHigh());
+		xboxDown.whileHeld(new ShootLow());
+		xboxRight.whileHeld(new ShootMid());
+		xboxA.whileHeld(new RunFeedAtDefault());
+		xboxB.whenPressed(new ClosePickup());
+		xboxX.whenPressed(new LowerHood());
+		xboxY.whenPressed(new RaiseAndClose());
+		xboxBACK.whileHeld(new HookBackwards());
 		xboxSTART.whileHeld(new HookForwards());
 		xboxSTART.whenPressed(new RaiseHood());
-		
-		leftJoyButton5 = new JoystickButton(leftJoy, 5);
-		leftJoyButton5.whileHeld(new WinchOutwards());
-		
-		rightJoyButton6 = new JoystickButton(rightJoy, 6);
-		rightJoyButton6.whileHeld(new WinchInwards());
 	}
 
 	/**

@@ -34,8 +34,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	private static final double RAMPRATE_SECONDS = 0.15;
 	private static final int TIMEOUT_MS = 10;
 	
-	private boolean isReversed = false;
-	
 	private Encoder leftEnc, rightEnc;
 	private AHRS navx;
 	
@@ -86,11 +84,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
 	public void tankDriveSquared(double leftSpeed, double rightSpeed) {
-		if (getReversed()) {
-			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
-		} else {
-			differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
-		}
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
 	}
 	
 	/**
@@ -100,11 +94,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 * @param rightSpeed  Percentage speed of right side, from -1 to 1.
 	 */
 	public void tankDriveRaw(double leftSpeed, double rightSpeed) {
-		if (getReversed()) {
-			differentialDrive.tankDrive(-rightSpeed, -leftSpeed, false);
-		} else {
-			differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
-		}
+		differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
 	}
 	
 	/**
@@ -115,11 +105,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 */
 	public void arcadeDriveSquared(double forwardSpeed, double turnSpeed) {
 		turnSpeed = -turnSpeed; // turning is inverted on the robot
-		if (getReversed()) {
-			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, true);
-		} else {
-			differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
-		}
+		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, true);
 	}
 	
 	/**
@@ -130,11 +116,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	 */
 	public void arcadeDriveRaw(double forwardSpeed, double turnSpeed) {
 		turnSpeed = -turnSpeed; // turning is inverted on the robot
-		if (getReversed()) {
-			differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed, false);
-		} else {
-			differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
-		}
+		differentialDrive.arcadeDrive(forwardSpeed, turnSpeed, false);
 	}
 	
 	/**
@@ -198,24 +180,6 @@ public class DrivetrainSubsystem extends Subsystem {
 		navx.zeroYaw();
 	}
 	
-	/**
-	 * Check if the robot drivetrain is reversed.
-	 * <p> While in reverse, the robot will behave as if the back end is the front.
-	 * @return  Boolean value; true if reversed, false if not
-	 */
-	public boolean getReversed() {
-		return isReversed;
-	}
-	
-	/**
-	 * Set the robot drivetrain into either forwards or reversed mode.
-	 * <p> While in reverse, the robot will behave as if the back end is the front.
-	 * @param isReversed  True to reverse, false to reset
-	 */
-	public void setReversed(boolean isReversed) {
-		this.isReversed = isReversed;
-	}
-	
 	public double getCompassHeading() {
 		return navx.getCompassHeading();
 	}
@@ -239,7 +203,6 @@ public class DrivetrainSubsystem extends Subsystem {
 				return temp;
 			}
 		}, null);
-		builder.addBooleanProperty("inverted", () -> getReversed(), null);
 		builder.addStringProperty("encoder-ticks", () -> {
 			return (Integer.toString(getEncoderTicks(RobotSide.LEFT))
 					+ " " 

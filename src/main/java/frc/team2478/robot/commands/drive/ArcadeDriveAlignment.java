@@ -2,7 +2,6 @@ package frc.team2478.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
-import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 /**
@@ -21,8 +20,8 @@ public class ArcadeDriveAlignment extends Command {
     @Override
 	protected void execute() {
     	Robot.drivetrain.arcadeDriveSquared(
-			ControlHandler.getInstance().getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
-			ControlHandler.getInstance().getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
+			Robot.oi.getRightY(Constants.DriveScalars.ALIGNMENT_FORWARDSPEED),
+			Robot.oi.getRightX(Constants.DriveScalars.ALIGNMENT_TURNSPEED));
     }
 
     @Override

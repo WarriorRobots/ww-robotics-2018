@@ -32,25 +32,24 @@ public class Robot extends TimedRobot {
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static final SensorSubsystem sensors = new SensorSubsystem();
 	public static final ClimbSubsystem climb = new ClimbSubsystem();
+	public static ControlHandler oi;
 	
 	
 	@Override
 	public void robotInit() {
-		ControlHandler.getInstance().initButtons();
+		oi = new ControlHandler();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
 	}		
 
 	@Override
 	public void disabledInit() {
-		drivetrain.setReversed(false);
 		DashboardHandler.getInstance().init();
 		Scheduler.getInstance().removeAll();
 	}
 	
 	@Override
 	public void autonomousInit() {
-		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
 		AutonomoSelector.getInstance().selectAutoCase();
 		AutonomoSelector.getInstance().startAuto();
