@@ -50,8 +50,8 @@ public final class ControlHandler {
 	private XboxController xbox;
 
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
-	private JoystickButton leftJoyButton3, leftJoyButton4, leftJoyButton5, leftJoyButton6;
-	private JoystickButton rightJoyButton3, rightJoyButton4, rightJoyButton5, rightJoyButton6, rightJoyButton7;
+	private JoystickButton leftJoyButton3, leftJoyButton4, leftJoyButton5;
+	private JoystickButton rightJoyButton3, rightJoyButton4, rightJoyButton6, rightJoyButton7;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
 	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
@@ -66,12 +66,10 @@ public final class ControlHandler {
 		leftJoyButton3 = new JoystickButton(leftJoy, 3);
 		leftJoyButton4 = new JoystickButton(leftJoy, 4);
 		leftJoyButton5 = new JoystickButton(leftJoy, 5);
-		leftJoyButton6 = new JoystickButton(leftJoy, 6);
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		rightJoyButton4 = new JoystickButton(rightJoy, 4);
-		rightJoyButton5 = new JoystickButton(rightJoy, 5);
 		rightJoyButton6 = new JoystickButton(rightJoy, 6);
 		rightJoyButton7 = new JoystickButton(rightJoy, 7);
 		
@@ -79,13 +77,11 @@ public final class ControlHandler {
 		leftJoyButton3.whileHeld(new TopLoadCube());
 		leftJoyButton4.whenPressed(new ClosePickup());
 		leftJoyButton5.whileHeld(new WinchOutwards());
-		leftJoyButton6.whenPressed(new LowerHood());
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
 		rightJoyButton3.whenPressed(new OpenPickup());
 		rightJoyButton4.whileHeld(new ShootSwitch());
 		rightJoyButton4.whileHeld(new RunFeedAtDefault());
-		rightJoyButton5.whenPressed(new RaiseHood());
 		rightJoyButton6.whileHeld(new WinchInwards());
 		rightJoyButton7.whenPressed(new EmergencyResetAll());
 
