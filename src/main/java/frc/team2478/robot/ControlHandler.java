@@ -50,7 +50,6 @@ public final class ControlHandler {
 	
 	private Joystick leftJoy, rightJoy;
 	private XboxController xbox;
-	
 
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
 	private JoystickButton rightJoyButton5, leftJoyButton4, rightJoyButton3, rightJoyButton7, leftJoyButton5, rightJoyButton6;
@@ -139,6 +138,7 @@ public final class ControlHandler {
 		
 		leftJoyButton5 = new JoystickButton(leftJoy, 5);
 		leftJoyButton5.whileHeld(new WinchOutwards());
+		
 		rightJoyButton6 = new JoystickButton(rightJoy, 6);
 		rightJoyButton6.whileHeld(new WinchInwards());
 	}

@@ -22,7 +22,7 @@ public class RighttoRightScale extends CommandGroup {
 		addSequential(new TurnAuto(-67.5)); // turn left, face the scale
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.AUTO_SPEED)); // rev shooter early, to reduce wasted time
 		addParallel(new RaiseHood()); // raise hood (safe to do so because of low speeds)
-		addSequential(new DriveAuto(-12)); // back up to aim shot properly
+		addSequential(new DriveAuto(-12), 1.5); // back up to aim shot properly
 		addParallel(new RunFeedAtDefault()); // rev feed to launch cube
 		addSequential(new WaitCommand(1.5)); // wait a short time to ensure cube has exited robot
 		addParallel(new LowerHood()); // lower hood to allow safe turning
