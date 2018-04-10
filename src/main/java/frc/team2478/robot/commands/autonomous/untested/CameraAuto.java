@@ -10,7 +10,7 @@ public class CameraAuto extends Command {
 
 	public CameraAuto() {
 		requires(Robot.drivetrain);
-		requires(Robot.vision);
+		requires(Robot.sensors);
 	}
 
 	@Override
@@ -20,8 +20,8 @@ public class CameraAuto extends Command {
 	
 	@Override
 	protected void execute() {
-		if (Robot.vision.canSeeObject()) {
-			Robot.drivetrain.arcadeDriveRaw(.25, Robot.vision.getObjectX() * 0.04);
+		if (Robot.sensors.canSeeObject()) {
+			Robot.drivetrain.arcadeDriveRaw(.25, Robot.sensors.getObjectX() * 0.04);
 		} else {
 			Robot.drivetrain.arcadeDriveRaw(0, 0.5);
 		}

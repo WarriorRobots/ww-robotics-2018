@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.subsystems.ClimbSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
-import frc.team2478.robot.subsystems.LimelightSubsystem;
+import frc.team2478.robot.subsystems.SensorSubsystem;
 import frc.team2478.robot.subsystems.PickupSubsystem;
 import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
 	public static final PickupSubsystem pickup = new PickupSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
-	public static final LimelightSubsystem vision = new LimelightSubsystem();
+	public static final SensorSubsystem sensors = new SensorSubsystem();
 	public static final ClimbSubsystem climb = new ClimbSubsystem();
 	
 	
