@@ -33,7 +33,6 @@ import frc.team2478.robot.commands.scoring.shooter.ShootHigh;
 import frc.team2478.robot.commands.scoring.shooter.ShootLow;
 import frc.team2478.robot.commands.scoring.shooter.ShootMid;
 import frc.team2478.robot.commands.scoring.shooter.ShootSwitch;
-import frc.team2478.robot.util.enums.DpadDirection;
 import frc.team2478.robot.util.triggers.DpadTrigger;
 import frc.team2478.robot.util.triggers.ThresholdTrigger;
 
@@ -85,13 +84,13 @@ public final class ControlHandler {
 		rightJoyButton6.whileHeld(new WinchInwards());
 		rightJoyButton7.whenPressed(new EmergencyResetAll());
 
-		leftXboxTrigger = new ThresholdTrigger( () -> getXboxLeftTrigger(), 0.5);
-		rightXboxTrigger = new ThresholdTrigger( () -> getXboxRightTrigger(), 0.5);
+		leftXboxTrigger = new ThresholdTrigger( () -> xbox.getTriggerAxis(Hand.kLeft), 0.5);
+		rightXboxTrigger = new ThresholdTrigger( () -> xbox.getTriggerAxis(Hand.kRight), 0.5);
 		leftXboxBumper = new JoystickButton(xbox, 5);
 		rightXboxBumper = new JoystickButton(xbox, 6);
-		xboxUp = new DpadTrigger(DpadDirection.UP);
-		xboxDown = new DpadTrigger(DpadDirection.DOWN);
-		xboxRight = new DpadTrigger(DpadDirection.RIGHT);
+		xboxUp = new DpadTrigger( () -> xbox.getPOV(), 0);
+		xboxDown = new DpadTrigger( () -> xbox.getPOV(), 180);
+		xboxRight = new DpadTrigger( () -> xbox.getPOV(), 90);
 		xboxA = new JoystickButton(xbox, 1);
 		xboxB = new JoystickButton(xbox, 2);
 		xboxX = new JoystickButton(xbox, 3);

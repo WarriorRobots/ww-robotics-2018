@@ -187,6 +187,12 @@ public class DrivetrainSubsystem extends Subsystem {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-drivetrain");
+		builder.addStringProperty("motor gains", () -> {
+			double[] gains = new double[2];
+			gains[0] = leftMiddle.getMotorOutputPercent();
+			gains[1] = rightMiddle.getMotorOutputPercent();
+			return Double.toString(gains[0]) + " " + Double.toString(gains[1]);
+		}, null);
 		builder.addDoubleArrayProperty("currentdraw", () -> {
 			if (DriverStation.getInstance().isEnabled()) {
 				double[] currentDraw = new double[6];

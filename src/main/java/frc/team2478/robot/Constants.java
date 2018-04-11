@@ -22,9 +22,9 @@ public final class Constants {
 		public static final double DISTANCE_D = 0.02;
 		public static final double DISTANCE_TOLERANCE = 5;
 		// autonomous turning in place
-		public static final double TURNING_P = 0.019;
-		public static final double TURNING_I = 0.0015;
-		public static final double TURNING_D = 0.023;
+		public static final double TURNING_P = 0.036; // 0.11 is minimum oscillation
+		public static final double TURNING_I = 0.0075;
+		public static final double TURNING_D = 0.02; // .1 of P (0.22)
 		public static final double TURNING_TOLERANCE = .25;
 		// autonomous preventing drift during driving
 		public static final double COURSECORRECTION_P = 0.017;
