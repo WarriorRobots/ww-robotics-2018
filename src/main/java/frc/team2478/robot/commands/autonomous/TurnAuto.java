@@ -50,7 +50,7 @@ public class TurnAuto extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetAngle();
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setOutputRange(-0.8, 0.8);
@@ -76,7 +76,7 @@ public class TurnAuto extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
 		Robot.drivetrain.stopDrive();

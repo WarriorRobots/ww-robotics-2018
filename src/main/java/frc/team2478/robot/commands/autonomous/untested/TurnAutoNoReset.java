@@ -50,7 +50,7 @@ public class TurnAutoNoReset extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
@@ -73,7 +73,7 @@ public class TurnAutoNoReset extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
 		Robot.drivetrain.stopDrive();
