@@ -10,7 +10,7 @@ public class RaiseHood extends Command {
 	private int count;
 	
 	public RaiseHood() {
-		requires(Robot.pneumatics);
+//		requires(Robot.pneumatics);
 	}
 	
 	@Override

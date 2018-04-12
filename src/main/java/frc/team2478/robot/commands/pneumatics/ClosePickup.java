@@ -9,7 +9,7 @@ public class ClosePickup extends Command {
 	private int count;
 
 	public ClosePickup() {
-		requires(Robot.pneumatics);
+//		requires(Robot.pneumatics);
 	}
 	
 	@Override

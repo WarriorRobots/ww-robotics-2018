@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
 		oi = new ControlHandler();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
+		SmartDashboard.putData(sensors);
 	}		
 
 	@Override
@@ -51,7 +52,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
-		AutonomoSelector.getInstance().selectAutoCase();
+//		AutonomoSelector.getInstance().selectAutoCase();
+		AutonomoSelector.getInstance().selectTestCase();
 		AutonomoSelector.getInstance().startAuto();
 	}
 

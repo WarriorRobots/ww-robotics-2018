@@ -28,7 +28,7 @@ public class RighttoRightScale extends CommandGroup {
 		addParallel(new LowerHood()); // lower hood to allow safe turning
 		addSequential(new StopAllScoringMotors()); // stop the shooter to prevent power drain
 		addSequential(new TurnAuto(110)); // turn towards the cubes near switch
-		addSequential(new DriveAuto(-80)); // drive towards cubes, pickup facing out
+		addSequential(new DriveAuto(-60)); // drive towards cubes, pickup facing out
 		
 	}
 

@@ -16,8 +16,8 @@ public class RackCubeAuto extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.feed.runAtPercentage(-Constants.ShooterRig.FEED_PERCENT_SPEED);
-		Robot.shooter.runAtPercentage(-0.45);
+		Robot.feed.runAtPercentage(-0.3);
+		Robot.shooter.runAtPercentage(-0.3);
 	}
 	
 	@Override

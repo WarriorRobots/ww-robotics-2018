@@ -18,7 +18,7 @@ public class SensorSubsystem extends Subsystem {
 	private static final String TARGET_AREA = "ta";
 	private static final String TARGET_SKEW = "ts";
 	
-	private static final int SONAR_ID = 6;
+	private static final int SONAR_ID = 0;
 	
 	private NetworkTable visionTable;
 	private AnalogInput sonar;
@@ -30,6 +30,10 @@ public class SensorSubsystem extends Subsystem {
 	
 	public double getSonarDistanceInches() {
 		return (sonar.getVoltage() / 0.000977) * 0.0393701;
+	}
+	
+	public double getSonarDistanceRaw() {
+		return sonar.getVoltage();
 	}
 	
 	/**
@@ -78,6 +82,7 @@ public class SensorSubsystem extends Subsystem {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-camera");
+		builder.addDoubleProperty("sonar", () -> getSonarDistanceRaw(), null);
 		builder.addBooleanProperty("object-exists", () -> canSeeObject(), null);
 		builder.addDoubleArrayProperty("object-coords", () -> {
 			double[] coords = new double[2];
