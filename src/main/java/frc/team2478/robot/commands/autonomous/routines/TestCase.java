@@ -22,7 +22,6 @@ import frc.team2478.robot.commands.scoring.shooter.RunShooterAtVelocity;
 public class TestCase extends CommandGroup {
 
 	public TestCase() {
-		
 		addSequential(new RighttoRightScale());
 		addParallel(new OpenPickup());
 		addParallel(new PickupAuto());

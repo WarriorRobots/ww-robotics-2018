@@ -30,7 +30,7 @@ public class RighttoLeftScale extends CommandGroup {
 		addSequential(new TurnAuto(67.5)); // turn right, face the scale
 		addSequential(new WaitCommand(0.5));
 		addParallel(new RunFeedAtDefault()); // rev feed and launch cube
-		addSequential(new WaitCommand(1.5)); // wait for cube to fire
+		addSequential(new WaitCommand(0.5)); // wait for cube to fire
 		addSequential(new StopAllScoringMotors()); // kill motors to save power
 	}
 
