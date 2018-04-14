@@ -8,12 +8,13 @@ import frc.team2478.robot.commands.autonomous.routines.LefttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.LefttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.LefttoRightSwitch;
 import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitch;
+import frc.team2478.robot.commands.autonomous.routines.MidtoLeftSwitchDouble;
 import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitch;
+import frc.team2478.robot.commands.autonomous.routines.MidtoRightSwitchDouble;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
-import frc.team2478.robot.commands.autonomous.routines.TestCase;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoRightScale;
 
@@ -32,6 +33,7 @@ public class AutonomoSelector {
 	private boolean goToScale, goToSwitch, goToLine = false;
 	private boolean switchOnLeft, switchOnRight = false;
 	private boolean scaleOnLeft, scaleOnRight = false;
+	private boolean oneCube, twoCube = false;
 	
 	public static AutonomoSelector getInstance() {
 		if (instance == null) {
@@ -40,8 +42,10 @@ public class AutonomoSelector {
 		return instance;
 	}
 	
+	@Deprecated
 	public void selectTestCase() {
-		autoCommand = new TestCase();
+		DriverStation.reportError("Robot tried to select debugging case, check Robot.java!", false);
+//		autoCommand = new TestCase();
 	}
 	
 	public void stopAuto() {
@@ -60,11 +64,21 @@ public class AutonomoSelector {
 		} else if (atMiddlePos) {
 			if (goToSwitch) {
 				if (switchOnLeft) {
-					autoCommand = new MidtoLeftSwitch();
-					DriverStation.reportWarning("MidtoLeftSwitch, I choose you!", false);
+					if (oneCube) {
+						autoCommand = new MidtoLeftSwitch();
+						DriverStation.reportWarning("MidtoLeftSwitch, I choose you!", false);
+					} else if (twoCube) {
+						autoCommand = new MidtoLeftSwitchDouble();
+						DriverStation.reportWarning("MidtoLeftSwitchDouble, I choose you!", false);
+					}
 				} else if (switchOnRight) {
-					autoCommand = new MidtoRightSwitch();
-					DriverStation.reportWarning("MidtoRightSwitch, I choose you!", false);
+					if (oneCube) {
+						autoCommand = new MidtoRightSwitch();
+						DriverStation.reportWarning("MidtoRightSwitch, I choose you!", false);
+					} else if (twoCube) {
+						autoCommand = new MidtoRightSwitchDouble();
+						DriverStation.reportWarning("MidtoRightSwitchDouble, I choose you!", false);
+					}
 				}
 			} else if (goToScale) {
 				if (scaleOnLeft) {
@@ -151,6 +165,15 @@ public class AutonomoSelector {
 			goToLine = true;
 			break;
 		}
+		
+		switch (DashboardHandler.getInstance().getNumberOfCubes()) {
+		case ONE:
+			oneCube = true;
+			break;
+		case TWO:
+			twoCube = true;
+			break;
+		}
 
 		switch (gameData.charAt(0)) {
 		case 'L':
@@ -174,6 +197,7 @@ public class AutonomoSelector {
 
 	private void resetData() {
 		gameData = null;
+		oneCube = twoCube = false;
 		atLeftPos = atMiddlePos = atRightPos = false;
 		goToScale = goToSwitch = goToLine = false;
 		switchOnLeft = switchOnRight = false;

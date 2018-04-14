@@ -11,9 +11,9 @@ import frc.team2478.robot.util.enums.RobotSide;
  * When run, the robot will drive straight at the provided distance,
  * using a PID loop to stay on-course.
  */
-public class DriveAuto extends Command {
+public class DriveAutoNoResetDist extends Command {
 	
-	private int distanceTargetClicks, leftCount, rightCount, avgCount;
+	private int leftCount, rightCount, avgCount;
 	private double angleOutput, distanceOutput;
 	
 	private boolean stopsAtSetpoint = true;
@@ -22,10 +22,10 @@ public class DriveAuto extends Command {
 	private Timer timer;
 	
 	/**
-	 * Create a new instance of {@link DriveAuto}.
+	 * Create a new instance of {@link DriveAutoNoResetDist}.
 	 * @param inches  How many inches to travel.
 	 */
-	public DriveAuto(double inches) {
+	public DriveAutoNoResetDist() {
 		requires(Robot.drivetrain);
 
 		pidAngle = new SynchronousPIDF( // default vals
@@ -37,7 +37,6 @@ public class DriveAuto extends Command {
 			Constants.AutonomoDrive.DISTANCE_I,
 			Constants.AutonomoDrive.DISTANCE_D);
 
-		this.distanceTargetClicks = Constants.AutonomoDrive.InchesToClicks(inches);
 		timer = new Timer();
 	}
 	
@@ -63,11 +62,11 @@ public class DriveAuto extends Command {
 	
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetAngle();
 		pidAngle.reset();
 		timer.start();
-		pidDistance.setSetpoint(distanceTargetClicks);
+		pidDistance.setSetpoint(0.0);
 		pidDistance.setOutputRange(-0.75, 0.75);
 		pidDistance.setIzone(-0.15, 0.15);
 		pidAngle.setSetpoint(0.0);
@@ -98,6 +97,7 @@ public class DriveAuto extends Command {
 	protected void end() {
 		System.out.println("STOP!!!");
 		Robot.drivetrain.stopDrive();
+//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidDistance.reset();
 		pidAngle.reset();

@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 /**
- * Contains methods to receive data from the Limelight vision camera, which is tuned to detect cubes.
+ * Contains methods to receive data from the Limelight vision camera and MB1013 sonar sensor, which are tuned to detect cubes.
  */
-public class LimelightSubsystem extends Subsystem {
+public class CameraSubsystem extends Subsystem {
 
 	private static final String LIMELIGHT_NETWORK_TABLE = "limelight";
 	private static final String TARGET_EXISTS = "tv";
@@ -19,7 +19,7 @@ public class LimelightSubsystem extends Subsystem {
 	
 	private NetworkTable visionTable;
 	
-	public LimelightSubsystem() {
+	public CameraSubsystem() {
 		visionTable = NetworkTableInstance.getDefault().getTable(LIMELIGHT_NETWORK_TABLE);
 	}
 	

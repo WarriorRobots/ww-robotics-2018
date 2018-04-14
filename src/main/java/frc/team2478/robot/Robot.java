@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.subsystems.ClimbSubsystem;
 import frc.team2478.robot.subsystems.DrivetrainSubsystem;
 import frc.team2478.robot.subsystems.FeedSubsystem;
-import frc.team2478.robot.subsystems.LimelightSubsystem;
+import frc.team2478.robot.subsystems.CameraSubsystem;
 import frc.team2478.robot.subsystems.PickupSubsystem;
 import frc.team2478.robot.subsystems.PneumaticSubsystem;
 import frc.team2478.robot.subsystems.ShooterSubsystem;
@@ -30,27 +30,27 @@ public class Robot extends TimedRobot {
 	public static final PickupSubsystem pickup = new PickupSubsystem();
 	public static final FeedSubsystem feed = new FeedSubsystem();
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
-	public static final LimelightSubsystem vision = new LimelightSubsystem();
+	public static final CameraSubsystem sensors = new CameraSubsystem();
 	public static final ClimbSubsystem climb = new ClimbSubsystem();
+	public static ControlHandler oi;
 	
 	
 	@Override
 	public void robotInit() {
-		ControlHandler.getInstance().initButtons();
+		oi = new ControlHandler();
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(pneumatics);
+		SmartDashboard.putData(sensors);
 	}		
 
 	@Override
 	public void disabledInit() {
-		drivetrain.setReversed(false);
 		DashboardHandler.getInstance().init();
 		Scheduler.getInstance().removeAll();
 	}
 	
 	@Override
 	public void autonomousInit() {
-		drivetrain.setReversed(false);
 		Scheduler.getInstance().removeAll();
 		AutonomoSelector.getInstance().selectAutoCase();
 		AutonomoSelector.getInstance().startAuto();
@@ -59,6 +59,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+	}
+
+	@Override
+	public void teleopInit() {
+		Scheduler.getInstance().removeAll();
 	}
 
 	@Override

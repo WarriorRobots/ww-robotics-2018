@@ -9,7 +9,7 @@ public class LowerHood extends Command {
 	private int count;
 
 	public LowerHood() {
-		requires(Robot.pneumatics);
+//		requires(Robot.pneumatics);
 	}
 	
 	@Override

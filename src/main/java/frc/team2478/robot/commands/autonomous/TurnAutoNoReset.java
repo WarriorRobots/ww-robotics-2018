@@ -1,12 +1,10 @@
-package frc.team2478.robot.commands.autonomous.untested;
+package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
-import frc.team2478.robot.commands.autonomous.TurnAuto;
 import frc.team2478.robot.util.SynchronousPIDF;
-import frc.team2478.robot.util.annotations.Debug;
 
 /**
  * Identical to {@link TurnAuto}, but the gyroscope is not reset before running.
@@ -16,7 +14,6 @@ public class TurnAutoNoReset extends Command {
 	
 	private double angleTarget, output;
 	
-	@Debug
 	private boolean stopsAtSetpoint = true;
 	
 	private SynchronousPIDF pidLoop;
@@ -52,7 +49,7 @@ public class TurnAutoNoReset extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setSetpoint(angleTarget);
 		timer.start();
@@ -75,7 +72,7 @@ public class TurnAutoNoReset extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.drivetrain.resetEncoders();
+//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
 		Robot.drivetrain.stopDrive();

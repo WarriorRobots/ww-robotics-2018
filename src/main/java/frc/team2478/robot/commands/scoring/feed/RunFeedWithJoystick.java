@@ -1,7 +1,6 @@
 package frc.team2478.robot.commands.scoring.feed;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.ControlHandler;
 import frc.team2478.robot.Robot;
 
 public class RunFeedWithJoystick extends Command {
@@ -12,7 +11,7 @@ public class RunFeedWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.feed.runAtPercentage(ControlHandler.getInstance().getXboxLeftY(0.5));
+		Robot.feed.runAtPercentage(Robot.oi.getXboxLeftY(0.5));
 	}
 	
 	@Override

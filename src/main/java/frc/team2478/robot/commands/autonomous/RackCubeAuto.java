@@ -1,7 +1,6 @@
-package frc.team2478.robot.commands.autonomous.untested;
+package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 
 /**
@@ -16,8 +15,8 @@ public class RackCubeAuto extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.feed.runAtPercentage(-Constants.ShooterRig.FEED_PERCENT_SPEED);
-		Robot.shooter.runAtPercentage(-0.45);
+		Robot.feed.runAtPercentage(-0.3);
+		Robot.shooter.runAtPercentage(-0.3);
 	}
 	
 	@Override
