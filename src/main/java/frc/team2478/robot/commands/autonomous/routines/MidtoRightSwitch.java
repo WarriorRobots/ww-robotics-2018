@@ -31,28 +31,18 @@ public class MidtoRightSwitch extends CommandGroup {
 		addSequential(new WaitCommand(0.5));
 		addSequential(new StopAllScoringMotors()); // stop motors to conserve power
 		
-//		addParallel(new LowerHood()); // lower hood for switch shot
-//		addSequential(new DriveAuto(12)); // drive forward to center of starting zone
-//		addSequential(new TurnAuto(20)); // turn right
-//		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early
-//		addSequential(new DriveAuto(115), 2.0); // drive until bumper hits wall
-//		addParallel(new RunFeedAtDefault()); // launch cube
-//		addSequential(new WaitCommand(0.5));
-//		addSequential(new StopAllScoringMotors()); // stop motors to conserve power
-//		
 		addSequential(new DriveAuto(-36));
-		addSequential(new TurnAuto(45));
+		addSequential(new TurnAuto(50));
 		addSequential(new DriveAuto(-48));
 		addSequential(new TurnAuto(90));
 
 		addParallel(new OpenPickup());
 		addParallel(new PickupAuto());
 		addSequential(new CameraAuto());
-		addParallel(new StopAllScoringMotors());
 		addParallel(new ClosePickup());
 		addParallel(new StopAllScoringMotors());
 		
-		addSequential(new TurnAuto(-110));
+		addSequential(new TurnAuto(-135)); // 135
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early
 		addSequential(new DriveAuto(46), 2);
 		addParallel(new RunFeedAtDefault()); // launch cube
