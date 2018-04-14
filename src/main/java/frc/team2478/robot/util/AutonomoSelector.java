@@ -15,7 +15,6 @@ import frc.team2478.robot.commands.autonomous.routines.RighttoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoLeftSwitch;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightScale;
 import frc.team2478.robot.commands.autonomous.routines.RighttoRightSwitch;
-import frc.team2478.robot.commands.autonomous.routines.TestCase;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoLeftScale;
 import frc.team2478.robot.commands.autonomous.routines.unfinished.MidtoRightScale;
 
@@ -43,8 +42,10 @@ public class AutonomoSelector {
 		return instance;
 	}
 	
+	@Deprecated
 	public void selectTestCase() {
-		autoCommand = new TestCase();
+		DriverStation.reportError("Robot tried to select debugging case, check Robot.java!", false);
+//		autoCommand = new TestCase();
 	}
 	
 	public void stopAuto() {

@@ -2,14 +2,13 @@ package frc.team2478.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 /**
  * Contains methods to receive data from the Limelight vision camera and MB1013 sonar sensor, which are tuned to detect cubes.
  */
-public class SensorSubsystem extends Subsystem {
+public class CameraSubsystem extends Subsystem {
 
 	private static final String LIMELIGHT_NETWORK_TABLE = "limelight";
 	private static final String TARGET_EXISTS = "tv";
@@ -18,22 +17,10 @@ public class SensorSubsystem extends Subsystem {
 	private static final String TARGET_AREA = "ta";
 	private static final String TARGET_SKEW = "ts";
 	
-	private static final int SONAR_ID = 0;
-	
 	private NetworkTable visionTable;
-	private AnalogInput sonar;
 	
-	public SensorSubsystem() {
+	public CameraSubsystem() {
 		visionTable = NetworkTableInstance.getDefault().getTable(LIMELIGHT_NETWORK_TABLE);
-		sonar = new AnalogInput(SONAR_ID);
-	}
-	
-	public double getSonarDistanceInches() {
-		return (sonar.getVoltage() / 0.000977) * 0.0393701;
-	}
-	
-	public double getSonarDistanceRaw() {
-		return sonar.getVoltage();
 	}
 	
 	/**
@@ -82,7 +69,6 @@ public class SensorSubsystem extends Subsystem {
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		builder.setSmartDashboardType("subsystem-camera");
-		builder.addDoubleProperty("sonar", () -> getSonarDistanceRaw(), null);
 		builder.addBooleanProperty("object-exists", () -> canSeeObject(), null);
 		builder.addDoubleArrayProperty("object-coords", () -> {
 			double[] coords = new double[2];

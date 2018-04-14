@@ -98,7 +98,6 @@ public class DriveAuto extends Command {
 	protected void end() {
 		System.out.println("STOP!!!");
 		Robot.drivetrain.stopDrive();
-//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidDistance.reset();
 		pidAngle.reset();

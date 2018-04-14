@@ -2,7 +2,6 @@ package frc.team2478.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2478.robot.Constants;
 import frc.team2478.robot.Robot;
 import frc.team2478.robot.util.SynchronousPIDF;
@@ -50,7 +49,6 @@ public class TurnAuto extends Command {
 
 	@Override
 	protected void initialize() {
-//		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.resetAngle();
 		pidLoop.setIzone(-0.2, 0.2);
 		pidLoop.setOutputRange(-0.8, 0.8);
@@ -61,7 +59,6 @@ public class TurnAuto extends Command {
 	@Override
 	protected void execute() {
 		output = pidLoop.calculate(Robot.drivetrain.getAngle(), timer.get());
-		SmartDashboard.putNumber("pid gain", output);
 		Robot.drivetrain.arcadeDriveRaw(0, output);
 	}
 
@@ -76,7 +73,6 @@ public class TurnAuto extends Command {
 	
 	@Override
 	protected void end() {
-//		Robot.drivetrain.resetEncoders();
 		timer.stop();
 		pidLoop.reset();
 		Robot.drivetrain.stopDrive();
