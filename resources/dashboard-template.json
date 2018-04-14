@@ -14,7 +14,7 @@
           "5,1": {
             "size": [
               1,
-              1
+              2
             ],
             "content": {
               "_type": "Simple Dial",
@@ -62,34 +62,10 @@
               "colorWhenFalse": "#8B0000FF"
             }
           },
-          "5,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/DrivetrainSubsystem/inverted",
-              "_title": "Inverted?",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
-            }
-          },
-          "0,0": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight",
-              "_title": "limelight"
-            }
-          },
           "3,0": {
             "size": [
               2,
-              2
+              3
             ],
             "content": {
               "_type": "List Layout",
@@ -104,8 +80,37 @@
                   "_type": "ComboBox Chooser",
                   "_source0": "network_table:///SmartDashboard/Target Selector",
                   "_title": "SmartDashboard/Target Selector"
+                },
+                {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/Number of Cubes Selector",
+                  "_title": "Number of Cubes Selector"
                 }
               ]
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/CameraSubsystem/object-exists",
+              "_title": "Sees Object?",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
             }
           }
         }
