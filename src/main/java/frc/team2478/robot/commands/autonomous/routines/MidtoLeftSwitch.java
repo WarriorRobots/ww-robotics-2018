@@ -22,7 +22,7 @@ public class MidtoLeftSwitch extends CommandGroup {
 		addSequential(new DriveAuto(72)); // drive across
 		addSequential(new TurnAuto(90)); // turn right, facing left switch plate
 		addParallel(new RunShooterAtVelocity(Constants.ShooterRig.SWITCH_SPEED)); // rev shooter early
-		addSequential(new DriveAuto(52), 2.0); // drive until bumper hits wall
+		addSequential(new DriveAuto(56), 2.0); // drive until bumper hits wall
 		addParallel(new RunFeedAtDefault()); // launch cube
 		addSequential(new WaitCommand(0.5));
 		addSequential(new StopAllScoringMotors()); // stop motors to conserve power
