@@ -116,7 +116,7 @@ public final class Constants {
 	    public static final double HOOK_PERCENT_SPEED_FORWARD = 1.0;
 	    public static final double HOOK_PERCENT_SPEED_BACKWARD = -0.3;
 	    public static final double WINCH_PERCENT_SPEED = 1.0;
-	    public static final double SWITCH_SPEED = rpmToEncoderClicks(710); // 660
+	    public static final double SWITCH_SPEED = rpmToEncoderClicks(870); // 660
 		public static final double LOW_SPEED = rpmToEncoderClicks(1870);
 		public static final double MID_SPEED = rpmToEncoderClicks(2130);
 		public static final double HIGH_SPEED = rpmToEncoderClicks(2275);
