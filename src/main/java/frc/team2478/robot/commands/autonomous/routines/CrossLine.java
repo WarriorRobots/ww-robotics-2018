@@ -12,7 +12,7 @@ public class CrossLine extends CommandGroup {
 
 	public CrossLine() {
 		addParallel(new LowerHood());
-		addSequential(new WaitCommand(5));
+		addSequential(new WaitCommand(10));
 		addSequential(new DriveAuto(93)); // check to make sure this works (130 - length of robot)
 	}
 	
