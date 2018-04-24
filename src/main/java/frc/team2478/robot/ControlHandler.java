@@ -12,10 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team2478.robot.commands.EmergencyResetAll;
-import frc.team2478.robot.commands.climb.HookBackwards;
-import frc.team2478.robot.commands.climb.HookForwards;
-import frc.team2478.robot.commands.climb.WinchInwards;
-import frc.team2478.robot.commands.climb.WinchOutwards;
 import frc.team2478.robot.commands.drive.ArcadeDriveAlignment;
 import frc.team2478.robot.commands.drive.CameraAlign;
 import frc.team2478.robot.commands.drive.TankDriveTurnLock;
@@ -49,11 +45,11 @@ public final class ControlHandler {
 	private XboxController xbox;
 
 	private JoystickButton rightJoyTriggerButton, rightJoyThumbButton, leftJoyTriggerButton;
-	private JoystickButton leftJoyButton3, leftJoyButton4, leftJoyButton5;
-	private JoystickButton rightJoyButton3, rightJoyButton4, rightJoyButton6, rightJoyButton7;
+	private JoystickButton leftJoyButton3, leftJoyButton4;
+	private JoystickButton rightJoyButton3, rightJoyButton4, rightJoyButton7;
 	private ThresholdTrigger leftXboxTrigger, rightXboxTrigger;
 	private JoystickButton leftXboxBumper, rightXboxBumper;
-	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxBACK, xboxSTART;
+	private JoystickButton xboxX, xboxY, xboxB, xboxA, xboxSTART;
 	private DpadTrigger xboxUp, xboxDown, xboxRight;
 	
 	public ControlHandler() {
@@ -64,24 +60,20 @@ public final class ControlHandler {
 		leftJoyTriggerButton = new JoystickButton(leftJoy, 1);
 		leftJoyButton3 = new JoystickButton(leftJoy, 3);
 		leftJoyButton4 = new JoystickButton(leftJoy, 4);
-		leftJoyButton5 = new JoystickButton(leftJoy, 5);
 		rightJoyTriggerButton = new JoystickButton(rightJoy, 1);
 		rightJoyThumbButton = new JoystickButton(rightJoy, 2);
 		rightJoyButton3 = new JoystickButton(rightJoy, 3);
 		rightJoyButton4 = new JoystickButton(rightJoy, 4);
-		rightJoyButton6 = new JoystickButton(rightJoy, 6);
 		rightJoyButton7 = new JoystickButton(rightJoy, 7);
 		
 		leftJoyTriggerButton.whileHeld(new CameraAlign());
 		leftJoyButton3.whileHeld(new TopLoadCube());
 		leftJoyButton4.whenPressed(new ClosePickup());
-		leftJoyButton5.whileHeld(new WinchOutwards());
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());
 		rightJoyThumbButton.whileHeld(new ArcadeDriveAlignment());
 		rightJoyButton3.whenPressed(new OpenPickup());
 		rightJoyButton4.whileHeld(new ShootSwitch());
 		rightJoyButton4.whileHeld(new RunFeedAtDefault());
-		rightJoyButton6.whileHeld(new WinchInwards());
 		rightJoyButton7.whenPressed(new EmergencyResetAll());
 
 		leftXboxTrigger = new ThresholdTrigger( () -> xbox.getTriggerAxis(Hand.kLeft), 0.5);
@@ -95,7 +87,6 @@ public final class ControlHandler {
 		xboxB = new JoystickButton(xbox, 2);
 		xboxX = new JoystickButton(xbox, 3);
 		xboxY = new JoystickButton(xbox, 4);
-		xboxBACK = new JoystickButton(xbox, 7);
 		xboxSTART = new JoystickButton(xbox, 8);
 
 		leftXboxTrigger.whileHeld(new PickupCube());
@@ -109,8 +100,6 @@ public final class ControlHandler {
 		xboxB.whenPressed(new ClosePickup());
 		xboxX.whenPressed(new LowerHood());
 		xboxY.whenPressed(new RaiseAndClose());
-		xboxBACK.whileHeld(new HookBackwards());
-		xboxSTART.whileHeld(new HookForwards());
 		xboxSTART.whenPressed(new RaiseHood());
 	}
 
