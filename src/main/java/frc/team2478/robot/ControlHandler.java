@@ -66,7 +66,7 @@ public final class ControlHandler {
 		rightJoyButton4 = new JoystickButton(rightJoy, 4);
 		rightJoyButton7 = new JoystickButton(rightJoy, 7);
 		
-		leftJoyTriggerButton.whileHeld(new CameraAlign());
+//		leftJoyTriggerButton.whileHeld(new CameraAlign());
 		leftJoyButton3.whileHeld(new TopLoadCube());
 		leftJoyButton4.whenPressed(new ClosePickup());
 		rightJoyTriggerButton.whileHeld(new TankDriveTurnLock());

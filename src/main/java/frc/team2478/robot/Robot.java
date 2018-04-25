@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
 		AutonomoSelector.getInstance().selectAutoCase();
-		AutonomoSelector.getInstance().startAuto();
+//		AutonomoSelector.getInstance().startAuto();
 	}
 
 	@Override
