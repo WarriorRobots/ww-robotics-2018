@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.01.20"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
 }
 
 def TEAM = 2478
@@ -29,6 +29,7 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
+    compile pathfinder()
     compile openrio.powerup.matchData()
 }
 
@@ -42,9 +43,4 @@ jar {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
-}
-
-wpi {
-    wpilibVersion = '2018.3.2'
-    shuffleboardVersion = '1.2.2'
 }
